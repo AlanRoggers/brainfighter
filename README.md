@@ -8,4 +8,8 @@ Para instalar todo lo necesario necesariamente seguir este tutorial:
 
 Versión de Python que se utilizó y funcionó correctamente: 3.10.12
 
-Usar Conda para crear el entorno virtual
+> [!TIP]
+> Usar Conda para crear el entorno virtual
+
+> [!WARNING]
+> El paquete de ML Agents esta instalado de manera manual, la primera vez se tendrá que reinstalar el paquete según el lugar donde este
