@@ -1,10 +1,10 @@
 public enum AnimationStates
 {
     Iddle,
-    Walkf,
-    WalkfLoop,
-    Walkb,
-    WalkbLoop,
+    StartWalking,
+    Walking,
+    StartGoingBackwards,
+    GoingBackwards,
     Jump,
     Fall,
     Kickl,
