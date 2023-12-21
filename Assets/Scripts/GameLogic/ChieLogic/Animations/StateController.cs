@@ -27,12 +27,12 @@ public class StateController : MonoBehaviour
             case AnimationStates.Iddle:
                 IddleTransitions();
                 break;
-            case AnimationStates.Walkf:
-            case AnimationStates.WalkfLoop:
+            case AnimationStates.StartWalking:
+            case AnimationStates.Walking:
                 WalkfTransitions();
                 break;
-            case AnimationStates.Walkb:
-            case AnimationStates.WalkbLoop:
+            case AnimationStates.StartGoingBackwards:
+            case AnimationStates.GoingBackwards:
                 WalkbTransitions();
                 break;
             case AnimationStates.Jump:
@@ -52,10 +52,6 @@ public class StateController : MonoBehaviour
                 break;
 
         }
-    }
-    void LateUpdate()
-    {
-        turn = false;
     }
     private void ChangeAnimation(AnimationStates animation)
     {
@@ -96,13 +92,13 @@ public class StateController : MonoBehaviour
                 ChangeAnimation(AnimationStates.Iddle);
             else if (activateWalkf)
             {
-                ChangeAnimation(AnimationStates.Walkf);
-                StartCoroutine(AWAIT_ANIMATION(AnimationStates.WalkfLoop));
+                ChangeAnimation(AnimationStates.StartWalking);
+                StartCoroutine(AWAIT_ANIMATION(AnimationStates.Walking));
             }
             else if (activateWalkb)
             {
-                ChangeAnimation(AnimationStates.Walkb);
-                StartCoroutine(AWAIT_ANIMATION(AnimationStates.WalkbLoop));
+                ChangeAnimation(AnimationStates.StartGoingBackwards);
+                StartCoroutine(AWAIT_ANIMATION(AnimationStates.GoingBackwards));
             }
         }
     }
@@ -120,13 +116,13 @@ public class StateController : MonoBehaviour
 
         if (activateWalkF)
         {
-            ChangeAnimation(AnimationStates.Walkf);
-            StartCoroutine(AWAIT_ANIMATION(AnimationStates.WalkfLoop));
+            ChangeAnimation(AnimationStates.StartWalking);
+            StartCoroutine(AWAIT_ANIMATION(AnimationStates.Walking));
         }
         else if (activateWalkB)
         {
-            ChangeAnimation(AnimationStates.Walkb);
-            StartCoroutine(AWAIT_ANIMATION(AnimationStates.WalkbLoop));
+            ChangeAnimation(AnimationStates.StartGoingBackwards);
+            StartCoroutine(AWAIT_ANIMATION(AnimationStates.GoingBackwards));
         }
         else if (activateJump)
         {
@@ -228,8 +224,8 @@ public class StateController : MonoBehaviour
             ChangeAnimation(AnimationStates.Iddle);
         else if (activateWalkb)
         {
-            ChangeAnimation(AnimationStates.Walkb);
-            StartCoroutine(AWAIT_ANIMATION(AnimationStates.WalkbLoop));
+            ChangeAnimation(AnimationStates.StartGoingBackwards);
+            StartCoroutine(AWAIT_ANIMATION(AnimationStates.GoingBackwards));
         }
         else if (activateJump)
         {
@@ -256,8 +252,8 @@ public class StateController : MonoBehaviour
             ChangeAnimation(AnimationStates.Iddle);
         else if (activateWalkf)
         {
-            ChangeAnimation(AnimationStates.Walkf);
-            StartCoroutine(AWAIT_ANIMATION(AnimationStates.WalkfLoop));
+            ChangeAnimation(AnimationStates.StartWalking);
+            StartCoroutine(AWAIT_ANIMATION(AnimationStates.Walking));
         }
         else if (activateJump)
         {

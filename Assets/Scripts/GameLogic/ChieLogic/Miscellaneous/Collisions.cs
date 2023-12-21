@@ -7,7 +7,9 @@ public class Collisions : MonoBehaviour
     private bool gameStarted;
     private Components components;
     private LayerMask groundLayer;
+    [SerializeField]
     private Vector2 hitboxPosition;
+    [SerializeField]
     private Vector2 hitboxSize;
     void Awake()
     {
@@ -15,8 +17,8 @@ public class Collisions : MonoBehaviour
     }
     void Start()
     {
-        hitboxPosition = new Vector2(-0.01f, -1.44f);
-        hitboxSize = new Vector2(1.18f, 0.04f);
+        hitboxPosition = new Vector2(0, 0.297f);
+        hitboxSize = new Vector2(1.4f, 0.05f);
         groundLayer = LayerMask.GetMask("Ground");
         gameStarted = true;
         CanCheckGround = true;
