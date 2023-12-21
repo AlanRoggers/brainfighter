@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 65259771816b3b1258e2b2a610b7066f
+guid: 24bd391daeb73a868bdbac21aaeeb74a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,12 +110,180 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Chie21_0
+      name: Chie53_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 1442
-        width: 155
+        y: 1343
+        width: 165
+        height: 383
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9a152f026e3eea2f848d7ad30b0f16d
+      internalID: -2107183268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chie53_1
+      rect:
+        serializedVersion: 2
+        x: 622
+        y: 1365
+        width: 143
+        height: 416
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ba09c1f1c72f8aa3a790ec9f60d982b
+      internalID: 1140727797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chie53_2
+      rect:
+        serializedVersion: 2
+        x: 1244
+        y: 1366
+        width: 93
+        height: 416
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 020fcab0bbf6ec8de84a900480e0ffcb
+      internalID: -722062699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chie53_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 920
+        width: 100
+        height: 416
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 744ceb0dc5ad6ab72be248674a1ef423
+      internalID: -1932382287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chie53_4
+      rect:
+        serializedVersion: 2
+        x: 622
+        y: 920
+        width: 106
+        height: 416
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65785f41eabccc95b9b8e6e03b901634
+      internalID: 703109276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chie53_5
+      rect:
+        serializedVersion: 2
+        x: 1244
+        y: 983
+        width: 123
+        height: 355
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb9f61bf9ccc8b4c691b4febaeb1395f
+      internalID: -1137619621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chie53_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 540
+        width: 181
+        height: 352
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe7d409b28a98dbbea0ffb0a853ee9dc
+      internalID: 1506054783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chie53_7
+      rect:
+        serializedVersion: 2
+        x: 622
+        y: 543
+        width: 166
+        height: 349
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: baeeab254f269cd23afdea27d0670184
+      internalID: -870104575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chie53_8
+      rect:
+        serializedVersion: 2
+        x: 1244
+        y: 550
+        width: 194
         height: 342
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -124,62 +292,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ca555aa7b0405190096c67b1792f30a7
-      internalID: -1953929336
+      spriteID: 2160a5dcf8302eba79681bfa2fd2ad46
+      internalID: 1166558796
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie21_1
-      rect:
-        serializedVersion: 2
-        x: 622
-        y: 1489
-        width: 148
-        height: 295
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e40cb5a225cafcb8db9b02624e062d34
-      internalID: -114128719
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Chie21_2
-      rect:
-        serializedVersion: 2
-        x: 1244
-        y: 1496
-        width: 146
-        height: 288
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0618f77b1e6042149a0b8e260992de2b
-      internalID: 1923234372
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Chie21_3
+      name: Chie53_9
       rect:
         serializedVersion: 2
         x: 0
-        y: 1018
-        width: 131
-        height: 320
+        y: 98
+        width: 198
+        height: 348
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,20 +313,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c2ac2d9f9f8c0a89cb84cefb8b756946
-      internalID: 1069798945
+      spriteID: deddda97c2758e2c890fa41ee34ea445
+      internalID: -2068237925
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie21_4
+      name: Chie53_10
       rect:
         serializedVersion: 2
         x: 622
-        y: 1095
-        width: 178
-        height: 243
+        y: 98
+        width: 198
+        height: 348
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,20 +334,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ca27a7b0a3493059e8181784f643c8e9
-      internalID: -1090409169
+      spriteID: fe91f1347977ec3c68790b57a16e8d67
+      internalID: -465049184
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie21_5
+      name: Chie53_11
       rect:
         serializedVersion: 2
         x: 1244
-        y: 1104
-        width: 178
-        height: 234
+        y: 95
+        width: 168
+        height: 351
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -229,134 +355,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 00adbb649a4309fc4a7af2b02a5cff4f
-      internalID: 562236639
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Chie21_6
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 618
-        width: 186
-        height: 274
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7ea6c0c63be27722e9db1145b60b9ce5
-      internalID: -786366571
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Chie21_7
-      rect:
-        serializedVersion: 2
-        x: 622
-        y: 606
-        width: 250
-        height: 286
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 702bd91513c040ac2a5a023154509700
-      internalID: -2106377467
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Chie21_8
-      rect:
-        serializedVersion: 2
-        x: 1244
-        y: 643
-        width: 154
-        height: 249
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7c288ccbbe4774654b6cc504750b7c88
-      internalID: 507591523
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Chie21_9
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 221
-        width: 367
-        height: 225
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 235c1e079e70c6d169f07abbd35575e0
-      internalID: 1678946912
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Chie21_10
-      rect:
-        serializedVersion: 2
-        x: 622
-        y: 214
-        width: 378
-        height: 232
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 099c1e07a2bdfcd0abab39e8868e9da3
-      internalID: 371420288
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Chie21_11
-      rect:
-        serializedVersion: 2
-        x: 1244
-        y: 86
-        width: 178
-        height: 360
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: aeb0a044ace9f6737b0be3420368151d
-      internalID: -154772733
+      spriteID: f4953bdc1adf17d7ea95c8c839695dd3
+      internalID: 1802427543
       vertices: []
       indices: 
       edges: []
@@ -372,18 +372,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Chie21_0: -1953929336
-      Chie21_1: -114128719
-      Chie21_10: 371420288
-      Chie21_11: -154772733
-      Chie21_2: 1923234372
-      Chie21_3: 1069798945
-      Chie21_4: -1090409169
-      Chie21_5: 562236639
-      Chie21_6: -786366571
-      Chie21_7: -2106377467
-      Chie21_8: 507591523
-      Chie21_9: 1678946912
+      Chie53_0: -2107183268
+      Chie53_1: 1140727797
+      Chie53_10: -465049184
+      Chie53_11: 1802427543
+      Chie53_2: -722062699
+      Chie53_3: -1932382287
+      Chie53_4: 703109276
+      Chie53_5: -1137619621
+      Chie53_6: 1506054783
+      Chie53_7: -870104575
+      Chie53_8: 1166558796
+      Chie53_9: -2068237925
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
