@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Chie39_0
+      name: Punch2_6
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1631
-        width: 320
-        height: 153
+        x: 132
+        y: 1514
+        width: 317
+        height: 269
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 524a87737a1ec321a88f22c9155d753c
-      internalID: 773350117
+      spriteID: 620761fdb37775a45802f8b940b0dde5
+      internalID: 223954112
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie39_1
+      name: Punch2_5
       rect:
         serializedVersion: 2
-        x: 622
-        y: 1628
-        width: 233
-        height: 156
+        x: 470
+        y: 1515
+        width: 317
+        height: 269
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2981cf133d6f834c6b0a55f409905d23
-      internalID: -2040399065
+      spriteID: 9b7d62239609933c38b00512681a3679
+      internalID: -467425771
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie39_2
+      name: Punch2_4
       rect:
         serializedVersion: 2
-        x: 1244
-        y: 1535
-        width: 186
-        height: 249
+        x: 788
+        y: 1515
+        width: 317
+        height: 269
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,81 +166,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0dfbc33ea0341b0eab91502032906089
-      internalID: 692345707
+      spriteID: cc73cf39207494c9b9b44ed30b2b107b
+      internalID: 1132482697
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie39_3
+      name: Punch2_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 959
-        width: 125
-        height: 379
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cc7e2ce9d0e4104feb755eed0d212067
-      internalID: 1844704663
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Chie39_4
-      rect:
-        serializedVersion: 2
-        x: 622
-        y: 952
-        width: 104
-        height: 386
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b57677ffe9f28f108b4d055f0dcc2a39
-      internalID: 1631702881
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Chie39_5
-      rect:
-        serializedVersion: 2
-        x: 1244
-        y: 951
-        width: 194
-        height: 387
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 04c2ba7d4fd6fe715aa8d64643e0c21e
-      internalID: 1951283513
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Chie39_6
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 575
+        x: 1106
+        y: 1466
         width: 333
         height: 317
       alignment: 7
@@ -250,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d77fb6f69a7b7830e9923bb02bbdf6a8
-      internalID: -1928752156
+      spriteID: bc1b135c83f86931282a53c06c50b16b
+      internalID: -370622285
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie39_7
+      name: Punch2_2
       rect:
         serializedVersion: 2
-        x: 622
-        y: 623
-        width: 317
-        height: 269
+        x: 1441
+        y: 1397
+        width: 194
+        height: 387
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -271,20 +208,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d950f8aba97db848c87e0e619ac16a2e
-      internalID: -816526554
+      spriteID: 7254ceefd8af4a959806628fe3f7d769
+      internalID: -725096395
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie39_8
+      name: Punch2_1
       rect:
         serializedVersion: 2
-        x: 1244
-        y: 623
-        width: 317
-        height: 269
+        x: 1636
+        y: 1398
+        width: 104
+        height: 386
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -292,20 +229,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d8e47c0280a7a2af68e37ebe7c436793
-      internalID: -1564272792
+      spriteID: ba5d42a00f63a24749031cfbddc2832c
+      internalID: -895245370
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie39_9
+      name: Punch2_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 177
-        width: 317
-        height: 269
+        x: 1741
+        y: 1405
+        width: 125
+        height: 379
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -313,20 +250,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 246afd32b026c8a82986b4850dfb310d
-      internalID: -505417325
+      spriteID: cb03d9ee926052bc98ac6dd7aef5b8e7
+      internalID: -1183650654
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie39_10
+      name: KneeAttack_5
       rect:
         serializedVersion: 2
-        x: 622
-        y: 158
-        width: 264
-        height: 288
+        x: 543
+        y: 1117
+        width: 235
+        height: 272
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -334,18 +271,81 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 62ef02e03d95557e396bd54e7b87df9a
-      internalID: -1566590923
+      spriteID: 7589499720dc36a9588dc215549ac757
+      internalID: 215569365
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie39_11
+      name: KneeAttack_4
       rect:
         serializedVersion: 2
-        x: 1244
-        y: 135
+        x: 782
+        y: 1119
+        width: 218
+        height: 271
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d91d7f8ac52187c26af07ab161bb10b8
+      internalID: -1958061171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KneeAttack_3
+      rect:
+        serializedVersion: 2
+        x: 1001
+        y: 1154
+        width: 192
+        height: 235
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d8ec6d91d3ea6175a803925a20dcc4d
+      internalID: -912489352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KneeAttack_0
+      rect:
+        serializedVersion: 2
+        x: 1195
+        y: 1045
+        width: 175
+        height: 344
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9189c1e20628e480ca37452ccc6aba07
+      internalID: 14993829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KneeAttack_2
+      rect:
+        serializedVersion: 2
+        x: 1371
+        y: 1077
         width: 230
         height: 311
       alignment: 7
@@ -355,8 +355,323 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0627520a67c33fde5b4e114e0c00b66a
-      internalID: -404320145
+      spriteID: 0942dbab52cec96c98a2037a525608a8
+      internalID: 1226792893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KneeAttack_1
+      rect:
+        serializedVersion: 2
+        x: 1602
+        y: 1101
+        width: 264
+        height: 288
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1494a49d98b6698f0b076ded28f86f75
+      internalID: -409790090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Special3_7
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 815
+        width: 402
+        height: 221
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c74cd7cd9563cf796a386caf3298fa91
+      internalID: 1326134120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Special3_6
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 727
+        width: 214
+        height: 309
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e40f3cb21954bfd5bb028e394354b66f
+      internalID: -1009832652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Special3_5
+      rect:
+        serializedVersion: 2
+        x: 731
+        y: 758
+        width: 195
+        height: 278
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73a9e12c8289e45428783779db23d9b3
+      internalID: -1750768516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Special3_4
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 779
+        width: 250
+        height: 257
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd8d46d078e8adc39815e973d958445e
+      internalID: -722364192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Special3_3
+      rect:
+        serializedVersion: 2
+        x: 1181
+        y: 777
+        width: 247
+        height: 259
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eeb3dcec60a3b8627813853ec5821f22
+      internalID: -1774166601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Special3_2
+      rect:
+        serializedVersion: 2
+        x: 1430
+        y: 710
+        width: 152
+        height: 326
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a574458304306af184f498d7049c837
+      internalID: 1526848962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Special3_1
+      rect:
+        serializedVersion: 2
+        x: 1584
+        y: 695
+        width: 132
+        height: 341
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9e33c5db08c8fe29a107b1543b8c864
+      internalID: -483446434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Special3_0
+      rect:
+        serializedVersion: 2
+        x: 1718
+        y: 678
+        width: 148
+        height: 358
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7aa677a82735722669ca47b87a34389a
+      internalID: -654003040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Special3_13
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 318
+        width: 184
+        height: 356
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 266209891ca4470c58c584ee014a56d5
+      internalID: -1766508126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Special3_12
+      rect:
+        serializedVersion: 2
+        x: 661
+        y: 322
+        width: 164
+        height: 352
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ea3fd440f25f96229a8b9a853afeaaf
+      internalID: -928321545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Special3_11
+      rect:
+        serializedVersion: 2
+        x: 827
+        y: 351
+        width: 165
+        height: 323
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f79b1743354fcb9285805dcfc1b2a04
+      internalID: 329196212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Special3_10
+      rect:
+        serializedVersion: 2
+        x: 994
+        y: 406
+        width: 229
+        height: 268
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2a1d9bd3ba3a9a37b0dba3740b32d62
+      internalID: 1588634010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Special3_9
+      rect:
+        serializedVersion: 2
+        x: 1226
+        y: 402
+        width: 235
+        height: 272
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a991da51e36f90ef0a9ac03de92a1b46
+      internalID: 446663474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Special3_8
+      rect:
+        serializedVersion: 2
+        x: 1464
+        y: 453
+        width: 402
+        height: 221
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b560da9165bb4a8ab84415e1d00bd17f
+      internalID: 140904363
       vertices: []
       indices: 
       edges: []
@@ -372,18 +687,33 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Chie39_0: 773350117
-      Chie39_1: -2040399065
-      Chie39_10: -1566590923
-      Chie39_11: -404320145
-      Chie39_2: 692345707
-      Chie39_3: 1844704663
-      Chie39_4: 1631702881
-      Chie39_5: 1951283513
-      Chie39_6: -1928752156
-      Chie39_7: -816526554
-      Chie39_8: -1564272792
-      Chie39_9: -505417325
+      KneeAttack_0: 14993829
+      KneeAttack_1: -409790090
+      KneeAttack_2: 1226792893
+      KneeAttack_3: -912489352
+      KneeAttack_4: -1958061171
+      KneeAttack_5: 215569365
+      Punch2_0: -1183650654
+      Punch2_1: -895245370
+      Punch2_2: -725096395
+      Punch2_3: -370622285
+      Punch2_4: 1132482697
+      Punch2_5: -467425771
+      Punch2_6: 223954112
+      Special3_0: -654003040
+      Special3_1: -483446434
+      Special3_10: 1588634010
+      Special3_11: 329196212
+      Special3_12: -928321545
+      Special3_13: -1766508126
+      Special3_2: 1526848962
+      Special3_3: -1774166601
+      Special3_4: -722364192
+      Special3_5: -1750768516
+      Special3_6: -1009832652
+      Special3_7: 1326134120
+      Special3_8: 140904363
+      Special3_9: 446663474
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
