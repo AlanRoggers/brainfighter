@@ -66,37 +66,98 @@ En total se crearon 21 SpriteSheets que contienen todas las animaciones de Chie 
     Chie21: Emote17, Emote18, Emote19, Stomp
 
 # Animaciones consideradas para utilizar en la tesina
-    > Iddle
-	> Turn (Normal, Air and crouch)
-	> Crouch
-	> Jump
-	> Walk
-	> Go Back
-	> Run (Iddle1 puede ser el primer frame, también puede ser que el dash de Chie6 sea parte de Run)
-	> Dash (Revisar Chie2 y Chie6)
-	> Dash Back
-	> Damage2
-	> CrouchDamage1
-	> Recovering (El frame 3 tal vez se pueda usar para cuando regresa al piso estando en el aire)
-	> InFloor
-	> Dead
-	> Punch1
-	> SpecialKick1
-	> SomersaultKick
-	> Kick1
-	> Kick2
-	> Kick3
-	> SpecialKick2 (Opcional)
-	> SpecialKick3
-	> CrouchKick1 (Tambien esta un CrouchKick2 implementar el más fácil)
-	> Kick4
-	> SpecialKick4
-	> AirKick1
-	> Special2 (La animación esta medio rara)
-	> DashAttack
-	> Punch2
-	> Entry (Frame 14, 15 y 16 se pueden usar para aterrizar, tal vez se puede complementar con el frame 3 de recovering)
+    > Iddle (Listo)
+	> Turn (Normal, Air and crouch) (Listo)
+	> Crouch (Listo)
+	> Jump (Listo)
+	> Walk (Listo)
+	> Go Back (Listo)
+	> Run (Listo) (Iddle1 puede ser el primer frame, también puede ser que el dash de Chie6 sea parte de Run)
+	> Dash (Listo) (Revisar Chie2 y Chie6; Me parece que el dash de Chie6 es para el aire)
+	> Dash Back (Listo)
+	> Damage2 (Listo)
+	> CrouchDamage1 (Listo)
+	> Recovering (Listo) (El frame 3 tal vez se pueda usar para cuando regresa al piso estando en el aire)
+	> InFloor (Listo)
+	> Dead (Listo)
+	> Punch1 (Listo)
+	> SpecialKick1 (Listo)
+	> SomersaultKick (Listo)
+	> Kick1 (Listo)
+	> Kick2 (Listo)
+	> Kick3 (Listo)
+	> SpecialKick2 (Opcional) (Omitido porque no me gustó la animación)
+	> SpecialKick3 (Listo)
+	> CrouchKick1 (Listo) (Tambien esta un CrouchKick2 implementar el más fácil; CrouchKick1 implementado)
+	> Kick4 (Listo)
+	> SpecialKick4 (Listo)
+	> AirKick1 (Listo)
+	> Special2 (Si se va a usar arreglarlo primero) (La animación esta medio rara) (Parece ser que a mitad de las patadas se tiene que ciclar para lograr un buen bucle, no lo hice pero el clip ya esta ahí)
+	> DashAttack (Listo)
+	> Punch2 (Listo)
+	> Entry (Creada la animacion "Land" a partir de la recomendación de los frames) (Frame 14, 15 y 16 se pueden usar para aterrizar, tal vez se puede complementar con el frame 3 de recovering)
 	> Stomp
 
 > [!NOTE]
 > Estas animaciones son las que yo esperaría alcanzar a implementar, sin embargo, esta lista está sujeta a cambios
+
+# Transiciones entre animaciones
+    > Iddle a
+        > Caminar
+        > Retroceder
+        > Voltear
+        > Saltar
+        > Agacharse
+        > Correr
+        > Dash
+        > DashBack
+        > Golpeado
+        > Morir
+        > Golpe 1
+        > Golpe 2
+        > Patada especial 1
+        > Voltereta con ataque
+        > Patada 1
+        > Patada 2
+        > Patada 3
+        > PAtada 4
+        > Patada especial 3
+        > Patada especial 4
+        > Ataque con Dash
+    > Saltar
+        > Voltear en el aire
+        > Golpeado
+        > Patada aerea
+        > Land
+    > Agachado
+        > Iddle
+        > Voltear agachado
+        > Saltar
+        > Golpeado agachado
+        > Patada agachado
+
+# Mecánicas del juego
+    > Un golpe -> débil, medio y fuerte
+    > Una patada -> débil, media y fuerte
+    > Dos ataques especiales
+    > Golpe en el aire
+    > Golpe agachado
+    > Capacidad para bloquear ataques
+    > Caminar
+    > Saltar
+    > Correr
+    > Esquivar
+    > Cada golpe debe desplazar al enemigo un poco (inercia)
+
+Además de los puntos enumerados, el jugador podrá encadenar ataques (combos) simples
+
+    > Golpe débil -> Golpe medio -> Golpe fuerte -> Especial 1
+    > Patada débil -> Patada media -> Patada fuerte -> Especial 2
+
+Para lograr los especiales va ser necesario que se ejecuten la secuencia de tres golpes / patadas enumeradas anteriormente y además apretar un botón adicional que detonará el ataque especial correspondiente. 
+
+> [!NOTA]
+> Desde el estado Iddle, Caminando, Corriendo debe ser posible ejecutar los golpes y las patadas de manera individual, pero cada golpe tiene un tiempo de recuperación, por eso las cadenas de golpes
+> por ejemplo si se usa golpe débil y golpe fuerte, el personaje se debe sentir "tonto" pues el tiempo de recuperación tiene que hacer que los golpes no sean instantaneos a menos que se ejecuten como la
+> secuencia correcta
+
