@@ -156,8 +156,6 @@ Además de los puntos enumerados, el jugador podrá encadenar ataques (combos) s
 
 Para lograr los especiales va ser necesario que se ejecuten la secuencia de tres golpes / patadas enumeradas anteriormente y además apretar un botón adicional que detonará el ataque especial correspondiente. 
 
-> [!NOTA]
-> Desde el estado Iddle, Caminando, Corriendo debe ser posible ejecutar los golpes y las patadas de manera individual, pero cada golpe tiene un tiempo de recuperación, por eso las cadenas de golpes
-> por ejemplo si se usa golpe débil y golpe fuerte, el personaje se debe sentir "tonto" pues el tiempo de recuperación tiene que hacer que los golpes no sean instantaneos a menos que se ejecuten como la
-> secuencia correcta
+> [!NOTE]
+> Desde el estado Iddle, Caminando, Corriendo debe ser posible ejecutar los golpes y las patadas de manera individual, pero cada golpe tiene un tiempo de recuperación, por eso las cadenas de golpes por ejemplo si se usa golpe débil y golpe fuerte, el personaje se debe sentir "tonto" pues el tiempo de recuperación tiene que hacer que los golpes no sean instantaneos a menos que se ejecuten como la secuencia correcta
 
