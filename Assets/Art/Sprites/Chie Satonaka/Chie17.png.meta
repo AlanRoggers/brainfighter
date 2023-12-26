@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a7883c0111ceb1f3d9bda69ae2ced950
+guid: 2eb378648678a50e58a0cfea56229889
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Chie17_0
+      name: Emote10_10
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1472
-        width: 284
-        height: 312
+        x: 17
+        y: 1423
+        width: 145
+        height: 361
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7b1c6a021dc8888dcbca8db22c894095
-      internalID: -1592403500
+      spriteID: 47f7e60388fc5dc409efd49f157478a8
+      internalID: -2033696595
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie17_1
+      name: Emote10_9
       rect:
         serializedVersion: 2
-        x: 622
-        y: 1477
-        width: 84
-        height: 124
+        x: 190
+        y: 1423
+        width: 145
+        height: 361
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c2149bf4e02abc3d789489d3e7407204
-      internalID: -531015337
+      spriteID: aac1159c7832a1b2a87e33db2f28e3d0
+      internalID: 1236385949
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie17_2
+      name: Emote10_8
       rect:
         serializedVersion: 2
-        x: 735
-        y: 1478
-        width: 195
-        height: 306
+        x: 338
+        y: 1422
+        width: 145
+        height: 362
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 77d9215c90c874b47902c64b096c01cc
-      internalID: -295032647
+      spriteID: 3bb7bcc46bf6736bd83c8149e6ae8cd6
+      internalID: 1531010894
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie17_3
+      name: Emote10_7
       rect:
         serializedVersion: 2
-        x: 1244
-        y: 1472
-        width: 180
-        height: 312
+        x: 485
+        y: 1425
+        width: 166
+        height: 359
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 04308bd9a33f8eae8ae155f345b7b357
-      internalID: -779173498
+      spriteID: 78219ca77b88e8770ad2cd52fa82d6f0
+      internalID: -560690429
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie17_4
+      name: Emote10_6
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1026
-        width: 310
-        height: 312
+        x: 653
+        y: 1426
+        width: 237
+        height: 358
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,104 +208,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0b4d4c821b3881584ab69221ee3566cb
-      internalID: 719529275
+      spriteID: fee520d38c2aace3c9b3dbaf47c53fc9
+      internalID: 1490211363
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie17_5
+      name: Emote10_5
       rect:
         serializedVersion: 2
-        x: 622
-        y: 1140
-        width: 115
-        height: 65
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6817902bd796d43fbbc446aaaf383142
-      internalID: -133990970
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Chie17_6
-      rect:
-        serializedVersion: 2
-        x: 745
-        y: 1032
-        width: 219
-        height: 306
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fb34f6ddeefd1f54fb44e7dc9b20ac57
-      internalID: 457130487
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Chie17_7
-      rect:
-        serializedVersion: 2
-        x: 1244
-        y: 1026
-        width: 325
-        height: 312
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 405cf12d60e7ad91eba9eb62a9b84430
-      internalID: -798846146
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Chie17_8
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 769
-        width: 104
-        height: 55
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3195f5f20b83fb5e391220732746d301
-      internalID: -1676844262
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Chie17_9
-      rect:
-        serializedVersion: 2
-        x: 127
-        y: 585
+        x: 892
+        y: 1426
         width: 238
-        height: 307
+        height: 358
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -313,20 +229,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7a03f75c00ae919d980473ff9a5b2d40
-      internalID: 1942439575
+      spriteID: 32c9923bc64be98d8b71eebcd82e8fdc
+      internalID: -610350042
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie17_10
+      name: Emote10_4
       rect:
         serializedVersion: 2
-        x: 622
-        y: 597
-        width: 171
-        height: 295
+        x: 1132
+        y: 1419
+        width: 145
+        height: 365
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -334,20 +250,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c9744183473eb4e2cbfdf3b6f4051daf
-      internalID: 145814395
+      spriteID: 597bfc234785fdf10a9d134a1aba7dea
+      internalID: -1719445716
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie17_11
+      name: Emote10_3
       rect:
         serializedVersion: 2
-        x: 1244
-        y: 615
-        width: 235
-        height: 277
+        x: 1280
+        y: 1428
+        width: 145
+        height: 356
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -355,20 +271,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e20c360651fd2411eb623148b9d4034f
-      internalID: 803037854
+      spriteID: 1f2dbe1e04a22140bbb00ce21e7295d3
+      internalID: -1081520229
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie17_12
+      name: Emote10_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 212
-        width: 293
-        height: 234
+        x: 1427
+        y: 1428
+        width: 145
+        height: 356
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -376,20 +292,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3818c2a84ad519d8ebabca095a16686e
-      internalID: -1116648736
+      spriteID: 1e60a9288dc7f47199438f9382a7a6dc
+      internalID: 577520288
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie17_13
+      name: Emote10_1
       rect:
         serializedVersion: 2
-        x: 622
-        y: 227
-        width: 31
-        height: 92
+        x: 1574
+        y: 1428
+        width: 145
+        height: 356
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -397,20 +313,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f64c8480fb4c33f0da6ffbaf61b21ef2
-      internalID: -42200869
+      spriteID: a60c59f9cf6c053f3ba76fb0fdaf3d59
+      internalID: -72477842
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie17_14
+      name: Emote10_0
       rect:
         serializedVersion: 2
-        x: 623
-        y: 120
-        width: 346
-        height: 326
+        x: 1721
+        y: 1425
+        width: 145
+        height: 359
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -418,20 +334,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 939f4c1628fd340f9b55c45fd9963d3d
-      internalID: -801451257
+      spriteID: f9ee474abcbb661d6b06df9645a62f36
+      internalID: -1300284382
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie17_15
+      name: Emote12_2
       rect:
         serializedVersion: 2
-        x: 1244
-        y: 100
-        width: 361
-        height: 346
+        x: 113
+        y: 1076
+        width: 200
+        height: 342
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -439,8 +355,470 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fef4895911d29cb7c8e5fbce7cd5864a
-      internalID: -51338231
+      spriteID: 3a071f065972da486af17d602257786f
+      internalID: 496976702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote12_1
+      rect:
+        serializedVersion: 2
+        x: 315
+        y: 1058
+        width: 161
+        height: 360
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 937781d108a6460f58776fe4c5535138
+      internalID: -1721347064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote12_0
+      rect:
+        serializedVersion: 2
+        x: 478
+        y: 1058
+        width: 158
+        height: 360
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8bb3a6d5ffa698e84bc6c337a5809a95
+      internalID: -1158250791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote11_6
+      rect:
+        serializedVersion: 2
+        x: 790
+        y: 1060
+        width: 144
+        height: 358
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2f421553e909009a9e80c0000dba311
+      internalID: -354385099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote11_5
+      rect:
+        serializedVersion: 2
+        x: 936
+        y: 1069
+        width: 112
+        height: 349
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42bf696d406b80e018d58ba0be33eaec
+      internalID: 2032361142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote11_4
+      rect:
+        serializedVersion: 2
+        x: 1051
+        y: 1069
+        width: 112
+        height: 349
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ceb08fa3a58374e9bc9bec2463c5639
+      internalID: -1835440377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote11_3
+      rect:
+        serializedVersion: 2
+        x: 1166
+        y: 1069
+        width: 112
+        height: 349
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7119b93675df9148a187e133da142c8
+      internalID: -1639441786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote11_2
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 1069
+        width: 112
+        height: 349
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c0d7ed7e6e8c62ca8bbd8fca22d3d36
+      internalID: -620708925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote11_1
+      rect:
+        serializedVersion: 2
+        x: 1394
+        y: 1064
+        width: 148
+        height: 354
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94761f027c288468fa82bb4205ce409d
+      internalID: 578414705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote11_0
+      rect:
+        serializedVersion: 2
+        x: 1543
+        y: 1061
+        width: 176
+        height: 357
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61314627729f8f0b7874dfd44844563b
+      internalID: -1544284674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote10_11
+      rect:
+        serializedVersion: 2
+        x: 1721
+        y: 1057
+        width: 145
+        height: 361
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5d0bc1e281ed869ba94fe136fa6738a
+      internalID: -1841006414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote12_10
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 728
+        width: 240
+        height: 314
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84b3f211e194758eea3eab3a57d49c0b
+      internalID: 1036783653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote12_9
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 683
+        width: 209
+        height: 359
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f55d458d2f8691a8c894ecef54116940
+      internalID: -1647587736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote12_8
+      rect:
+        serializedVersion: 2
+        x: 654
+        y: 656
+        width: 200
+        height: 386
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a2c61a7deb690b39a3c307b530fba30
+      internalID: 1875432708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote12_7
+      rect:
+        serializedVersion: 2
+        x: 857
+        y: 650
+        width: 200
+        height: 392
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f09146fcd05524fb787d5f61477a38a4
+      internalID: -1365506487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote12_6
+      rect:
+        serializedVersion: 2
+        x: 1060
+        y: 643
+        width: 200
+        height: 399
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4360c5a2c0a7880ab50470b78cab97e
+      internalID: 1724812533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote12_5
+      rect:
+        serializedVersion: 2
+        x: 1262
+        y: 703
+        width: 200
+        height: 339
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0957e14340635476a0e81466778dde5
+      internalID: 431801218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote12_4
+      rect:
+        serializedVersion: 2
+        x: 1464
+        y: 700
+        width: 200
+        height: 342
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19299852b1fb73acba96b896b15bfdbd
+      internalID: -923214342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote12_3
+      rect:
+        serializedVersion: 2
+        x: 1666
+        y: 700
+        width: 200
+        height: 342
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be9aba2b2c71315cabef1e7f0baf0b1d
+      internalID: -134068633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote12_14
+      rect:
+        serializedVersion: 2
+        x: 994
+        y: 288
+        width: 169
+        height: 348
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c95fbbe3e885b4363ba63ab9d46609dc
+      internalID: 28548728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote12_13
+      rect:
+        serializedVersion: 2
+        x: 1166
+        y: 307
+        width: 212
+        height: 329
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67d766c2c5fd0d517abd4a59015684bd
+      internalID: -1688148375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote12_12
+      rect:
+        serializedVersion: 2
+        x: 1382
+        y: 321
+        width: 240
+        height: 315
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ce3ad4ca3333675291aba4e2b8335c7
+      internalID: -615287560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote12_11
+      rect:
+        serializedVersion: 2
+        x: 1626
+        y: 321
+        width: 240
+        height: 315
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d53a6960212ed728b1b2ce9afc91bb7
+      internalID: 279056582
       vertices: []
       indices: 
       edges: []
@@ -456,22 +834,40 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Chie17_0: -1592403500
-      Chie17_1: -531015337
-      Chie17_10: 145814395
-      Chie17_11: 803037854
-      Chie17_12: -1116648736
-      Chie17_13: -42200869
-      Chie17_14: -801451257
-      Chie17_15: -51338231
-      Chie17_2: -295032647
-      Chie17_3: -779173498
-      Chie17_4: 719529275
-      Chie17_5: -133990970
-      Chie17_6: 457130487
-      Chie17_7: -798846146
-      Chie17_8: -1676844262
-      Chie17_9: 1942439575
+      Emote10_0: -1300284382
+      Emote10_1: -72477842
+      Emote10_10: -2033696595
+      Emote10_11: -1841006414
+      Emote10_2: 577520288
+      Emote10_3: -1081520229
+      Emote10_4: -1719445716
+      Emote10_5: -610350042
+      Emote10_6: 1490211363
+      Emote10_7: -560690429
+      Emote10_8: 1531010894
+      Emote10_9: 1236385949
+      Emote11_0: -1544284674
+      Emote11_1: 578414705
+      Emote11_2: -620708925
+      Emote11_3: -1639441786
+      Emote11_4: -1835440377
+      Emote11_5: 2032361142
+      Emote11_6: -354385099
+      Emote12_0: -1158250791
+      Emote12_1: -1721347064
+      Emote12_10: 1036783653
+      Emote12_11: 279056582
+      Emote12_12: -615287560
+      Emote12_13: -1688148375
+      Emote12_14: 28548728
+      Emote12_2: 496976702
+      Emote12_3: -134068633
+      Emote12_4: -923214342
+      Emote12_5: 431801218
+      Emote12_6: 1724812533
+      Emote12_7: -1365506487
+      Emote12_8: 1875432708
+      Emote12_9: -1647587736
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

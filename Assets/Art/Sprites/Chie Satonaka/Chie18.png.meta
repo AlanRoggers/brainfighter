@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fb4311908ea2a89e7b4b5c61dd6d3dcf
+guid: 773e9666c740713d8b9a6d7628d9fda9
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Chie18_0
+      name: Kick6_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1441
-        width: 347
-        height: 343
+        x: 175
+        y: 1439
+        width: 131
+        height: 345
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,19 +124,229 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dabe9d8db66ad0d4796a1cbd102150e2
-      internalID: -975599928
+      spriteID: e4c3a5f22a6ca4d4eb426f8240495ecb
+      internalID: -1977970762
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie18_1
+      name: CrouchKick3_11
       rect:
         serializedVersion: 2
-        x: 622
+        x: 330
+        y: 1479
+        width: 179
+        height: 305
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9773a24ab6d7c958aed980c9c73c505
+      internalID: 1305565865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrouchKick3_10
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 1402
+        width: 168
+        height: 382
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff58a190060ff0e67991bf0eef898a15
+      internalID: 1264276382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrouchKick3_9
+      rect:
+        serializedVersion: 2
+        x: 685
+        y: 1378
+        width: 152
+        height: 406
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94ad04c8157bddd9c9434d5a0372ea0b
+      internalID: 1858062040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrouchKick3_8
+      rect:
+        serializedVersion: 2
+        x: 841
+        y: 1361
+        width: 104
+        height: 423
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef136ba36ce61aa4a97c1de471ef78f8
+      internalID: 23036389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrouchKick3_7
+      rect:
+        serializedVersion: 2
+        x: 948
+        y: 1363
+        width: 101
+        height: 421
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d7153406ce93a54fba68858fdb4f453
+      internalID: -67018342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrouchKick3_6
+      rect:
+        serializedVersion: 2
+        x: 1052
+        y: 1506
+        width: 104
+        height: 278
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97118699c39f460cd9aab760e3805294
+      internalID: 2108749510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrouchKick3_5
+      rect:
+        serializedVersion: 2
+        x: 1159
+        y: 1486
+        width: 106
+        height: 298
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abb3f109c9d955779aef1acabf774adc
+      internalID: 1644555976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrouchKick3_4
+      rect:
+        serializedVersion: 2
+        x: 1270
+        y: 1486
+        width: 103
+        height: 298
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e174f04ae779d6f7c8a7a9cdb45df623
+      internalID: -849772977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrouchKick3_3
+      rect:
+        serializedVersion: 2
+        x: 1376
+        y: 1486
+        width: 97
+        height: 298
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa3568ce62ff34ff894b200fe92eb8cb
+      internalID: -1080957989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrouchKick3_2
+      rect:
+        serializedVersion: 2
+        x: 1475
+        y: 1464
+        width: 120
+        height: 320
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b85ce426b2cb412858871576329fd248
+      internalID: -432873666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrouchKick3_1
+      rect:
+        serializedVersion: 2
+        x: 1597
         y: 1461
-        width: 381
+        width: 131
         height: 323
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -145,20 +355,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fe016993847d88910bd39afce5baa39c
-      internalID: 2132488845
+      spriteID: 0b61b5094751987b090c6fb5c2ec9f0b
+      internalID: -714536712
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie18_2
+      name: CrouchKick3_0
       rect:
         serializedVersion: 2
-        x: 1244
-        y: 1442
-        width: 275
-        height: 342
+        x: 1730
+        y: 1494
+        width: 136
+        height: 290
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,19 +376,40 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: efbc2a045366fcf118c9d0995e4b1758
-      internalID: 1840538587
+      spriteID: 510af58ffd822870fba9d9aee21ab649
+      internalID: -265248229
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie18_3
+      name: Kick6_8
       rect:
         serializedVersion: 2
-        x: 0
-        y: 985
-        width: 135
+        x: 43
+        y: 1076
+        width: 185
+        height: 278
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb4e1319792e3e786badfa18c3974084
+      internalID: 1445085299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kick6_7
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 1001
+        width: 236
         height: 353
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -187,20 +418,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e826ad3de084047b3b12e524183608a4
-      internalID: 1186405742
+      spriteID: 6907e065a97d16eca8cd6e1335e804a5
+      internalID: -58885643
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie18_4
+      name: Kick6_6
       rect:
         serializedVersion: 2
-        x: 622
-        y: 989
-        width: 127
-        height: 349
+        x: 497
+        y: 999
+        width: 278
+        height: 355
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,20 +439,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d46be4a42378bfff7827b1c4eac8ec50
-      internalID: -1866137578
+      spriteID: d4fcfef7d2a12ffb59185f8bec2b996e
+      internalID: 1717319203
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie18_5
+      name: Kick6_5
       rect:
         serializedVersion: 2
-        x: 1244
-        y: 966
-        width: 254
-        height: 372
+        x: 780
+        y: 1012
+        width: 278
+        height: 342
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -229,20 +460,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 48ead0a30ec7ce91098b6fe8cdefc2ff
-      internalID: -1189673448
+      spriteID: 7fc9d07e941d108c5b81cecd46ec8c7f
+      internalID: -1730872121
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie18_6
+      name: Kick6_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 513
-        width: 241
-        height: 379
+        x: 1060
+        y: 1034
+        width: 245
+        height: 320
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -250,20 +481,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3361208afa47372d9826c79e46bbe317
-      internalID: -1684308103
+      spriteID: e4e19ac7b0304eab29f8376065ad977b
+      internalID: 1993280153
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie18_7
+      name: Kick6_3
       rect:
         serializedVersion: 2
-        x: 622
-        y: 524
-        width: 246
-        height: 368
+        x: 1309
+        y: 1030
+        width: 209
+        height: 324
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -271,61 +502,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ef88539cb7b4aa08d8918ca8b6679ae0
-      internalID: -2125451249
+      spriteID: 999f6138bae4079188951e388c8833af
+      internalID: 1953882574
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie18_8
+      name: Kick6_2
       rect:
         serializedVersion: 2
-        x: 1244
-        y: 554
-        width: 301
-        height: 338
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 83d7ebb67a21d99b8a2715377084e063
-      internalID: -1948764136
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Chie18_9
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 107
-        width: 315
-        height: 339
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 344a1cea613989fffbe70a70c704aa34
-      internalID: 88664678
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Chie18_10
-      rect:
-        serializedVersion: 2
-        x: 622
-        y: 127
-        width: 221
+        x: 1520
+        y: 1035
+        width: 177
         height: 319
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -334,20 +523,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6f71ae0eed821dbdd92e28fd1f0fa3ec
-      internalID: 1290766312
+      spriteID: 62c7ddec046734559b847ecd5eee4fab
+      internalID: 1891824582
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie18_11
+      name: Kick6_1
       rect:
         serializedVersion: 2
-        x: 847
-        y: 328
-        width: 24
-        height: 64
+        x: 1700
+        y: 1013
+        width: 166
+        height: 341
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -355,20 +544,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 76b1fde7abb5a1c2ea0c644efe912edf
-      internalID: -832083544
+      spriteID: 1d98def9a1d1251d983201738006e8a2
+      internalID: -230016990
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie18_12
+      name: Emote13_4
       rect:
         serializedVersion: 2
-        x: 1244
-        y: 106
-        width: 192
-        height: 340
+        x: 13
+        y: 777
+        width: 201
+        height: 209
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -376,8 +565,428 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 711206b7a4269558fb38ac758c5ca0ab
-      internalID: 1470490082
+      spriteID: 987ced9d56ba528938ddd9e28367a477
+      internalID: 712633231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote13_3
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 763
+        width: 199
+        height: 223
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d517885123ec4dee884ffd2fb000290
+      internalID: -386376605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote13_2
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 780
+        width: 201
+        height: 206
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e58969660636b3e689aad43a1276fd3
+      internalID: -145587889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote13_1
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 815
+        width: 207
+        height: 171
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ceb5981addb1ca4d99b4bba3186c552
+      internalID: -1431966088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote13_0
+      rect:
+        serializedVersion: 2
+        x: 851
+        y: 808
+        width: 209
+        height: 178
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e81fa809821a2e7d8909699d9876c4f1
+      internalID: 676834063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kick6_12
+      rect:
+        serializedVersion: 2
+        x: 1304
+        y: 641
+        width: 109
+        height: 345
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f63ed88d7b2f4aa1ba5bdd776b4e1db0
+      internalID: -1464613035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kick6_11
+      rect:
+        serializedVersion: 2
+        x: 1413
+        y: 673
+        width: 118
+        height: 313
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 838e0fcbb548cf182ab041b12e8a46f9
+      internalID: 1626391715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kick6_10
+      rect:
+        serializedVersion: 2
+        x: 1534
+        y: 688
+        width: 146
+        height: 298
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e122ee4a484b551c798f1aa79dc6830c
+      internalID: 1186965872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kick6_9
+      rect:
+        serializedVersion: 2
+        x: 1682
+        y: 706
+        width: 184
+        height: 280
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 218531510af3e8976871c9c08ece1cf0
+      internalID: -69393764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote14_4
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 301
+        width: 162
+        height: 329
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac6fd90864aa6e88bb8be246abeb8846
+      internalID: -102676871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote14_3
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 362
+        width: 209
+        height: 268
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74f3ccb02e015c6b1ab8937a21c85668
+      internalID: 13221030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote14_2
+      rect:
+        serializedVersion: 2
+        x: 494
+        y: 420
+        width: 215
+        height: 210
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9da93cebf2f5e2758f1ee916350143b
+      internalID: 1997902106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote14_1
+      rect:
+        serializedVersion: 2
+        x: 715
+        y: 420
+        width: 215
+        height: 210
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9b15329a015a1fcb996566a490a6bd1
+      internalID: -958559032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote14_0
+      rect:
+        serializedVersion: 2
+        x: 933
+        y: 431
+        width: 213
+        height: 199
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c49b5672bae2aea3c93bc47b1e7165f1
+      internalID: -733146806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote13_6
+      rect:
+        serializedVersion: 2
+        x: 1416
+        y: 446
+        width: 225
+        height: 184
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9263f51df9870e72b5050cac86e3430
+      internalID: -136905179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote13_5
+      rect:
+        serializedVersion: 2
+        x: 1643
+        y: 449
+        width: 223
+        height: 181
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e39a2d81dba02fc29d0e8b4925f5e75
+      internalID: 438840770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote14_9
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 0
+        width: 155
+        height: 352
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee9998e8dc5dd344584a2ef7dea56d70
+      internalID: 730584255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote14_8
+      rect:
+        serializedVersion: 2
+        x: 1180
+        y: 0
+        width: 165
+        height: 359
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 015f255cac3cb6f6ea487c50947b370b
+      internalID: 1155541893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote14_7
+      rect:
+        serializedVersion: 2
+        x: 1351
+        y: 0
+        width: 177
+        height: 372
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22e2bd2e024df93d98cd04ae777f4a7c
+      internalID: -2037898648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote14_6
+      rect:
+        serializedVersion: 2
+        x: 1530
+        y: 0
+        width: 170
+        height: 377
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9b753cfdee8621d494ae6d3143f19dd
+      internalID: -1875126773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emote14_5
+      rect:
+        serializedVersion: 2
+        x: 1703
+        y: 0
+        width: 163
+        height: 377
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe28f2a81a42b9f62856b972bc192c57
+      internalID: 2110591091
       vertices: []
       indices: 
       edges: []
@@ -393,19 +1002,48 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Chie18_0: -975599928
-      Chie18_1: 2132488845
-      Chie18_10: 1290766312
-      Chie18_11: -832083544
-      Chie18_12: 1470490082
-      Chie18_2: 1840538587
-      Chie18_3: 1186405742
-      Chie18_4: -1866137578
-      Chie18_5: -1189673448
-      Chie18_6: -1684308103
-      Chie18_7: -2125451249
-      Chie18_8: -1948764136
-      Chie18_9: 88664678
+      CrouchKick3_0: -265248229
+      CrouchKick3_1: -714536712
+      CrouchKick3_10: 1264276382
+      CrouchKick3_11: 1305565865
+      CrouchKick3_2: -432873666
+      CrouchKick3_3: -1080957989
+      CrouchKick3_4: -849772977
+      CrouchKick3_5: 1644555976
+      CrouchKick3_6: 2108749510
+      CrouchKick3_7: -67018342
+      CrouchKick3_8: 23036389
+      CrouchKick3_9: 1858062040
+      Emote13_0: 676834063
+      Emote13_1: -1431966088
+      Emote13_2: -145587889
+      Emote13_3: -386376605
+      Emote13_4: 712633231
+      Emote13_5: 438840770
+      Emote13_6: -136905179
+      Emote14_0: -733146806
+      Emote14_1: -958559032
+      Emote14_2: 1997902106
+      Emote14_3: 13221030
+      Emote14_4: -102676871
+      Emote14_5: 2110591091
+      Emote14_6: -1875126773
+      Emote14_7: -2037898648
+      Emote14_8: 1155541893
+      Emote14_9: 730584255
+      Kick6_0: -1977970762
+      Kick6_1: -230016990
+      Kick6_10: 1186965872
+      Kick6_11: 1626391715
+      Kick6_12: -1464613035
+      Kick6_2: 1891824582
+      Kick6_3: 1953882574
+      Kick6_4: 1993280153
+      Kick6_5: -1730872121
+      Kick6_6: 1717319203
+      Kick6_7: -58885643
+      Kick6_8: 1445085299
+      Kick6_9: -69393764
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
