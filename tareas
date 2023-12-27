@@ -1,4 +1,4 @@
-Transiciones
+#Transiciones
 
 Iddle:
 > StartJumping - R
@@ -184,3 +184,50 @@ Recover:
 Land:
 > Iddle
 
+#Acciones
+
+Motion:
+> Caminar: Esta acción solo se puede hacer cuando Chie este en contacto con el suelo siempre y cuando no este agachada, corriendo, haciendo un Dash o haciendo una acción del apartado Damage. 
+	   Involucra caminar hacia adelante y hacia atrás. 
+> Saltar: Esta acción solo se puede hacer cuando Chie este en contacto con el suelo y siempre y cuando no este agachada o haciendo una acción del apartado Damage. 
+	  En caso de que este haciendo un Dash, es necesario que el dash se complete para permitirle saltar inmediatamente (Opcional, primero fijarse como interactuan las animaciones sin realizar esta
+	  interacción)
+> Agacharse: Esta acción se puede hacer siempre y cuando Chie este en contacto con el suelo y no este haciendo una acción del apartado Damage.
+> Correr: Esta acción solo se puede hacer cuando Chie este en contacto con el suelo y siempre y cuando no este agachada, en un dash o este haciendo una acción del apartado Damage.}
+	  Si se registra esta acción a mitad de un Dash, se puede mantener la petición de esta acción para que Chie corra inmediatamente saliendo del dash
+	  Nota: Correr solo es para adelante, hacia atrás no existe una manera "rápida" de moverse"
+> Dash: Esta acción solo se puede hacer cuando Chie este en contacto con el suelo y siempre y cuando este en estado Iddle
+> Dash hacia atrás: Esta acción solo se puede hacer cuando Chie este en contacto con el suelo y siempre y cuando este en estado Iddle
+
+Damage:
+> Golpes (Low, Middle, Hard & Special)
+  > Low, Middle, Hard: Estos golpes se pueden hacer cuando Chie este en contacto con el suelo y siempre y cuando no este agachada o en un Dash. 
+		       Al final de cada golpe hay un tiempo de recuperación que restringe a Chie volver a atacar a menos que se haya usado la secuencia (Low -> Middle -> Hard)
+		       Si se sigue la secuencia, el tiempo de recuperación no afectará a Chie, por ejemplo puede hacerse un Middle y luego un Hard o un Low Middle y Luego Hard
+  > Special: Este golpe solamente se puede activar cuando los tres golpes de la secuencia se usaron siendo que se debe activar cuando aun esta la animación del HardPunch
+> Patadas (Low, Middle, Hard & Special): Esto es lo mismo que los golpes
+> Voltereta hacia atrás (SomerSaultKick): Este golpe se puede hacer siempre y cuando Chie este en estado Iddle
+> Patada en el aire: Este golpe se puede hacer cuando Chie este en el aire
+> Patada agachado: Este golpe se puede hacer cuando Chie este agachada
+> DashAttack: Estoy pensando en no usar este golpe, por ahora ignorarlo
+
+Nota: Toda acción del apartado Damage debe tener implementada la inercia
+
+Emotes:
+> Morir: El personaje muere ya no puede recibir acciones, el juego acaba o se reinicia (depende si es gameplay de humanos o de IA)
+> Tomar daño: Se reduce la vida del personaje y por un breve periodo de tiempo no puede recibir ninguna acción (la inercia se implementa dependiendo del golpe recibido)
+> Daño critico: Se reduce drásticamente la vida del personaje y tarda en levantarse del piso, en el piso es inmune hasta que se recupere. 
+		Supongo que solo los dos ataques especiales podrán realizar este estado aunque no tengo aún una animación fluida para hacer que el personaje caiga.
+Nota: Las acciones Emotes no tienen como tal restricciones de cuando pueden ocurrir, si el personaje recibe daño o su vida llega a cero, no importa lo que este pasando, el comportamiento debe ser 
+      de la acción "Emotes" correspondiente
+
+
+#Mecánicas de juego
+En general ya mencioné todo en el apartado de acciones, pero aquí pondré cosas que me faltaron y que alomejor no cuadran en el apartado anterior de acciones
+- El personaje puede recibir daño en todo momento siempre y cuando no se cubra o este en estado de Daño critico
+- Debe haber algunos golpes que el personaje puede evadir si esta agachado, no tendría mucha razón de ser el agacharse si no hay golpes que esquivar
+	> Decidir que golpes se van a evadir si el personaje esta agachado
+- El golpe agachado solo se cubre si se esta agachado tambien, si esta cubriendo normal, el golpe agachado realiza el daño
+- En el aire no se puede evadir / cubrir de ninguna manera
+- Mientras el personaje ataca, queda expuesto a recibir daño tambien
+- Realizar pruebas para observar que tiempo de espera es correcto
