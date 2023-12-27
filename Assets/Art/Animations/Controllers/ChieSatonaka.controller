@@ -59,7 +59,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Crouch
+  m_Name: StartCrouching
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -137,7 +137,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Punch1
+  m_Name: LowPunch
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -215,7 +215,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Kick2
+  m_Name: MiddleKick
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -241,7 +241,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Kick1
+  m_Name: LowKick
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -397,7 +397,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Crouch 0
+  m_Name: 'Crouch '
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -523,7 +523,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SpecialKick1
+  m_Name: SpecialKick
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -575,7 +575,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Punch2
+  m_Name: HardPunch
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -605,126 +605,126 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 2962146861452202286}
-    m_Position: {x: 300, y: 120, z: 0}
+    m_Position: {x: 600, y: 50, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2330109850105184747}
-    m_Position: {x: 30, y: 220, z: 0}
+    m_Position: {x: 0, y: 250, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1779221229756598273}
-    m_Position: {x: 30, y: 270, z: 0}
+    m_Position: {x: 0, y: 350, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5182698960540458176}
-    m_Position: {x: 290, y: 220, z: 0}
+    m_Position: {x: 300, y: 200, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5659875141198721068}
-    m_Position: {x: 290, y: 280, z: 0}
+    m_Position: {x: 300, y: 250, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -9207496245750912051}
-    m_Position: {x: 560, y: 220, z: 0}
+    m_Position: {x: 600, y: 200, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -151496636669609532}
-    m_Position: {x: 560, y: 280, z: 0}
+    m_Position: {x: 600, y: 250, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6025132454423774730}
-    m_Position: {x: 595, y: 345, z: 0}
+    m_Position: {x: 900, y: 200, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7203616957461076584}
-    m_Position: {x: 630, y: 410, z: 0}
+    m_Position: {x: 900, y: 250, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2131780921620994022}
-    m_Position: {x: 665, y: 475, z: 0}
+    m_Position: {x: 900, y: 310, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7922036938059703614}
-    m_Position: {x: 700, y: 540, z: 0}
+    m_Position: {x: 1200, y: 200, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -779759607191369204}
-    m_Position: {x: 735, y: 605, z: 0}
+    m_Position: {x: 1200, y: 250, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5219487247464767300}
-    m_Position: {x: 770, y: 670, z: 0}
+    m_Position: {x: 0, y: 300, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 525937728893097826}
-    m_Position: {x: 805, y: 735, z: 0}
+    m_Position: {x: 0, y: 200, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4955916704890303872}
-    m_Position: {x: 840, y: 800, z: 0}
+    m_Position: {x: 0, y: 550, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4980219911383720936}
-    m_Position: {x: 875, y: 865, z: 0}
+    m_Position: {x: 0, y: 500, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7734005562645927335}
-    m_Position: {x: 910, y: 930, z: 0}
+    m_Position: {x: 300, y: 500, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7724413564413339740}
-    m_Position: {x: 945, y: 995, z: 0}
+    m_Position: {x: 600, y: 500, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 265822614434283607}
-    m_Position: {x: 980, y: 1060, z: 0}
+    m_Position: {x: 900, y: 500, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 9003591418231482698}
-    m_Position: {x: 1015, y: 1125, z: 0}
+    m_Position: {x: 900, y: 550, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2415866439698514896}
-    m_Position: {x: 1050, y: 1190, z: 0}
+    m_Position: {x: 0, y: 700, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2312992918337026421}
-    m_Position: {x: 1085, y: 1255, z: 0}
+    m_Position: {x: 1200, y: 500, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1745444472367794841}
-    m_Position: {x: 1120, y: 1320, z: 0}
+    m_Position: {x: 300, y: 700, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6490638809638870158}
-    m_Position: {x: 1155, y: 1385, z: 0}
+    m_Position: {x: 600, y: 700, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 970209189067430868}
-    m_Position: {x: 1190, y: 1450, z: 0}
+    m_Position: {x: 1200, y: 850, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3197829051490151796}
-    m_Position: {x: 1225, y: 1515, z: 0}
+    m_Position: {x: 900, y: 700, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3765892029942421276}
-    m_Position: {x: 1260, y: 1580, z: 0}
+    m_Position: {x: 1200, y: 700, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3846910978908213301}
-    m_Position: {x: 1295, y: 1645, z: 0}
+    m_Position: {x: 1200, y: 750, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6152076346133128372}
-    m_Position: {x: 1330, y: 1710, z: 0}
+    m_Position: {x: 1200, y: 800, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3292692782290719540}
-    m_Position: {x: 1365, y: 1775, z: 0}
+    m_Position: {x: 600, y: 850, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1330037865954144680}
-    m_Position: {x: 1400, y: 1840, z: 0}
+    m_Position: {x: 0, y: 1000, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6278804703150100811}
-    m_Position: {x: 1435, y: 1905, z: 0}
+    m_Position: {x: 600, y: 750, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8456513749185131614}
-    m_Position: {x: 1470, y: 1970, z: 0}
+    m_Position: {x: 300, y: 1200, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2732571670651555624}
-    m_Position: {x: 1505, y: 2035, z: 0}
+    m_Position: {x: 300, y: 1000, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5427730648354140044}
-    m_Position: {x: 1540, y: 2100, z: 0}
+    m_Position: {x: 0, y: 1210, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3170208874828680227}
-    m_Position: {x: 1575, y: 2165, z: 0}
+    m_Position: {x: 600, y: 1000, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1380286175511533725}
-    m_Position: {x: 1610, y: 2230, z: 0}
+    m_Position: {x: 600, y: 800, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6593594290764408940}
-    m_Position: {x: 1645, y: 2295, z: 0}
+    m_Position: {x: 900, y: 1000, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 50, y: 20, z: 0}
-  m_EntryPosition: {x: 50, y: 120, z: 0}
-  m_ExitPosition: {x: 800, y: 120, z: 0}
+  m_AnyStatePosition: {x: 330, y: 50, z: 0}
+  m_EntryPosition: {x: 620, y: -70, z: 0}
+  m_ExitPosition: {x: 930, y: 50, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 2962146861452202286}
 --- !u!1102 &2131780921620994022
@@ -864,7 +864,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SpecialKick3
+  m_Name: SpecialPunch
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -994,7 +994,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Walking
+  m_Name: Walk
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -1020,7 +1020,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Kick3
+  m_Name: HardKick
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -1046,7 +1046,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Kick4
+  m_Name: MiddlePunch
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
