@@ -1,0 +1,186 @@
+Transiciones
+
+Iddle:
+> StartJumping - R
+> StartWalking - R
+> StartGoingBackwards - R
+> Turn - R
+> StartCrouching - R
+> StartRunning
+> Dash
+> DashBack
+> LowPunch
+> MiddlePunch
+> HardPunch
+> LowKick
+> MiddleKick
+> HardKick
+> DashAttack
+> Damage
+> Dead
+
+StartJumping:
+> Jump
+
+Jump:
+> StartFalling
+> TurnOnAir
+
+StartFalling:
+> Fall
+
+Fall:
+> Land
+> TurnOnAir
+
+StartWalking:
+> Walk - R
+
+Walk:
+> Iddle - R
+> StartJumping - R
+> Turn - R
+> StartCrouching
+> Dash
+> LowPunch / Kick
+> MiddlePunch / Kick
+> HardPunch / Kick
+> StartRunning
+> DashAttack
+> Damage
+> Dead
+
+StartGoingBackwards:
+> GoingBackwards - R
+
+GoingBackwards:
+> Iddle - R
+> StartJumping
+> Turn - R
+> StartCrouching
+> DashBack
+> LowPunch / Kick
+> MiddlePunch / Kick
+> HardPunch / Kick
+> SomerSaultKick
+> Damage
+> Dead
+
+Turn:
+> Iddle - R
+> StartJumping
+> StartWalking - R
+> StartGoingBackwards - R
+> StartCrouching
+> StartRunning
+> Dash
+> DashBack
+> LowPunch / Kick
+> MiddlePunch / Kick
+> HardPunch / Kick
+> SomersaultKick
+> DashAttack
+> Damage
+> Dead
+
+TurnWhileCrouch:
+> Iddle
+> KickWhileCrouch
+> DamageWhileCrouch
+> Dead
+
+TurnOnAir:
+> StartFalling
+> AirKick
+> Damage
+
+StartCrouching:
+> Crouch
+
+Crouch:
+> Iddle
+> KickWhileCrouch
+> TurnWhileCrouch
+> DamageWhileCrouch
+> Dead
+
+StartRunning:
+> Run
+
+Run:
+> Iddle
+> StartJumping
+> StartWalking
+> StartGoingBackwards
+> Turn
+> StartCrouching
+> LowPunch / Kick
+> MiddlePunch / Kick
+> HardPunch / Kick
+> Damage
+> Dead
+
+Dash:
+> Iddle
+
+DashBack:
+> Iddle
+
+LowPunch:
+> Iddle
+> MiddlePunch
+
+MiddlePunch:
+> Iddle
+> HardPunch
+
+HardPunch:
+> Iddle
+> SpecialPunch
+
+SpecialPunch:
+> Iddle
+
+SomersaultKick:
+> Iddle
+
+LowKick:
+> Iddle
+> MiddleKick
+
+MiddleKick:
+> Iddle
+> HardKick
+
+HardKick:
+> Iddle
+> SpecialKick
+
+SpecialKick:
+> Iddle
+
+KickWhileCrouch:
+> Crouch
+
+AirKick:
+> Fall
+
+DashAttack:
+> Iddle
+
+Damage:
+> Iddle
+> Fall
+
+DamageWhileCrouch:
+> Crouch
+
+InFloor:
+> Recover
+
+Recover:
+> Iddle
+
+Land:
+> Iddle
+

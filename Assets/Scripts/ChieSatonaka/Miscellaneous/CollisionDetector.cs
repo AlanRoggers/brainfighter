@@ -1,7 +1,8 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Collisions : MonoBehaviour
+public class CollisionDetector : MonoBehaviour
 {
     public bool CanCheckGround;
     private bool gameStarted;
@@ -28,16 +29,16 @@ public class Collisions : MonoBehaviour
         if (!CanCheckGround)
             StartCoroutine(IGNORE_GROUND());
 
-        components.onGround = GroundDetection() && CanCheckGround;
+        components.msng.onGround = GroundDetection() && CanCheckGround;
 
-        if (components.onGround && components.isJumping)
-            components.isJumping = false;
+        if (components.msng.onGround && components.msng.isJumping)
+            components.msng.isJumping = false;
     }
     void OnDrawGizmos()
     {
         if (gameStarted)
         {
-            if (components.onGround)
+            if (components.msng.onGround)
                 Gizmos.color = Color.green;
             else
                 Gizmos.color = Color.red;

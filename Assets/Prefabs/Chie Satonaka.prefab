@@ -80,13 +80,13 @@ GameObject:
   - component: {fileID: -7062242214442092753}
   - component: {fileID: -5996261674909815641}
   - component: {fileID: 956011518635009690}
-  - component: {fileID: 3325354458930306876}
-  - component: {fileID: 878822682770454193}
-  - component: {fileID: -1158389265341448145}
-  - component: {fileID: 4480822330398562027}
   - component: {fileID: 7027475549905065864}
   - component: {fileID: -7362289623792946728}
-  - component: {fileID: 229532241946100904}
+  - component: {fileID: 5822056414935985545}
+  - component: {fileID: 401957065536032946}
+  - component: {fileID: 6334760534969465336}
+  - component: {fileID: 4322640517048138981}
+  - component: {fileID: 7854134084774301650}
   m_Layer: 0
   m_Name: Chie Satonaka
   m_TagString: Player
@@ -178,12 +178,12 @@ SpriteRenderer:
   m_SortingLayerID: 950688175
   m_SortingLayer: 8
   m_SortingOrder: 0
-  m_Sprite: {fileID: -23342043, guid: 9cceb64bcace95e3e8bd4ecf82ea857c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fd6c6de0c18015de2a2bdfdacfa9be3e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.48, y: 3.58}
+  m_Size: {x: 1.47, y: 3.49}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -245,9 +245,9 @@ BoxCollider2D:
   m_Offset: {x: -0.045511648, y: 1.9510317}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 1.48, y: 3.58}
-    newSize: {x: 1.48, y: 3.58}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.47, y: 3.49}
+    newSize: {x: 1.47, y: 3.49}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -255,56 +255,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.799546, y: 3.2579365}
   m_EdgeRadius: 0
---- !u!114 &3325354458930306876
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1918396725094044388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21802e2df34d5b75ab2138df28c041e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &878822682770454193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1918396725094044388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06a437606c864f997bac2337f1498869, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CanCheckGround: 0
---- !u!114 &-1158389265341448145
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1918396725094044388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fca4394b423a585b5ae5eb879b8560d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4480822330398562027
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1918396725094044388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f019a5453766cc13b602af906628e3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 0
 --- !u!114 &7027475549905065864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,14 +267,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a88e21ed822cf5b55ba3c1a4fbb59244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canCombo: 0
-  isJumping: 0
-  isKicking: 0
-  isWalking: 0
-  onGround: 0
   anim: {fileID: 0}
+  msng: {fileID: 0}
   coll: {fileID: 0}
-  kicks: {fileID: 0}
+  motion: {fileID: 0}
+  damage: {fileID: 0}
   phys: {fileID: 0}
   states: {fileID: 0}
 --- !u!114 &-7362289623792946728
@@ -340,7 +287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Reference: {fileID: 0}
---- !u!114 &229532241946100904
+--- !u!114 &5822056414935985545
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -349,9 +296,63 @@ MonoBehaviour:
   m_GameObject: {fileID: 1918396725094044388}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df74123c3dc82900a9b284b35ec451c1, type: 3}
+  m_Script: {fileID: 11500000, guid: df172ce2f73a73a1fa55eac145760345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Combo: 
-  CanComboViewer: 0
-  kickForces: []
+--- !u!114 &401957065536032946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918396725094044388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55fd52d4ee6cd97879b28b5a5c10eb68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6334760534969465336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918396725094044388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65e834e6cd2ee3339a08d6a22ebba3b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackChain: 000000
+--- !u!114 &4322640517048138981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918396725094044388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78593e65c6b1068c4b4f26c6c3640427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canCombo: 0
+  isJumping: 0
+  isKicking: 0
+  isWalking: 0
+  onGround: 0
+--- !u!114 &7854134084774301650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918396725094044388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1e9342c8cafc79ec80214f865bb66cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CanCheckGround: 0
+  hitboxPosition: {x: 0, y: 0}
+  hitboxSize: {x: 0, y: 0}
