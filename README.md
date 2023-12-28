@@ -165,14 +165,13 @@ Para lograr los especiales va ser necesario que se ejecuten la secuencia de tres
 
 
 ## Tareas (28/12/2023)
-
 **** Acciones ****
 ** Motion **
-[ ] Caminar: Movimiento horizontal del personaje. Esta acción se interrumpe cuando el personaje se 
+- [ ] Caminar: Movimiento horizontal del personaje. Esta acción se interrumpe cuando el personaje se 
              agacha, corre y hace un dash y cualquier acción Damage
-[ ] Saltar
-[ ] Agacharse
-[ ] Correr
-[ ] Dash
-[ ] DashBack
+- [ ] Saltar
+- [ ] Agacharse
+- [ ] Correr
+- [ ] Dash
+- [ ] DashBack
 
