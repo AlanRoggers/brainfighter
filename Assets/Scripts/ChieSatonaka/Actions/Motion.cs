@@ -15,17 +15,19 @@ public class Motion : MonoBehaviour
     }
 
     #region Walk
-    private readonly int maxSpeed = 5;
-    private readonly float walkForce = 100;
+    private int maxSpeed = 5;
+    private float walkForce = 100;
     public void Walk(int direction)
     {
         if (!components.msng.isDashing)
         {
             if (direction != 0)
             {
-                if (!components.msng.isKicking && !components.msng.isCrouching && !components.msng.isRunning)
+                if (!components.msng.isKicking && !components.msng.isCrouching)
                 {
-                    components.msng.isWalking = true;
+                    components.msng.isWalking = !components.msng.isRunning;
+                    maxSpeed = components.msng.isRunning ? 7 : 5;
+                    walkForce = components.msng.isRunning ? 150 : 100;
                     if (Mathf.Abs(components.phys.velocity.x) < maxSpeed)
                     {
                         float speed = components.phys.velocity.x + (1 * walkForce * direction * Time.deltaTime);
@@ -43,27 +45,18 @@ public class Motion : MonoBehaviour
                 components.msng.isWalking = false;
                 if (!components.msng.isKicking) // Esto hay que repensarlo
                     components.phys.velocity = new Vector2(0, components.phys.velocity.y);
-                // print("Se esta cancelando el movimiento");
             }
         }
     }
     #endregion
 
     #region Run
-    private readonly int runMaxSpeed = 7;
-    private readonly float runWalkForce = 150;
-    public void Run(bool negativeVelocity)
+    public void Run()
     {
         if (!components.msng.isKicking && !components.msng.isCrouching && components.msng.onGround)
         {
             if (components.msng.isWalking) components.msng.isWalking = false;
             components.msng.isRunning = true;
-            if (Mathf.Abs(components.phys.velocity.x) < runMaxSpeed)
-            {
-                float speed = components.phys.velocity.x + (negativeVelocity ? -runWalkForce * Time.deltaTime : runWalkForce * Time.deltaTime);
-                components.phys.velocity = new Vector2(speed, components.phys.velocity.y);
-            }
-            else components.phys.velocity = new Vector2(negativeVelocity ? -runMaxSpeed : runMaxSpeed, components.phys.velocity.y);
         }
     }
     #endregion

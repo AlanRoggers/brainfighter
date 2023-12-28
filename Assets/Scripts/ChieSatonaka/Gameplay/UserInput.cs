@@ -43,9 +43,9 @@ public class UserInput : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftControl))
         {
             if (Input.GetKey(KeyCode.D) && transform.localScale.x > 0)
-                components.motion.Run(false);
+                components.motion.Run();
             else if (Input.GetKey(KeyCode.A) && transform.localScale.x < 0)
-                components.motion.Run(true);
+                components.motion.Run();
             else components.msng.isRunning = false;
         }
         else components.msng.isRunning = false;
