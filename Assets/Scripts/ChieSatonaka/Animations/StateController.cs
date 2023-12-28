@@ -209,5 +209,9 @@ public class StateController : MonoBehaviour
     {
 
     }
+    private void Dash()
+    {
+        StartCoroutine(components.motion.NO_DASHING());
+    }
     #endregion
 }

@@ -5,8 +5,8 @@ public class Components : MonoBehaviour
     public Animator anim;
     public ClassMessenger msng;
     public CollisionDetector coll;
-    public MotionActions motion;
-    public DamageActions damage;
+    public Motion motion;
+    public Attacks attacks;
     public Rigidbody2D phys;
     public StateController states;
     void Awake()
@@ -16,7 +16,7 @@ public class Components : MonoBehaviour
         coll = GetComponent<CollisionDetector>();
         states = GetComponent<StateController>();
         msng = GetComponent<ClassMessenger>();
-        motion = GetComponent<MotionActions>();
-        damage = GetComponent<DamageActions>();
+        motion = GetComponent<Motion>();
+        attacks = GetComponent<Attacks>();
     }
 }

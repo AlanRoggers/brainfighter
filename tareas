@@ -1,4 +1,4 @@
-#Transiciones
+# Transiciones
 
 Iddle:
 > StartJumping - R
@@ -184,20 +184,21 @@ Recover:
 Land:
 > Iddle
 
-#Acciones
+# Acciones
 
 Motion:
 > Caminar: Esta acción solo se puede hacer cuando Chie este en contacto con el suelo siempre y cuando no este agachada, corriendo, haciendo un Dash o haciendo una acción del apartado Damage. 
-	   Involucra caminar hacia adelante y hacia atrás. 
+	   Involucra caminar hacia adelante y hacia atrás. (Fase de desarrollo)
 > Saltar: Esta acción solo se puede hacer cuando Chie este en contacto con el suelo y siempre y cuando no este agachada o haciendo una acción del apartado Damage. 
 	  En caso de que este haciendo un Dash, es necesario que el dash se complete para permitirle saltar inmediatamente (Opcional, primero fijarse como interactuan las animaciones sin realizar esta
-	  interacción)
-> Agacharse: Esta acción se puede hacer siempre y cuando Chie este en contacto con el suelo y no este haciendo una acción del apartado Damage.
+	  interacción) (Fase de desarrollo)
+> Agacharse: Esta acción se puede hacer siempre y cuando Chie este en contacto con el suelo y no este haciendo una acción del apartado Damage. (Fase de testeo)
 > Correr: Esta acción solo se puede hacer cuando Chie este en contacto con el suelo y siempre y cuando no este agachada, en un dash o este haciendo una acción del apartado Damage.}
 	  Si se registra esta acción a mitad de un Dash, se puede mantener la petición de esta acción para que Chie corra inmediatamente saliendo del dash
-	  Nota: Correr solo es para adelante, hacia atrás no existe una manera "rápida" de moverse"
-> Dash: Esta acción solo se puede hacer cuando Chie este en contacto con el suelo y siempre y cuando este en estado Iddle
-> Dash hacia atrás: Esta acción solo se puede hacer cuando Chie este en contacto con el suelo y siempre y cuando este en estado Iddle
+	  Nota: Correr solo es para adelante, hacia atrás no existe una manera "rápida" de moverse" 
+	  (Fase de desarrollo)
+> Dash: Esta acción solo se puede hacer cuando Chie este en contacto con el suelo y siempre y cuando este en estado Iddle (Fase de desarrollo)
+> Dash hacia atrás: Esta acción solo se puede hacer cuando Chie este en contacto con el suelo y siempre y cuando este en estado Iddle (Fase de desarrollo)
 
 Damage:
 > Golpes (Low, Middle, Hard & Special)
@@ -222,7 +223,7 @@ Nota: Las acciones Emotes no tienen como tal restricciones de cuando pueden ocur
       de la acción "Emotes" correspondiente
 
 
-#Mecánicas de juego
+# Mecánicas de juego
 En general ya mencioné todo en el apartado de acciones, pero aquí pondré cosas que me faltaron y que alomejor no cuadran en el apartado anterior de acciones
 - El personaje puede recibir daño en todo momento siempre y cuando no se cubra o este en estado de Daño critico
 - Debe haber algunos golpes que el personaje puede evadir si esta agachado, no tendría mucha razón de ser el agacharse si no hay golpes que esquivar
@@ -231,3 +232,28 @@ En general ya mencioné todo en el apartado de acciones, pero aquí pondré cosa
 - En el aire no se puede evadir / cubrir de ninguna manera
 - Mientras el personaje ataca, queda expuesto a recibir daño tambien
 - Realizar pruebas para observar que tiempo de espera es correcto
+
+
+# Buenas prácticas
+Cada acción debe ser responsable de sus cosas, pero existen acciones que sobrescriben valores
+que usan otras acciones. Por ejemplo caminar y hacer un dash, ambas acciones utilizan el valor
+de velocidad, el dash tiene prioridad en estos casos por lo que la acción dash se impondrá sobre
+caminar. Dicho de otra manera, existen acciones que se pueden disparar al mismo tiempo que otras
+pero a final de cuentas estas acciones nuevas se impondrán sobre la que ya se estaba haciendo
+
+Cuando digo que una acción se impone a otra, quiero decir que todo el funcionamiento de la accion
+reprimida dejará de funcionar hasta que la acción que impone termine, dicho esto tenemos los 
+siguientes puntos a tomar en cuenta:
+> Si la accion reprimida era responsable de resetear valores o variables de la clase mensajera,
+  será responsabilidad de la acción que se impone resetear estos valores / variables
+> La acción reprimida tiene que tener una validación antes de toda su lógica, para comprobar que
+  no hay una acción que la este reprimiendo
+> La acción que se impone debe validar si va a imponerse a otra acción, si es asi primero tiene que
+  hacerse responsable de lo que la acción reprimida ya no puede y que es escencial para el
+  funcionamiento de otras cosas.
+
+# Acciones Impuestas - Reprimidas conocidas:
+> Dash - Caminar
+> Agacharse - Caminar
+> Agacharse - Correr
+> 

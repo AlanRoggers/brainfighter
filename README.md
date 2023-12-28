@@ -14,7 +14,7 @@ Para una instalación inicial de el paquete ML Agents seguir el tutorial de inst
 
 Versión de Python que se utilizó y funcionó correctamente: 3.10.12
 
-# Notas del proyecto
+## Notas del proyecto
 
 El personaje que se está utilizando se llama Chie Satonaka, las animaciones pertenecen al juego Persona 4 Arena Ultimax, se importaron todas las animaciones proporcionadas en la
 página de SpriteResource pero puede que falten algunas o incluso algunos frames.
@@ -65,7 +65,7 @@ En total se crearon 21 SpriteSheets que contienen todas las animaciones de Chie 
 
     Chie21: Emote17, Emote18, Emote19, Stomp
 
-# Animaciones consideradas para utilizar en la tesina
+## Animaciones consideradas para utilizar en la tesina
     > Iddle (Listo)
 	> Turn (Normal, Air and crouch) (Listo)
 	> Crouch (Listo)
@@ -101,7 +101,7 @@ En total se crearon 21 SpriteSheets que contienen todas las animaciones de Chie 
 > [!NOTE]
 > Estas animaciones son las que yo esperaría alcanzar a implementar, sin embargo, esta lista está sujeta a cambios
 
-# Transiciones entre animaciones
+## Transiciones entre animaciones
     > Iddle a
         > Caminar
         > Retroceder
@@ -136,7 +136,7 @@ En total se crearon 21 SpriteSheets que contienen todas las animaciones de Chie 
         > Golpeado agachado
         > Patada agachado
 
-# Mecánicas del juego
+## Mecánicas del juego
     > Un golpe -> débil, medio y fuerte
     > Una patada -> débil, media y fuerte
     > Dos ataques especiales
@@ -157,5 +157,22 @@ Además de los puntos enumerados, el jugador podrá encadenar ataques (combos) s
 Para lograr los especiales va ser necesario que se ejecuten la secuencia de tres golpes / patadas enumeradas anteriormente y además apretar un botón adicional que detonará el ataque especial correspondiente. 
 
 > [!NOTE]
-> Desde el estado Iddle, Caminando, Corriendo debe ser posible ejecutar los golpes y las patadas de manera individual, pero cada golpe tiene un tiempo de recuperación, por eso las cadenas de golpes por ejemplo si se usa golpe débil y golpe fuerte, el personaje se debe sentir "tonto" pues el tiempo de recuperación tiene que hacer que los golpes no sean instantaneos a menos que se ejecuten como la secuencia correcta
+> Desde el estado Iddle, Caminando, Corriendo debe ser posible ejecutar los golpes y las patadas de 
+  manera individual, pero cada golpe tiene un tiempo de recuperación, por eso las cadenas de golpes
+  por ejemplo si se usa golpe débil y golpe fuerte, el personaje se debe sentir "tonto" pues el 
+  tiempo de recuperación tiene que hacer que los golpes no sean instantaneos a menos que se ejecuten
+  como la secuencia correcta
+
+
+## Tareas (28/12/2023)
+
+**** Acciones ****
+** Motion **
+[ ] Caminar: Movimiento horizontal del personaje. Esta acción se interrumpe cuando el personaje se 
+             agacha, corre y hace un dash y cualquier acción Damage
+[ ] Saltar
+[ ] Agacharse
+[ ] Correr
+[ ] Dash
+[ ] DashBack
 

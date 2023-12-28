@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class DamageActions : MonoBehaviour
+public class Attacks : MonoBehaviour
 {
     private Components components;
     void Awake()
