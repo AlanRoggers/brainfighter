@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Motion : MonoBehaviour
 {
+    private Coroutine dash_chance;
     [SerializeField]
     private BoxCollider2D normalHitbox;
     [SerializeField]
@@ -19,15 +20,15 @@ public class Motion : MonoBehaviour
     private float walkForce = 100;
     public void Walk(int direction)
     {
-        if (!components.msng.isDashing)
+        if (!components.msng.IsDashing && !components.msng.IsDashingBack)
         {
             if (direction != 0)
             {
-                if (!components.msng.isKicking && !components.msng.isCrouching)
+                if (!components.msng.IsKicking && !components.msng.IsCrouching)
                 {
-                    components.msng.isWalking = !components.msng.isRunning;
-                    maxSpeed = components.msng.isRunning ? 7 : 5;
-                    walkForce = components.msng.isRunning ? 150 : 100;
+                    components.msng.IsWalking = !components.msng.IsRunning;
+                    maxSpeed = components.msng.IsRunning ? 7 : 5;
+                    walkForce = components.msng.IsRunning ? 150 : 100;
                     if (Mathf.Abs(components.phys.velocity.x) < maxSpeed)
                     {
                         float speed = components.phys.velocity.x + (1 * walkForce * direction * Time.deltaTime);
@@ -37,13 +38,13 @@ public class Motion : MonoBehaviour
                 }
                 else
                 {
-                    components.msng.isWalking = false;
+                    components.msng.IsWalking = false;
                 }
             }
             else
             {
-                components.msng.isWalking = false;
-                if (!components.msng.isKicking) // Esto hay que repensarlo
+                components.msng.IsWalking = false;
+                if (!components.msng.IsKicking) // Esto hay que repensarlo
                     components.phys.velocity = new Vector2(0, components.phys.velocity.y);
             }
         }
@@ -53,10 +54,10 @@ public class Motion : MonoBehaviour
     #region Run
     public void Run()
     {
-        if (!components.msng.isKicking && !components.msng.isCrouching && components.msng.onGround)
+        if (!components.msng.IsKicking && !components.msng.IsCrouching && components.msng.IsOnGround)
         {
-            if (components.msng.isWalking) components.msng.isWalking = false;
-            components.msng.isRunning = true;
+            if (components.msng.IsWalking) components.msng.IsWalking = false;
+            components.msng.IsRunning = true;
         }
     }
     #endregion
@@ -67,13 +68,13 @@ public class Motion : MonoBehaviour
     private readonly float waitingBetweenJumps = 0.5f;
     public void Jump()
     {
-        bool canJump = components.msng.onGround && Time.time - lastJump >= waitingBetweenJumps && !components.msng.isKicking && !components.msng.isCrouching;
+        bool canJump = components.msng.IsOnGround && Time.time - lastJump >= waitingBetweenJumps && !components.msng.IsKicking && !components.msng.IsCrouching;
 
         if (canJump)
         {
             components.phys.AddForce(new Vector2(0, jumpForce));
             lastJump = Time.time;
-            components.msng.isJumping = true;
+            components.msng.IsJumping = true;
             components.coll.CanCheckGround = false;
         }
     }
@@ -82,10 +83,10 @@ public class Motion : MonoBehaviour
     #region Crouch
     public void Crouch()
     {
-        if (components.msng.onGround && !components.msng.isKicking)
+        if (components.msng.IsOnGround && !components.msng.IsKicking)
         {
             Hitboxes(false, true);
-            components.msng.isCrouching = true;
+            components.msng.IsCrouching = true;
             components.phys.velocity = Vector2.zero;
         }
 
@@ -98,7 +99,7 @@ public class Motion : MonoBehaviour
     public void StandUp()
     {
         Hitboxes(true, false);
-        components.msng.isCrouching = false;
+        components.msng.IsCrouching = false;
     }
     #endregion
 
@@ -107,21 +108,68 @@ public class Motion : MonoBehaviour
     private float dashForce;
     public void Dash(bool negativeForce)
     {
-        bool canDash = components.msng.onGround && !components.msng.isCrouching &&
-                        !components.msng.isKicking && !components.msng.isRunning &&
-                        !components.msng.isDashing;
+        bool canDash = components.msng.IsOnGround && !components.msng.IsCrouching &&
+                        !components.msng.IsKicking && !components.msng.IsRunning &&
+                        !components.msng.IsDashing && !components.msng.IsDashingBack;
 
-        if (canDash)
+        if (!components.msng.dashTimer && canDash)
         {
-            components.msng.isWalking = false;
-            components.msng.isDashing = true;
+            components.msng.dashTimer = true;
+            dash_chance = StartCoroutine(DASH_CAHNCE());
+        }
+        else if (canDash)
+        {
+            components.msng.IsWalking = false;
+            components.msng.IsDashing = true;
             components.phys.AddForce(new Vector2(negativeForce ? -dashForce : dashForce, 0));
+            StopCoroutine(dash_chance);
+            components.msng.dashTimer = false;
         }
     }
+    private IEnumerator DASH_CAHNCE()
+    {
+        yield return new WaitForSeconds(0.25f);
+        components.msng.dashTimer = false;
+    }
+
     public IEnumerator NO_DASHING()
     {
         yield return new WaitWhile(() => components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
-        components.msng.isDashing = false;
+        components.msng.IsDashing = false;
+    }
+    #endregion
+
+    #region DashBack
+    public void DashBack(bool positiveForce)
+    {
+        bool canDash = components.msng.IsOnGround && !components.msng.IsCrouching &&
+                        !components.msng.IsAttacking && !components.msng.IsRunning &&
+                        !components.msng.IsDashingBack && !components.msng.IsDashing;
+
+        if (!components.msng.dashBackTimer && canDash)
+        {
+            components.msng.dashBackTimer = true;
+            dash_chance = StartCoroutine(DASHBACK_CAHNCE());
+        }
+        else if (canDash)
+        {
+            components.msng.IsWalking = false;
+            components.msng.IsDashingBack = true;
+            components.phys.AddForce(new Vector2(positiveForce ? dashForce : -dashForce, 0));
+            StopCoroutine(dash_chance);
+            components.msng.dashBackTimer = false;
+        }
+    }
+    private IEnumerator DASHBACK_CAHNCE()
+    {
+        yield return new WaitForSeconds(0.25f);
+        components.msng.dashBackTimer = false;
+    }
+
+    public IEnumerator NO_DASHINGBACK()
+    {
+        yield return new WaitWhile(() => components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
+        components.msng.IsDashingBack = false;
     }
     #endregion
 }

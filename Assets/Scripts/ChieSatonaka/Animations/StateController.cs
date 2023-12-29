@@ -108,7 +108,7 @@ public class StateController : MonoBehaviour
     }
     private int KeepLooking()
     {
-        if (!components.msng.isKicking)
+        if (!components.msng.IsKicking)
         {
             if (transform.position.x - Reference.transform.position.x <= 0 && transform.localScale.x < 0)
                 return 1;
@@ -128,14 +128,14 @@ public class StateController : MonoBehaviour
     #region Transitions
     private void Iddle()
     {
-        bool walk = components.msng.isWalking &&
+        bool walk = components.msng.IsWalking &&
                     (transform.localScale.x > 0 && components.phys.velocity.x > 0 ||
                     transform.localScale.x < 0 && components.phys.velocity.x < 0);
 
-        bool goingBack = components.msng.isWalking && !walk;
+        bool goingBack = components.msng.IsWalking && !walk;
 
-        if (components.msng.isCrouching) ChangeAnimation(AnimationStates.StartCrouching);
-        else if (components.msng.isJumping) ChangeAnimation(AnimationStates.StartJumping);
+        if (components.msng.IsCrouching) ChangeAnimation(AnimationStates.StartCrouching);
+        else if (components.msng.IsJumping) ChangeAnimation(AnimationStates.StartJumping);
         else if (TurnHandler)
         {
             ChangeAnimation(AnimationStates.Turn);
@@ -169,7 +169,7 @@ public class StateController : MonoBehaviour
     {
         bool iddle = components.phys.velocity.x == 0;
 
-        if (components.msng.isJumping) ChangeAnimation(AnimationStates.StartJumping);
+        if (components.msng.IsJumping) ChangeAnimation(AnimationStates.StartJumping);
         else if (TurnHandler) ChangeAnimation(AnimationStates.Turn);
         else if (iddle) ChangeAnimation(AnimationStates.Iddle);
     }
@@ -195,10 +195,10 @@ public class StateController : MonoBehaviour
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
 
             bool iddle = components.phys.velocity.x == 0;
-            bool walk = components.msng.isWalking &&
+            bool walk = components.msng.IsWalking &&
                         (transform.localScale.x > 0 && components.phys.velocity.x > 0 ||
                         transform.localScale.x < 0 && components.phys.velocity.x < 0);
-            bool goingBack = components.msng.isWalking && !walk;
+            bool goingBack = components.msng.IsWalking && !walk;
 
             if (iddle) ChangeAnimation(AnimationStates.Iddle);
             else if (walk) ChangeAnimation(AnimationStates.StartWalking);

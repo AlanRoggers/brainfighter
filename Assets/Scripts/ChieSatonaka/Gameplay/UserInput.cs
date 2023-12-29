@@ -1,10 +1,10 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class UserInput : MonoBehaviour
 {
     [SerializeField]
-    private bool canDash;
     private Coroutine dash_chance;
     private Components components;
     void Awake()
@@ -19,6 +19,7 @@ public class UserInput : MonoBehaviour
         CrouchInput();
         RunInput();
         DashInput();
+        DashBackInput();
     }
 
     private void AttackTest()
@@ -46,9 +47,9 @@ public class UserInput : MonoBehaviour
                 components.motion.Run();
             else if (Input.GetKey(KeyCode.A) && transform.localScale.x < 0)
                 components.motion.Run();
-            else components.msng.isRunning = false;
+            else components.msng.IsRunning = false;
         }
-        else components.msng.isRunning = false;
+        else components.msng.IsRunning = false;
     }
     private void WalkInput()
     {
@@ -61,44 +62,26 @@ public class UserInput : MonoBehaviour
     {
         if (transform.localScale.x > 0)
         {
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                if (!canDash && !components.msng.isDashing)
-                {
-                    canDash = true;
-                    dash_chance = StartCoroutine(DASH_CAHNCE());
-                }
-                else
-                {
-                    print("Dash Positivo");
-                    components.motion.Dash(false);
-                    StopCoroutine(dash_chance);
-                    canDash = false;
-                }
-            }
+            if (Input.GetKeyDown(KeyCode.D) && !Input.GetKey(KeyCode.A))
+                components.motion.Dash(false);
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                if (!canDash && !components.msng.isDashing)
-                {
-                    canDash = true;
-                    dash_chance = StartCoroutine(DASH_CAHNCE());
-                }
-                else
-                {
-                    print("Dash Negativo");
-                    components.motion.Dash(true);
-                    StopCoroutine(dash_chance);
-                    canDash = false;
-                }
-            }
+            if (Input.GetKeyDown(KeyCode.A) && !Input.GetKey(KeyCode.D))
+                components.motion.Dash(true);
         }
     }
-    private IEnumerator DASH_CAHNCE()
+    private void DashBackInput()
     {
-        yield return new WaitForSeconds(0.25f);
-        canDash = false;
+        if (transform.localScale.x > 0)
+        {
+            if (Input.GetKeyDown(KeyCode.A) && !Input.GetKey(KeyCode.D))
+                components.motion.DashBack(false);
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.D) && !Input.GetKey(KeyCode.A))
+                components.motion.Dash(true);
+        }
     }
 }

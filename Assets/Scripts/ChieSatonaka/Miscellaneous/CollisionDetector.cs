@@ -29,16 +29,16 @@ public class CollisionDetector : MonoBehaviour
         if (!CanCheckGround)
             StartCoroutine(IGNORE_GROUND());
 
-        components.msng.onGround = GroundDetection() && CanCheckGround;
+        components.msng.IsOnGround = GroundDetection() && CanCheckGround;
 
-        if (components.msng.onGround && components.msng.isJumping)
-            components.msng.isJumping = false;
+        if (components.msng.IsOnGround && components.msng.IsJumping)
+            components.msng.IsJumping = false;
     }
     void OnDrawGizmos()
     {
         if (gameStarted)
         {
-            if (components.msng.onGround)
+            if (components.msng.IsOnGround)
                 Gizmos.color = Color.green;
             else
                 Gizmos.color = Color.red;
