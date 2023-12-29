@@ -169,29 +169,30 @@ Para lograr los especiales va ser necesario que se ejecuten la secuencia de tres
 
 **Motion**
 
-- [ ] Caminar: Movimiento horizontal del personaje. Se puede hacer cuando este en el suelo en estado Iddle. Las siguientes acciones interrumpen el comportamiento de esta acción:
+- [x] Caminar: Movimiento horizontal del personaje. Se puede hacer cuando este en el suelo en estado Iddle. Las siguientes acciones interrumpen el comportamiento de esta acción:
 - Agacharse
 - Saltar (Solo interrumpe animación)
 - Dash
+- DashBack
 - Correr (No interrumpe, modifica)
 - Acción Damage
 
-- [ ] Saltar: Movimiento vertical del personaje. Se puede hacer cuando este en el suelo en estado Iddle o caminando. Las siguientes acciones interrumpen el comportamiento de esta acción:
+- [x] Saltar: Movimiento vertical del personaje. Se puede hacer cuando este en el suelo en estado Iddle o caminando. Las siguientes acciones interrumpen el comportamiento de esta acción:
 - Acción Damage
 - Acción Emote (Solo animación)
 
-- [ ] Agacharse: Es una ilusión generada principalmente con ayuda de la animación, esta acción activa/desactiva el hitbox correspondiente. Se puede hacer cuando este en el suelo en cualquier estado que no sea un estado de una acción Damage. Las siguientes acciones interrumpel el comportamiento de esta acción:
+- [x] Agacharse: Es una ilusión generada principalmente con ayuda de la animación, esta acción activa/desactiva el hitbox correspondiente. Se puede hacer cuando este en el suelo en cualquier estado que no sea un estado de una acción Damage. Las siguientes acciones interrumpel el comportamiento de esta acción:
 - Acción Damage
 - Acción Emote (Solo animación)
 
-- [ ] Correr: Movimiento horizontal acelerado del personaje. Se puede hacer cuando Chie esta en el suelo en estado Iddle y Caminando (Solo caminando hacía adelante). Las siguientes acciones interrumpen el comportamiento de esta acción;
+- [x] Correr: Movimiento horizontal acelerado del personaje. Se puede hacer cuando Chie esta en el suelo en estado Iddle y Caminando (Solo caminando hacía adelante). Las siguientes acciones interrumpen el comportamiento de esta acción;
 - Saltar (Solo animación)
 - Agacharse
 - Dash
 
-- [ ] Dash: Movimiento que permite desplazarse rapidamente y ser invulnerable por cierto periodo de tiempo. Se puede hacer cuando Chie esta en el suelo en estado Iddle, Caminando y Corriendo. Ninguna acción puede interrumpir a esta.
+- [x] Dash: Movimiento que permite desplazarse rapidamente y ser invulnerable por cierto periodo de tiempo. Se puede hacer cuando Chie esta en el suelo en estado Iddle, Caminando y Corriendo. Ninguna acción puede interrumpir a esta.
 
-- [ ] DashBack: Movimiento que permite desplazarse rapidamente hacia atrás. Se puede hacer cuando Chie esta en el suelo en estado Iddle o Caminando (hacia atrás). Ninguna acción puede interrumpir esta
+- [x] DashBack: Movimiento que permite desplazarse rapidamente hacia atrás. Se puede hacer cuando Chie esta en el suelo en estado Iddle o Caminando (hacia atrás). Ninguna acción puede interrumpir esta
 
 **Damage**
 - [ ] Golpes bajos medios y fuertes: Se pueden realizar cuando Chie esta en estado Iddle, caminando o corriendo. Cada golpe aporta un punto a la secuencia de golpes. Al final de cada golpe hay un tiempo de recuperación que no permite hacer ninguna acción Damage. A mitad de animación de cada golpe es posible realizar el ataque que sigue en la secuencia: Low -> Middle -> Hard, si esa secuencia no se respeta, los golpes terminarán y se aplicara el tiempo de recuperación. Ninguna acción puede interrumpir a esta.
