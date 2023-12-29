@@ -1,1 +1,0 @@
-A partir del fotograma 4 se puede crear loopear sin cortes

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 854d512ffa6d2100e8f5c793de894f3f
+guid: 72cc227171ab1be91aa8b8dafff4da70
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Chie13_0
+      name: Backflip_7
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1537
-        width: 219
-        height: 247
+        x: 209
+        y: 1533
+        width: 205
+        height: 251
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9c6b5648cad1aa2af99ecee7c90b1bdc
-      internalID: 288970254
+      spriteID: 254398b7468aa1689979642201c5782f
+      internalID: 448700467
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie13_1
+      name: Backflip_6
       rect:
         serializedVersion: 2
-        x: 622
-        y: 1507
-        width: 235
-        height: 277
+        x: 417
+        y: 1519
+        width: 220
+        height: 265
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,19 +145,250 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d148bc46552be76949315cf806760bfc
-      internalID: -1713316248
+      spriteID: 6bdce90c94404939db7bc758e1c13dd4
+      internalID: 1873755040
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie13_2
+      name: Backflip_5
       rect:
         serializedVersion: 2
-        x: 1244
-        y: 1495
-        width: 366
+        x: 639
+        y: 1459
+        width: 206
+        height: 325
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6b961b780e639848bff4382cc522ddf
+      internalID: 1382394471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backflip_4
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 1459
+        width: 206
+        height: 325
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af410d2368fd0e1edb132ae60e582320
+      internalID: 138858021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backflip_3
+      rect:
+        serializedVersion: 2
+        x: 1057
+        y: 1581
+        width: 220
+        height: 203
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89637f0bfe3dc075aaf2c582402b7deb
+      internalID: -987415095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backflip_2
+      rect:
+        serializedVersion: 2
+        x: 1278
+        y: 1589
+        width: 230
+        height: 195
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b01d97b70e3f36859671df49baa59c4
+      internalID: 435693247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backflip_1
+      rect:
+        serializedVersion: 2
+        x: 1512
+        y: 1574
+        width: 197
+        height: 210
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0b22d31070e26c67b451c8a433e0e94
+      internalID: -1279313344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backflip_0
+      rect:
+        serializedVersion: 2
+        x: 1711
+        y: 1583
+        width: 155
+        height: 201
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07318ebcd1b02f0b8979632192f218c5
+      internalID: 1861972788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backflip_14
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 1066
+        width: 200
+        height: 391
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a54c977db4793f7fab05bd15f85c6740
+      internalID: 1459276860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backflip_13
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 1114
+        width: 263
+        height: 343
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4a843d1d6f0616759dd1cdff55292f4
+      internalID: -383878792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backflip_12
+      rect:
+        serializedVersion: 2
+        x: 534
+        y: 1116
+        width: 233
+        height: 341
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 708b6f6f3dcad5038b0f183ca863485c
+      internalID: 831142426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backflip_11
+      rect:
+        serializedVersion: 2
+        x: 769
+        y: 1221
+        width: 278
+        height: 236
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db891f68487871b5eaeb9d799bafd037
+      internalID: -960088366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backflip_10
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 1105
+        width: 278
+        height: 352
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 510b33970133ffe9fa2c984c5b03d48d
+      internalID: 60871823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backflip_9
+      rect:
+        serializedVersion: 2
+        x: 1332
+        y: 1168
+        width: 280
         height: 289
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -166,20 +397,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7e9f367f4411ce49ebfe4133b5503df7
-      internalID: 2128746802
+      spriteID: 1b08a1c31935a1b57ae7c01dbe435706
+      internalID: 2104931828
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie13_3
+      name: Backflip_8
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1133
-        width: 296
-        height: 205
+        x: 1616
+        y: 1130
+        width: 250
+        height: 327
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,20 +418,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 787679790022503618c5cf7f83662e01
-      internalID: 2140720702
+      spriteID: c5f228886036d81069ed4c3b9667fda7
+      internalID: 915949005
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie13_4
+      name: Emote9_3
       rect:
         serializedVersion: 2
-        x: 622
-        y: 1079
-        width: 266
-        height: 259
+        x: 7
+        y: 701
+        width: 162
+        height: 358
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,20 +439,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cf0956c3250aa367084e133687d91e06
-      internalID: 262072246
+      spriteID: 1ae4eb3e3849149839bd4ec189a890d9
+      internalID: -372416487
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie13_5
+      name: Emote9_2
       rect:
         serializedVersion: 2
-        x: 1244
-        y: 1042
-        width: 205
-        height: 296
+        x: 190
+        y: 689
+        width: 148
+        height: 370
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -229,20 +460,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8e3031078850883dd9ee17f365eb7135
-      internalID: 526253295
+      spriteID: ed413dc8b4c63b90da017b339c10b32e
+      internalID: 830493053
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie13_6
+      name: Emote9_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 626
-        width: 259
-        height: 266
+        x: 340
+        y: 689
+        width: 154
+        height: 370
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -250,20 +481,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f9bf3fbbc2d04c82fab017899f3fa767
-      internalID: 779416341
+      spriteID: 4bc8a56f0077914669736afe2e659a5d
+      internalID: -1063844680
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie13_7
+      name: Emote9_0
       rect:
         serializedVersion: 2
-        x: 622
-        y: 687
-        width: 296
-        height: 205
+        x: 495
+        y: 689
+        width: 143
+        height: 370
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -271,20 +502,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aa1d17255ab14da53af48ea4cb89cabe
-      internalID: -523264860
+      spriteID: fcf54b7fe479ab858810e7683294ff91
+      internalID: 878782158
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie13_8
+      name: Backflip_18
       rect:
         serializedVersion: 2
-        x: 1244
-        y: 633
-        width: 266
-        height: 259
+        x: 718
+        y: 705
+        width: 155
+        height: 354
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -292,20 +523,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2e8fc873584cf7dce9b16e5c622100a4
-      internalID: 100284335
+      spriteID: 4f720ec41c9cc60c584ee66ba751b355
+      internalID: 1423911790
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie13_9
+      name: Backflip_17
       rect:
         serializedVersion: 2
-        x: 0
-        y: 59
-        width: 361
-        height: 387
+        x: 877
+        y: 714
+        width: 167
+        height: 345
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -313,20 +544,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c68bb1a164c03792d9edabcde4671669
-      internalID: -614550419
+      spriteID: ea749a81bb7ad2eb7b434af7c3e69b2f
+      internalID: 1590554778
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie13_10
+      name: Chie13_21
       rect:
         serializedVersion: 2
-        x: 622
-        y: 40
-        width: 377
-        height: 406
+        x: 1049
+        y: 731
+        width: 257
+        height: 328
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -334,20 +565,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6346e7153634ed0e395289ae88de6d77
-      internalID: -112367190
+      spriteID: 2f3df70a938acb375bd25ed2bbe64141
+      internalID: -573355583
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie13_11
+      name: Backflip_16
       rect:
         serializedVersion: 2
-        x: 1244
-        y: 93
-        width: 125
-        height: 353
+        x: 1309
+        y: 738
+        width: 275
+        height: 321
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -355,8 +586,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0986b25dd0cecf7cc9df36ce577f91c2
-      internalID: 1127141012
+      spriteID: 88fcaaa448b51ccdcad4d48d8218b9f6
+      internalID: -1931209800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backflip_15
+      rect:
+        serializedVersion: 2
+        x: 1586
+        y: 731
+        width: 280
+        height: 328
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd5d153794dba95abb0ac0713f1fd24a
+      internalID: -1463404895
       vertices: []
       indices: 
       edges: []
@@ -372,18 +624,30 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Chie13_0: 288970254
-      Chie13_1: -1713316248
-      Chie13_10: -112367190
-      Chie13_11: 1127141012
-      Chie13_2: 2128746802
-      Chie13_3: 2140720702
-      Chie13_4: 262072246
-      Chie13_5: 526253295
-      Chie13_6: 779416341
-      Chie13_7: -523264860
-      Chie13_8: 100284335
-      Chie13_9: -614550419
+      Backflip_0: 1861972788
+      Backflip_1: -1279313344
+      Backflip_10: 60871823
+      Backflip_11: -960088366
+      Backflip_12: 831142426
+      Backflip_13: -383878792
+      Backflip_14: 1459276860
+      Backflip_15: -1463404895
+      Backflip_16: -1931209800
+      Backflip_17: 1590554778
+      Backflip_18: 1423911790
+      Backflip_2: 435693247
+      Backflip_3: -987415095
+      Backflip_4: 138858021
+      Backflip_5: 1382394471
+      Backflip_6: 1873755040
+      Backflip_7: 448700467
+      Backflip_8: 915949005
+      Backflip_9: 2104931828
+      Chie13_21: -573355583
+      Emote9_0: 878782158
+      Emote9_1: -1063844680
+      Emote9_2: 830493053
+      Emote9_3: -372416487
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

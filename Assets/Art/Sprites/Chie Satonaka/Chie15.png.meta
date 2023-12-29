@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ac0b273e84a9ddba79a0b65ca8e423ad
+guid: f6a9d4fe4eaea34fc9e8e22b79ab1b19
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Chie15_0
+      name: Kick5_6
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1445
-        width: 169
-        height: 339
+        x: 198
+        y: 1397
+        width: 230
+        height: 387
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b6f0145af968ef0cc85c9a8f83fe33ae
-      internalID: -1977105356
+      spriteID: 18a7d8e45ab3fc2a1a8e378befbebc09
+      internalID: 1818414955
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie15_1
+      name: Kick5_5
       rect:
         serializedVersion: 2
-        x: 622
-        y: 1470
-        width: 161
-        height: 314
+        x: 430
+        y: 1398
+        width: 226
+        height: 386
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 24f94a747532a53759b0f65cf667050b
-      internalID: 704617187
+      spriteID: 412d7b5b415ce7e6a9c1d69421a96368
+      internalID: -541892400
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie15_2
+      name: Kick5_4
       rect:
         serializedVersion: 2
-        x: 1244
-        y: 1481
-        width: 237
-        height: 303
+        x: 658
+        y: 1396
+        width: 272
+        height: 388
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8a1bd63d9007f817e8ce30ccfa813dff
-      internalID: 803911816
+      spriteID: 2bfda1d806df4d51c88be743b525aa60
+      internalID: -888523443
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie15_3
+      name: Kick5_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1102
-        width: 210
-        height: 236
+        x: 931
+        y: 1402
+        width: 294
+        height: 382
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c061d814c09288b4fadda389768bb4ff
-      internalID: -500529132
+      spriteID: 37af61d5c433b9febae42ee26a9fe8a7
+      internalID: 432847938
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie15_4
+      name: Kick5_2
       rect:
         serializedVersion: 2
-        x: 622
-        y: 1136
-        width: 354
-        height: 202
+        x: 1227
+        y: 1436
+        width: 233
+        height: 348
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,20 +208,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4fcef56da7f759cd2a61c02944c06203
-      internalID: -1033542512
+      spriteID: 6e151a09de11696a2848d3a9aad13779
+      internalID: 2116496907
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie15_5
+      name: Kick5_1
       rect:
         serializedVersion: 2
-        x: 1244
-        y: 1136
-        width: 354
-        height: 202
+        x: 1461
+        y: 1436
+        width: 240
+        height: 348
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -229,20 +229,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8fe77391b0cbe2e6aac076c9ec7732c9
-      internalID: -1390329097
+      spriteID: 3c047cd0fe128cb108fa7ad63d176326
+      internalID: -1345903973
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie15_6
+      name: Kick5_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 720
-        width: 352
-        height: 172
+        x: 1702
+        y: 1462
+        width: 164
+        height: 322
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -250,20 +250,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c0a114e3b2734952fa966318003ec260
-      internalID: 1849063700
+      spriteID: e04e0c550007d5f048506df540f5fbe8
+      internalID: -1635668618
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie15_7
+      name: Kick5_11
       rect:
         serializedVersion: 2
-        x: 622
-        y: 769
-        width: 381
-        height: 123
+        x: 652
+        y: 1042
+        width: 179
+        height: 350
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -271,20 +271,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3b80b8036ec4224bc92396682b5fc37e
-      internalID: 1466436127
+      spriteID: 94a3d0cd8bc84383f965327d0c47013a
+      internalID: 70022782
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie15_8
+      name: Kick5_10
       rect:
         serializedVersion: 2
-        x: 1244
-        y: 774
-        width: 381
-        height: 118
+        x: 833
+        y: 1056
+        width: 233
+        height: 336
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -292,20 +292,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 677ba9f8f1f99792eb5bb46e06d5ad6e
-      internalID: -1690421545
+      spriteID: 99dca7612a2d7ba858cfbe74c463d776
+      internalID: -1515625750
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie15_9
+      name: Kick5_9
       rect:
         serializedVersion: 2
-        x: 0
-        y: 326
-        width: 378
-        height: 120
+        x: 1064
+        y: 1046
+        width: 266
+        height: 346
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -313,20 +313,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ac761acb62695c955a83e92eb484b96d
-      internalID: 1963463478
+      spriteID: f392ba7aaadddb39c801eab83689fe50
+      internalID: 1987275350
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie15_10
+      name: Kick5_8
       rect:
         serializedVersion: 2
-        x: 622
-        y: 331
-        width: 380
-        height: 115
+        x: 1332
+        y: 1046
+        width: 266
+        height: 346
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -334,20 +334,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 56af3b163d422b410b96ef704d0ab2b0
-      internalID: 202956006
+      spriteID: 03ba3fbf9696ed68e872b0d7c848e540
+      internalID: -1775561277
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chie15_11
+      name: Kick5_7
       rect:
         serializedVersion: 2
-        x: 1244
-        y: 324
-        width: 381
-        height: 122
+        x: 1600
+        y: 1047
+        width: 266
+        height: 345
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -355,8 +355,260 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 60315b5ffd524a0729775e48a1a4e92d
-      internalID: -1695812967
+      spriteID: c150292660db27711bdd363357549e3c
+      internalID: 1802008130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DashAttack_7
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 830
+        width: 366
+        height: 209
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f201a13e4319b3bd98dc1e9644e7571
+      internalID: -1469506940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DashAttack_6
+      rect:
+        serializedVersion: 2
+        x: 447
+        y: 825
+        width: 366
+        height: 214
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7dad8de212f90855cb9742d2a8dd9f58
+      internalID: -1881681940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DashAttack_5
+      rect:
+        serializedVersion: 2
+        x: 814
+        y: 836
+        width: 186
+        height: 203
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 081af1d6592473c36b530d23b6bae897
+      internalID: 987426576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DashAttack_4
+      rect:
+        serializedVersion: 2
+        x: 1002
+        y: 826
+        width: 214
+        height: 213
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b761d09e522c8af63a3326cd77e0bb0d
+      internalID: -1677081526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DashAttack_3
+      rect:
+        serializedVersion: 2
+        x: 1217
+        y: 883
+        width: 125
+        height: 156
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d464815a2d341870a0e025b50880edb
+      internalID: -2001299178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DashAttack_2
+      rect:
+        serializedVersion: 2
+        x: 1343
+        y: 883
+        width: 126
+        height: 156
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a1f03fc10874161389b584a67dac9d1
+      internalID: 1152730016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DashAttack_1
+      rect:
+        serializedVersion: 2
+        x: 1470
+        y: 857
+        width: 168
+        height: 182
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 492e965584c4800ebaebec969f951c19
+      internalID: -1385631246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DashAttack_0
+      rect:
+        serializedVersion: 2
+        x: 1639
+        y: 802
+        width: 227
+        height: 237
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71476ab87230e69278bd94536824cdea
+      internalID: 238193881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DashAttack_11
+      rect:
+        serializedVersion: 2
+        x: 749
+        y: 548
+        width: 186
+        height: 249
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68d92661653dc4f4b9aa4a43b7610287
+      internalID: 138313788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DashAttack_10
+      rect:
+        serializedVersion: 2
+        x: 937
+        y: 641
+        width: 233
+        height: 156
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45a3caa7430835357bc06b244d95d5a3
+      internalID: 1127373327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DashAttack_9
+      rect:
+        serializedVersion: 2
+        x: 1173
+        y: 644
+        width: 320
+        height: 153
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15ab831226cc5aee5b2b08c188bd3ccc
+      internalID: 1174784134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DashAttack_8
+      rect:
+        serializedVersion: 2
+        x: 1495
+        y: 609
+        width: 371
+        height: 188
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37a1dc824d50bc8e2a313c1f9c98e032
+      internalID: -135818104
       vertices: []
       indices: 
       edges: []
@@ -372,18 +624,30 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Chie15_0: -1977105356
-      Chie15_1: 704617187
-      Chie15_10: 202956006
-      Chie15_11: -1695812967
-      Chie15_2: 803911816
-      Chie15_3: -500529132
-      Chie15_4: -1033542512
-      Chie15_5: -1390329097
-      Chie15_6: 1849063700
-      Chie15_7: 1466436127
-      Chie15_8: -1690421545
-      Chie15_9: 1963463478
+      DashAttack_0: 238193881
+      DashAttack_1: -1385631246
+      DashAttack_10: 1127373327
+      DashAttack_11: 138313788
+      DashAttack_2: 1152730016
+      DashAttack_3: -2001299178
+      DashAttack_4: -1677081526
+      DashAttack_5: 987426576
+      DashAttack_6: -1881681940
+      DashAttack_7: -1469506940
+      DashAttack_8: -135818104
+      DashAttack_9: 1174784134
+      Kick5_0: -1635668618
+      Kick5_1: -1345903973
+      Kick5_10: -1515625750
+      Kick5_11: 70022782
+      Kick5_2: 2116496907
+      Kick5_3: 432847938
+      Kick5_4: -888523443
+      Kick5_5: -541892400
+      Kick5_6: 1818414955
+      Kick5_7: 1802008130
+      Kick5_8: -1775561277
+      Kick5_9: 1987275350
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
