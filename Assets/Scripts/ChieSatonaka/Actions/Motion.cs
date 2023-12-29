@@ -24,7 +24,7 @@ public class Motion : MonoBehaviour
         {
             if (direction != 0)
             {
-                if (!components.msng.IsKicking && !components.msng.IsCrouching)
+                if (!components.msng.IsAttacking && !components.msng.IsCrouching)
                 {
                     components.msng.IsWalking = !components.msng.IsRunning;
                     maxSpeed = components.msng.IsRunning ? 7 : 5;
@@ -36,15 +36,11 @@ public class Motion : MonoBehaviour
                     }
                     else components.phys.velocity = new Vector2(maxSpeed * direction, components.phys.velocity.y);
                 }
-                else
-                {
-                    components.msng.IsWalking = false;
-                }
             }
             else
             {
                 components.msng.IsWalking = false;
-                if (!components.msng.IsKicking) // Esto hay que repensarlo
+                if (!components.msng.IsAttacking) // Esto hay que repensarlo
                     components.phys.velocity = new Vector2(0, components.phys.velocity.y);
             }
         }
@@ -54,7 +50,7 @@ public class Motion : MonoBehaviour
     #region Run
     public void Run()
     {
-        if (!components.msng.IsKicking && !components.msng.IsCrouching && components.msng.IsOnGround)
+        if (!components.msng.IsAttacking && !components.msng.IsCrouching && components.msng.IsOnGround)
         {
             if (components.msng.IsWalking) components.msng.IsWalking = false;
             components.msng.IsRunning = true;
@@ -68,7 +64,7 @@ public class Motion : MonoBehaviour
     private readonly float waitingBetweenJumps = 0.5f;
     public void Jump()
     {
-        bool canJump = components.msng.IsOnGround && Time.time - lastJump >= waitingBetweenJumps && !components.msng.IsKicking && !components.msng.IsCrouching;
+        bool canJump = components.msng.IsOnGround && Time.time - lastJump >= waitingBetweenJumps && !components.msng.IsAttacking && !components.msng.IsCrouching;
 
         if (canJump)
         {
@@ -83,7 +79,7 @@ public class Motion : MonoBehaviour
     #region Crouch
     public void Crouch()
     {
-        if (components.msng.IsOnGround && !components.msng.IsKicking)
+        if (components.msng.IsOnGround && !components.msng.IsAttacking)
         {
             Hitboxes(false, true);
             components.msng.IsCrouching = true;
@@ -109,7 +105,7 @@ public class Motion : MonoBehaviour
     public void Dash(bool negativeForce)
     {
         bool canDash = components.msng.IsOnGround && !components.msng.IsCrouching &&
-                        !components.msng.IsKicking && !components.msng.IsRunning &&
+                        !components.msng.IsAttacking && !components.msng.IsRunning &&
                         !components.msng.IsDashing && !components.msng.IsDashingBack;
 
         if (!components.msng.dashTimer && canDash)

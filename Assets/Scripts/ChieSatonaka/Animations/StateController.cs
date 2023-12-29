@@ -108,7 +108,7 @@ public class StateController : MonoBehaviour
     }
     private int KeepLooking()
     {
-        if (!components.msng.IsKicking)
+        if (!components.msng.IsAttacking)
         {
             if (transform.position.x - Reference.transform.position.x <= 0 && transform.localScale.x < 0)
                 return 1;
@@ -209,6 +209,7 @@ public class StateController : MonoBehaviour
     {
 
     }
+    // Esto fue lo que no eh terminado de implementar por querer implementar primero la programación de lógica y fisicas
     private void Dash()
     {
         StartCoroutine(components.motion.NO_DASHING());

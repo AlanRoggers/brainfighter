@@ -1,11 +1,7 @@
-using System;
-using System.Collections;
 using UnityEngine;
 
 public class UserInput : MonoBehaviour
 {
-    [SerializeField]
-    private Coroutine dash_chance;
     private Components components;
     void Awake()
     {
@@ -22,11 +18,7 @@ public class UserInput : MonoBehaviour
         DashBackInput();
     }
 
-    private void AttackTest()
-    {
-        if (Input.GetKeyDown(KeyCode.F))
-            components.attacks.LowPunch();
-    }
+    #region MotionInputs
     private void CrouchInput()
     {
         if (Input.GetKey(KeyCode.S))
@@ -84,4 +76,13 @@ public class UserInput : MonoBehaviour
                 components.motion.Dash(true);
         }
     }
+    #endregion
+
+    #region DamageInputs
+    private void AttackTest()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+            components.attacks.LowPunch();
+    }
+    #endregion
 }
