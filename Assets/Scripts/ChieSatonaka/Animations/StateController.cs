@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class StateController : MonoBehaviour
 {
@@ -66,12 +65,16 @@ public class StateController : MonoBehaviour
             case AnimationStates.DashBack:
                 break;
             case AnimationStates.LowPunch:
+                LowPunch();
                 break;
             case AnimationStates.MiddlePunch:
+                MiddlePunch();
                 break;
             case AnimationStates.HardPunch:
+                HardPunch();
                 break;
             case AnimationStates.SpecialPunch:
+                SpecialPunch();
                 break;
             case AnimationStates.LowKick:
                 break;
@@ -134,12 +137,12 @@ public class StateController : MonoBehaviour
 
         bool goingBack = components.msng.IsWalking && !walk;
 
-        if (components.msng.IsCrouching) ChangeAnimation(AnimationStates.StartCrouching);
+        if (components.msng.PunchChain[0]) ChangeAnimation(AnimationStates.LowPunch);
+        else if (components.msng.PunchChain[1]) ChangeAnimation(AnimationStates.MiddlePunch);
+        else if (components.msng.PunchChain[2]) ChangeAnimation(AnimationStates.HardPunch);
+        else if (components.msng.IsCrouching) ChangeAnimation(AnimationStates.StartCrouching);
         else if (components.msng.IsJumping) ChangeAnimation(AnimationStates.StartJumping);
-        else if (TurnHandler)
-        {
-            ChangeAnimation(AnimationStates.Turn);
-        }
+        else if (TurnHandler) ChangeAnimation(AnimationStates.Turn);
         else if (walk) ChangeAnimation(AnimationStates.StartWalking);
         else if (goingBack) ChangeAnimation(AnimationStates.StartGoingBackwards);
     }
@@ -214,5 +217,53 @@ public class StateController : MonoBehaviour
     {
         StartCoroutine(components.motion.NO_DASHING());
     }
+
+    #region Punches
+    private void LowPunch()
+    {
+        PunchAnimationHandler(0, AnimationStates.MiddlePunch);
+    }
+    private void MiddlePunch()
+    {
+        PunchAnimationHandler(1, AnimationStates.HardPunch);
+    }
+    private void HardPunch()
+    {
+        PunchAnimationHandler(2, AnimationStates.SpecialPunch);
+    }
+    private void SpecialPunch()
+    {
+        PunchAnimationHandler(3, AnimationStates.Iddle);
+    }
+    private void PunchAnimationHandler(int attack, AnimationStates nextAttack)
+    {
+        bool endAttack = components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f;
+
+        if (endAttack)
+        {
+            if (components.msng.PunchChain.Length - 1 >= attack + 1)
+            {
+                if (components.msng.PunchChain[attack + 1])
+                {
+                    components.attacks.AnyAttackAnimationHandler(true, chainedAttack: true);
+                    ChangeAnimation(nextAttack);
+                }
+                else
+                {
+                    components.attacks.AnyAttackAnimationHandler(true);
+                    ChangeAnimation(AnimationStates.Iddle);
+                }
+            }
+            else
+            {
+                components.attacks.AnyAttackAnimationHandler(true);
+                ChangeAnimation(AnimationStates.Iddle);
+            }
+        }
+        else if (components.msng.clear_attack == null)
+            components.attacks.AnyAttackAnimationHandler(false, attack: attack);
+    }
+    #endregion
+
     #endregion
 }

@@ -1,11 +1,8 @@
 using System.Collections;
-using Unity.Collections;
 using UnityEngine;
 
 public class Attacks : MonoBehaviour
 {
-    [SerializeField]
-    private float coolDown;
     private Components components;
     void Awake()
     {
@@ -13,8 +10,10 @@ public class Attacks : MonoBehaviour
     }
     private void AnyAttackLogic(int attack)
     {
+        if (attack == 0)
+            components.msng.startedWithFirst = true;
+
         components.msng.PunchChain[attack] = true;
-        StartCoroutine(Clear_Attack(attack)); // Esto puede ser que no vaya aquí
         components.msng.IsAttacking = true;
         components.phys.velocity = new Vector2(0, 0);
         components.msng.IsWalking = false;
@@ -28,27 +27,34 @@ public class Attacks : MonoBehaviour
         else
             components.msng.PunchChain[attack] = false;
     }
-    public IEnumerator COOLDOWN_TIMER()
+    private IEnumerator CHAIN_OPORTUNITY()
     {
-        yield return new WaitForSeconds(coolDown);
-        components.msng.AttackRestricted = false;
-    }
-    public IEnumerator CHAIN_OPORTUNITY()
-    {
-        yield return new WaitUntil(() => components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.45f);
+        yield return new WaitUntil(() => components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.35f);
+        print("Chain Time" + components.anim.GetCurrentAnimatorStateInfo(0).shortNameHash);
         components.msng.ChainOportunity = true;
-        yield return new WaitWhile(() => components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.1f);
+        yield return new WaitWhile(() => components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.9f);
+        print("No Chain Time" + components.anim.GetCurrentAnimatorStateInfo(0).shortNameHash);
         components.msng.ChainOportunity = false;
     }
-    private bool Attacking()
+    public void AnyAttackAnimationHandler(bool endAttack, bool chainedAttack = false, int attack = -1)
     {
-        foreach (bool attackSpace in components.msng.PunchChain)
+        if (endAttack)
         {
-            if (attackSpace) return true;
+            components.msng.clear_attack = null;
+            components.msng.chain_oportunity = null;
+            if (!chainedAttack)
+            {
+                components.msng.IsAttacking = false;
+                components.msng.startedWithFirst = false;
+                components.msng.cooldown_timmer = StartCoroutine(components.msng.COOLDOWN_TIMER());
+            }
         }
-        return false;
+        else
+        {
+            components.msng.clear_attack = StartCoroutine(Clear_Attack(attack));
+            components.msng.chain_oportunity = StartCoroutine(CHAIN_OPORTUNITY());
+        }
     }
-
     #region Punchs
     public void LowPunch()
     {
@@ -60,6 +66,7 @@ public class Attacks : MonoBehaviour
         {
             AnyAttackLogic(0);
             // Fisicas del primer golpe
+            // Daño y contacto del primer golpe
         }
     }
     public void MiddlePunch()
@@ -74,6 +81,7 @@ public class Attacks : MonoBehaviour
         {
             AnyAttackLogic(1);
             // Fisicas del segundo golpe
+            // Daño y contacto del primer golpe
         }
     }
     public void HardPunch()
@@ -83,8 +91,25 @@ public class Attacks : MonoBehaviour
                             !components.msng.AttackRestricted && !components.msng.IsAttacking;
 
         bool chainOportunity = components.msng.PunchChain[1] && components.msng.ChainOportunity;
-        AnyAttackLogic(2);
-        // Fisicas del tercer golpe
+
+        if (canAttack || chainOportunity)
+        {
+            AnyAttackLogic(2);
+            // Fisicas del tercer golpe
+            // Daño y contacto del primer golpe
+        }
+    }
+    public void SpecialPunch()
+    {
+        bool canSpecial = components.msng.startedWithFirst && components.msng.PunchChain[2] &&
+                            components.msng.ChainOportunity;
+
+        if (canSpecial)
+        {
+            AnyAttackLogic(3);
+            // Fisicas del golpe especial
+            // Daño y contacto del primer golpe
+        }
     }
     #endregion
 }

@@ -196,7 +196,7 @@ Para lograr los especiales va ser necesario que se ejecuten la secuencia de tres
 - [x] DashBack: Movimiento que permite desplazarse rapidamente hacia atrás. Se puede hacer cuando Chie esta en el suelo en estado Iddle o Caminando (hacia atrás). Ninguna acción puede interrumpir esta
 
 **Damage**
-- [ ] Golpes bajos medios y fuertes: Se pueden realizar cuando Chie esta en estado Iddle, caminando o corriendo. Cada golpe aporta un punto a la secuencia de golpes. Al final de cada golpe hay un tiempo de recuperación que no permite hacer ninguna acción Damage. A mitad de animación de cada golpe es posible realizar el ataque que sigue en la secuencia: Low -> Middle -> Hard, si esa secuencia no se respeta, los golpes terminarán y se aplicara el tiempo de recuperación. Ninguna acción puede interrumpir a esta.
+- [x] Golpes bajos medios y fuertes: Se pueden realizar cuando Chie esta en estado Iddle, caminando o corriendo. Cada golpe aporta un punto a la secuencia de golpes. Al final de cada golpe hay un tiempo de recuperación que no permite hacer ninguna acción Damage. A mitad de animación de cada golpe es posible realizar el ataque que sigue en la secuencia: Low -> Middle -> Hard, si esa secuencia no se respeta, los golpes terminarán y se aplicara el tiempo de recuperación. Ninguna acción puede interrumpir a esta.
 
 - [ ] Golpe especial: Se puede realizar cuando Chie haya completado la secuencia de tres golpes de manera correcta. Ninguna acción puede interrumpir a esta
 
@@ -209,5 +209,8 @@ Para lograr los especiales va ser necesario que se ejecuten la secuencia de tres
 - [ ] Patada en el aire: Esta patada se puede hacer cuando Chie no esta en el suelo. Ninguna acción puede interrumpir a esta.
 
 - [ ] Patada agachado: Esta patada se puede hacer cuando Chie esta agachada. Ninguna acción puede interrumpir a esta.
+
+
+- [ ] Revisar que todas las corrutinas que se ejecutan solo se ejecuten una sola vez, esto causa demasiados bugs si no se cuida
 
 __Nota: Tomar en cuenta que todo lo que no especifique que no puede tomar daño o que es invulnerable es considerado como que si se le puede hacer daño__
