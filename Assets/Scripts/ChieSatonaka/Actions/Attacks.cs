@@ -66,6 +66,7 @@ public class Attacks : MonoBehaviour
         {
             AnyAttackLogic(0);
             // Fisicas del primer golpe
+            // Daño y contacto del primer golpe
         }
     }
     public void MiddlePunch()
@@ -80,6 +81,7 @@ public class Attacks : MonoBehaviour
         {
             AnyAttackLogic(1);
             // Fisicas del segundo golpe
+            // Daño y contacto del primer golpe
         }
     }
     public void HardPunch()
@@ -89,8 +91,25 @@ public class Attacks : MonoBehaviour
                             !components.msng.AttackRestricted && !components.msng.IsAttacking;
 
         bool chainOportunity = components.msng.PunchChain[1] && components.msng.ChainOportunity;
-        AnyAttackLogic(2);
-        // Fisicas del tercer golpe
+
+        if (canAttack || chainOportunity)
+        {
+            AnyAttackLogic(2);
+            // Fisicas del tercer golpe
+            // Daño y contacto del primer golpe
+        }
+    }
+    public void SpecialPunch()
+    {
+        bool canSpecial = components.msng.startedWithFirst && components.msng.PunchChain[2] &&
+                            components.msng.ChainOportunity;
+
+        if (canSpecial)
+        {
+            AnyAttackLogic(3);
+            // Fisicas del golpe especial
+            // Daño y contacto del primer golpe
+        }
     }
     #endregion
 }

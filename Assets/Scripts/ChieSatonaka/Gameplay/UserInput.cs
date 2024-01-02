@@ -11,7 +11,7 @@ public class UserInput : MonoBehaviour
     {
         WalkInput();
         JumpInput();
-        // AttackTest();
+        AttackTest();
         CrouchInput();
         RunInput();
         DashInput();
@@ -85,7 +85,7 @@ public class UserInput : MonoBehaviour
     private void AttackTest()
     {
         if (Input.GetKeyDown(KeyCode.O))
-            components.attacks.HardPunch();
+            components.attacks.SpecialPunch();
     }
 
     private void LowPunchInput()

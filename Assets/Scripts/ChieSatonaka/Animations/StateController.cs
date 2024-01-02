@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class StateController : MonoBehaviour
 {
@@ -75,6 +74,7 @@ public class StateController : MonoBehaviour
                 HardPunch();
                 break;
             case AnimationStates.SpecialPunch:
+                SpecialPunch();
                 break;
             case AnimationStates.LowKick:
                 break;
@@ -233,7 +233,7 @@ public class StateController : MonoBehaviour
     }
     private void SpecialPunch()
     {
-
+        PunchAnimationHandler(3, AnimationStates.Iddle);
     }
     private void PunchAnimationHandler(int attack, AnimationStates nextAttack)
     {
