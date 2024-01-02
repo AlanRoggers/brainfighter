@@ -5,6 +5,7 @@ public class ClassMessenger : MonoBehaviour
 {
     [SerializeField]
     private float coolDown;
+    public bool startedWithFirst;
     public bool[] PunchChain = new bool[4]; //Orden de los golpes
     public bool[] KickChain = new bool[4];
     public bool AttackRestricted; //Restriccion de ataque por tiempo de recuperación

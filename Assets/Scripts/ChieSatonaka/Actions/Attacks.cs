@@ -10,6 +10,9 @@ public class Attacks : MonoBehaviour
     }
     private void AnyAttackLogic(int attack)
     {
+        if (attack == 0)
+            components.msng.startedWithFirst = true;
+
         components.msng.PunchChain[attack] = true;
         components.msng.IsAttacking = true;
         components.phys.velocity = new Vector2(0, 0);
@@ -42,6 +45,7 @@ public class Attacks : MonoBehaviour
             if (!chainedAttack)
             {
                 components.msng.IsAttacking = false;
+                components.msng.startedWithFirst = false;
                 components.msng.cooldown_timmer = StartCoroutine(components.msng.COOLDOWN_TIMER());
             }
         }
