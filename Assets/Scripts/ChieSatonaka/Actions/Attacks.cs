@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class Attacks : MonoBehaviour
 {
-    [SerializeField]
-    private float coolDown;
     private Components components;
     void Awake()
     {
@@ -18,7 +16,7 @@ public class Attacks : MonoBehaviour
         components.msng.IsWalking = false;
         components.msng.IsRunning = false;
     }
-    public IEnumerator Clear_Attack(int attack, bool isKick = false)
+    private IEnumerator Clear_Attack(int attack, bool isKick = false)
     {
         yield return new WaitWhile(() => components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
         if (isKick)
@@ -26,13 +24,7 @@ public class Attacks : MonoBehaviour
         else
             components.msng.PunchChain[attack] = false;
     }
-    public IEnumerator COOLDOWN_TIMER()
-    {
-        components.msng.AttackRestricted = true;
-        yield return new WaitForSeconds(coolDown);
-        components.msng.AttackRestricted = false;
-    }
-    public IEnumerator CHAIN_OPORTUNITY()
+    private IEnumerator CHAIN_OPORTUNITY()
     {
         yield return new WaitUntil(() => components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.35f);
         print("Chain Time" + components.anim.GetCurrentAnimatorStateInfo(0).shortNameHash);
@@ -41,7 +33,24 @@ public class Attacks : MonoBehaviour
         print("No Chain Time" + components.anim.GetCurrentAnimatorStateInfo(0).shortNameHash);
         components.msng.ChainOportunity = false;
     }
-
+    public void AnyAttackAnimationHandler(bool endAttack, bool chainedAttack = false, int attack = -1)
+    {
+        if (endAttack)
+        {
+            components.msng.clear_attack = null;
+            components.msng.chain_oportunity = null;
+            if (!chainedAttack)
+            {
+                components.msng.IsAttacking = false;
+                components.msng.cooldown_timmer = StartCoroutine(components.msng.COOLDOWN_TIMER());
+            }
+        }
+        else
+        {
+            components.msng.clear_attack = StartCoroutine(Clear_Attack(attack));
+            components.msng.chain_oportunity = StartCoroutine(CHAIN_OPORTUNITY());
+        }
+    }
     #region Punchs
     public void LowPunch()
     {

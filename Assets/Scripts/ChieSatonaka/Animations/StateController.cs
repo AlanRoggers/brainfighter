@@ -4,9 +4,6 @@ using UnityEngine.UIElements;
 
 public class StateController : MonoBehaviour
 {
-    private Coroutine clear_attack = null;
-    private Coroutine cooldown_timmer = null;
-    private Coroutine chain_oportunity = null;
     public bool TurnHandler;
     public GameObject Reference;
     [SerializeField]
@@ -221,39 +218,52 @@ public class StateController : MonoBehaviour
         StartCoroutine(components.motion.NO_DASHING());
     }
 
+    #region Punches
     private void LowPunch()
+    {
+        PunchAnimationHandler(0, AnimationStates.MiddlePunch);
+    }
+    private void MiddlePunch()
+    {
+        PunchAnimationHandler(1, AnimationStates.HardPunch);
+    }
+    private void HardPunch()
+    {
+        PunchAnimationHandler(2, AnimationStates.SpecialPunch);
+    }
+    private void SpecialPunch()
+    {
+
+    }
+    private void PunchAnimationHandler(int attack, AnimationStates nextAttack)
     {
         bool endAttack = components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f;
 
         if (endAttack)
         {
-            clear_attack = null;
-            chain_oportunity = null;
-            if (components.msng.PunchChain[1]) ChangeAnimation(AnimationStates.MiddlePunch);
+            if (components.msng.PunchChain.Length - 1 >= attack + 1)
+            {
+                if (components.msng.PunchChain[attack + 1])
+                {
+                    components.attacks.AnyAttackAnimationHandler(true, chainedAttack: true);
+                    ChangeAnimation(nextAttack);
+                }
+                else
+                {
+                    components.attacks.AnyAttackAnimationHandler(true);
+                    ChangeAnimation(AnimationStates.Iddle);
+                }
+            }
             else
             {
+                components.attacks.AnyAttackAnimationHandler(true);
                 ChangeAnimation(AnimationStates.Iddle);
-                components.msng.IsAttacking = false;
-                cooldown_timmer = StartCoroutine(components.attacks.COOLDOWN_TIMER());
             }
         }
-        else if (clear_attack == null)
-        {
-            clear_attack = StartCoroutine(components.attacks.Clear_Attack(0));
-            chain_oportunity = StartCoroutine(components.attacks.CHAIN_OPORTUNITY());
-        }
+        else if (components.msng.clear_attack == null)
+            components.attacks.AnyAttackAnimationHandler(false, attack: attack);
     }
-    private void MiddlePunch()
-    {
-        bool iddle = components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f;
+    #endregion
 
-        if (iddle) ChangeAnimation(AnimationStates.Iddle);
-    }
-    private void HardPunch()
-    {
-        bool iddle = components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f;
-
-        if (iddle) ChangeAnimation(AnimationStates.Iddle);
-    }
     #endregion
 }

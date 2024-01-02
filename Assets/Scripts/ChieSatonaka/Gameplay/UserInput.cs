@@ -11,11 +11,14 @@ public class UserInput : MonoBehaviour
     {
         WalkInput();
         JumpInput();
-        AttackTest();
+        // AttackTest();
         CrouchInput();
         RunInput();
         DashInput();
         DashBackInput();
+        LowPunchInput();
+        MiddlePunchInput();
+        HardPunchInput();
     }
 
     #region MotionInputs
@@ -81,8 +84,28 @@ public class UserInput : MonoBehaviour
     #region DamageInputs
     private void AttackTest()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.O))
+            components.attacks.HardPunch();
+    }
+
+    private void LowPunchInput()
+    {
+        if (Input.GetKeyDown(KeyCode.J))
             components.attacks.LowPunch();
+    }
+
+    private void MiddlePunchInput()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+            components.attacks.MiddlePunch();
+    }
+
+    private void HardPunchInput()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            components.attacks.HardPunch();
+        }
     }
     #endregion
 }
