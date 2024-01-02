@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.Collections;
 using UnityEngine;
 
 public class Attacks : MonoBehaviour
@@ -15,7 +16,7 @@ public class Attacks : MonoBehaviour
         components.msng.PunchChain[attack] = true;
         StartCoroutine(Clear_Attack(attack)); // Esto puede ser que no vaya aquí
         components.msng.IsAttacking = true;
-        components.phys.velocity = new Vector2(0, components.phys.velocity.y);
+        components.phys.velocity = new Vector2(0, 0);
         components.msng.IsWalking = false;
         components.msng.IsRunning = false;
     }
@@ -38,6 +39,14 @@ public class Attacks : MonoBehaviour
         components.msng.ChainOportunity = true;
         yield return new WaitWhile(() => components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.1f);
         components.msng.ChainOportunity = false;
+    }
+    private bool Attacking()
+    {
+        foreach (bool attackSpace in components.msng.PunchChain)
+        {
+            if (attackSpace) return true;
+        }
+        return false;
     }
 
     #region Punchs

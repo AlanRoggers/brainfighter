@@ -189,6 +189,7 @@ Para lograr los especiales va ser necesario que se ejecuten la secuencia de tres
 - Saltar (Solo animación)
 - Agacharse
 - Dash
+- Damage
 
 - [x] Dash: Movimiento que permite desplazarse rapidamente y ser invulnerable por cierto periodo de tiempo. Se puede hacer cuando Chie esta en el suelo en estado Iddle, Caminando y Corriendo. Ninguna acción puede interrumpir a esta.
 
