@@ -4,6 +4,9 @@ using UnityEngine.UIElements;
 
 public class StateController : MonoBehaviour
 {
+    private Coroutine clear_attack = null;
+    private Coroutine cooldown_timmer = null;
+    private Coroutine chain_oportunity = null;
     public bool TurnHandler;
     public GameObject Reference;
     [SerializeField]
@@ -66,10 +69,13 @@ public class StateController : MonoBehaviour
             case AnimationStates.DashBack:
                 break;
             case AnimationStates.LowPunch:
+                LowPunch();
                 break;
             case AnimationStates.MiddlePunch:
+                MiddlePunch();
                 break;
             case AnimationStates.HardPunch:
+                HardPunch();
                 break;
             case AnimationStates.SpecialPunch:
                 break;
@@ -134,12 +140,12 @@ public class StateController : MonoBehaviour
 
         bool goingBack = components.msng.IsWalking && !walk;
 
-        if (components.msng.IsCrouching) ChangeAnimation(AnimationStates.StartCrouching);
+        if (components.msng.PunchChain[0]) ChangeAnimation(AnimationStates.LowPunch);
+        else if (components.msng.PunchChain[1]) ChangeAnimation(AnimationStates.MiddlePunch);
+        else if (components.msng.PunchChain[2]) ChangeAnimation(AnimationStates.HardPunch);
+        else if (components.msng.IsCrouching) ChangeAnimation(AnimationStates.StartCrouching);
         else if (components.msng.IsJumping) ChangeAnimation(AnimationStates.StartJumping);
-        else if (TurnHandler)
-        {
-            ChangeAnimation(AnimationStates.Turn);
-        }
+        else if (TurnHandler) ChangeAnimation(AnimationStates.Turn);
         else if (walk) ChangeAnimation(AnimationStates.StartWalking);
         else if (goingBack) ChangeAnimation(AnimationStates.StartGoingBackwards);
     }
@@ -213,6 +219,41 @@ public class StateController : MonoBehaviour
     private void Dash()
     {
         StartCoroutine(components.motion.NO_DASHING());
+    }
+
+    private void LowPunch()
+    {
+        bool endAttack = components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f;
+
+        if (endAttack)
+        {
+            clear_attack = null;
+            chain_oportunity = null;
+            if (components.msng.PunchChain[1]) ChangeAnimation(AnimationStates.MiddlePunch);
+            else
+            {
+                ChangeAnimation(AnimationStates.Iddle);
+                components.msng.IsAttacking = false;
+                cooldown_timmer = StartCoroutine(components.attacks.COOLDOWN_TIMER());
+            }
+        }
+        else if (clear_attack == null)
+        {
+            clear_attack = StartCoroutine(components.attacks.Clear_Attack(0));
+            chain_oportunity = StartCoroutine(components.attacks.CHAIN_OPORTUNITY());
+        }
+    }
+    private void MiddlePunch()
+    {
+        bool iddle = components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f;
+
+        if (iddle) ChangeAnimation(AnimationStates.Iddle);
+    }
+    private void HardPunch()
+    {
+        bool iddle = components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f;
+
+        if (iddle) ChangeAnimation(AnimationStates.Iddle);
     }
     #endregion
 }

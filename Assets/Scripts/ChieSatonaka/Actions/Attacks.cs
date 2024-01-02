@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.Collections;
 using UnityEngine;
 
 public class Attacks : MonoBehaviour
@@ -14,13 +13,12 @@ public class Attacks : MonoBehaviour
     private void AnyAttackLogic(int attack)
     {
         components.msng.PunchChain[attack] = true;
-        StartCoroutine(Clear_Attack(attack)); // Esto puede ser que no vaya aquí
         components.msng.IsAttacking = true;
         components.phys.velocity = new Vector2(0, 0);
         components.msng.IsWalking = false;
         components.msng.IsRunning = false;
     }
-    private IEnumerator Clear_Attack(int attack, bool isKick = false)
+    public IEnumerator Clear_Attack(int attack, bool isKick = false)
     {
         yield return new WaitWhile(() => components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
         if (isKick)
@@ -30,23 +28,18 @@ public class Attacks : MonoBehaviour
     }
     public IEnumerator COOLDOWN_TIMER()
     {
+        components.msng.AttackRestricted = true;
         yield return new WaitForSeconds(coolDown);
         components.msng.AttackRestricted = false;
     }
     public IEnumerator CHAIN_OPORTUNITY()
     {
-        yield return new WaitUntil(() => components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.45f);
+        yield return new WaitUntil(() => components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.35f);
+        print("Chain Time" + components.anim.GetCurrentAnimatorStateInfo(0).shortNameHash);
         components.msng.ChainOportunity = true;
-        yield return new WaitWhile(() => components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.1f);
+        yield return new WaitWhile(() => components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.9f);
+        print("No Chain Time" + components.anim.GetCurrentAnimatorStateInfo(0).shortNameHash);
         components.msng.ChainOportunity = false;
-    }
-    private bool Attacking()
-    {
-        foreach (bool attackSpace in components.msng.PunchChain)
-        {
-            if (attackSpace) return true;
-        }
-        return false;
     }
 
     #region Punchs

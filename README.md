@@ -210,4 +210,7 @@ Para lograr los especiales va ser necesario que se ejecuten la secuencia de tres
 
 - [ ] Patada agachado: Esta patada se puede hacer cuando Chie esta agachada. Ninguna acción puede interrumpir a esta.
 
+
+- [ ] Revisar que todas las corrutinas que se ejecutan solo se ejecuten una sola vez, esto causa demasiados bugs si no se cuida
+
 __Nota: Tomar en cuenta que todo lo que no especifique que no puede tomar daño o que es invulnerable es considerado como que si se le puede hacer daño__

@@ -1912,6 +1912,10 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 0.17632537
       objectReference: {fileID: 0}
+    - target: {fileID: 6334760534969465336, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
+      propertyPath: coolDown
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8116149525101368235, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
       propertyPath: m_Size.x
       value: 0.8037456
