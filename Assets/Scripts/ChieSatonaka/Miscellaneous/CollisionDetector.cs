@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class CollisionDetector : MonoBehaviour
 {
-    private bool x;
     public bool CanCheckGround;
     public CircleCollider2D damage;
     private bool gameStarted;
@@ -27,7 +26,7 @@ public class CollisionDetector : MonoBehaviour
     }
     void Update()
     {
-        x = DamageDetection();
+        components.msng.enemy = DamageDetection();
     }
     void FixedUpdate()
     {
@@ -49,7 +48,7 @@ public class CollisionDetector : MonoBehaviour
             //     Gizmos.color = Color.red;
 
             // Gizmos.DrawWireCube((Vector2)transform.localPosition + feetsPosition, feetsSize);
-            if (x)
+            if (components.msng.enemy != null)
                 Gizmos.color = Color.green;
             else
                 Gizmos.color = Color.red;
@@ -61,9 +60,9 @@ public class CollisionDetector : MonoBehaviour
     {
         return Physics2D.OverlapBox((Vector2)transform.localPosition + feetsPosition, feetsSize, 0f, groundLayer) != null;
     }
-    private bool DamageDetection()
+    private Collider2D DamageDetection()
     {
-        return Physics2D.OverlapCircle(damage.bounds.center, damage.radius, enemyLayer) != null;
+        return Physics2D.OverlapCircle(damage.bounds.center, damage.radius, enemyLayer);
     }
     private IEnumerator IGNORE_GROUND()
     {

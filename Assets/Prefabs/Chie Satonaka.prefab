@@ -244,6 +244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TurnHandler: 0
+  Timer: 0
   Reference: {fileID: 0}
   currentState: 0
 --- !u!114 &5822056414935985545
@@ -285,6 +286,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65e834e6cd2ee3339a08d6a22ebba3b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HardPunchClip: {fileID: 7400000, guid: 8e6938b40fede8ae190981a46b958feb, type: 2}
+  LowPunchClip: {fileID: 7400000, guid: b8e020cf44a434d528714175dfb2236b, type: 2}
+  MiddlePunchClip: {fileID: 7400000, guid: a2dd87cdb48649d27bb762a371f517a8, type: 2}
+  SpecialPunchClip: {fileID: 7400000, guid: 73c3ffa0ed985bef4add36dd99927063, type: 2}
+  HardKickClip: {fileID: 7400000, guid: 4eb52be8bbb2493fb86e8a6e1c217a5c, type: 2}
+  LowKickClip: {fileID: 7400000, guid: 4b6a5dd8b469d10a09f2f02e1eea54ba, type: 2}
+  MiddleKickClip: {fileID: 7400000, guid: 6610cf10dbcabaa2d9eee0da45c3ab30, type: 2}
+  SpecialKickClip: {fileID: 7400000, guid: a4cd69c673c09b75f8a9e23148a11ab2, type: 2}
+  SpecialPunchForce: {x: 0, y: 0}
+  HardPunchForce: {x: 0, y: 0}
+  MiddlePunchForce: {x: 0, y: 0}
+  LowPunchForce: {x: 0, y: 0}
+  SpecialKickForce: {x: 0, y: 0}
+  HardKickForce: {x: 0, y: 0}
+  MiddleKickForce: {x: 0, y: 0}
+  LowKickForce: {x: 0, y: 0}
 --- !u!114 &4322640517048138981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,6 +314,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78593e65c6b1068c4b4f26c6c3640427, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HitStunCausant: 
+  HitStunTimer: 0
   PunchChain: 00000000
   KickChain: 00000000
   AttackRestricted: 0
@@ -310,8 +329,10 @@ MonoBehaviour:
   IsJumping: 0
   IsOnGround: 0
   IsRunning: 0
+  IsTakingDamage: 0
   IsWalking: 0
   StartedWithFirst: 0
+  enemy: {fileID: 0}
   coolDown: 1
 --- !u!114 &7854134084774301650
 MonoBehaviour:
@@ -326,8 +347,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CanCheckGround: 0
-  hitboxPosition: {x: 0, y: 0}
-  hitboxSize: {x: 0, y: 0}
+  damage: {fileID: 0}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &2931522487674685199
 GameObject:
   m_ObjectHideFlags: 0

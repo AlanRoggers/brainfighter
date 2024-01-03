@@ -20,7 +20,7 @@ public class Motion : MonoBehaviour
     private float walkForce = 100;
     public void Walk(int direction)
     {
-        if (!components.msng.IsDashing && !components.msng.IsDashingBack)
+        if (!components.msng.IsDashing && !components.msng.IsDashingBack && !components.msng.IsTakingDamage)
         {
             if (direction != 0)
             {
@@ -50,7 +50,7 @@ public class Motion : MonoBehaviour
     #region Run
     public void Run()
     {
-        if (!components.msng.IsAttacking && !components.msng.IsCrouching && components.msng.IsOnGround)
+        if (!components.msng.IsAttacking && !components.msng.IsCrouching && components.msng.IsOnGround && !components.msng.IsTakingDamage)
         {
             if (components.msng.IsWalking) components.msng.IsWalking = false;
             components.msng.IsRunning = true;
@@ -64,7 +64,9 @@ public class Motion : MonoBehaviour
     private readonly float waitingBetweenJumps = 0.5f;
     public void Jump()
     {
-        bool canJump = components.msng.IsOnGround && Time.time - lastJump >= waitingBetweenJumps && !components.msng.IsAttacking && !components.msng.IsCrouching;
+        bool canJump = components.msng.IsOnGround && Time.time - lastJump >= waitingBetweenJumps &&
+                        !components.msng.IsAttacking && !components.msng.IsCrouching &&
+                        !components.msng.IsTakingDamage;
 
         if (canJump)
         {
@@ -79,7 +81,7 @@ public class Motion : MonoBehaviour
     #region Crouch
     public void Crouch()
     {
-        if (components.msng.IsOnGround && !components.msng.IsAttacking)
+        if (components.msng.IsOnGround && !components.msng.IsAttacking && !components.msng.IsTakingDamage)
         {
             Hitboxes(false, true);
             components.msng.IsCrouching = true;
@@ -106,7 +108,8 @@ public class Motion : MonoBehaviour
     {
         bool canDash = components.msng.IsOnGround && !components.msng.IsCrouching &&
                         !components.msng.IsAttacking && !components.msng.IsRunning &&
-                        !components.msng.IsDashing && !components.msng.IsDashingBack;
+                        !components.msng.IsDashing && !components.msng.IsDashingBack &&
+                        !components.msng.IsTakingDamage;
 
         if (!components.msng.DashTimer && canDash)
         {
@@ -139,7 +142,8 @@ public class Motion : MonoBehaviour
     {
         bool canDash = components.msng.IsOnGround && !components.msng.IsCrouching &&
                         !components.msng.IsAttacking && !components.msng.IsRunning &&
-                        !components.msng.IsDashingBack && !components.msng.IsDashing;
+                        !components.msng.IsDashingBack && !components.msng.IsDashing &&
+                        !components.msng.IsTakingDamage;
 
         if (!components.msng.DashBackTimer && canDash)
         {
@@ -165,6 +169,13 @@ public class Motion : MonoBehaviour
     {
         yield return new WaitWhile(() => components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
         components.msng.IsDashingBack = false;
+    }
+    #endregion
+
+    #region Damage
+    public void TakeDamage()
+    {
+        components.msng.IsTakingDamage = true;
     }
     #endregion
 }

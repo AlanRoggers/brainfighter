@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class StateController : MonoBehaviour
 {
+    private Coroutine await_another_damage = null;
     public bool TurnHandler;
+    public float Timer;
     public GameObject Reference;
     [SerializeField]
     private AnimationStates currentState;
@@ -95,6 +97,7 @@ public class StateController : MonoBehaviour
             case AnimationStates.DashAttack:
                 break;
             case AnimationStates.Damage:
+                Damage();
                 break;
             case AnimationStates.DamageWhileCrouch:
                 break;
@@ -141,7 +144,8 @@ public class StateController : MonoBehaviour
 
         bool goingBack = components.msng.IsWalking && !walk;
 
-        if (components.msng.PunchChain[0]) ChangeAnimation(AnimationStates.LowPunch);
+        if (components.msng.IsTakingDamage) ChangeAnimation(AnimationStates.Damage);
+        else if (components.msng.PunchChain[0]) ChangeAnimation(AnimationStates.LowPunch);
         else if (components.msng.PunchChain[1]) ChangeAnimation(AnimationStates.MiddlePunch);
         else if (components.msng.PunchChain[2]) ChangeAnimation(AnimationStates.HardPunch);
         else if (components.msng.KickChain[0]) ChangeAnimation(AnimationStates.LowKick);
@@ -320,6 +324,31 @@ public class StateController : MonoBehaviour
         else if (components.msng.clear_attack == null)
             components.attacks.AnyAttackAnimationHandler(false, attack: attack);
     }
+    #endregion
+
+    #region Emotes
+    private void Damage()
+    {
+        await_another_damage ??= StartCoroutine(AWAIT_ANOTHER_DAMAGE(components.msng.HitStunCausant));
+    }
+    private IEnumerator AWAIT_ANOTHER_DAMAGE(string attackCausant)
+    {
+        print("Corrutina empezada por el ataque: " + attackCausant);
+        yield return new WaitForSeconds(components.msng.HitStunTimer + Timer);
+        if (attackCausant == components.msng.HitStunCausant)
+        {
+            components.msng.HitStunCausant = "";
+            components.msng.IsTakingDamage = false;
+            await_another_damage = null;
+            ChangeAnimation(AnimationStates.Iddle);
+        }
+        else
+        {
+            StopCoroutine(await_another_damage);
+            await_another_damage = StartCoroutine(AWAIT_ANOTHER_DAMAGE(components.msng.HitStunCausant));
+        }
+    }
+
     #endregion
 
     #endregion
