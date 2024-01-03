@@ -200,9 +200,9 @@ Para lograr los especiales va ser necesario que se ejecuten la secuencia de tres
 
 - [x] Golpe especial: Se puede realizar cuando Chie haya completado la secuencia de tres golpes de manera correcta. Ninguna acción puede interrumpir a esta
 
-- [ ] Patadas bajas, medias y fuertes: Se pueden realizar cuando Chie esta en estado Iddle, caminando o corriendo. Cada patada aporta un punto a la secuencia de patadas. Al final de cada patada hay un tiempo de recuperación que no permite hacer ninguna acción Damage. A mitad de animación de cada patada es posible realizar el ataque que sigue en la secuencia: Low -> Middle -> Hard, si esa secuencia no se respeta, las patadas terminarán y se aplicará el tiempo de recuperación. Ninguna acción puede interrumpir a esta. Si puede tomar daño estando en este estado
+- [x] Patadas bajas, medias y fuertes: Se pueden realizar cuando Chie esta en estado Iddle, caminando o corriendo. Cada patada aporta un punto a la secuencia de patadas. Al final de cada patada hay un tiempo de recuperación que no permite hacer ninguna acción Damage. A mitad de animación de cada patada es posible realizar el ataque que sigue en la secuencia: Low -> Middle -> Hard, si esa secuencia no se respeta, las patadas terminarán y se aplicará el tiempo de recuperación. Ninguna acción puede interrumpir a esta. Si puede tomar daño estando en este estado
 
-- [ ] Patada especial: Se puede realizar cuando Chie haya completado la secuencia de tres patadas de manera correcta. Ninguna acción puede interrumpir a esta. No puede tomar daño estando en este estado
+- [x] Patada especial: Se puede realizar cuando Chie haya completado la secuencia de tres patadas de manera correcta. Ninguna acción puede interrumpir a esta. No puede tomar daño estando en este estado
 
 - [ ] SomersaultKick: Es una patada combinada con un Dash hacia atrás. Este ataque se puede hacer cuando Chie esta en estado Iddle o caminando hacía atrás. Ninguna acción puede interrumpir a esta.
 
