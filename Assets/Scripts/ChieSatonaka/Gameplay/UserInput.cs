@@ -19,7 +19,62 @@ public class UserInput : MonoBehaviour
         LowPunchInput();
         MiddlePunchInput();
         HardPunchInput();
+        LowKickInput();
+        MiddleKickInput();
+        HardKickInput();
+        SpecialKickInput();
+        // KeyChecker();
     }
+
+    #region DamageInputs
+    private void AttackTest()
+    {
+        if (Input.GetKeyDown(KeyCode.O) && !Input.GetKey(KeyCode.LeftAlt))
+            components.attacks.SpecialPunch();
+    }
+    private void HardPunchInput()
+    {
+        if (Input.GetKeyDown(KeyCode.L) && !Input.GetKey(KeyCode.LeftAlt))
+        {
+            components.attacks.HardPunch();
+        }
+    }
+    private void LowPunchInput()
+    {
+        if (Input.GetKeyDown(KeyCode.J) && !Input.GetKey(KeyCode.LeftAlt))
+            components.attacks.LowPunch();
+    }
+    private void MiddlePunchInput()
+    {
+        if (Input.GetKeyDown(KeyCode.K) && !Input.GetKey(KeyCode.LeftAlt))
+            components.attacks.MiddlePunch();
+    }
+    private void HardKickInput()
+    {
+        if (Input.GetKeyDown(KeyCode.L) && Input.GetKey(KeyCode.LeftAlt))
+            components.attacks.HardKick();
+    }
+    private void LowKickInput()
+    {
+        if (Input.GetKeyDown(KeyCode.J) && Input.GetKey(KeyCode.LeftAlt))
+            components.attacks.LowKick();
+    }
+    private void MiddleKickInput()
+    {
+        if (Input.GetKeyDown(KeyCode.K) && Input.GetKey(KeyCode.LeftAlt))
+            components.attacks.MiddleKick();
+    }
+    private void SpecialKickInput()
+    {
+        if (Input.GetKeyDown(KeyCode.O) && Input.GetKey(KeyCode.LeftAlt))
+            components.attacks.SpecialKick();
+    }
+    private void KeyChecker()
+    {
+        if (Input.GetKey(KeyCode.LeftAlt))
+            print("Presionada la tecla alt");
+    }
+    #endregion
 
     #region MotionInputs
     private void CrouchInput()
@@ -28,30 +83,6 @@ public class UserInput : MonoBehaviour
             components.motion.Crouch();
         if (Input.GetKeyUp(KeyCode.S))
             components.motion.StandUp();
-    }
-    private void JumpInput()
-    {
-        if (Input.GetKeyDown(KeyCode.W))
-            components.motion.Jump();
-    }
-    private void RunInput()
-    {
-        if (Input.GetKey(KeyCode.LeftControl))
-        {
-            if (Input.GetKey(KeyCode.D) && transform.localScale.x > 0)
-                components.motion.Run();
-            else if (Input.GetKey(KeyCode.A) && transform.localScale.x < 0)
-                components.motion.Run();
-            else components.msng.IsRunning = false;
-        }
-        else components.msng.IsRunning = false;
-    }
-    private void WalkInput()
-    {
-        bool right = Input.GetKey(KeyCode.D);
-        bool left = Input.GetKey(KeyCode.A);
-        int direction = !right && left ? -1 : right && !left ? 1 : 0;
-        components.motion.Walk(direction);
     }
     private void DashInput()
     {
@@ -79,33 +110,30 @@ public class UserInput : MonoBehaviour
                 components.motion.Dash(true);
         }
     }
-    #endregion
-
-    #region DamageInputs
-    private void AttackTest()
+    private void JumpInput()
     {
-        if (Input.GetKeyDown(KeyCode.O))
-            components.attacks.SpecialPunch();
+        if (Input.GetKeyDown(KeyCode.W))
+            components.motion.Jump();
     }
-
-    private void LowPunchInput()
+    private void RunInput()
     {
-        if (Input.GetKeyDown(KeyCode.J))
-            components.attacks.LowPunch();
-    }
-
-    private void MiddlePunchInput()
-    {
-        if (Input.GetKeyDown(KeyCode.K))
-            components.attacks.MiddlePunch();
-    }
-
-    private void HardPunchInput()
-    {
-        if (Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKey(KeyCode.LeftControl))
         {
-            components.attacks.HardPunch();
+            if (Input.GetKey(KeyCode.D) && transform.localScale.x > 0)
+                components.motion.Run();
+            else if (Input.GetKey(KeyCode.A) && transform.localScale.x < 0)
+                components.motion.Run();
+            else components.msng.IsRunning = false;
         }
+        else components.msng.IsRunning = false;
+    }
+    private void WalkInput()
+    {
+        bool right = Input.GetKey(KeyCode.D);
+        bool left = Input.GetKey(KeyCode.A);
+        int direction = !right && left ? -1 : right && !left ? 1 : 0;
+        components.motion.Walk(direction);
     }
     #endregion
+
 }

@@ -3,15 +3,12 @@ using UnityEngine;
 
 public class ClassMessenger : MonoBehaviour
 {
-    [SerializeField]
-    private float coolDown;
-    public bool startedWithFirst;
     public bool[] PunchChain = new bool[4]; //Orden de los golpes
     public bool[] KickChain = new bool[4];
     public bool AttackRestricted; //Restriccion de ataque por tiempo de recuperación
     public bool ChainOportunity; //Oportunidad de encadenar un siguiente golpe y omitir la restricción de ataque
-    public bool dashTimer;
-    public bool dashBackTimer;
+    public bool DashTimer;
+    public bool DashBackTimer;
     public bool IsAttacking; //Restricción de acciones motion y acciones damage
     public bool IsCrouching;
     public bool IsDashing;
@@ -20,9 +17,12 @@ public class ClassMessenger : MonoBehaviour
     public bool IsOnGround;
     public bool IsRunning;
     public bool IsWalking;
+    public bool StartedWithFirst;
     public Coroutine clear_attack = null;
     public Coroutine chain_oportunity = null;
     public Coroutine cooldown_timmer = null;
+    [SerializeField]
+    private float coolDown;
     void Start()
     {
         IsJumping = false;
