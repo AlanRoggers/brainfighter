@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class Motion : MonoBehaviour
 {
-    private Coroutine dash_chance;
-    [SerializeField]
-    private BoxCollider2D normalHitbox;
     [SerializeField]
     private BoxCollider2D crouchHitbox;
+    [SerializeField]
+    private BoxCollider2D normalHitbox;
     private Components components;
+    private Coroutine dash_chance;
     void Awake()
     {
         Application.targetFrameRate = 60; //Mover de aquí
@@ -108,9 +108,9 @@ public class Motion : MonoBehaviour
                         !components.msng.IsAttacking && !components.msng.IsRunning &&
                         !components.msng.IsDashing && !components.msng.IsDashingBack;
 
-        if (!components.msng.dashTimer && canDash)
+        if (!components.msng.DashTimer && canDash)
         {
-            components.msng.dashTimer = true;
+            components.msng.DashTimer = true;
             dash_chance = StartCoroutine(DASH_CAHNCE());
         }
         else if (canDash)
@@ -119,15 +119,14 @@ public class Motion : MonoBehaviour
             components.msng.IsDashing = true;
             components.phys.AddForce(new Vector2(negativeForce ? -dashForce : dashForce, 0));
             StopCoroutine(dash_chance);
-            components.msng.dashTimer = false;
+            components.msng.DashTimer = false;
         }
     }
     private IEnumerator DASH_CAHNCE()
     {
         yield return new WaitForSeconds(0.25f);
-        components.msng.dashTimer = false;
+        components.msng.DashTimer = false;
     }
-
     public IEnumerator NO_DASHING()
     {
         yield return new WaitWhile(() => components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
@@ -142,9 +141,9 @@ public class Motion : MonoBehaviour
                         !components.msng.IsAttacking && !components.msng.IsRunning &&
                         !components.msng.IsDashingBack && !components.msng.IsDashing;
 
-        if (!components.msng.dashBackTimer && canDash)
+        if (!components.msng.DashBackTimer && canDash)
         {
-            components.msng.dashBackTimer = true;
+            components.msng.DashBackTimer = true;
             dash_chance = StartCoroutine(DASHBACK_CAHNCE());
         }
         else if (canDash)
@@ -153,13 +152,13 @@ public class Motion : MonoBehaviour
             components.msng.IsDashingBack = true;
             components.phys.AddForce(new Vector2(positiveForce ? dashForce : -dashForce, 0));
             StopCoroutine(dash_chance);
-            components.msng.dashBackTimer = false;
+            components.msng.DashBackTimer = false;
         }
     }
     private IEnumerator DASHBACK_CAHNCE()
     {
         yield return new WaitForSeconds(0.25f);
-        components.msng.dashBackTimer = false;
+        components.msng.DashBackTimer = false;
     }
 
     public IEnumerator NO_DASHINGBACK()
