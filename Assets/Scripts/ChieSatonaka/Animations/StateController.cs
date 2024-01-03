@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class StateController : MonoBehaviour
 {
@@ -66,20 +65,28 @@ public class StateController : MonoBehaviour
             case AnimationStates.DashBack:
                 break;
             case AnimationStates.LowPunch:
+                LowPunch();
                 break;
             case AnimationStates.MiddlePunch:
+                MiddlePunch();
                 break;
             case AnimationStates.HardPunch:
+                HardPunch();
                 break;
             case AnimationStates.SpecialPunch:
+                SpecialPunch();
                 break;
             case AnimationStates.LowKick:
+                LowKick();
                 break;
             case AnimationStates.MiddleKick:
+                MiddleKick();
                 break;
             case AnimationStates.HardKick:
+                HardKick();
                 break;
             case AnimationStates.SpecialKick:
+                SpecialKick();
                 break;
             case AnimationStates.KickWhileCrouch:
                 break;
@@ -108,7 +115,7 @@ public class StateController : MonoBehaviour
     }
     private int KeepLooking()
     {
-        if (!components.msng.IsKicking)
+        if (!components.msng.IsAttacking)
         {
             if (transform.position.x - Reference.transform.position.x <= 0 && transform.localScale.x < 0)
                 return 1;
@@ -134,20 +141,88 @@ public class StateController : MonoBehaviour
 
         bool goingBack = components.msng.IsWalking && !walk;
 
-        if (components.msng.IsCrouching) ChangeAnimation(AnimationStates.StartCrouching);
+        if (components.msng.PunchChain[0]) ChangeAnimation(AnimationStates.LowPunch);
+        else if (components.msng.PunchChain[1]) ChangeAnimation(AnimationStates.MiddlePunch);
+        else if (components.msng.PunchChain[2]) ChangeAnimation(AnimationStates.HardPunch);
+        else if (components.msng.KickChain[0]) ChangeAnimation(AnimationStates.LowKick);
+        else if (components.msng.KickChain[1]) ChangeAnimation(AnimationStates.MiddleKick);
+        else if (components.msng.KickChain[2]) ChangeAnimation(AnimationStates.HardKick);
+        else if (components.msng.IsCrouching) ChangeAnimation(AnimationStates.StartCrouching);
         else if (components.msng.IsJumping) ChangeAnimation(AnimationStates.StartJumping);
-        else if (TurnHandler)
-        {
-            ChangeAnimation(AnimationStates.Turn);
-        }
+        else if (TurnHandler) ChangeAnimation(AnimationStates.Turn);
         else if (walk) ChangeAnimation(AnimationStates.StartWalking);
         else if (goingBack) ChangeAnimation(AnimationStates.StartGoingBackwards);
     }
-    private void StartJumping()
+
+    #region Kicks
+    private void HardKick()
+    {
+        KickAnimationHandler(2, AnimationStates.SpecialKick);
+    }
+    private void LowKick()
+    {
+        KickAnimationHandler(0, AnimationStates.MiddleKick);
+    }
+    private void MiddleKick()
+    {
+        KickAnimationHandler(1, AnimationStates.HardKick);
+    }
+    private void SpecialKick()
+    {
+        KickAnimationHandler(3, AnimationStates.Iddle);
+    }
+    private void KickAnimationHandler(int attack, AnimationStates nextAttack)
+    {
+        bool endAttack = components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f;
+
+        if (endAttack)
+        {
+            if (components.msng.KickChain.Length - 1 >= attack + 1)
+            {
+                if (components.msng.KickChain[attack + 1])
+                {
+                    components.attacks.AnyAttackAnimationHandler(true, chainedAttack: true, isKick: true);
+                    ChangeAnimation(nextAttack);
+                }
+                else
+                {
+                    components.attacks.AnyAttackAnimationHandler(true, isKick: true);
+                    ChangeAnimation(AnimationStates.Iddle);
+                }
+            }
+            else
+            {
+                components.attacks.AnyAttackAnimationHandler(true, isKick: true);
+                ChangeAnimation(AnimationStates.Iddle);
+            }
+        }
+        else if (components.msng.clear_attack == null)
+            components.attacks.AnyAttackAnimationHandler(false, attack: attack, isKick: true);
+    }
+    #endregion
+
+    #region Motion
+    // Esto fue lo que no eh terminado de implementar por querer implementar primero la programación de lógica y fisicas
+    private void Dash()
+    {
+        StartCoroutine(components.motion.NO_DASHING());
+    }
+    private void Fall()
     {
 
     }
+    private void GoingBackwards()
+    {
+        bool iddle = components.phys.velocity.x == 0;
+
+        if (TurnHandler) ChangeAnimation(AnimationStates.Turn);
+        else if (iddle) ChangeAnimation(AnimationStates.Iddle);
+    }
     private void Jump()
+    {
+
+    }
+    private void Land()
     {
 
     }
@@ -155,7 +230,13 @@ public class StateController : MonoBehaviour
     {
 
     }
-    private void Fall()
+    private void StartGoingBackwards()
+    {
+        bool goingBack = components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0f;
+
+        if (goingBack) ChangeAnimation(AnimationStates.GoingBackwards);
+    }
+    private void StartJumping()
     {
 
     }
@@ -164,27 +245,6 @@ public class StateController : MonoBehaviour
         bool walk = components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0f;
 
         if (walk) ChangeAnimation(AnimationStates.Walk);
-    }
-    private void Walk()
-    {
-        bool iddle = components.phys.velocity.x == 0;
-
-        if (components.msng.IsJumping) ChangeAnimation(AnimationStates.StartJumping);
-        else if (TurnHandler) ChangeAnimation(AnimationStates.Turn);
-        else if (iddle) ChangeAnimation(AnimationStates.Iddle);
-    }
-    private void StartGoingBackwards()
-    {
-        bool goingBack = components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0f;
-
-        if (goingBack) ChangeAnimation(AnimationStates.GoingBackwards);
-    }
-    private void GoingBackwards()
-    {
-        bool iddle = components.phys.velocity.x == 0;
-
-        if (TurnHandler) ChangeAnimation(AnimationStates.Turn);
-        else if (iddle) ChangeAnimation(AnimationStates.Iddle);
     }
     private void Turn()
     {
@@ -205,13 +265,62 @@ public class StateController : MonoBehaviour
             else if (goingBack) ChangeAnimation(AnimationStates.StartGoingBackwards);
         }
     }
-    private void Land()
+    private void Walk()
     {
+        bool iddle = components.phys.velocity.x == 0;
 
+        if (components.msng.IsJumping) ChangeAnimation(AnimationStates.StartJumping);
+        else if (TurnHandler) ChangeAnimation(AnimationStates.Turn);
+        else if (iddle) ChangeAnimation(AnimationStates.Iddle);
     }
-    private void Dash()
+    #endregion
+
+    #region Punches
+    private void LowPunch()
     {
-        StartCoroutine(components.motion.NO_DASHING());
+        PunchAnimationHandler(0, AnimationStates.MiddlePunch);
     }
+    private void MiddlePunch()
+    {
+        PunchAnimationHandler(1, AnimationStates.HardPunch);
+    }
+    private void HardPunch()
+    {
+        PunchAnimationHandler(2, AnimationStates.SpecialPunch);
+    }
+    private void SpecialPunch()
+    {
+        PunchAnimationHandler(3, AnimationStates.Iddle);
+    }
+    private void PunchAnimationHandler(int attack, AnimationStates nextAttack)
+    {
+        bool endAttack = components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f;
+
+        if (endAttack)
+        {
+            if (components.msng.PunchChain.Length - 1 >= attack + 1)
+            {
+                if (components.msng.PunchChain[attack + 1])
+                {
+                    components.attacks.AnyAttackAnimationHandler(true, chainedAttack: true);
+                    ChangeAnimation(nextAttack);
+                }
+                else
+                {
+                    components.attacks.AnyAttackAnimationHandler(true);
+                    ChangeAnimation(AnimationStates.Iddle);
+                }
+            }
+            else
+            {
+                components.attacks.AnyAttackAnimationHandler(true);
+                ChangeAnimation(AnimationStates.Iddle);
+            }
+        }
+        else if (components.msng.clear_attack == null)
+            components.attacks.AnyAttackAnimationHandler(false, attack: attack);
+    }
+    #endregion
+
     #endregion
 }
