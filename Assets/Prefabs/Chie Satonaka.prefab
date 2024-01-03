@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2892104339486995922}
   - component: {fileID: 4263537106808565861}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DamageHitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 6334760534969465336}
   - component: {fileID: 4322640517048138981}
   - component: {fileID: 7854134084774301650}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Chie Satonaka
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -180,12 +180,12 @@ SpriteRenderer:
   m_SortingLayerID: 950688175
   m_SortingLayer: 8
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: fd6c6de0c18015de2a2bdfdacfa9be3e, type: 3}
+  m_Sprite: {fileID: -1329910632, guid: 9cceb64bcace95e3e8bd4ecf82ea857c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.47, y: 3.49}
+  m_Size: {x: 1.48, y: 3.58}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -228,7 +228,7 @@ MonoBehaviour:
   msng: {fileID: 0}
   coll: {fileID: 0}
   motion: {fileID: 0}
-  damage: {fileID: 0}
+  attacks: {fileID: 0}
   phys: {fileID: 0}
   states: {fileID: 0}
 --- !u!114 &-7362289623792946728
@@ -270,6 +270,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55fd52d4ee6cd97879b28b5a5c10eb68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crouchHitbox: {fileID: 3831560138555275375}
+  normalHitbox: {fileID: 8116149525101368235}
+  dashForce: 500
 --- !u!114 &6334760534969465336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,13 +297,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78593e65c6b1068c4b4f26c6c3640427, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canCombo: 0
-  isCrouching: 0
-  isJumping: 0
-  isKicking: 0
-  isWalking: 0
-  onGround: 0
-  attackChain: 000000
+  PunchChain: 00000000
+  KickChain: 00000000
+  AttackRestricted: 0
+  ChainOportunity: 0
+  DashTimer: 0
+  DashBackTimer: 0
+  IsAttacking: 0
+  IsCrouching: 0
+  IsDashing: 0
+  IsDashingBack: 0
+  IsJumping: 0
+  IsOnGround: 0
+  IsRunning: 0
+  IsWalking: 0
+  StartedWithFirst: 0
+  coolDown: 1
 --- !u!114 &7854134084774301650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,7 +338,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8621221587764489826}
   - component: {fileID: 3831560138555275375}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CrouchHitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -355,7 +367,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2931522487674685199}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -380,7 +392,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0028903484, y: 1.2512993}
+  m_Offset: {x: -0.00786, y: 1.323}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -391,7 +403,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9942193, y: 2.146828}
+  m_Size: {x: 0.9727, y: 2.003}
   m_EdgeRadius: 0
 --- !u!1 &5565526480095208693
 GameObject:
@@ -403,7 +415,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1259123366710335720}
   - component: {fileID: 8116149525101368235}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NormalHitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -457,7 +469,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0694443, y: 0.14571881}
+  m_Offset: {x: 0.06359017, y: 2.545915}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -468,7 +480,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.81639874, y: 3.1980987}
+  m_Size: {x: 1.0711393, y: 4.449225}
   m_EdgeRadius: 0
 --- !u!1 &7137907966654749963
 GameObject:
@@ -480,7 +492,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8350926340586375138}
   - component: {fileID: 5869604667127618344}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FeetsHitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -534,7 +546,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.00052526593, y: -1.5697854}
+  m_Offset: {x: -0.01335302, y: 0.17632537}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -545,5 +557,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.4696906, y: 0.35628176}
+  m_Size: {x: 1.4419341, y: 0.2889336}
   m_EdgeRadius: 0

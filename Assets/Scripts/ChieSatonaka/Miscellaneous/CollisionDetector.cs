@@ -1,28 +1,33 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CollisionDetector : MonoBehaviour
 {
+    private bool x;
     public bool CanCheckGround;
+    public CircleCollider2D damage;
     private bool gameStarted;
     private Components components;
     private LayerMask groundLayer;
     [SerializeField]
-    private Vector2 hitboxPosition;
-    [SerializeField]
-    private Vector2 hitboxSize;
+    private LayerMask enemyLayer;
+    private Vector2 feetsPosition;
+    private Vector2 feetsSize;
     void Awake()
     {
         components = GetComponent<Components>();
     }
     void Start()
     {
-        hitboxPosition = new Vector2(0, 0.297f);
-        hitboxSize = new Vector2(1.4f, 0.05f);
+        feetsPosition = new Vector2(0, 0.297f);
+        feetsSize = new Vector2(1.4f, 0.05f);
         groundLayer = LayerMask.GetMask("Ground");
         gameStarted = true;
         CanCheckGround = true;
+    }
+    void Update()
+    {
+        x = DamageDetection();
     }
     void FixedUpdate()
     {
@@ -38,16 +43,27 @@ public class CollisionDetector : MonoBehaviour
     {
         if (gameStarted)
         {
-            if (components.msng.IsOnGround)
+            // if (components.msng.IsOnGround)
+            //     Gizmos.color = Color.green;
+            // else
+            //     Gizmos.color = Color.red;
+
+            // Gizmos.DrawWireCube((Vector2)transform.localPosition + feetsPosition, feetsSize);
+            if (x)
                 Gizmos.color = Color.green;
             else
                 Gizmos.color = Color.red;
-            Gizmos.DrawWireCube((Vector2)transform.localPosition + hitboxPosition, hitboxSize);
+
+            Gizmos.DrawWireSphere(damage.bounds.center, damage.radius);
         }
     }
     private bool GroundDetection()
     {
-        return Physics2D.OverlapBox((Vector2)transform.localPosition + hitboxPosition, hitboxSize, 0f, groundLayer) != null;
+        return Physics2D.OverlapBox((Vector2)transform.localPosition + feetsPosition, feetsSize, 0f, groundLayer) != null;
+    }
+    private bool DamageDetection()
+    {
+        return Physics2D.OverlapCircle(damage.bounds.center, damage.radius, enemyLayer) != null;
     }
     private IEnumerator IGNORE_GROUND()
     {
