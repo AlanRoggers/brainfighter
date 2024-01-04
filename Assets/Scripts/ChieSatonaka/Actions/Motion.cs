@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class Motion : MonoBehaviour
@@ -14,13 +15,12 @@ public class Motion : MonoBehaviour
         Application.targetFrameRate = 60; //Mover de aquí
         components = GetComponent<Components>();
     }
-
     #region Walk
     private int maxSpeed = 5;
     private float walkForce = 100;
     public void Walk(int direction)
     {
-        if (!components.msng.IsDashing && !components.msng.IsDashingBack && !components.msng.IsTakingDamage)
+        if (!components.msng.IsDashing && !components.msng.IsDashingBack && !components.msng.IsTakingDamage && !components.msng.IsAttacking)
         {
             if (direction != 0)
             {
@@ -37,11 +37,11 @@ public class Motion : MonoBehaviour
                     else components.phys.velocity = new Vector2(maxSpeed * direction, components.phys.velocity.y);
                 }
             }
-            else
+            else if (components.msng.IsWalking)
             {
+                print($"Por alguna razón entro {gameObject.name}");
                 components.msng.IsWalking = false;
-                if (!components.msng.IsAttacking) // Esto hay que repensarlo
-                    components.phys.velocity = new Vector2(0, components.phys.velocity.y);
+                components.phys.velocity = new Vector2(0, components.phys.velocity.y);
             }
         }
     }
@@ -170,12 +170,5 @@ public class Motion : MonoBehaviour
         yield return new WaitWhile(() => components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
         components.msng.IsDashingBack = false;
     }
-    #endregion
-
-    #region Damage
-    public void TakeDamage()
-    {
-        components.msng.IsTakingDamage = true;
-    }
-    #endregion
+    #endregion}
 }

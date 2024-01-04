@@ -4,16 +4,16 @@ using UnityEngine;
 public class Attacks : MonoBehaviour
 {
     public float Timer;
-    public Vector2[] AttackForces = new Vector2[8];
     public AnimationClip[] attackClips = new AnimationClip[8];
+    public Vector2[] AttackForces = new Vector2[8];
+    public Vector2[] AttacksInertia = new Vector2[8];
+
     private bool damageApplied;
-    private Components components;
-    [SerializeField]
-    private Vector2 currentAttackForce;
-    [SerializeField]
     private float currentDamageAttack;
-    [SerializeField]
     private AnimationClip currentClipAttack;
+    private Components components;
+    private Vector2 currentAttackForce;
+
     void Awake()
     {
         components = GetComponent<Components>();
@@ -21,7 +21,7 @@ public class Attacks : MonoBehaviour
     void Update()
     {
         if (components.msng.IsAttacking && !damageApplied)
-            AnyAttackBehaviour(currentAttackForce, currentDamageAttack, currentClipAttack.length, currentClipAttack.name);
+            AnyAttackDamage();
     }
     public void AnyAttackAnimationHandler(bool endAttack, bool chainedAttack = false, bool isKick = false, int attack = -1)
     {
@@ -43,7 +43,7 @@ public class Attacks : MonoBehaviour
             components.msng.chain_oportunity = StartCoroutine(CHAIN_OPORTUNITY());
         }
     }
-    private void AnyAttackLogic(int attack, bool isKick = false)
+    private void AnyAttackLogic(int attack, Vector2 inertia, bool isKick = false)
     {
         if (attack == 0)
             components.msng.StartedWithFirst = true;
@@ -57,21 +57,29 @@ public class Attacks : MonoBehaviour
         components.phys.velocity = new Vector2(0, 0);
         components.msng.IsWalking = false;
         components.msng.IsRunning = false;
+
+        // Movimiento del personaje
+        components.phys.AddForce(inertia);
     }
-    private void AnyAttackBehaviour(Vector2 inertia, float damage, float timer, string attackStunCausant)
+    private void AnyAttackDamage()
     {
         if (components.msng.enemy != null)
         {
-            print($"Any Attack Behaviour; Current Clip: {currentClipAttack.name}");
+            print($"Any Attack Behaviour; Current Clip: {currentClipAttack.name} Fuerza que se aplicara: {currentAttackForce}");
             damageApplied = true;
 
             Components enemyComponents = components.msng.enemy.GetComponentInParent<Components>();
 
-            enemyComponents.msng.HitStunCausant = attackStunCausant;
-            enemyComponents.msng.HitStunTimer = timer + Timer;
+            float damage = currentDamageAttack; //Esta parte aún no se implementa
+
+            enemyComponents.msng.HitStunCausant = currentClipAttack.name;
+            enemyComponents.msng.HitStunTimer = currentClipAttack.length + Timer;
             enemyComponents.msng.IsTakingDamage = true;
 
-            enemyComponents.phys.AddForce(inertia);
+            // if (components.msng.KickChain[0] || components.msng.KickChain[1] && enemyComponents.phys.velocity.y <= 0)
+            //     enemyComponents.phys.velocity = new Vector2(enemyComponents.phys.velocity.x, 0);
+
+            enemyComponents.phys.AddForce(currentAttackForce, ForceMode2D.Impulse);
         }
     }
     private IEnumerator Clear_Attack(int attack, bool isKick = false)
@@ -104,7 +112,7 @@ public class Attacks : MonoBehaviour
 
         if (canAttack || chainOportunity)
         {
-            AnyAttackLogic(2, isKick: true);
+            AnyAttackLogic(2, AttacksInertia[6], isKick: true);
             currentAttackForce = AttackForces[6];
             currentDamageAttack = 10f;
             currentClipAttack = attackClips[6];
@@ -119,7 +127,7 @@ public class Attacks : MonoBehaviour
 
         if (canAttack)
         {
-            AnyAttackLogic(0, isKick: true);
+            AnyAttackLogic(0, AttacksInertia[4], isKick: true);
             currentAttackForce = AttackForces[4];
             currentDamageAttack = 10f;
             currentClipAttack = attackClips[4];
@@ -136,7 +144,7 @@ public class Attacks : MonoBehaviour
 
         if (canAttack || chainOportunity)
         {
-            AnyAttackLogic(1, isKick: true);
+            AnyAttackLogic(1, AttacksInertia[5], isKick: true);
             currentAttackForce = AttackForces[5];
             currentDamageAttack = 10f;
             currentClipAttack = attackClips[5];
@@ -149,7 +157,7 @@ public class Attacks : MonoBehaviour
 
         if (canSpecial)
         {
-            AnyAttackLogic(3, isKick: true);
+            AnyAttackLogic(3, AttacksInertia[7], isKick: true);
             currentAttackForce = AttackForces[7];
             currentDamageAttack = 10f;
             currentClipAttack = attackClips[7];
@@ -169,7 +177,9 @@ public class Attacks : MonoBehaviour
 
         if (canAttack || chainOportunity)
         {
-            AnyAttackLogic(2);
+            AnyAttackLogic(2, AttacksInertia[2]);
+
+            // Parametros para la interacción entre el personaje y el enemigo cuando se causa daño
             currentAttackForce = AttackForces[2];
             currentDamageAttack = 10f;
             currentClipAttack = attackClips[2];
@@ -184,7 +194,7 @@ public class Attacks : MonoBehaviour
 
         if (canAttack)
         {
-            AnyAttackLogic(0);
+            AnyAttackLogic(0, AttacksInertia[0]);
             currentAttackForce = AttackForces[0];
             currentDamageAttack = 10f;
             currentClipAttack = attackClips[0];
@@ -201,7 +211,7 @@ public class Attacks : MonoBehaviour
 
         if (canAttack || chainOportunity)
         {
-            AnyAttackLogic(1);
+            AnyAttackLogic(1, AttacksInertia[1]);
             currentAttackForce = AttackForces[1];
             currentDamageAttack = 10f;
             currentClipAttack = attackClips[1];
@@ -214,7 +224,7 @@ public class Attacks : MonoBehaviour
 
         if (canSpecial)
         {
-            AnyAttackLogic(3);
+            AnyAttackLogic(3, AttacksInertia[3]);
             currentAttackForce = AttackForces[3];
             currentDamageAttack = 10f;
             currentClipAttack = attackClips[3];

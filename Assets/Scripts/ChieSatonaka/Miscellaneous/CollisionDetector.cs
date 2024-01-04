@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class CollisionDetector : MonoBehaviour
 {
+    public BoxCollider2D enemyCollider;
+    public BoxCollider2D playerCollider;
     public bool CanCheckGround;
     public CircleCollider2D damage;
     private bool gameStarted;
@@ -23,6 +25,7 @@ public class CollisionDetector : MonoBehaviour
         groundLayer = LayerMask.GetMask("Ground");
         gameStarted = true;
         CanCheckGround = true;
+        // Physics2D.IgnoreCollision(playerCollider, enemyCollider);
     }
     void Update()
     {

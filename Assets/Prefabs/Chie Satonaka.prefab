@@ -76,16 +76,16 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1588520948380444287}
-  - component: {fileID: -8789320162414708856}
-  - component: {fileID: -7062242214442092753}
   - component: {fileID: -5996261674909815641}
-  - component: {fileID: 7027475549905065864}
-  - component: {fileID: -7362289623792946728}
-  - component: {fileID: 5822056414935985545}
-  - component: {fileID: 401957065536032946}
   - component: {fileID: 6334760534969465336}
+  - component: {fileID: 7027475549905065864}
   - component: {fileID: 4322640517048138981}
   - component: {fileID: 7854134084774301650}
+  - component: {fileID: 401957065536032946}
+  - component: {fileID: -8789320162414708856}
+  - component: {fileID: -7062242214442092753}
+  - component: {fileID: -7362289623792946728}
+  - component: {fileID: 5822056414935985545}
   m_Layer: 6
   m_Name: Chie Satonaka
   m_TagString: Player
@@ -112,6 +112,152 @@ Transform:
   - {fileID: 8350926340586375138}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &-5996261674909815641
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918396725094044388}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e16fd62ea05d85379af5e1ce233e0f97, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6334760534969465336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918396725094044388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65e834e6cd2ee3339a08d6a22ebba3b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Timer: 0.06
+  attackClips:
+  - {fileID: 7400000, guid: b8e020cf44a434d528714175dfb2236b, type: 2}
+  - {fileID: 7400000, guid: a2dd87cdb48649d27bb762a371f517a8, type: 2}
+  - {fileID: 7400000, guid: 8e6938b40fede8ae190981a46b958feb, type: 2}
+  - {fileID: 7400000, guid: 73c3ffa0ed985bef4add36dd99927063, type: 2}
+  - {fileID: 7400000, guid: 4b6a5dd8b469d10a09f2f02e1eea54ba, type: 2}
+  - {fileID: 7400000, guid: 6610cf10dbcabaa2d9eee0da45c3ab30, type: 2}
+  - {fileID: 7400000, guid: 4eb52be8bbb2493fb86e8a6e1c217a5c, type: 2}
+  - {fileID: 7400000, guid: a4cd69c673c09b75f8a9e23148a11ab2, type: 2}
+  AttackForces:
+  - {x: 1.5, y: 0}
+  - {x: 0, y: 15}
+  - {x: 10, y: 0}
+  - {x: 1.5, y: 15}
+  - {x: 25, y: 800}
+  - {x: 0, y: 400}
+  - {x: 100, y: 0}
+  - {x: 0, y: 0}
+  AttacksInertia:
+  - {x: -75, y: 0}
+  - {x: 100, y: 0}
+  - {x: 0, y: 0}
+  - {x: 200, y: 700}
+  - {x: 125, y: 145}
+  - {x: 50, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+--- !u!114 &7027475549905065864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918396725094044388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a88e21ed822cf5b55ba3c1a4fbb59244, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 0}
+  msng: {fileID: 0}
+  coll: {fileID: 0}
+  motion: {fileID: 0}
+  attacks: {fileID: 0}
+  phys: {fileID: 0}
+  states: {fileID: 0}
+--- !u!114 &4322640517048138981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918396725094044388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78593e65c6b1068c4b4f26c6c3640427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HitStunCausant: 
+  HitStunTimer: 0
+  PunchChain: 00000000
+  KickChain: 00000000
+  AttackRestricted: 0
+  ChainOportunity: 0
+  DashTimer: 0
+  DashBackTimer: 0
+  IsAttacking: 0
+  IsCrouching: 0
+  IsDashing: 0
+  IsDashingBack: 0
+  IsJumping: 0
+  IsOnGround: 0
+  IsRunning: 0
+  IsTakingDamage: 0
+  IsWalking: 0
+  StartedWithFirst: 0
+  enemy: {fileID: 0}
+  coolDown: 0.3
+--- !u!114 &7854134084774301650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918396725094044388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1e9342c8cafc79ec80214f865bb66cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCollider: {fileID: 0}
+  playerCollider: {fileID: 0}
+  CanCheckGround: 0
+  damage: {fileID: 0}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!114 &401957065536032946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918396725094044388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55fd52d4ee6cd97879b28b5a5c10eb68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crouchHitbox: {fileID: 3831560138555275375}
+  normalHitbox: {fileID: 8116149525101368235}
+  dashForce: 500
 --- !u!50 &-8789320162414708856
 Rigidbody2D:
   serializedVersion: 4
@@ -191,46 +337,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &-5996261674909815641
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1918396725094044388}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e16fd62ea05d85379af5e1ce233e0f97, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7027475549905065864
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1918396725094044388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a88e21ed822cf5b55ba3c1a4fbb59244, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  anim: {fileID: 0}
-  msng: {fileID: 0}
-  coll: {fileID: 0}
-  motion: {fileID: 0}
-  attacks: {fileID: 0}
-  phys: {fileID: 0}
-  states: {fileID: 0}
 --- !u!114 &-7362289623792946728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,104 +364,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df172ce2f73a73a1fa55eac145760345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &401957065536032946
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1918396725094044388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55fd52d4ee6cd97879b28b5a5c10eb68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  crouchHitbox: {fileID: 3831560138555275375}
-  normalHitbox: {fileID: 8116149525101368235}
-  dashForce: 500
---- !u!114 &6334760534969465336
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1918396725094044388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65e834e6cd2ee3339a08d6a22ebba3b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Timer: 0
-  AttackForces:
-  - {x: 0, y: 0}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0}
-  attackClips:
-  - {fileID: 7400000, guid: b8e020cf44a434d528714175dfb2236b, type: 2}
-  - {fileID: 7400000, guid: a2dd87cdb48649d27bb762a371f517a8, type: 2}
-  - {fileID: 7400000, guid: 8e6938b40fede8ae190981a46b958feb, type: 2}
-  - {fileID: 7400000, guid: 73c3ffa0ed985bef4add36dd99927063, type: 2}
-  - {fileID: 7400000, guid: 4b6a5dd8b469d10a09f2f02e1eea54ba, type: 2}
-  - {fileID: 7400000, guid: 6610cf10dbcabaa2d9eee0da45c3ab30, type: 2}
-  - {fileID: 7400000, guid: 4eb52be8bbb2493fb86e8a6e1c217a5c, type: 2}
-  - {fileID: 7400000, guid: a4cd69c673c09b75f8a9e23148a11ab2, type: 2}
-  currentAttackForce: {x: 0, y: 0}
-  currentDamageAttack: 0
-  currentClipAttack: {fileID: 0}
---- !u!114 &4322640517048138981
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1918396725094044388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78593e65c6b1068c4b4f26c6c3640427, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HitStunCausant: 
-  HitStunTimer: 0
-  PunchChain: 00000000
-  KickChain: 00000000
-  AttackRestricted: 0
-  ChainOportunity: 0
-  DashTimer: 0
-  DashBackTimer: 0
-  IsAttacking: 0
-  IsCrouching: 0
-  IsDashing: 0
-  IsDashingBack: 0
-  IsJumping: 0
-  IsOnGround: 0
-  IsRunning: 0
-  IsTakingDamage: 0
-  IsWalking: 0
-  StartedWithFirst: 0
-  enemy: {fileID: 0}
-  coolDown: 0.3
---- !u!114 &7854134084774301650
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1918396725094044388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1e9342c8cafc79ec80214f865bb66cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CanCheckGround: 0
-  damage: {fileID: 0}
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!1 &2931522487674685199
 GameObject:
   m_ObjectHideFlags: 0

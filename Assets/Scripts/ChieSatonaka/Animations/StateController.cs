@@ -336,6 +336,7 @@ public class StateController : MonoBehaviour
             ChangeAnimation(AnimationStates.Iddle);
             yield break;
         }
+        StopCoroutine(await_another_damage);
         await_another_damage = StartCoroutine(AWAIT_ANOTHER_DAMAGE(components.msng.HitStunCausant));
     }
 

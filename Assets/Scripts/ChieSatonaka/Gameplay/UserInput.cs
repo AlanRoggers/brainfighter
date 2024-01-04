@@ -11,7 +11,7 @@ public class UserInput : MonoBehaviour
     {
         WalkInput();
         JumpInput();
-        AttackTest();
+        // AttackTest();
         CrouchInput();
         RunInput();
         DashInput();
@@ -19,6 +19,7 @@ public class UserInput : MonoBehaviour
         LowPunchInput();
         MiddlePunchInput();
         HardPunchInput();
+        SpecialPunchInput();
         LowKickInput();
         MiddleKickInput();
         HardKickInput();
@@ -46,8 +47,13 @@ public class UserInput : MonoBehaviour
     }
     private void MiddlePunchInput()
     {
-        if (Input.GetKeyDown(KeyCode.K) && !Input.GetKey(KeyCode.LeftAlt))
+        if (Input.GetKeyDown(KeyCode.I) && !Input.GetKey(KeyCode.LeftAlt))
             components.attacks.MiddlePunch();
+    }
+    private void SpecialPunchInput()
+    {
+        if (Input.GetKeyDown(KeyCode.K) && !Input.GetKey(KeyCode.LeftAlt))
+            components.attacks.SpecialPunch();
     }
     private void HardKickInput()
     {
@@ -61,12 +67,12 @@ public class UserInput : MonoBehaviour
     }
     private void MiddleKickInput()
     {
-        if (Input.GetKeyDown(KeyCode.K) && Input.GetKey(KeyCode.LeftAlt))
+        if (Input.GetKeyDown(KeyCode.I) && Input.GetKey(KeyCode.LeftAlt))
             components.attacks.MiddleKick();
     }
     private void SpecialKickInput()
     {
-        if (Input.GetKeyDown(KeyCode.O) && Input.GetKey(KeyCode.LeftAlt))
+        if (Input.GetKeyDown(KeyCode.K) && Input.GetKey(KeyCode.LeftAlt))
             components.attacks.SpecialKick();
     }
     private void KeyChecker()
