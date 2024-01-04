@@ -3,24 +3,17 @@ using UnityEngine;
 
 public class Attacks : MonoBehaviour
 {
-    public AnimationClip HardPunchClip;
-    public AnimationClip LowPunchClip;
-    public AnimationClip MiddlePunchClip;
-    public AnimationClip SpecialPunchClip;
-    public AnimationClip HardKickClip;
-    public AnimationClip LowKickClip;
-    public AnimationClip MiddleKickClip;
-    public AnimationClip SpecialKickClip;
-    public Vector2 SpecialPunchForce;
-    public Vector2 HardPunchForce;
-    public Vector2 MiddlePunchForce;
-    public Vector2 LowPunchForce;
-    public Vector2 SpecialKickForce;
-    public Vector2 HardKickForce;
-    public Vector2 MiddleKickForce;
-    public Vector2 LowKickForce;
+    public float Timer;
+    public Vector2[] AttackForces = new Vector2[8];
+    public AnimationClip[] attackClips = new AnimationClip[8];
     private bool damageApplied;
     private Components components;
+    [SerializeField]
+    private Vector2 currentAttackForce;
+    [SerializeField]
+    private float currentDamageAttack;
+    [SerializeField]
+    private AnimationClip currentClipAttack;
     void Awake()
     {
         components = GetComponent<Components>();
@@ -28,73 +21,7 @@ public class Attacks : MonoBehaviour
     void Update()
     {
         if (components.msng.IsAttacking && !damageApplied)
-        {
-            // print("Esperando aplicación de daño");
-            if (components.msng.PunchChain[3])
-                AnyAttackBehaviour
-                (
-                    SpecialPunchForce,
-                    10f,
-                    SpecialPunchClip.length,
-                    SpecialPunchClip.name
-                );
-            else if (components.msng.PunchChain[2])
-                AnyAttackBehaviour
-                (
-                    HardPunchForce,
-                    10f,
-                    HardPunchClip.length,
-                    HardPunchClip.name
-                );
-            else if (components.msng.PunchChain[1])
-                AnyAttackBehaviour
-                (
-                    MiddlePunchForce,
-                    10f,
-                    MiddlePunchClip.length,
-                    MiddlePunchClip.name
-                );
-            else if (components.msng.PunchChain[0])
-                AnyAttackBehaviour
-                (
-                    LowPunchForce,
-                    10f,
-                    LowPunchClip.length,
-                    LowPunchClip.name
-                );
-            else if (components.msng.KickChain[3])
-                AnyAttackBehaviour
-                (
-                    SpecialKickForce,
-                    10f,
-                    SpecialKickClip.length,
-                    SpecialKickClip.name
-                );
-            else if (components.msng.KickChain[2])
-                AnyAttackBehaviour
-                (
-                    HardKickForce,
-                    10f,
-                    HardKickClip.length,
-                    HardKickClip.name
-                );
-            else if (components.msng.KickChain[1])
-                AnyAttackBehaviour
-                (
-                    MiddleKickForce,
-                    10f,
-                    MiddleKickClip.length,
-                    MiddleKickClip.name
-                );
-            else if (components.msng.KickChain[0])
-                AnyAttackBehaviour
-                (
-                    LowKickForce,
-                    10f,
-                    LowKickClip.length,
-                    LowKickClip.name
-                );
-        }
+            AnyAttackBehaviour(currentAttackForce, currentDamageAttack, currentClipAttack.length, currentClipAttack.name);
     }
     public void AnyAttackAnimationHandler(bool endAttack, bool chainedAttack = false, bool isKick = false, int attack = -1)
     {
@@ -135,13 +62,13 @@ public class Attacks : MonoBehaviour
     {
         if (components.msng.enemy != null)
         {
-            // print("Aplicando fuerza");
+            print($"Any Attack Behaviour; Current Clip: {currentClipAttack.name}");
             damageApplied = true;
 
             Components enemyComponents = components.msng.enemy.GetComponentInParent<Components>();
 
             enemyComponents.msng.HitStunCausant = attackStunCausant;
-            enemyComponents.msng.HitStunTimer = timer;
+            enemyComponents.msng.HitStunTimer = timer + Timer;
             enemyComponents.msng.IsTakingDamage = true;
 
             enemyComponents.phys.AddForce(inertia);
@@ -178,8 +105,9 @@ public class Attacks : MonoBehaviour
         if (canAttack || chainOportunity)
         {
             AnyAttackLogic(2, isKick: true);
-            // Fisicas de la patada
-            //Daño y contacto de la patada
+            currentAttackForce = AttackForces[6];
+            currentDamageAttack = 10f;
+            currentClipAttack = attackClips[6];
         }
     }
     public void LowKick()
@@ -192,8 +120,9 @@ public class Attacks : MonoBehaviour
         if (canAttack)
         {
             AnyAttackLogic(0, isKick: true);
-            // Fisicas de la patada
-            //Daño y contacto de la patada
+            currentAttackForce = AttackForces[4];
+            currentDamageAttack = 10f;
+            currentClipAttack = attackClips[4];
         }
     }
     public void MiddleKick()
@@ -208,8 +137,9 @@ public class Attacks : MonoBehaviour
         if (canAttack || chainOportunity)
         {
             AnyAttackLogic(1, isKick: true);
-            // Fisicas de la patada
-            //Daño y contacto de la patada
+            currentAttackForce = AttackForces[5];
+            currentDamageAttack = 10f;
+            currentClipAttack = attackClips[5];
         }
     }
     public void SpecialKick()
@@ -220,8 +150,9 @@ public class Attacks : MonoBehaviour
         if (canSpecial)
         {
             AnyAttackLogic(3, isKick: true);
-            // Fisicas
-            // Daño
+            currentAttackForce = AttackForces[7];
+            currentDamageAttack = 10f;
+            currentClipAttack = attackClips[7];
         }
     }
     #endregion
@@ -239,8 +170,9 @@ public class Attacks : MonoBehaviour
         if (canAttack || chainOportunity)
         {
             AnyAttackLogic(2);
-            // Fisicas del tercer golpe
-            // Daño y contacto del primer golpe
+            currentAttackForce = AttackForces[2];
+            currentDamageAttack = 10f;
+            currentClipAttack = attackClips[2];
         }
     }
     public void LowPunch()
@@ -253,8 +185,9 @@ public class Attacks : MonoBehaviour
         if (canAttack)
         {
             AnyAttackLogic(0);
-            // Fisicas del primer golpe
-            // Daño y contacto del primer golpe
+            currentAttackForce = AttackForces[0];
+            currentDamageAttack = 10f;
+            currentClipAttack = attackClips[0];
         }
     }
     public void MiddlePunch()
@@ -269,8 +202,9 @@ public class Attacks : MonoBehaviour
         if (canAttack || chainOportunity)
         {
             AnyAttackLogic(1);
-            // Fisicas del segundo golpe
-            // Daño y contacto del primer golpe
+            currentAttackForce = AttackForces[1];
+            currentDamageAttack = 10f;
+            currentClipAttack = attackClips[1];
         }
     }
     public void SpecialPunch()
@@ -281,8 +215,9 @@ public class Attacks : MonoBehaviour
         if (canSpecial)
         {
             AnyAttackLogic(3);
-            // Fisicas del golpe especial
-            // Daño y contacto del primer golpe
+            currentAttackForce = AttackForces[3];
+            currentDamageAttack = 10f;
+            currentClipAttack = attackClips[3];
         }
     }
     #endregion

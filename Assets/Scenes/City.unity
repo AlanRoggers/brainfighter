@@ -2177,7 +2177,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4322640517048138981, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
       propertyPath: coolDown
-      value: 1
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 5565526480095208693, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
       propertyPath: m_Layer
@@ -2203,6 +2203,38 @@ PrefabInstance:
       propertyPath: HardPunchForce.x
       value: 200
       objectReference: {fileID: 0}
+    - target: {fileID: 6334760534969465336, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
+      propertyPath: attackClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 7400000, guid: b8e020cf44a434d528714175dfb2236b, type: 2}
+    - target: {fileID: 6334760534969465336, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
+      propertyPath: attackClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 7400000, guid: a2dd87cdb48649d27bb762a371f517a8, type: 2}
+    - target: {fileID: 6334760534969465336, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
+      propertyPath: attackClips.Array.data[2]
+      value: 
+      objectReference: {fileID: 7400000, guid: 8e6938b40fede8ae190981a46b958feb, type: 2}
+    - target: {fileID: 6334760534969465336, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
+      propertyPath: attackClips.Array.data[3]
+      value: 
+      objectReference: {fileID: 7400000, guid: 73c3ffa0ed985bef4add36dd99927063, type: 2}
+    - target: {fileID: 6334760534969465336, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
+      propertyPath: attackClips.Array.data[4]
+      value: 
+      objectReference: {fileID: 7400000, guid: 4b6a5dd8b469d10a09f2f02e1eea54ba, type: 2}
+    - target: {fileID: 6334760534969465336, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
+      propertyPath: attackClips.Array.data[5]
+      value: 
+      objectReference: {fileID: 7400000, guid: 6610cf10dbcabaa2d9eee0da45c3ab30, type: 2}
+    - target: {fileID: 6334760534969465336, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
+      propertyPath: attackClips.Array.data[6]
+      value: 
+      objectReference: {fileID: 7400000, guid: 4eb52be8bbb2493fb86e8a6e1c217a5c, type: 2}
+    - target: {fileID: 6334760534969465336, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
+      propertyPath: attackClips.Array.data[7]
+      value: 
+      objectReference: {fileID: 7400000, guid: a4cd69c673c09b75f8a9e23148a11ab2, type: 2}
     - target: {fileID: 7137907966654749963, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
       propertyPath: m_Layer
       value: 6

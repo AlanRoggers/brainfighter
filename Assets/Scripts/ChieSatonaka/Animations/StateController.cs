@@ -3,13 +3,12 @@ using UnityEngine;
 
 public class StateController : MonoBehaviour
 {
-    private Coroutine await_another_damage = null;
     public bool TurnHandler;
-    public float Timer;
-    public GameObject Reference;
     [SerializeField]
     private AnimationStates currentState;
+    private Coroutine await_another_damage = null;
     private Components components;
+    public GameObject Reference;
     void Awake()
     {
         components = GetComponent<Components>();
@@ -127,12 +126,6 @@ public class StateController : MonoBehaviour
             else return (int)transform.localScale.x;
         }
         else return (int)transform.localScale.x;
-    }
-    private IEnumerator AWAIT_ANIMATION(AnimationStates state)
-    {
-        yield return new WaitUntil(() => components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
-        currentState = state;
-        components.anim.Play(state.ToString());
     }
 
     #region Transitions
@@ -333,20 +326,17 @@ public class StateController : MonoBehaviour
     }
     private IEnumerator AWAIT_ANOTHER_DAMAGE(string attackCausant)
     {
-        print("Corrutina empezada por el ataque: " + attackCausant);
-        yield return new WaitForSeconds(components.msng.HitStunTimer + Timer);
+        // print($"Corrutina empezada por el ataque {attackCausant}");
+        yield return new WaitForSeconds(components.msng.HitStunTimer);
         if (attackCausant == components.msng.HitStunCausant)
         {
             components.msng.HitStunCausant = "";
             components.msng.IsTakingDamage = false;
             await_another_damage = null;
             ChangeAnimation(AnimationStates.Iddle);
+            yield break;
         }
-        else
-        {
-            StopCoroutine(await_another_damage);
-            await_another_damage = StartCoroutine(AWAIT_ANOTHER_DAMAGE(components.msng.HitStunCausant));
-        }
+        await_another_damage = StartCoroutine(AWAIT_ANOTHER_DAMAGE(components.msng.HitStunCausant));
     }
 
     #endregion
