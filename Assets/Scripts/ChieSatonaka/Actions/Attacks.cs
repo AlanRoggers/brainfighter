@@ -78,7 +78,7 @@ public class Attacks : MonoBehaviour
 
             // if (components.msng.KickChain[0] || components.msng.KickChain[1] && enemyComponents.phys.velocity.y <= 0)
             //     enemyComponents.phys.velocity = new Vector2(enemyComponents.phys.velocity.x, 0);
-
+            enemyComponents.phys.velocity = Vector2.zero;
             enemyComponents.phys.AddForce(currentAttackForce, ForceMode2D.Impulse);
         }
     }

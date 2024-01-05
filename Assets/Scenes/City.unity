@@ -2122,6 +2122,14 @@ PrefabInstance:
       propertyPath: attackClips.Array.data[7]
       value: 
       objectReference: {fileID: 7400000, guid: a4cd69c673c09b75f8a9e23148a11ab2, type: 2}
+    - target: {fileID: 6334760534969465336, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
+      propertyPath: AttackForces.Array.data[4].y
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6334760534969465336, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
+      propertyPath: AttackForces.Array.data[5].y
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7137907966654749963, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
       propertyPath: m_Layer
       value: 6
