@@ -8,7 +8,7 @@ public class Attacks : MonoBehaviour
     public Vector2[] AttackForces = new Vector2[8];
     public Vector2[] AttacksInertia = new Vector2[8];
     private Rigidbody2D enemyPhys = null;
-    private bool damageApplied;
+
     private float currentDamageAttack;
     private AnimationClip currentClipAttack;
     private Components components;
@@ -20,7 +20,7 @@ public class Attacks : MonoBehaviour
     }
     void Update()
     {
-        if (components.msng.IsAttacking && !damageApplied)
+        if (components.msng.IsAttacking && !components.msng.DamageApplied)
             AnyAttackDamage();
     }
     void FixedUpdate()
@@ -39,7 +39,7 @@ public class Attacks : MonoBehaviour
         {
             components.msng.clear_attack = null;
             components.msng.chain_oportunity = null;
-            damageApplied = false;
+            components.msng.DamageApplied = false;
             if (!chainedAttack)
             {
                 components.msng.IsAttacking = false;
@@ -50,7 +50,6 @@ public class Attacks : MonoBehaviour
         else
         {
             components.msng.clear_attack = StartCoroutine(Clear_Attack(attack, isKick: isKick));
-            components.msng.chain_oportunity = StartCoroutine(CHAIN_OPORTUNITY());
         }
     }
     private void AnyAttackLogic(int attack, Vector2 inertia, bool isKick = false)
@@ -76,7 +75,7 @@ public class Attacks : MonoBehaviour
         if (components.msng.enemy != null)
         {
             print($"Any Attack Behaviour; Current Clip: {currentClipAttack.name} Fuerza que se aplicara: {currentAttackForce}");
-            damageApplied = true;
+            components.msng.DamageApplied = true;
 
             Components enemyComponents = components.msng.enemy.GetComponentInParent<Components>();
 

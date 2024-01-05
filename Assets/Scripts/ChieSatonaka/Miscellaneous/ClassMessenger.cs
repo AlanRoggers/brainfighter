@@ -9,6 +9,7 @@ public class ClassMessenger : MonoBehaviour
     public bool[] KickChain = new bool[4];
     public bool AttackRestricted; //Restriccion de ataque por tiempo de recuperación
     public bool ChainOportunity; //Oportunidad de encadenar un siguiente golpe y omitir la restricción de ataque
+    public bool DamageApplied;
     public bool DashTimer;
     public bool DashBackTimer;
     public bool IsAttacking; //Restricción de acciones motion y acciones damage

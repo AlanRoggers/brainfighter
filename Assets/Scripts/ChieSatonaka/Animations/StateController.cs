@@ -68,14 +68,26 @@ public class StateController : MonoBehaviour
             case AnimationStates.LowPunch:
                 LowPunch();
                 break;
+            case AnimationStates.ChainLowPunch:
+                ChainLowPunch();
+                break;
             case AnimationStates.MiddlePunch:
                 MiddlePunch();
+                break;
+            case AnimationStates.ChainMiddlePunch:
+                ChainMiddlePunch();
                 break;
             case AnimationStates.HardPunch:
                 HardPunch();
                 break;
+            case AnimationStates.ChainHardPunch:
+                ChainHardPunch();
+                break;
             case AnimationStates.SpecialPunch:
                 SpecialPunch();
+                break;
+            case AnimationStates.ChainSpecialPunch:
+                ChainSpecialPunch();
                 break;
             case AnimationStates.LowKick:
                 LowKick();
@@ -275,47 +287,67 @@ public class StateController : MonoBehaviour
     #region Punches
     private void LowPunch()
     {
-        PunchAnimationHandler(0, AnimationStates.MiddlePunch);
+        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+            ChangeAnimation(AnimationStates.ChainLowPunch);
+    }
+    private void ChainLowPunch()
+    {
+        PunchTransitions(0, AnimationStates.MiddlePunch);
     }
     private void MiddlePunch()
     {
-        PunchAnimationHandler(1, AnimationStates.HardPunch);
+        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+            ChangeAnimation(AnimationStates.ChainMiddlePunch);
+    }
+    private void ChainMiddlePunch()
+    {
+        PunchTransitions(1, AnimationStates.HardPunch);
     }
     private void HardPunch()
     {
-        PunchAnimationHandler(2, AnimationStates.SpecialPunch);
+        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+            ChangeAnimation(AnimationStates.ChainHardPunch);
+    }
+    private void ChainHardPunch()
+    {
+        PunchTransitions(2, AnimationStates.SpecialPunch);
     }
     private void SpecialPunch()
     {
-        PunchAnimationHandler(3, AnimationStates.Iddle);
+        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+            ChangeAnimation(AnimationStates.ChainSpecialPunch);
     }
-    private void PunchAnimationHandler(int attack, AnimationStates nextAttack)
+    private void ChainSpecialPunch()
+    {
+        PunchTransitions(3, AnimationStates.Iddle);
+    }
+    private void PunchTransitions(int attack, AnimationStates nextAttack)
     {
         bool endAttack = components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f;
+        bool chainedAttack = components.msng.PunchChain.Length - 1 >= attack + 1 && components.msng.PunchChain[attack + 1];
+
+        if (!endAttack && !components.msng.ChainOportunity)
+            components.msng.ChainOportunity = true;
+
+        if (chainedAttack)
+        {
+            components.msng.ChainOportunity = false;
+            components.msng.DamageApplied = false;
+            components.msng.PunchChain[attack] = false;
+            ChangeAnimation(nextAttack);
+            return;
+        }
 
         if (endAttack)
         {
-            if (components.msng.PunchChain.Length - 1 >= attack + 1)
-            {
-                if (components.msng.PunchChain[attack + 1])
-                {
-                    components.attacks.AnyAttackAnimationHandler(true, chainedAttack: true);
-                    ChangeAnimation(nextAttack);
-                }
-                else
-                {
-                    components.attacks.AnyAttackAnimationHandler(true);
-                    ChangeAnimation(AnimationStates.Iddle);
-                }
-            }
-            else
-            {
-                components.attacks.AnyAttackAnimationHandler(true);
-                ChangeAnimation(AnimationStates.Iddle);
-            }
+            components.msng.ChainOportunity = false;
+            components.msng.PunchChain[attack] = false;
+            components.msng.DamageApplied = false;
+            components.msng.IsAttacking = false;
+            components.msng.StartedWithFirst = false;
+            components.msng.cooldown_timmer = StartCoroutine(components.msng.COOLDOWN_TIMER());
+            ChangeAnimation(AnimationStates.Iddle);
         }
-        else if (components.msng.clear_attack == null)
-            components.attacks.AnyAttackAnimationHandler(false, attack: attack);
     }
     #endregion
 

@@ -214,3 +214,7 @@ Para lograr los especiales va ser necesario que se ejecuten la secuencia de tres
 - [ ] Revisar que todas las corrutinas que se ejecutan solo se ejecuten una sola vez, esto causa demasiados bugs si no se cuida
 
 __Nota: Tomar en cuenta que todo lo que no especifique que no puede tomar daño o que es invulnerable es considerado como que si se le puede hacer daño__
+
+
+# Cosas que debo recordar
+La animación de Punch2End tiene el frame Run10, Emote1_1 y Emote1_0 ya que así no se ve tan cortada la animación

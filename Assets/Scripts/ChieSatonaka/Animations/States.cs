@@ -21,10 +21,10 @@ public enum AnimationStates
     DashBack,
     #endregion
     #region Attacks
-    LowPunch,
-    MiddlePunch,
-    HardPunch,
-    SpecialPunch,
+    LowPunch, ChainLowPunch,
+    MiddlePunch, ChainMiddlePunch,
+    HardPunch, ChainHardPunch,
+    SpecialPunch, ChainSpecialPunch,
     SomerSaultKick,
     LowKick,
     MiddleKick,
