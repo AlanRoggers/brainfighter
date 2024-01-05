@@ -7,7 +7,7 @@ public class Attacks : MonoBehaviour
     public AnimationClip[] attackClips = new AnimationClip[8];
     public Vector2[] AttackForces = new Vector2[8];
     public Vector2[] AttacksInertia = new Vector2[8];
-
+    private Rigidbody2D enemyPhys = null;
     private bool damageApplied;
     private float currentDamageAttack;
     private AnimationClip currentClipAttack;
@@ -22,6 +22,16 @@ public class Attacks : MonoBehaviour
     {
         if (components.msng.IsAttacking && !damageApplied)
             AnyAttackDamage();
+    }
+    void FixedUpdate()
+    {
+        // Fisicas aplicadas al enemigo
+        if (enemyPhys != null)
+        {
+            enemyPhys.velocity = Vector2.zero;
+            enemyPhys.AddForce(currentAttackForce, ForceMode2D.Impulse);
+            enemyPhys = null;
+        }
     }
     public void AnyAttackAnimationHandler(bool endAttack, bool chainedAttack = false, bool isKick = false, int attack = -1)
     {
@@ -75,11 +85,7 @@ public class Attacks : MonoBehaviour
             enemyComponents.msng.HitStunCausant = currentClipAttack.name;
             enemyComponents.msng.HitStunTimer = currentClipAttack.length + Timer;
             enemyComponents.msng.IsTakingDamage = true;
-
-            // if (components.msng.KickChain[0] || components.msng.KickChain[1] && enemyComponents.phys.velocity.y <= 0)
-            //     enemyComponents.phys.velocity = new Vector2(enemyComponents.phys.velocity.x, 0);
-            enemyComponents.phys.velocity = Vector2.zero;
-            enemyComponents.phys.AddForce(currentAttackForce, ForceMode2D.Impulse);
+            enemyPhys = enemyComponents.phys;
         }
     }
     private IEnumerator Clear_Attack(int attack, bool isKick = false)

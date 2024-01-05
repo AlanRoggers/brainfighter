@@ -27,10 +27,6 @@ public class CollisionDetector : MonoBehaviour
         CanCheckGround = true;
         // Physics2D.IgnoreCollision(playerCollider, enemyCollider);
     }
-    void Update()
-    {
-        components.msng.enemy = DamageDetection();
-    }
     void FixedUpdate()
     {
         if (!CanCheckGround)
@@ -40,6 +36,8 @@ public class CollisionDetector : MonoBehaviour
 
         if (components.msng.IsOnGround && components.msng.IsJumping)
             components.msng.IsJumping = false;
+
+        components.msng.enemy = DamageDetection();
     }
     void OnDrawGizmos()
     {
