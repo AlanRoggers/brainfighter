@@ -39,7 +39,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 629898329708468478}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -210,6 +210,7 @@ MonoBehaviour:
   KickChain: 00000000
   AttackRestricted: 0
   ChainOportunity: 0
+  DamageApplied: 0
   DashTimer: 0
   DashBackTimer: 0
   IsAttacking: 0
@@ -222,6 +223,7 @@ MonoBehaviour:
   IsTakingDamage: 0
   IsWalking: 0
   StartedWithFirst: 0
+  DamageHitbox: {fileID: 4263537106808565861}
   enemy: {fileID: 0}
   coolDown: 0.3
 --- !u!114 &7854134084774301650

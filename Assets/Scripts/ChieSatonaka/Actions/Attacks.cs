@@ -66,6 +66,7 @@ public class Attacks : MonoBehaviour
         components.phys.velocity = new Vector2(0, 0);
         components.msng.IsWalking = false;
         components.msng.IsRunning = false;
+        components.msng.DamageHitbox.enabled = true;
 
         // Movimiento del personaje
         components.phys.AddForce(inertia);

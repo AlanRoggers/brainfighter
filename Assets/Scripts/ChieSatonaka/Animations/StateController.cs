@@ -288,7 +288,10 @@ public class StateController : MonoBehaviour
     private void LowPunch()
     {
         if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        {
+            components.msng.DamageHitbox.enabled = false;
             ChangeAnimation(AnimationStates.ChainLowPunch);
+        }
     }
     private void ChainLowPunch()
     {
@@ -297,7 +300,10 @@ public class StateController : MonoBehaviour
     private void MiddlePunch()
     {
         if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        {
+            components.msng.DamageHitbox.enabled = false;
             ChangeAnimation(AnimationStates.ChainMiddlePunch);
+        }
     }
     private void ChainMiddlePunch()
     {
@@ -306,7 +312,10 @@ public class StateController : MonoBehaviour
     private void HardPunch()
     {
         if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        {
+            components.msng.DamageHitbox.enabled = false;
             ChangeAnimation(AnimationStates.ChainHardPunch);
+        }
     }
     private void ChainHardPunch()
     {
@@ -315,7 +324,10 @@ public class StateController : MonoBehaviour
     private void SpecialPunch()
     {
         if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        {
+            components.msng.DamageHitbox.enabled = false;
             ChangeAnimation(AnimationStates.ChainSpecialPunch);
+        }
     }
     private void ChainSpecialPunch()
     {

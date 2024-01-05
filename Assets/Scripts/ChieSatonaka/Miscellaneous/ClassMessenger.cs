@@ -22,6 +22,7 @@ public class ClassMessenger : MonoBehaviour
     public bool IsTakingDamage;
     public bool IsWalking;
     public bool StartedWithFirst;
+    public Collider2D DamageHitbox;
     public Collider2D enemy;
     public Coroutine clear_attack = null;
     public Coroutine chain_oportunity = null;

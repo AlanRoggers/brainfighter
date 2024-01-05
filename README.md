@@ -218,3 +218,10 @@ __Nota: Tomar en cuenta que todo lo que no especifique que no puede tomar daño 
 
 # Cosas que debo recordar
 La animación de Punch2End tiene el frame Run10, Emote1_1 y Emote1_0 ya que así no se ve tan cortada la animación
+
+Para la fuerza en el ataque especial de los golpes, hay que hacerla variable, parece
+como si a veces empujara más porque el personaje está más cerca del enemigo entonces se crea
+ese efecto visual, cuando esta más cerca tenemos de dos:
+    - Hacemos que la fuerza de empuje realmente sea mayor
+    - Hacemos que la fuerza de la inercia del ataque especial sea menor para que no vaya sobrepasar
+      la posición del enemigo
