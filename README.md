@@ -225,3 +225,5 @@ ese efecto visual, cuando esta más cerca tenemos de dos:
     - Hacemos que la fuerza de empuje realmente sea mayor
     - Hacemos que la fuerza de la inercia del ataque especial sea menor para que no vaya sobrepasar
       la posición del enemigo
+
+La animación de Kick3End esta conformada por Block0 y Iddle0

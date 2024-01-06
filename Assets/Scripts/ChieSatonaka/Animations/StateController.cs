@@ -92,14 +92,26 @@ public class StateController : MonoBehaviour
             case AnimationStates.LowKick:
                 LowKick();
                 break;
+            case AnimationStates.ChainLowKick:
+                ChainLowKick();
+                break;
             case AnimationStates.MiddleKick:
                 MiddleKick();
+                break;
+            case AnimationStates.ChainMiddleKick:
+                ChainMiddleKick();
                 break;
             case AnimationStates.HardKick:
                 HardKick();
                 break;
+            case AnimationStates.ChainHardKick:
+                ChainHardKick();
+                break;
             case AnimationStates.SpecialKick:
                 SpecialKick();
+                break;
+            case AnimationStates.ChainSpecialKick:
+                ChainSpecialKick();
                 break;
             case AnimationStates.KickWhileCrouch:
                 break;
@@ -166,47 +178,79 @@ public class StateController : MonoBehaviour
     #region Kicks
     private void HardKick()
     {
-        KickAnimationHandler(2, AnimationStates.SpecialKick);
+        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        {
+            components.msng.DamageHitbox.enabled = false;
+            ChangeAnimation(AnimationStates.ChainHardKick);
+        }
+    }
+    private void ChainHardKick()
+    {
+        KickTransitions(2, AnimationStates.SpecialKick);
     }
     private void LowKick()
     {
-        KickAnimationHandler(0, AnimationStates.MiddleKick);
+        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        {
+            components.msng.DamageHitbox.enabled = false;
+            ChangeAnimation(AnimationStates.ChainLowKick);
+        }
+    }
+    private void ChainLowKick()
+    {
+        KickTransitions(0, AnimationStates.MiddleKick);
     }
     private void MiddleKick()
     {
-        KickAnimationHandler(1, AnimationStates.HardKick);
+        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        {
+            components.msng.DamageHitbox.enabled = false;
+            ChangeAnimation(AnimationStates.ChainMiddleKick);
+        }
+    }
+    private void ChainMiddleKick()
+    {
+        KickTransitions(1, AnimationStates.HardKick);
     }
     private void SpecialKick()
     {
-        KickAnimationHandler(3, AnimationStates.Iddle);
+        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        {
+            components.msng.DamageHitbox.enabled = false;
+            ChangeAnimation(AnimationStates.ChainSpecialKick);
+        }
     }
-    private void KickAnimationHandler(int attack, AnimationStates nextAttack)
+    private void ChainSpecialKick()
+    {
+        KickTransitions(3, AnimationStates.Iddle);
+    }
+    private void KickTransitions(int attack, AnimationStates nextAttack)
     {
         bool endAttack = components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f;
+        bool chainedAttack = components.msng.KickChain.Length - 1 >= attack + 1 && components.msng.KickChain[attack + 1];
+
+        if (!endAttack && !components.msng.ChainOportunity)
+            components.msng.ChainOportunity = true;
+
+        if (chainedAttack)
+        {
+            components.msng.ChainOportunity = false;
+            components.msng.DamageApplied = false;
+            components.msng.KickChain[attack] = false;
+            ChangeAnimation(nextAttack);
+            return;
+        }
 
         if (endAttack)
         {
-            if (components.msng.KickChain.Length - 1 >= attack + 1)
-            {
-                if (components.msng.KickChain[attack + 1])
-                {
-                    components.attacks.AnyAttackAnimationHandler(true, chainedAttack: true, isKick: true);
-                    ChangeAnimation(nextAttack);
-                }
-                else
-                {
-                    components.attacks.AnyAttackAnimationHandler(true, isKick: true);
-                    ChangeAnimation(AnimationStates.Iddle);
-                }
-            }
-            else
-            {
-                components.attacks.AnyAttackAnimationHandler(true, isKick: true);
-                ChangeAnimation(AnimationStates.Iddle);
-            }
+            components.msng.ChainOportunity = false;
+            components.msng.KickChain[attack] = false;
+            components.msng.DamageApplied = false;
+            components.msng.IsAttacking = false;
+            components.msng.StartedWithFirst = false;
+            components.msng.cooldown_timmer = StartCoroutine(components.msng.COOLDOWN_TIMER());
+            ChangeAnimation(AnimationStates.Iddle);
         }
-        else if (components.msng.clear_attack == null)
-            components.attacks.AnyAttackAnimationHandler(false, attack: attack, isKick: true);
     }
     #endregion
 
