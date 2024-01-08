@@ -227,3 +227,9 @@ ese efecto visual, cuando esta más cerca tenemos de dos:
       la posición del enemigo
 
 La animación de Kick3End esta conformada por Block0 y Iddle0
+
+El signo de la fuerza que se aplica para todas las cosas que usan fuerza, dependen de hacia donde esta girado el personaje, por lo que se debe tener la validación
+en todos los lugares en los que se apliquen fuerzas (Hasta ahora no esta validado en la mayoría de los casos)
+
+Cuando el personaje corre, la acción como tal es una acción trigger, es decir, se aprieta el botón de correr y la flag se pone como si el personaje corriera
+pero si no se aprieta la tecla de movimiento, esto no debería ser así (Hasta ahora hice un hotfix de esto pero da bug, esta en el script de Motion)

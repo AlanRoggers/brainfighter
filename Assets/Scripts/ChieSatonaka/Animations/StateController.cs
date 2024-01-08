@@ -4,8 +4,7 @@ using UnityEngine;
 public class StateController : MonoBehaviour
 {
     public bool TurnHandler;
-    [SerializeField]
-    private AnimationStates currentState;
+    [SerializeField] private AnimationStates currentState;
     private Coroutine await_another_damage = null;
     private Components components;
     public GameObject Reference;
@@ -31,12 +30,16 @@ public class StateController : MonoBehaviour
                 Iddle();
                 break;
             case AnimationStates.StartJumping:
+                StartJumping();
                 break;
             case AnimationStates.Jump:
+                Jump();
                 break;
             case AnimationStates.StartFalling:
+                StartFalling();
                 break;
             case AnimationStates.Fall:
+                Fall();
                 break;
             case AnimationStates.StartWalking:
                 StartWalking();
@@ -58,12 +61,22 @@ public class StateController : MonoBehaviour
             case AnimationStates.TurnOnAir:
                 break;
             case AnimationStates.StartRunning:
+                StartRunning();
                 break;
             case AnimationStates.Run:
+                Run();
                 break;
             case AnimationStates.Dash:
+                Dash();
                 break;
             case AnimationStates.DashBack:
+                DashBack();
+                break;
+            case AnimationStates.StartCrouching:
+                StartCrouching();
+                break;
+            case AnimationStates.Crouch:
+                Crouch();
                 break;
             case AnimationStates.LowPunch:
                 LowPunch();
@@ -131,6 +144,7 @@ public class StateController : MonoBehaviour
             case AnimationStates.Dead:
                 break;
             case AnimationStates.Land:
+                Land();
                 break;
         }
     }
@@ -168,6 +182,9 @@ public class StateController : MonoBehaviour
         else if (components.msng.KickChain[0]) ChangeAnimation(AnimationStates.LowKick);
         else if (components.msng.KickChain[1]) ChangeAnimation(AnimationStates.MiddleKick);
         else if (components.msng.KickChain[2]) ChangeAnimation(AnimationStates.HardKick);
+        else if (components.msng.IsDashing) ChangeAnimation(AnimationStates.Dash);
+        else if (components.msng.IsDashingBack) ChangeAnimation(AnimationStates.DashBack);
+        else if (components.msng.IsRunning) ChangeAnimation(AnimationStates.StartRunning);
         else if (components.msng.IsCrouching) ChangeAnimation(AnimationStates.StartCrouching);
         else if (components.msng.IsJumping) ChangeAnimation(AnimationStates.StartJumping);
         else if (TurnHandler) ChangeAnimation(AnimationStates.Turn);
@@ -255,14 +272,34 @@ public class StateController : MonoBehaviour
     #endregion
 
     #region Motion
+    private void Crouch()
+    {
+        if (!components.msng.IsCrouching)
+            ChangeAnimation(AnimationStates.Iddle);
+    }
     // Esto fue lo que no eh terminado de implementar por querer implementar primero la programación de lógica y fisicas
     private void Dash()
     {
-        StartCoroutine(components.motion.NO_DASHING());
+        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        {
+            components.msng.IsDashing = false;
+            components.phys.velocity = Vector2.zero;
+            ChangeAnimation(AnimationStates.Iddle);
+        }
+    }
+    private void DashBack()
+    {
+        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        {
+            components.msng.IsDashingBack = false;
+            components.phys.velocity = Vector2.zero;
+            ChangeAnimation(AnimationStates.Iddle);
+        }
     }
     private void Fall()
     {
-
+        if (components.msng.IsOnGround)
+            ChangeAnimation(AnimationStates.Land);
     }
     private void GoingBackwards()
     {
@@ -273,15 +310,30 @@ public class StateController : MonoBehaviour
     }
     private void Jump()
     {
-
+        if (components.phys.velocity.y <= 0)
+            ChangeAnimation(AnimationStates.StartFalling);
     }
     private void Land()
     {
-
+        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+            ChangeAnimation(AnimationStates.Iddle);
+    }
+    private void Run()
+    {
+        if (!components.msng.IsRunning)
+            ChangeAnimation(AnimationStates.Iddle);
+    }
+    private void StartCrouching()
+    {
+        if (!components.msng.IsCrouching)
+            ChangeAnimation(AnimationStates.Iddle);
+        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+            ChangeAnimation(AnimationStates.Crouch);
     }
     private void StartFalling()
     {
-
+        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+            ChangeAnimation(AnimationStates.Fall);
     }
     private void StartGoingBackwards()
     {
@@ -291,7 +343,13 @@ public class StateController : MonoBehaviour
     }
     private void StartJumping()
     {
-
+        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+            ChangeAnimation(AnimationStates.Jump);
+    }
+    private void StartRunning()
+    {
+        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+            ChangeAnimation(AnimationStates.Run);
     }
     private void StartWalking()
     {
