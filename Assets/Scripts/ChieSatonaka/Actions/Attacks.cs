@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class Attacks : MonoBehaviour
@@ -8,7 +7,7 @@ public class Attacks : MonoBehaviour
     public Vector2[] AttackForces = new Vector2[8];
     public Vector2[] AttacksInertia = new Vector2[8];
     private Rigidbody2D enemyPhys = null;
-    private bool damageApplied;
+
     private float currentDamageAttack;
     private AnimationClip currentClipAttack;
     private Components components;
@@ -20,7 +19,7 @@ public class Attacks : MonoBehaviour
     }
     void Update()
     {
-        if (components.msng.IsAttacking && !damageApplied)
+        if (components.msng.IsAttacking && !components.msng.DamageApplied)
             AnyAttackDamage();
     }
     void FixedUpdate()
@@ -31,26 +30,6 @@ public class Attacks : MonoBehaviour
             enemyPhys.velocity = Vector2.zero;
             enemyPhys.AddForce(currentAttackForce, ForceMode2D.Impulse);
             enemyPhys = null;
-        }
-    }
-    public void AnyAttackAnimationHandler(bool endAttack, bool chainedAttack = false, bool isKick = false, int attack = -1)
-    {
-        if (endAttack)
-        {
-            components.msng.clear_attack = null;
-            components.msng.chain_oportunity = null;
-            damageApplied = false;
-            if (!chainedAttack)
-            {
-                components.msng.IsAttacking = false;
-                components.msng.StartedWithFirst = false;
-                components.msng.cooldown_timmer = StartCoroutine(components.msng.COOLDOWN_TIMER());
-            }
-        }
-        else
-        {
-            components.msng.clear_attack = StartCoroutine(Clear_Attack(attack, isKick: isKick));
-            components.msng.chain_oportunity = StartCoroutine(CHAIN_OPORTUNITY());
         }
     }
     private void AnyAttackLogic(int attack, Vector2 inertia, bool isKick = false)
@@ -67,6 +46,7 @@ public class Attacks : MonoBehaviour
         components.phys.velocity = new Vector2(0, 0);
         components.msng.IsWalking = false;
         components.msng.IsRunning = false;
+        components.msng.DamageHitbox.enabled = true;
 
         // Movimiento del personaje
         components.phys.AddForce(inertia);
@@ -76,7 +56,7 @@ public class Attacks : MonoBehaviour
         if (components.msng.enemy != null)
         {
             print($"Any Attack Behaviour; Current Clip: {currentClipAttack.name} Fuerza que se aplicara: {currentAttackForce}");
-            damageApplied = true;
+            components.msng.DamageApplied = true;
 
             Components enemyComponents = components.msng.enemy.GetComponentInParent<Components>();
 
@@ -87,23 +67,6 @@ public class Attacks : MonoBehaviour
             enemyComponents.msng.IsTakingDamage = true;
             enemyPhys = enemyComponents.phys;
         }
-    }
-    private IEnumerator Clear_Attack(int attack, bool isKick = false)
-    {
-        yield return new WaitWhile(() => components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
-        if (isKick)
-            components.msng.KickChain[attack] = false;
-        else
-            components.msng.PunchChain[attack] = false;
-    }
-    private IEnumerator CHAIN_OPORTUNITY()
-    {
-        yield return new WaitUntil(() => components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.35f);
-        // print("Chain Time" + components.anim.GetCurrentAnimatorStateInfo(0).shortNameHash);
-        components.msng.ChainOportunity = true;
-        yield return new WaitWhile(() => components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.9f);
-        // print("No Chain Time" + components.anim.GetCurrentAnimatorStateInfo(0).shortNameHash);
-        components.msng.ChainOportunity = false;
     }
 
     #region Kicks

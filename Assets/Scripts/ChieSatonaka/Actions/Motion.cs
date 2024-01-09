@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Security.Cryptography;
 using UnityEngine;
 
 public class Motion : MonoBehaviour
@@ -12,7 +11,6 @@ public class Motion : MonoBehaviour
     private Coroutine dash_chance;
     void Awake()
     {
-        Application.targetFrameRate = 60; //Mover de aquí
         components = GetComponent<Components>();
     }
     #region Walk
@@ -53,7 +51,9 @@ public class Motion : MonoBehaviour
         if (!components.msng.IsAttacking && !components.msng.IsCrouching && components.msng.IsOnGround && !components.msng.IsTakingDamage)
         {
             if (components.msng.IsWalking) components.msng.IsWalking = false;
-            components.msng.IsRunning = true;
+
+            if (components.phys.velocity.x > 0) // Esta comprobación va dar bug asi como esta
+                components.msng.IsRunning = true;
         }
     }
     #endregion
@@ -102,8 +102,7 @@ public class Motion : MonoBehaviour
     #endregion
 
     #region Dash
-    [SerializeField]
-    private float dashForce;
+    [SerializeField] private float dashForce;
     public void Dash(bool negativeForce)
     {
         bool canDash = components.msng.IsOnGround && !components.msng.IsCrouching &&
@@ -120,7 +119,7 @@ public class Motion : MonoBehaviour
         {
             components.msng.IsWalking = false;
             components.msng.IsDashing = true;
-            components.phys.AddForce(new Vector2(negativeForce ? -dashForce : dashForce, 0));
+            components.phys.AddForce(new Vector2(negativeForce ? -dashForce : dashForce, 0), ForceMode2D.Impulse);
             StopCoroutine(dash_chance);
             components.msng.DashTimer = false;
         }
@@ -129,11 +128,6 @@ public class Motion : MonoBehaviour
     {
         yield return new WaitForSeconds(0.25f);
         components.msng.DashTimer = false;
-    }
-    public IEnumerator NO_DASHING()
-    {
-        yield return new WaitWhile(() => components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
-        components.msng.IsDashing = false;
     }
     #endregion
 
@@ -154,7 +148,7 @@ public class Motion : MonoBehaviour
         {
             components.msng.IsWalking = false;
             components.msng.IsDashingBack = true;
-            components.phys.AddForce(new Vector2(positiveForce ? dashForce : -dashForce, 0));
+            components.phys.AddForce(new Vector2(positiveForce ? dashForce : -dashForce, 0), ForceMode2D.Impulse);
             StopCoroutine(dash_chance);
             components.msng.DashBackTimer = false;
         }

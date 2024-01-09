@@ -10,8 +10,7 @@ public class CollisionDetector : MonoBehaviour
     private bool gameStarted;
     private Components components;
     private LayerMask groundLayer;
-    [SerializeField]
-    private LayerMask enemyLayer;
+    [SerializeField] private LayerMask enemyLayer;
     private Vector2 feetsPosition;
     private Vector2 feetsSize;
     void Awake()
@@ -54,7 +53,8 @@ public class CollisionDetector : MonoBehaviour
             else
                 Gizmos.color = Color.red;
 
-            Gizmos.DrawWireSphere(damage.bounds.center, damage.radius);
+            if (damage.enabled)
+                Gizmos.DrawWireSphere(damage.bounds.center, damage.radius);
         }
     }
     private bool GroundDetection()

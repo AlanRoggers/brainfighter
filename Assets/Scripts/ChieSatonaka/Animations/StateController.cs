@@ -4,8 +4,7 @@ using UnityEngine;
 public class StateController : MonoBehaviour
 {
     public bool TurnHandler;
-    [SerializeField]
-    private AnimationStates currentState;
+    [SerializeField] private AnimationStates currentState;
     private Coroutine await_another_damage = null;
     private Components components;
     public GameObject Reference;
@@ -31,12 +30,16 @@ public class StateController : MonoBehaviour
                 Iddle();
                 break;
             case AnimationStates.StartJumping:
+                StartJumping();
                 break;
             case AnimationStates.Jump:
+                Jump();
                 break;
             case AnimationStates.StartFalling:
+                StartFalling();
                 break;
             case AnimationStates.Fall:
+                Fall();
                 break;
             case AnimationStates.StartWalking:
                 StartWalking();
@@ -58,36 +61,70 @@ public class StateController : MonoBehaviour
             case AnimationStates.TurnOnAir:
                 break;
             case AnimationStates.StartRunning:
+                StartRunning();
                 break;
             case AnimationStates.Run:
+                Run();
                 break;
             case AnimationStates.Dash:
+                Dash();
                 break;
             case AnimationStates.DashBack:
+                DashBack();
+                break;
+            case AnimationStates.StartCrouching:
+                StartCrouching();
+                break;
+            case AnimationStates.Crouch:
+                Crouch();
                 break;
             case AnimationStates.LowPunch:
                 LowPunch();
                 break;
+            case AnimationStates.ChainLowPunch:
+                ChainLowPunch();
+                break;
             case AnimationStates.MiddlePunch:
                 MiddlePunch();
+                break;
+            case AnimationStates.ChainMiddlePunch:
+                ChainMiddlePunch();
                 break;
             case AnimationStates.HardPunch:
                 HardPunch();
                 break;
+            case AnimationStates.ChainHardPunch:
+                ChainHardPunch();
+                break;
             case AnimationStates.SpecialPunch:
                 SpecialPunch();
+                break;
+            case AnimationStates.ChainSpecialPunch:
+                ChainSpecialPunch();
                 break;
             case AnimationStates.LowKick:
                 LowKick();
                 break;
+            case AnimationStates.ChainLowKick:
+                ChainLowKick();
+                break;
             case AnimationStates.MiddleKick:
                 MiddleKick();
+                break;
+            case AnimationStates.ChainMiddleKick:
+                ChainMiddleKick();
                 break;
             case AnimationStates.HardKick:
                 HardKick();
                 break;
+            case AnimationStates.ChainHardKick:
+                ChainHardKick();
+                break;
             case AnimationStates.SpecialKick:
                 SpecialKick();
+                break;
+            case AnimationStates.ChainSpecialKick:
+                ChainSpecialKick();
                 break;
             case AnimationStates.KickWhileCrouch:
                 break;
@@ -107,6 +144,7 @@ public class StateController : MonoBehaviour
             case AnimationStates.Dead:
                 break;
             case AnimationStates.Land:
+                Land();
                 break;
         }
     }
@@ -144,6 +182,9 @@ public class StateController : MonoBehaviour
         else if (components.msng.KickChain[0]) ChangeAnimation(AnimationStates.LowKick);
         else if (components.msng.KickChain[1]) ChangeAnimation(AnimationStates.MiddleKick);
         else if (components.msng.KickChain[2]) ChangeAnimation(AnimationStates.HardKick);
+        else if (components.msng.IsDashing) ChangeAnimation(AnimationStates.Dash);
+        else if (components.msng.IsDashingBack) ChangeAnimation(AnimationStates.DashBack);
+        else if (components.msng.IsRunning) ChangeAnimation(AnimationStates.StartRunning);
         else if (components.msng.IsCrouching) ChangeAnimation(AnimationStates.StartCrouching);
         else if (components.msng.IsJumping) ChangeAnimation(AnimationStates.StartJumping);
         else if (TurnHandler) ChangeAnimation(AnimationStates.Turn);
@@ -154,59 +195,111 @@ public class StateController : MonoBehaviour
     #region Kicks
     private void HardKick()
     {
-        KickAnimationHandler(2, AnimationStates.SpecialKick);
+        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        {
+            components.msng.DamageHitbox.enabled = false;
+            ChangeAnimation(AnimationStates.ChainHardKick);
+        }
+    }
+    private void ChainHardKick()
+    {
+        KickTransitions(2, AnimationStates.SpecialKick);
     }
     private void LowKick()
     {
-        KickAnimationHandler(0, AnimationStates.MiddleKick);
+        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        {
+            components.msng.DamageHitbox.enabled = false;
+            ChangeAnimation(AnimationStates.ChainLowKick);
+        }
+    }
+    private void ChainLowKick()
+    {
+        KickTransitions(0, AnimationStates.MiddleKick);
     }
     private void MiddleKick()
     {
-        KickAnimationHandler(1, AnimationStates.HardKick);
+        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        {
+            components.msng.DamageHitbox.enabled = false;
+            ChangeAnimation(AnimationStates.ChainMiddleKick);
+        }
+    }
+    private void ChainMiddleKick()
+    {
+        KickTransitions(1, AnimationStates.HardKick);
     }
     private void SpecialKick()
     {
-        KickAnimationHandler(3, AnimationStates.Iddle);
+        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        {
+            components.msng.DamageHitbox.enabled = false;
+            ChangeAnimation(AnimationStates.ChainSpecialKick);
+        }
     }
-    private void KickAnimationHandler(int attack, AnimationStates nextAttack)
+    private void ChainSpecialKick()
+    {
+        KickTransitions(3, AnimationStates.Iddle);
+    }
+    private void KickTransitions(int attack, AnimationStates nextAttack)
     {
         bool endAttack = components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f;
+        bool chainedAttack = components.msng.KickChain.Length - 1 >= attack + 1 && components.msng.KickChain[attack + 1];
+
+        if (!endAttack && !components.msng.ChainOportunity)
+            components.msng.ChainOportunity = true;
+
+        if (chainedAttack)
+        {
+            components.msng.ChainOportunity = false;
+            components.msng.DamageApplied = false;
+            components.msng.KickChain[attack] = false;
+            ChangeAnimation(nextAttack);
+            return;
+        }
 
         if (endAttack)
         {
-            if (components.msng.KickChain.Length - 1 >= attack + 1)
-            {
-                if (components.msng.KickChain[attack + 1])
-                {
-                    components.attacks.AnyAttackAnimationHandler(true, chainedAttack: true, isKick: true);
-                    ChangeAnimation(nextAttack);
-                }
-                else
-                {
-                    components.attacks.AnyAttackAnimationHandler(true, isKick: true);
-                    ChangeAnimation(AnimationStates.Iddle);
-                }
-            }
-            else
-            {
-                components.attacks.AnyAttackAnimationHandler(true, isKick: true);
-                ChangeAnimation(AnimationStates.Iddle);
-            }
+            components.msng.ChainOportunity = false;
+            components.msng.KickChain[attack] = false;
+            components.msng.DamageApplied = false;
+            components.msng.IsAttacking = false;
+            components.msng.StartedWithFirst = false;
+            components.msng.cooldown_timmer = StartCoroutine(components.msng.COOLDOWN_TIMER());
+            ChangeAnimation(AnimationStates.Iddle);
         }
-        else if (components.msng.clear_attack == null)
-            components.attacks.AnyAttackAnimationHandler(false, attack: attack, isKick: true);
     }
     #endregion
 
     #region Motion
+    private void Crouch()
+    {
+        if (!components.msng.IsCrouching)
+            ChangeAnimation(AnimationStates.Iddle);
+    }
     // Esto fue lo que no eh terminado de implementar por querer implementar primero la programación de lógica y fisicas
     private void Dash()
     {
-        StartCoroutine(components.motion.NO_DASHING());
+        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        {
+            components.msng.IsDashing = false;
+            components.phys.velocity = Vector2.zero;
+            ChangeAnimation(AnimationStates.Iddle);
+        }
+    }
+    private void DashBack()
+    {
+        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        {
+            components.msng.IsDashingBack = false;
+            components.phys.velocity = Vector2.zero;
+            ChangeAnimation(AnimationStates.Iddle);
+        }
     }
     private void Fall()
     {
-
+        if (components.msng.IsOnGround)
+            ChangeAnimation(AnimationStates.Land);
     }
     private void GoingBackwards()
     {
@@ -217,15 +310,30 @@ public class StateController : MonoBehaviour
     }
     private void Jump()
     {
-
+        if (components.phys.velocity.y <= 0)
+            ChangeAnimation(AnimationStates.StartFalling);
     }
     private void Land()
     {
-
+        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+            ChangeAnimation(AnimationStates.Iddle);
+    }
+    private void Run()
+    {
+        if (!components.msng.IsRunning)
+            ChangeAnimation(AnimationStates.Iddle);
+    }
+    private void StartCrouching()
+    {
+        if (!components.msng.IsCrouching)
+            ChangeAnimation(AnimationStates.Iddle);
+        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+            ChangeAnimation(AnimationStates.Crouch);
     }
     private void StartFalling()
     {
-
+        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+            ChangeAnimation(AnimationStates.Fall);
     }
     private void StartGoingBackwards()
     {
@@ -235,7 +343,13 @@ public class StateController : MonoBehaviour
     }
     private void StartJumping()
     {
-
+        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+            ChangeAnimation(AnimationStates.Jump);
+    }
+    private void StartRunning()
+    {
+        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+            ChangeAnimation(AnimationStates.Run);
     }
     private void StartWalking()
     {
@@ -275,47 +389,79 @@ public class StateController : MonoBehaviour
     #region Punches
     private void LowPunch()
     {
-        PunchAnimationHandler(0, AnimationStates.MiddlePunch);
+        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        {
+            components.msng.DamageHitbox.enabled = false;
+            ChangeAnimation(AnimationStates.ChainLowPunch);
+        }
+    }
+    private void ChainLowPunch()
+    {
+        PunchTransitions(0, AnimationStates.MiddlePunch);
     }
     private void MiddlePunch()
     {
-        PunchAnimationHandler(1, AnimationStates.HardPunch);
+        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        {
+            components.msng.DamageHitbox.enabled = false;
+            ChangeAnimation(AnimationStates.ChainMiddlePunch);
+        }
+    }
+    private void ChainMiddlePunch()
+    {
+        PunchTransitions(1, AnimationStates.HardPunch);
     }
     private void HardPunch()
     {
-        PunchAnimationHandler(2, AnimationStates.SpecialPunch);
+        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        {
+            components.msng.DamageHitbox.enabled = false;
+            ChangeAnimation(AnimationStates.ChainHardPunch);
+        }
+    }
+    private void ChainHardPunch()
+    {
+        PunchTransitions(2, AnimationStates.SpecialPunch);
     }
     private void SpecialPunch()
     {
-        PunchAnimationHandler(3, AnimationStates.Iddle);
+        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        {
+            components.msng.DamageHitbox.enabled = false;
+            ChangeAnimation(AnimationStates.ChainSpecialPunch);
+        }
     }
-    private void PunchAnimationHandler(int attack, AnimationStates nextAttack)
+    private void ChainSpecialPunch()
+    {
+        PunchTransitions(3, AnimationStates.Iddle);
+    }
+    private void PunchTransitions(int attack, AnimationStates nextAttack)
     {
         bool endAttack = components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f;
+        bool chainedAttack = components.msng.PunchChain.Length - 1 >= attack + 1 && components.msng.PunchChain[attack + 1];
+
+        if (!endAttack && !components.msng.ChainOportunity)
+            components.msng.ChainOportunity = true;
+
+        if (chainedAttack)
+        {
+            components.msng.ChainOportunity = false;
+            components.msng.DamageApplied = false;
+            components.msng.PunchChain[attack] = false;
+            ChangeAnimation(nextAttack);
+            return;
+        }
 
         if (endAttack)
         {
-            if (components.msng.PunchChain.Length - 1 >= attack + 1)
-            {
-                if (components.msng.PunchChain[attack + 1])
-                {
-                    components.attacks.AnyAttackAnimationHandler(true, chainedAttack: true);
-                    ChangeAnimation(nextAttack);
-                }
-                else
-                {
-                    components.attacks.AnyAttackAnimationHandler(true);
-                    ChangeAnimation(AnimationStates.Iddle);
-                }
-            }
-            else
-            {
-                components.attacks.AnyAttackAnimationHandler(true);
-                ChangeAnimation(AnimationStates.Iddle);
-            }
+            components.msng.ChainOportunity = false;
+            components.msng.PunchChain[attack] = false;
+            components.msng.DamageApplied = false;
+            components.msng.IsAttacking = false;
+            components.msng.StartedWithFirst = false;
+            components.msng.cooldown_timmer = StartCoroutine(components.msng.COOLDOWN_TIMER());
+            ChangeAnimation(AnimationStates.Iddle);
         }
-        else if (components.msng.clear_attack == null)
-            components.attacks.AnyAttackAnimationHandler(false, attack: attack);
     }
     #endregion
 
