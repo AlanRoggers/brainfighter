@@ -6,64 +6,66 @@ Iddle:
 > StartGoingBackwards - R
 > Turn - R
 > StartCrouching - R
-> StartRunning
-> Dash
-> DashBack
-> LowPunch
-> MiddlePunch
-> HardPunch
-> LowKick
-> MiddleKick
-> HardKick
-> DashAttack
-> Damage
+> StartRunning - R
+> Dash - R
+> DashBack - R
+> LowPunch - R
+> MiddlePunch - R
+> HardPunch - R
+> LowKick - R
+> MiddleKick - R
+> HardKick - R
+> DashAttack - No se realizará
+> Damage - R
 > Dead
 
 StartJumping:
-> Jump
+> Jump - R
 
 Jump:
-> StartFalling
+> StartFalling - R
 > TurnOnAir
 
 StartFalling:
-> Fall
+> Fall - R
 
 Fall:
-> Land
+> Land - R
 > TurnOnAir
 
 StartWalking:
 > Walk - R
++ Todas las transiciones de Walk - R
 
 Walk:
 > Iddle - R
 > StartJumping - R
 > Turn - R
-> StartCrouching
-> Dash
-> LowPunch / Kick
-> MiddlePunch / Kick
-> HardPunch / Kick
-> StartRunning
+> StartCrouching - R
+> Dash - R
+> LowPunch / Kick - R
+> MiddlePunch / Kick - R
+> HardPunch / Kick - R
+> StartRunning - R
 > DashAttack
-> Damage
+> Damage - R
 > Dead
 
 StartGoingBackwards:
 > GoingBackwards - R
++ Todas las transiciones de GoingBackwards - R
 
 GoingBackwards:
 > Iddle - R
-> StartJumping
+> StartJumping - R
 > Turn - R
-> StartCrouching
-> DashBack
-> LowPunch / Kick
-> MiddlePunch / Kick
-> HardPunch / Kick
+> StartCrouching - R
+> DashBack - R
+> LowPunch / Kick - R
+> MiddlePunch / Kick - R
+> HardPunch / Kick - R
 > SomerSaultKick
-> Damage
+> Damage - R
 > Dead
 
 Turn:
