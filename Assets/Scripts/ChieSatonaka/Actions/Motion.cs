@@ -13,6 +13,7 @@ public class Motion : MonoBehaviour
     {
         components = GetComponent<Components>();
     }
+
     #region Walk
     private int maxSpeed = 5;
     private float walkForce = 100;
@@ -37,7 +38,6 @@ public class Motion : MonoBehaviour
             }
             else if (components.msng.IsWalking)
             {
-                print($"Por alguna razón entro {gameObject.name}");
                 components.msng.IsWalking = false;
                 components.phys.velocity = new Vector2(0, components.phys.velocity.y);
             }

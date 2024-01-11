@@ -70,19 +70,19 @@ GoingBackwards:
 
 Turn:
 > Iddle - R
-> StartJumping
+> StartJumping - R
 > StartWalking - R
 > StartGoingBackwards - R
-> StartCrouching
-> StartRunning
-> Dash
-> DashBack
-> LowPunch / Kick
-> MiddlePunch / Kick
-> HardPunch / Kick
+> StartCrouching - R
+> StartRunning - R
+> Dash - R
+> DashBack - R
+> LowPunch / Kick - R
+> MiddlePunch / Kick - R
+> HardPunch / Kick - R
 > SomersaultKick
 > DashAttack
-> Damage
+> Damage - R
 > Dead
 
 TurnWhileCrouch:
@@ -97,69 +97,96 @@ TurnOnAir:
 > Damage
 
 StartCrouching:
-> Crouch
+> Crouch - R
+> Iddle - R
 
 Crouch:
-> Iddle
+> Iddle - R
 > KickWhileCrouch
 > TurnWhileCrouch
 > DamageWhileCrouch
 > Dead
 
 StartRunning:
-> Run
+> Run - R
++ Todas las de run - R
 
 Run:
-> Iddle
-> StartJumping
-> StartWalking
-> StartGoingBackwards
-> Turn
-> StartCrouching
-> LowPunch / Kick
-> MiddlePunch / Kick
-> HardPunch / Kick
-> Damage
+> Iddle - R
+> StartJumping - R
+> Walk - R
+> StartGoingBackwards - R
+> Turn - R
+> StartCrouching - R
+> LowPunch / Kick - R
+> MiddlePunch / Kick - R
+> HardPunch / Kick - R
+> Damage - R
 > Dead
 
 Dash:
-> Iddle
+> Iddle - R
+> Turn - R
 
 DashBack:
-> Iddle
+> Iddle - R
+> Turn - R
 
 LowPunch:
-> Iddle
-> MiddlePunch
+> ChainLowPunch - R
+
+ChainLowPunch:
+> Iddle - R
+> MiddlePunch - R
 
 MiddlePunch:
-> Iddle
-> HardPunch
+> ChainMiddlePunch - R
+
+ChainMiddlePunch:
+> HardPunch - R
+> Iddle - R
 
 HardPunch:
-> Iddle
-> SpecialPunch
+> ChainHardPunch - R
+
+ChainHardPunch:
+> SpecialPunch - R
+> Iddle - R
 
 SpecialPunch:
-> Iddle
+> ChainSpecialPunch - R
+
+ChainSpecialPunch:
+> Iddle - R
 
 SomersaultKick:
 > Iddle
 
 LowKick:
-> Iddle
-> MiddleKick
+> ChainLowKick - R
+
+ChainLowKick:
+> MiddleKick - R
+> Iddle - R
 
 MiddleKick:
-> Iddle
-> HardKick
+> ChainMiddleKick - R
+
+ChainMiddleKick:
+> HardKick - R
 
 HardKick:
-> Iddle
-> SpecialKick
+> ChainHardKick - R
+
+ChainHardKick:
+> SpecialKick - R
+> Iddle - R
 
 SpecialKick:
-> Iddle
+> ChainSpecialKick - R
+
+ChainSpecialKick:
+> Iddle - R
 
 KickWhileCrouch:
 > Crouch

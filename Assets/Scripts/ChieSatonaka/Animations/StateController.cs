@@ -286,6 +286,12 @@ public class StateController : MonoBehaviour
             components.phys.velocity = Vector2.zero;
             ChangeAnimation(AnimationStates.Iddle);
         }
+        else if (TurnHandler)
+        {
+            components.msng.IsDashing = false;
+            components.phys.velocity = Vector2.zero;
+            ChangeAnimation(AnimationStates.Turn);
+        }
     }
     private void DashBack()
     {
@@ -294,6 +300,12 @@ public class StateController : MonoBehaviour
             components.msng.IsDashingBack = false;
             components.phys.velocity = Vector2.zero;
             ChangeAnimation(AnimationStates.Iddle);
+        }
+        else if (TurnHandler)
+        {
+            components.msng.IsDashingBack = false;
+            components.phys.velocity = Vector2.zero;
+            ChangeAnimation(AnimationStates.Turn);
         }
     }
     private void Fall()
@@ -342,8 +354,39 @@ public class StateController : MonoBehaviour
     }
     private void Run()
     {
+        bool noRunning = !components.msng.IsRunning && components.msng.IsWalking;
+        bool walking = noRunning &&
+                        (
+                            transform.localScale.x > 0 && components.phys.velocity.x > 0 ||
+                            transform.localScale.x < 0 && components.phys.velocity.x < 0
+                        );
+
         if (!components.msng.IsRunning)
             ChangeAnimation(AnimationStates.Iddle);
+        else if (components.msng.IsJumping)
+            ChangeAnimation(AnimationStates.StartJumping);
+        else if (noRunning && walking)
+            ChangeAnimation(AnimationStates.Walk);
+        else if (noRunning && !walking)
+            ChangeAnimation(AnimationStates.StartGoingBackwards);
+        else if (TurnHandler)
+            ChangeAnimation(AnimationStates.Turn);
+        else if (components.msng.IsCrouching)
+            ChangeAnimation(AnimationStates.StartCrouching);
+        else if (components.msng.IsTakingDamage)
+            ChangeAnimation(AnimationStates.Damage);
+        else if (components.msng.PunchChain[0])
+            ChangeAnimation(AnimationStates.LowPunch);
+        else if (components.msng.PunchChain[1])
+            ChangeAnimation(AnimationStates.MiddlePunch);
+        else if (components.msng.PunchChain[2])
+            ChangeAnimation(AnimationStates.HardPunch);
+        else if (components.msng.KickChain[0])
+            ChangeAnimation(AnimationStates.LowKick);
+        else if (components.msng.KickChain[1])
+            ChangeAnimation(AnimationStates.MiddleKick);
+        else if (components.msng.KickChain[2])
+            ChangeAnimation(AnimationStates.HardKick);
     }
     private void StartCrouching()
     {
@@ -395,8 +438,41 @@ public class StateController : MonoBehaviour
     }
     private void StartRunning()
     {
+        bool noRunning = !components.msng.IsRunning && components.msng.IsWalking;
+        bool walking = noRunning &&
+                        (
+                            transform.localScale.x > 0 && components.phys.velocity.x > 0 ||
+                            transform.localScale.x < 0 && components.phys.velocity.x < 0
+                        );
+
         if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
             ChangeAnimation(AnimationStates.Run);
+        else if (components.phys.velocity.x == 0)
+            ChangeAnimation(AnimationStates.Iddle);
+        else if (components.msng.IsJumping)
+            ChangeAnimation(AnimationStates.StartJumping);
+        else if (noRunning && walking)
+            ChangeAnimation(AnimationStates.Walk);
+        else if (noRunning && !walking)
+            ChangeAnimation(AnimationStates.StartGoingBackwards);
+        else if (TurnHandler)
+            ChangeAnimation(AnimationStates.Turn);
+        else if (components.msng.IsCrouching)
+            ChangeAnimation(AnimationStates.StartCrouching);
+        else if (components.msng.IsTakingDamage)
+            ChangeAnimation(AnimationStates.Damage);
+        else if (components.msng.PunchChain[0])
+            ChangeAnimation(AnimationStates.LowPunch);
+        else if (components.msng.PunchChain[1])
+            ChangeAnimation(AnimationStates.MiddlePunch);
+        else if (components.msng.PunchChain[2])
+            ChangeAnimation(AnimationStates.HardPunch);
+        else if (components.msng.KickChain[0])
+            ChangeAnimation(AnimationStates.LowKick);
+        else if (components.msng.KickChain[1])
+            ChangeAnimation(AnimationStates.MiddleKick);
+        else if (components.msng.KickChain[2])
+            ChangeAnimation(AnimationStates.HardKick);
     }
     private void StartWalking()
     {
@@ -439,16 +515,43 @@ public class StateController : MonoBehaviour
         if (animationFinished)
         {
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-
+            TurnHandler = false;
             bool iddle = components.phys.velocity.x == 0;
             bool walk = components.msng.IsWalking &&
                         (transform.localScale.x > 0 && components.phys.velocity.x > 0 ||
                         transform.localScale.x < 0 && components.phys.velocity.x < 0);
             bool goingBack = components.msng.IsWalking && !walk;
 
-            if (iddle) ChangeAnimation(AnimationStates.Iddle);
-            else if (walk) ChangeAnimation(AnimationStates.StartWalking);
-            else if (goingBack) ChangeAnimation(AnimationStates.StartGoingBackwards);
+            if (iddle)
+                ChangeAnimation(AnimationStates.Iddle);
+            else if (walk)
+                ChangeAnimation(AnimationStates.StartWalking);
+            else if (goingBack)
+                ChangeAnimation(AnimationStates.StartGoingBackwards);
+            else if (components.msng.IsJumping)
+                ChangeAnimation(AnimationStates.StartJumping);
+            else if (components.msng.IsCrouching)
+                ChangeAnimation(AnimationStates.StartCrouching);
+            else if (components.msng.IsRunning)
+                ChangeAnimation(AnimationStates.StartRunning);
+            else if (components.msng.IsDashing)
+                ChangeAnimation(AnimationStates.Dash);
+            else if (components.msng.IsDashingBack)
+                ChangeAnimation(AnimationStates.DashBack);
+            else if (components.msng.IsTakingDamage)
+                ChangeAnimation(AnimationStates.Damage);
+            else if (components.msng.PunchChain[0])
+                ChangeAnimation(AnimationStates.LowPunch);
+            else if (components.msng.PunchChain[1])
+                ChangeAnimation(AnimationStates.MiddlePunch);
+            else if (components.msng.PunchChain[2])
+                ChangeAnimation(AnimationStates.HardPunch);
+            else if (components.msng.KickChain[0])
+                ChangeAnimation(AnimationStates.LowKick);
+            else if (components.msng.KickChain[1])
+                ChangeAnimation(AnimationStates.MiddleKick);
+            else if (components.msng.KickChain[2])
+                ChangeAnimation(AnimationStates.HardKick);
         }
     }
     private void Walk()
