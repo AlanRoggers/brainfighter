@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class StateController : MonoBehaviour
 {
-    public bool TurnHandler;
     [SerializeField] private AnimationStates currentState;
     private Coroutine await_another_damage = null;
     private Components components;
@@ -18,12 +17,6 @@ public class StateController : MonoBehaviour
     }
     void Update()
     {
-        if (currentState == AnimationStates.Iddle || currentState == AnimationStates.Jump ||
-            currentState == AnimationStates.Fall || currentState == AnimationStates.Walk ||
-            currentState == AnimationStates.Crouch || currentState == AnimationStates.Run ||
-            currentState == AnimationStates.GoingBackwards)
-            TurnHandler = transform.localScale.x != KeepLooking();
-
         switch (currentState)
         {
             case AnimationStates.Iddle:
@@ -153,18 +146,6 @@ public class StateController : MonoBehaviour
         currentState = animation;
         components.anim.Play(animation.ToString());
     }
-    private int KeepLooking()
-    {
-        if (!components.msng.IsAttacking)
-        {
-            if (transform.position.x - Reference.transform.position.x <= 0 && transform.localScale.x < 0)
-                return 1;
-            else if (transform.position.x - Reference.transform.position.x > 0 && transform.localScale.x > 0)
-                return -1;
-            else return (int)transform.localScale.x;
-        }
-        else return (int)transform.localScale.x;
-    }
 
     #region Transitions
     private void Iddle()
@@ -187,7 +168,7 @@ public class StateController : MonoBehaviour
         else if (components.msng.IsRunning) ChangeAnimation(AnimationStates.StartRunning);
         else if (components.msng.IsCrouching) ChangeAnimation(AnimationStates.StartCrouching);
         else if (components.msng.IsJumping) ChangeAnimation(AnimationStates.StartJumping);
-        else if (TurnHandler) ChangeAnimation(AnimationStates.Turn);
+        else if (components.msng.NeedTurn) ChangeAnimation(AnimationStates.Turn);
         else if (walk) ChangeAnimation(AnimationStates.StartWalking);
         else if (goingBack) ChangeAnimation(AnimationStates.StartGoingBackwards);
     }
@@ -286,12 +267,6 @@ public class StateController : MonoBehaviour
             components.phys.velocity = Vector2.zero;
             ChangeAnimation(AnimationStates.Iddle);
         }
-        else if (TurnHandler)
-        {
-            components.msng.IsDashing = false;
-            components.phys.velocity = Vector2.zero;
-            ChangeAnimation(AnimationStates.Turn);
-        }
     }
     private void DashBack()
     {
@@ -300,12 +275,6 @@ public class StateController : MonoBehaviour
             components.msng.IsDashingBack = false;
             components.phys.velocity = Vector2.zero;
             ChangeAnimation(AnimationStates.Iddle);
-        }
-        else if (TurnHandler)
-        {
-            components.msng.IsDashingBack = false;
-            components.phys.velocity = Vector2.zero;
-            ChangeAnimation(AnimationStates.Turn);
         }
     }
     private void Fall()
@@ -321,7 +290,7 @@ public class StateController : MonoBehaviour
             ChangeAnimation(AnimationStates.Iddle);
         else if (components.msng.IsJumping)
             ChangeAnimation(AnimationStates.StartJumping);
-        else if (TurnHandler)
+        else if (components.msng.NeedTurn)
             ChangeAnimation(AnimationStates.Turn);
         else if (components.msng.IsCrouching)
             ChangeAnimation(AnimationStates.StartCrouching);
@@ -369,7 +338,7 @@ public class StateController : MonoBehaviour
             ChangeAnimation(AnimationStates.Walk);
         else if (noRunning && !walking)
             ChangeAnimation(AnimationStates.StartGoingBackwards);
-        else if (TurnHandler)
+        else if (components.msng.NeedTurn)
             ChangeAnimation(AnimationStates.Turn);
         else if (components.msng.IsCrouching)
             ChangeAnimation(AnimationStates.StartCrouching);
@@ -410,7 +379,7 @@ public class StateController : MonoBehaviour
             ChangeAnimation(AnimationStates.Iddle);
         else if (components.msng.IsJumping)
             ChangeAnimation(AnimationStates.StartJumping);
-        else if (TurnHandler)
+        else if (components.msng.NeedTurn)
             ChangeAnimation(AnimationStates.Turn);
         else if (components.msng.IsCrouching)
             ChangeAnimation(AnimationStates.StartCrouching);
@@ -455,7 +424,7 @@ public class StateController : MonoBehaviour
             ChangeAnimation(AnimationStates.Walk);
         else if (noRunning && !walking)
             ChangeAnimation(AnimationStates.StartGoingBackwards);
-        else if (TurnHandler)
+        else if (components.msng.NeedTurn)
             ChangeAnimation(AnimationStates.Turn);
         else if (components.msng.IsCrouching)
             ChangeAnimation(AnimationStates.StartCrouching);
@@ -484,7 +453,7 @@ public class StateController : MonoBehaviour
             ChangeAnimation(AnimationStates.Iddle);
         else if (components.msng.IsJumping)
             ChangeAnimation(AnimationStates.StartJumping);
-        else if (TurnHandler)
+        else if (components.msng.NeedTurn)
             ChangeAnimation(AnimationStates.Turn);
         else if (components.msng.IsCrouching)
             ChangeAnimation(AnimationStates.StartCrouching);
@@ -510,12 +479,19 @@ public class StateController : MonoBehaviour
     }
     private void Turn()
     {
+        if (components.msng.NeedTurn)
+        {
+            components.msng.NeedTurn = false;
+            components.msng.IsTurning = true;
+        }
+
+
         bool animationFinished = components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f;
 
         if (animationFinished)
         {
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-            TurnHandler = false;
+            components.msng.IsTurning = false;
             bool iddle = components.phys.velocity.x == 0;
             bool walk = components.msng.IsWalking &&
                         (transform.localScale.x > 0 && components.phys.velocity.x > 0 ||
@@ -562,7 +538,7 @@ public class StateController : MonoBehaviour
             ChangeAnimation(AnimationStates.Iddle);
         else if (components.msng.IsJumping)
             ChangeAnimation(AnimationStates.StartJumping);
-        else if (TurnHandler)
+        else if (components.msng.NeedTurn)
             ChangeAnimation(AnimationStates.Turn);
         else if (components.msng.IsCrouching)
             ChangeAnimation(AnimationStates.StartCrouching);

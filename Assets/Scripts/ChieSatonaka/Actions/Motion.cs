@@ -1,12 +1,11 @@
 using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Motion : MonoBehaviour
 {
-    [SerializeField]
-    private BoxCollider2D crouchHitbox;
-    [SerializeField]
-    private BoxCollider2D normalHitbox;
+    [SerializeField] private BoxCollider2D normalHitbox;
+    [SerializeField] private GameObject Reference;
     private Components components;
     private Coroutine dash_chance;
     void Awake()
@@ -14,29 +13,42 @@ public class Motion : MonoBehaviour
         components = GetComponent<Components>();
     }
 
+    void Update()
+    {
+        if (transform.localScale.x != KeepLooking())
+            components.msng.NeedTurn = true;
+    }
+
     #region Walk
     private int maxSpeed = 5;
     private float walkForce = 100;
     public void Walk(int direction)
     {
-        if (!components.msng.IsDashing && !components.msng.IsDashingBack && !components.msng.IsTakingDamage && !components.msng.IsAttacking)
+        bool canDo = components.msng.IsOnGround && !(
+            components.msng.IsAttacking || components.msng.IsCrouching ||
+            components.msng.IsDashing || components.msng.IsDashingBack ||
+            components.msng.IsTakingDamage || components.msng.IsTurning ||
+            components.msng.IsJumping
+        );
+
+        if (canDo)
         {
+            if (components.msng.IsJumping)
+                print("Entro al canDo");
             if (direction != 0)
             {
-                if (!components.msng.IsAttacking && !components.msng.IsCrouching)
+                components.msng.IsWalking = !components.msng.IsRunning;
+                maxSpeed = components.msng.IsRunning ? 7 : 5;
+                walkForce = components.msng.IsRunning ? 150 : 100;
+                if (Mathf.Abs(components.phys.velocity.x) < maxSpeed)
                 {
-                    components.msng.IsWalking = !components.msng.IsRunning;
-                    maxSpeed = components.msng.IsRunning ? 7 : 5;
-                    walkForce = components.msng.IsRunning ? 150 : 100;
-                    if (Mathf.Abs(components.phys.velocity.x) < maxSpeed)
-                    {
-                        float speed = components.phys.velocity.x + (1 * walkForce * direction * Time.deltaTime);
-                        components.phys.velocity = new Vector2(speed, components.phys.velocity.y);
-                    }
-                    else components.phys.velocity = new Vector2(maxSpeed * direction, components.phys.velocity.y);
+                    float speed = components.phys.velocity.x + (1 * walkForce * direction * Time.deltaTime);
+                    components.phys.velocity = new Vector2(speed, components.phys.velocity.y);
                 }
+                else components.phys.velocity = new Vector2(maxSpeed * direction, components.phys.velocity.y);
+
             }
-            else if (components.msng.IsWalking)
+            else if (components.msng.IsWalking || components.msng.IsRunning)
             {
                 components.msng.IsWalking = false;
                 components.phys.velocity = new Vector2(0, components.phys.velocity.y);
@@ -48,29 +60,34 @@ public class Motion : MonoBehaviour
     #region Run
     public void Run()
     {
-        if (!components.msng.IsAttacking && !components.msng.IsCrouching && components.msng.IsOnGround && !components.msng.IsTakingDamage)
-        {
-            if (components.msng.IsWalking) components.msng.IsWalking = false;
+        // Como esta acción solo potencia el caminar, la acción de caminar valida a esta acción también
+        bool canDo = components.msng.IsWalking;
 
-            if (components.phys.velocity.x > 0) // Esta comprobación va dar bug asi como esta
-                components.msng.IsRunning = true;
+        if (canDo && !components.msng.IsRunning)
+        {
+            components.msng.IsWalking = false;
+            components.msng.IsRunning = true;
         }
     }
     #endregion
 
     #region Jump
-    private readonly int jumpForce = 800;
+    // El salto se podría mejorar aplicando fuerza en función de si lleva velocidad o no
+    [SerializeField] private int jumpxForce;
+    [SerializeField] private int jumpForce;
     private float lastJump = 0f;
     private readonly float waitingBetweenJumps = 0.5f;
     public void Jump()
     {
-        bool canJump = components.msng.IsOnGround && Time.time - lastJump >= waitingBetweenJumps &&
-                        !components.msng.IsAttacking && !components.msng.IsCrouching &&
-                        !components.msng.IsTakingDamage;
+        bool canDo = components.msng.IsOnGround && Time.time - lastJump >= waitingBetweenJumps && !(
+            components.msng.IsAttacking || components.msng.IsTakingDamage ||
+            components.msng.IsDashing || components.msng.IsDashingBack || components.msng.IsTurning
+        );
 
-        if (canJump)
+        if (canDo)
         {
-            components.phys.AddForce(new Vector2(0, jumpForce));
+            int asd = components.phys.velocity.x != 0 ? jumpxForce : 0;
+            components.phys.AddForce(new Vector2(Mathf.Sign(components.phys.velocity.x) * asd, jumpForce), ForceMode2D.Impulse);
             lastJump = Time.time;
             components.msng.IsJumping = true;
             components.coll.CanCheckGround = false;
@@ -81,7 +98,13 @@ public class Motion : MonoBehaviour
     #region Crouch
     public void Crouch()
     {
-        if (components.msng.IsOnGround && !components.msng.IsAttacking && !components.msng.IsTakingDamage)
+        bool canDo = components.msng.IsOnGround && !(
+            components.msng.IsAttacking || components.msng.IsTurning ||
+            components.msng.IsDashing || components.msng.IsDashingBack ||
+            components.msng.IsTakingDamage
+        );
+
+        if (canDo)
         {
             Hitboxes(false, true);
             components.msng.IsCrouching = true;
@@ -105,17 +128,17 @@ public class Motion : MonoBehaviour
     [SerializeField] private float dashForce;
     public void Dash(bool negativeForce)
     {
-        bool canDash = components.msng.IsOnGround && !components.msng.IsCrouching &&
-                        !components.msng.IsAttacking && !components.msng.IsRunning &&
-                        !components.msng.IsDashing && !components.msng.IsDashingBack &&
-                        !components.msng.IsTakingDamage;
+        bool canDo = components.msng.IsOnGround && !(
+            components.msng.IsCrouching || components.msng.IsAttacking ||
+            components.msng.IsRunning || components.msng.IsDashing ||
+            components.msng.IsDashingBack || components.msng.IsTakingDamage);
 
-        if (!components.msng.DashTimer && canDash)
+        if (!components.msng.DashTimer && canDo)
         {
             components.msng.DashTimer = true;
             dash_chance = StartCoroutine(DASH_CAHNCE());
         }
-        else if (canDash)
+        else if (canDo)
         {
             components.msng.IsWalking = false;
             components.msng.IsDashing = true;
@@ -134,17 +157,18 @@ public class Motion : MonoBehaviour
     #region DashBack
     public void DashBack(bool positiveForce)
     {
-        bool canDash = components.msng.IsOnGround && !components.msng.IsCrouching &&
-                        !components.msng.IsAttacking && !components.msng.IsRunning &&
-                        !components.msng.IsDashingBack && !components.msng.IsDashing &&
-                        !components.msng.IsTakingDamage;
+        bool canDo = components.msng.IsOnGround && !(
+            components.msng.IsCrouching || components.msng.IsAttacking ||
+            components.msng.IsRunning || components.msng.IsDashingBack ||
+            components.msng.IsDashing || components.msng.IsTakingDamage
+        );
 
-        if (!components.msng.DashBackTimer && canDash)
+        if (!components.msng.DashBackTimer && canDo)
         {
             components.msng.DashBackTimer = true;
             dash_chance = StartCoroutine(DASHBACK_CAHNCE());
         }
-        else if (canDash)
+        else if (canDo)
         {
             components.msng.IsWalking = false;
             components.msng.IsDashingBack = true;
@@ -165,4 +189,23 @@ public class Motion : MonoBehaviour
         components.msng.IsDashingBack = false;
     }
     #endregion}
+
+    #region Turn
+    [SerializeField] private BoxCollider2D crouchHitbox;
+    private int KeepLooking()
+    {
+        // Aqui la comprobación se hace con las transiciones de los estados, es decir, esta función solo debería detechat
+        // que se ocupa girar y no estar validando si se puede girar por lo tanto esta primera validación no va
+
+        if (!components.msng.IsAttacking)
+        {
+            if (transform.position.x - Reference.transform.position.x <= 0 && transform.localScale.x < 0)
+                return 1;
+            else if (transform.position.x - Reference.transform.position.x > 0 && transform.localScale.x > 0)
+                return -1;
+            else return (int)transform.localScale.x;
+        }
+        else return (int)transform.localScale.x;
+    }
+    #endregion
 }

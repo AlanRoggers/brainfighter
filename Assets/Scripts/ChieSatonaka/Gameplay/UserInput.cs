@@ -131,7 +131,11 @@ public class UserInput : MonoBehaviour
                 components.motion.Run();
             else components.msng.IsRunning = false;
         }
-        else components.msng.IsRunning = false;
+        else
+        {
+            components.msng.IsRunning = false;
+        }
+
     }
     private void WalkInput()
     {

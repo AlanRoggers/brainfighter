@@ -20,7 +20,9 @@ public class ClassMessenger : MonoBehaviour
     public bool IsOnGround;
     public bool IsRunning;
     public bool IsTakingDamage;
+    public bool IsTurning;
     public bool IsWalking;
+    public bool NeedTurn;
     public bool StartedWithFirst;
     public Collider2D DamageHitbox;
     public Collider2D enemy;
