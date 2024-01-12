@@ -102,40 +102,148 @@ En total se crearon 21 SpriteSheets que contienen todas las animaciones de Chie 
 > Estas animaciones son las que yo esperaría alcanzar a implementar, sin embargo, esta lista está sujeta a cambios
 
 ## Transiciones entre animaciones
-    > Iddle a
-        > Caminar
-        > Retroceder
-        > Voltear
-        > Saltar
-        > Agacharse
-        > Correr
+    Iddle:
+        > Turn normal
+        > Start Crouching
+        > StartJumping
+        > StartWalking
+        > StartGoingBackwards
+        > StartRunning
         > Dash
         > DashBack
-        > Golpeado
-        > Morir
-        > Golpe 1
-        > Golpe 2
-        > Patada especial 1
-        > Voltereta con ataque
-        > Patada 1
-        > Patada 2
-        > Patada 3
-        > PAtada 4
-        > Patada especial 3
-        > Patada especial 4
-        > Ataque con Dash
-    > Saltar
-        > Voltear en el aire
-        > Golpeado
-        > Patada aerea
-        > Land
-    > Agachado
+        > Damage
+        > Low Punch / Kick
+        > Middle Punch / Kick
+        > Hard Punch / Kick
+    Turn Normal:
         > Iddle
-        > Voltear agachado
-        > Saltar
-        > Golpeado agachado
-        > Patada agachado
-
+        > StartCrouching
+        > StartJumping
+        > StartWalking
+        > StartGoinBackwards
+        > Dash
+        > DashBack
+        > Damage
+        > Low Punch / Kick
+        > Middle Punch / Kick
+        > Hard Punch / Kick
+    StartCrouching:
+        > Crouch
+    Crouch:
+        > Iddle
+        > StartJumping
+    StartJumping:
+        > Jump
+    Jump:
+        > StartFalling
+    StartFalling:
+        > Fall
+    Fall:
+        > Iddle
+        > TurnNormal
+        > StartCrouching
+        > StartJumping
+        > StartWalking
+        > StartGoingBackwards
+        > Low Punch / Kick
+        > Middle Punch / Kick
+        > Hard Punch / Kick
+    StartWalking:
+        > Walk
+    Walk:
+        > Iddle
+        > Turn Normal
+        > StartCrouching
+        > StartJumping
+        > StartGoingBackwards
+        > StartRunning
+        > Dash
+        > Damage
+        > Low 
+        > Punch / Kick
+        > Middle Punch / Kick
+        > Hard Punch / Kick
+    StartGoingBackwards:
+        > GoingBackwards
+    GoingBackwards:
+        > Iddle
+        > Turn Normal
+        > StartCrouching
+        > StartJumping
+        > StartWalking
+        > DashBack
+        > Damage
+        > Low Punch / Kick
+        > Middle Punch / Kick
+        > Hard Punch / Kick
+    StartRunning:
+        > Run
+    Run:
+        > Iddle
+        > Turn Normal
+        > StartCrouching
+        > StartJumping
+        > Walk
+        > StartGoingBackwards
+        > Damage
+        > Low Punch / Kick
+        > Middle Punch / Kick
+        > Hard Punch / Kick
+    Dash:
+        > Iddle
+        > Turn Normal
+        > Walk
+        > GoingBackwards
+    DashBack:
+        > Iddle
+        > Turn Normal
+        > Walk
+        > GoingBackwards
+    Damage:
+        > Iddle
+    LowPunch:
+        > ChainLowPunch
+        > Damage
+    ChainLowPunch:
+        > Iddle
+        > Turn Normal
+        > StartCrouching
+        > StartJumping
+        > StartWalking
+        > StartGoingBackwards
+        > StartRunning
+        > Dash
+        > DashBack
+        > Damage
+        > Middle Punch
+    MiddlePunch:
+        > ChainMiddlePunch
+        > Damage
+    ChainMiddlePunch:
+        > Iddle
+        > Turn Normal
+        > StartCrouching
+        > StartJumping
+        > StartWalking
+        > StartGoingBackwards
+        > StartRunning
+        > Dash
+        > DashBack
+        > Damage
+        > Hard Punch
+    HardPunch:
+        > ChainHardPunch
+        > Damage
+    ChainHardPunch:
+        > Iddle
+        > Turn Normal
+        > StartCrouching
+        > StartJumping
+        > StartWalking
+        > StartGoingBackwards
+        > StartRunning
+        > Dash
+        > DashBack
 ## Mecánicas del juego
     > Un golpe -> débil, medio y fuerte
     > Una patada -> débil, media y fuerte
@@ -189,20 +297,19 @@ Para lograr los especiales va ser necesario que se ejecuten la secuencia de tres
 - Saltar (Solo animación)
 - Agacharse
 - Dash
-- Damage
 
 - [x] Dash: Movimiento que permite desplazarse rapidamente y ser invulnerable por cierto periodo de tiempo. Se puede hacer cuando Chie esta en el suelo en estado Iddle, Caminando y Corriendo. Ninguna acción puede interrumpir a esta.
 
 - [x] DashBack: Movimiento que permite desplazarse rapidamente hacia atrás. Se puede hacer cuando Chie esta en el suelo en estado Iddle o Caminando (hacia atrás). Ninguna acción puede interrumpir esta
 
 **Damage**
-- [x] Golpes bajos medios y fuertes: Se pueden realizar cuando Chie esta en estado Iddle, caminando o corriendo. Cada golpe aporta un punto a la secuencia de golpes. Al final de cada golpe hay un tiempo de recuperación que no permite hacer ninguna acción Damage. A mitad de animación de cada golpe es posible realizar el ataque que sigue en la secuencia: Low -> Middle -> Hard, si esa secuencia no se respeta, los golpes terminarán y se aplicara el tiempo de recuperación. Ninguna acción puede interrumpir a esta.
+- [ ] Golpes bajos medios y fuertes: Se pueden realizar cuando Chie esta en estado Iddle, caminando o corriendo. Cada golpe aporta un punto a la secuencia de golpes. Al final de cada golpe hay un tiempo de recuperación que no permite hacer ninguna acción Damage. A mitad de animación de cada golpe es posible realizar el ataque que sigue en la secuencia: Low -> Middle -> Hard, si esa secuencia no se respeta, los golpes terminarán y se aplicara el tiempo de recuperación. Ninguna acción puede interrumpir a esta.
 
-- [x] Golpe especial: Se puede realizar cuando Chie haya completado la secuencia de tres golpes de manera correcta. Ninguna acción puede interrumpir a esta
+- [ ] Golpe especial: Se puede realizar cuando Chie haya completado la secuencia de tres golpes de manera correcta. Ninguna acción puede interrumpir a esta
 
-- [x] Patadas bajas, medias y fuertes: Se pueden realizar cuando Chie esta en estado Iddle, caminando o corriendo. Cada patada aporta un punto a la secuencia de patadas. Al final de cada patada hay un tiempo de recuperación que no permite hacer ninguna acción Damage. A mitad de animación de cada patada es posible realizar el ataque que sigue en la secuencia: Low -> Middle -> Hard, si esa secuencia no se respeta, las patadas terminarán y se aplicará el tiempo de recuperación. Ninguna acción puede interrumpir a esta. Si puede tomar daño estando en este estado
+- [ ] Patadas bajas, medias y fuertes: Se pueden realizar cuando Chie esta en estado Iddle, caminando o corriendo. Cada patada aporta un punto a la secuencia de patadas. Al final de cada patada hay un tiempo de recuperación que no permite hacer ninguna acción Damage. A mitad de animación de cada patada es posible realizar el ataque que sigue en la secuencia: Low -> Middle -> Hard, si esa secuencia no se respeta, las patadas terminarán y se aplicará el tiempo de recuperación. Ninguna acción puede interrumpir a esta. Si puede tomar daño estando en este estado
 
-- [x] Patada especial: Se puede realizar cuando Chie haya completado la secuencia de tres patadas de manera correcta. Ninguna acción puede interrumpir a esta. No puede tomar daño estando en este estado
+- [ ] Patada especial: Se puede realizar cuando Chie haya completado la secuencia de tres patadas de manera correcta. Ninguna acción puede interrumpir a esta. No puede tomar daño estando en este estado
 
 - [ ] SomersaultKick: Es una patada combinada con un Dash hacia atrás. Este ataque se puede hacer cuando Chie esta en estado Iddle o caminando hacía atrás. Ninguna acción puede interrumpir a esta.
 
@@ -210,26 +317,4 @@ Para lograr los especiales va ser necesario que se ejecuten la secuencia de tres
 
 - [ ] Patada agachado: Esta patada se puede hacer cuando Chie esta agachada. Ninguna acción puede interrumpir a esta.
 
-
-- [ ] Revisar que todas las corrutinas que se ejecutan solo se ejecuten una sola vez, esto causa demasiados bugs si no se cuida
-
 __Nota: Tomar en cuenta que todo lo que no especifique que no puede tomar daño o que es invulnerable es considerado como que si se le puede hacer daño__
-
-
-# Cosas que debo recordar
-La animación de Punch2End tiene el frame Run10, Emote1_1 y Emote1_0 ya que así no se ve tan cortada la animación
-
-Para la fuerza en el ataque especial de los golpes, hay que hacerla variable, parece
-como si a veces empujara más porque el personaje está más cerca del enemigo entonces se crea
-ese efecto visual, cuando esta más cerca tenemos de dos:
-    - Hacemos que la fuerza de empuje realmente sea mayor
-    - Hacemos que la fuerza de la inercia del ataque especial sea menor para que no vaya sobrepasar
-      la posición del enemigo
-
-La animación de Kick3End esta conformada por Block0 y Iddle0
-
-El signo de la fuerza que se aplica para todas las cosas que usan fuerza, dependen de hacia donde esta girado el personaje, por lo que se debe tener la validación
-en todos los lugares en los que se apliquen fuerzas (Hasta ahora no esta validado en la mayoría de los casos)
-
-Cuando el personaje corre, la acción como tal es una acción trigger, es decir, se aprieta el botón de correr y la flag se pone como si el personaje corriera
-pero si no se aprieta la tecla de movimiento, esto no debería ser así (Hasta ahora hice un hotfix de esto pero da bug, esta en el script de Motion)
