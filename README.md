@@ -102,40 +102,148 @@ En total se crearon 21 SpriteSheets que contienen todas las animaciones de Chie 
 > Estas animaciones son las que yo esperaría alcanzar a implementar, sin embargo, esta lista está sujeta a cambios
 
 ## Transiciones entre animaciones
-    > Iddle a
-        > Caminar
-        > Retroceder
-        > Voltear
-        > Saltar
-        > Agacharse
-        > Correr
+    Iddle:
+        > Turn normal
+        > Start Crouching
+        > StartJumping
+        > StartWalking
+        > StartGoingBackwards
+        > StartRunning
         > Dash
         > DashBack
-        > Golpeado
-        > Morir
-        > Golpe 1
-        > Golpe 2
-        > Patada especial 1
-        > Voltereta con ataque
-        > Patada 1
-        > Patada 2
-        > Patada 3
-        > PAtada 4
-        > Patada especial 3
-        > Patada especial 4
-        > Ataque con Dash
-    > Saltar
-        > Voltear en el aire
-        > Golpeado
-        > Patada aerea
-        > Land
-    > Agachado
+        > Damage
+        > Low Punch / Kick
+        > Middle Punch / Kick
+        > Hard Punch / Kick
+    Turn Normal:
         > Iddle
-        > Voltear agachado
-        > Saltar
-        > Golpeado agachado
-        > Patada agachado
-
+        > StartCrouching
+        > StartJumping
+        > StartWalking
+        > StartGoinBackwards
+        > Dash
+        > DashBack
+        > Damage
+        > Low Punch / Kick
+        > Middle Punch / Kick
+        > Hard Punch / Kick
+    StartCrouching:
+        > Crouch
+    Crouch:
+        > Iddle
+        > StartJumping
+    StartJumping:
+        > Jump
+    Jump:
+        > StartFalling
+    StartFalling:
+        > Fall
+    Fall:
+        > Iddle
+        > TurnNormal
+        > StartCrouching
+        > StartJumping
+        > StartWalking
+        > StartGoingBackwards
+        > Low Punch / Kick
+        > Middle Punch / Kick
+        > Hard Punch / Kick
+    StartWalking:
+        > Walk
+    Walk:
+        > Iddle
+        > Turn Normal
+        > StartCrouching
+        > StartJumping
+        > StartGoingBackwards
+        > StartRunning
+        > Dash
+        > Damage
+        > Low 
+        > Punch / Kick
+        > Middle Punch / Kick
+        > Hard Punch / Kick
+    StartGoingBackwards:
+        > GoingBackwards
+    GoingBackwards:
+        > Iddle
+        > Turn Normal
+        > StartCrouching
+        > StartJumping
+        > StartWalking
+        > DashBack
+        > Damage
+        > Low Punch / Kick
+        > Middle Punch / Kick
+        > Hard Punch / Kick
+    StartRunning:
+        > Run
+    Run:
+        > Iddle
+        > Turn Normal
+        > StartCrouching
+        > StartJumping
+        > Walk
+        > StartGoingBackwards
+        > Damage
+        > Low Punch / Kick
+        > Middle Punch / Kick
+        > Hard Punch / Kick
+    Dash:
+        > Iddle
+        > Turn Normal
+        > Walk
+        > GoingBackwards
+    DashBack:
+        > Iddle
+        > Turn Normal
+        > Walk
+        > GoingBackwards
+    Damage:
+        > Iddle
+    LowPunch:
+        > ChainLowPunch
+        > Damage
+    ChainLowPunch:
+        > Iddle
+        > Turn Normal
+        > StartCrouching
+        > StartJumping
+        > StartWalking
+        > StartGoingBackwards
+        > StartRunning
+        > Dash
+        > DashBack
+        > Damage
+        > Middle Punch
+    MiddlePunch:
+        > ChainMiddlePunch
+        > Damage
+    ChainMiddlePunch:
+        > Iddle
+        > Turn Normal
+        > StartCrouching
+        > StartJumping
+        > StartWalking
+        > StartGoingBackwards
+        > StartRunning
+        > Dash
+        > DashBack
+        > Damage
+        > Hard Punch
+    HardPunch:
+        > ChainHardPunch
+        > Damage
+    ChainHardPunch:
+        > Iddle
+        > Turn Normal
+        > StartCrouching
+        > StartJumping
+        > StartWalking
+        > StartGoingBackwards
+        > StartRunning
+        > Dash
+        > DashBack
 ## Mecánicas del juego
     > Un golpe -> débil, medio y fuerte
     > Una patada -> débil, media y fuerte
