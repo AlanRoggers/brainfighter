@@ -1,7 +1,9 @@
+using System.Collections;
 using UnityEngine;
 
 public class Attacks : MonoBehaviour
 {
+    [SerializeField] private float hitstopTimer;
     public float Timer;
     public AnimationClip[] attackClips = new AnimationClip[8];
     public Vector2[] AttackForces = new Vector2[8];
@@ -65,10 +67,17 @@ public class Attacks : MonoBehaviour
             enemyComponents.msng.HitStunCausant = currentClipAttack.name;
             enemyComponents.msng.HitStunTimer = currentClipAttack.length + Timer;
             enemyComponents.msng.IsTakingDamage = true;
+            StartCoroutine(HITSTOP());
             enemyPhys = enemyComponents.phys;
         }
     }
 
+    private IEnumerator HITSTOP()
+    {
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(hitstopTimer);
+        Time.timeScale = 1;
+    }
     #region Kicks
     public void HardKick()
     {

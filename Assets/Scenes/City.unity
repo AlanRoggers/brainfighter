@@ -505,6 +505,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1636299215}
     - target: {fileID: 401957065536032946, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 1636299228}
+    - target: {fileID: 401957065536032946, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1908127558}
+    - target: {fileID: 401957065536032946, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
       propertyPath: Reference
       value: 
       objectReference: {fileID: 1636299215}
@@ -559,6 +567,30 @@ PrefabInstance:
     - target: {fileID: 1918396725094044388, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
       propertyPath: m_Name
       value: Chie Satonaka
+      objectReference: {fileID: 0}
+    - target: {fileID: 4263537106808565861, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6334760534969465336, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
+      propertyPath: gravityTimer
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6334760534969465336, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
+      propertyPath: hitstopTimer
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6334760534969465336, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
+      propertyPath: AttackForces.Array.data[2].x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6334760534969465336, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
+      propertyPath: AttacksInertia.Array.data[2].x
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 6334760534969465336, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
+      propertyPath: AttacksInertia.Array.data[2].y
+      value: 270
       objectReference: {fileID: 0}
     - target: {fileID: 7854134084774301650, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
       propertyPath: enemyCollider
@@ -1500,6 +1532,11 @@ BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 8116149525101368235, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
   m_PrefabInstance: {fileID: 1636299214}
   m_PrefabAsset: {fileID: 0}
+--- !u!61 &1636299228 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 3535539590287390944, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
+  m_PrefabInstance: {fileID: 1636299214}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1647908171
 GameObject:
   m_ObjectHideFlags: 0
@@ -1786,6 +1823,11 @@ Transform:
 --- !u!1 &1908127546 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1918396725094044388, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
+  m_PrefabInstance: {fileID: 421059211}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &1908127558 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 3535539590287390944, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
   m_PrefabInstance: {fileID: 421059211}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1986000278

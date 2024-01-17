@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Motion : MonoBehaviour
 {
+    [SerializeField] private BoxCollider2D player;
+    [SerializeField] private BoxCollider2D enemy;
     [SerializeField] private BoxCollider2D normalHitbox;
     [SerializeField] private GameObject Reference;
     private Components components;
@@ -126,7 +128,7 @@ public class Motion : MonoBehaviour
 
     #region Dash
     [SerializeField] private float dashForce;
-    public void Dash(bool negativeForce)
+    public void Dash(bool negativeForce = true)
     {
         bool canDo = components.msng.IsOnGround && !(
             components.msng.IsCrouching || components.msng.IsAttacking ||
@@ -142,7 +144,9 @@ public class Motion : MonoBehaviour
         {
             components.msng.IsWalking = false;
             components.msng.IsDashing = true;
+            Physics2D.IgnoreCollision(player, enemy);
             components.phys.AddForce(new Vector2(negativeForce ? -dashForce : dashForce, 0), ForceMode2D.Impulse);
+            StartCoroutine(RESTORE_IGNORED_COLLISION());
             StopCoroutine(dash_chance);
             components.msng.DashTimer = false;
         }
@@ -152,10 +156,15 @@ public class Motion : MonoBehaviour
         yield return new WaitForSeconds(0.25f);
         components.msng.DashTimer = false;
     }
+    private IEnumerator RESTORE_IGNORED_COLLISION()
+    {
+        yield return new WaitWhile(() => components.msng.IsDashing || components.msng.IsDashingBack);
+        Physics2D.IgnoreCollision(player, enemy, false);
+    }
     #endregion
 
     #region DashBack
-    public void DashBack(bool positiveForce)
+    public void DashBack(bool negativeForce = false)
     {
         bool canDo = components.msng.IsOnGround && !(
             components.msng.IsCrouching || components.msng.IsAttacking ||
@@ -172,7 +181,9 @@ public class Motion : MonoBehaviour
         {
             components.msng.IsWalking = false;
             components.msng.IsDashingBack = true;
-            components.phys.AddForce(new Vector2(positiveForce ? dashForce : -dashForce, 0), ForceMode2D.Impulse);
+            Physics2D.IgnoreCollision(player, enemy);
+            components.phys.AddForce(new Vector2(negativeForce ? dashForce : -dashForce, 0), ForceMode2D.Impulse);
+            StartCoroutine(RESTORE_IGNORED_COLLISION());
             StopCoroutine(dash_chance);
             components.msng.DashBackTimer = false;
         }
@@ -183,11 +194,6 @@ public class Motion : MonoBehaviour
         components.msng.DashBackTimer = false;
     }
 
-    public IEnumerator NO_DASHINGBACK()
-    {
-        yield return new WaitWhile(() => components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
-        components.msng.IsDashingBack = false;
-    }
     #endregion}
 
     #region Turn

@@ -100,7 +100,7 @@ public class UserInput : MonoBehaviour
         else
         {
             if (Input.GetKeyDown(KeyCode.A) && !Input.GetKey(KeyCode.D))
-                components.motion.Dash(true);
+                components.motion.Dash();
         }
     }
     private void DashBackInput()
@@ -108,12 +108,12 @@ public class UserInput : MonoBehaviour
         if (transform.localScale.x > 0)
         {
             if (Input.GetKeyDown(KeyCode.A) && !Input.GetKey(KeyCode.D))
-                components.motion.DashBack(false);
+                components.motion.DashBack();
         }
         else
         {
             if (Input.GetKeyDown(KeyCode.D) && !Input.GetKey(KeyCode.A))
-                components.motion.Dash(true);
+                components.motion.DashBack(true);
         }
     }
     private void JumpInput()
