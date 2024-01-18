@@ -75,8 +75,8 @@ public class Motion : MonoBehaviour
 
     #region Jump
     // El salto se podría mejorar aplicando fuerza en función de si lleva velocidad o no
-    [SerializeField] private int jumpxForce;
-    [SerializeField] private int jumpForce;
+    [SerializeField] private float jumpxForce;
+    [SerializeField] private float jumpForce;
     private float lastJump = 0f;
     private readonly float waitingBetweenJumps = 0.5f;
     public void Jump()
@@ -88,11 +88,14 @@ public class Motion : MonoBehaviour
 
         if (canDo)
         {
-            int asd = components.phys.velocity.x != 0 ? jumpxForce : 0;
-            components.phys.AddForce(new Vector2(Mathf.Sign(components.phys.velocity.x) * asd, jumpForce), ForceMode2D.Impulse);
+            float asd = components.phys.velocity.x != 0 ? jumpxForce : 0;
+            asd *= Mathf.Sign(components.phys.velocity.x);
+            components.phys.velocity = Vector2.zero;
+            components.phys.AddForce(new Vector2(asd, jumpForce), ForceMode2D.Impulse);
             lastJump = Time.time;
             components.msng.IsJumping = true;
             components.coll.CanCheckGround = false;
+            Physics2D.IgnoreCollision(player, enemy);
         }
     }
     #endregion

@@ -34,7 +34,10 @@ public class CollisionDetector : MonoBehaviour
         components.msng.IsOnGround = GroundDetection() && CanCheckGround;
 
         if (components.msng.IsOnGround && components.msng.IsJumping)
+        {
             components.msng.IsJumping = false;
+            Physics2D.IgnoreCollision(playerCollider, enemyCollider, false);
+        }
 
         components.msng.enemy = DamageDetection();
     }

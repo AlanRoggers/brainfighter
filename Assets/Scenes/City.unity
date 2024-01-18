@@ -518,7 +518,7 @@ PrefabInstance:
       objectReference: {fileID: 1636299215}
     - target: {fileID: 401957065536032946, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
       propertyPath: jumpForce
-      value: 20
+      value: 22.5
       objectReference: {fileID: 0}
     - target: {fileID: 401957065536032946, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
       propertyPath: jumpxForce
@@ -595,7 +595,11 @@ PrefabInstance:
     - target: {fileID: 7854134084774301650, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
       propertyPath: enemyCollider
       value: 
-      objectReference: {fileID: 1636299216}
+      objectReference: {fileID: 1636299228}
+    - target: {fileID: 7854134084774301650, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
+      propertyPath: playerCollider
+      value: 
+      objectReference: {fileID: 1908127558}
     - target: {fileID: 7854134084774301650, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
       propertyPath: enemyLayer.m_Bits
       value: 128
@@ -1441,6 +1445,10 @@ PrefabInstance:
       propertyPath: Reference
       value: 
       objectReference: {fileID: 1908127546}
+    - target: {fileID: 401957065536032946, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
+      propertyPath: jumpForce
+      value: 22.5
+      objectReference: {fileID: 0}
     - target: {fileID: 629898329708468478, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -1512,7 +1520,11 @@ PrefabInstance:
     - target: {fileID: 7854134084774301650, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
       propertyPath: enemyCollider
       value: 
-      objectReference: {fileID: 1816347826}
+      objectReference: {fileID: 1908127558}
+    - target: {fileID: 7854134084774301650, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
+      propertyPath: playerCollider
+      value: 
+      objectReference: {fileID: 1636299228}
     - target: {fileID: 7854134084774301650, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
       propertyPath: enemyLayer.m_Bits
       value: 64
@@ -1525,11 +1537,6 @@ PrefabInstance:
 --- !u!1 &1636299215 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1918396725094044388, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
-  m_PrefabInstance: {fileID: 1636299214}
-  m_PrefabAsset: {fileID: 0}
---- !u!61 &1636299216 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 8116149525101368235, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
   m_PrefabInstance: {fileID: 1636299214}
   m_PrefabAsset: {fileID: 0}
 --- !u!61 &1636299228 stripped
@@ -1654,11 +1661,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &1816347826 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 8116149525101368235, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
-  m_PrefabInstance: {fileID: 421059211}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1826269959
 GameObject:
   m_ObjectHideFlags: 0

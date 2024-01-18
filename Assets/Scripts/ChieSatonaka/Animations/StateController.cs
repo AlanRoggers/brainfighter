@@ -50,8 +50,10 @@ public class StateController : MonoBehaviour
                 Turn();
                 break;
             case AnimationStates.TurnWhileCrouch:
+                TurnCrouch();
                 break;
             case AnimationStates.TurnOnAir:
+                TurnAir();
                 break;
             case AnimationStates.StartRunning:
                 StartRunning();
@@ -255,7 +257,9 @@ public class StateController : MonoBehaviour
     #region Motion
     private void Crouch()
     {
-        if (!components.msng.IsCrouching)
+        if (components.msng.NeedTurn)
+            ChangeAnimation(AnimationStates.TurnWhileCrouch);
+        else if (!components.msng.IsCrouching)
             ChangeAnimation(AnimationStates.Iddle);
     }
     // Esto fue lo que no eh terminado de implementar por querer implementar primero la programación de lógica y fisicas
@@ -279,7 +283,9 @@ public class StateController : MonoBehaviour
     }
     private void Fall()
     {
-        if (components.msng.IsOnGround)
+        if (components.msng.NeedTurn)
+            ChangeAnimation(AnimationStates.TurnOnAir);
+        else if (components.msng.IsOnGround)
             ChangeAnimation(AnimationStates.Land);
     }
     private void GoingBackwards()
@@ -313,7 +319,9 @@ public class StateController : MonoBehaviour
     }
     private void Jump()
     {
-        if (components.phys.velocity.y <= 0)
+        if (components.msng.NeedTurn)
+            ChangeAnimation(AnimationStates.TurnOnAir);
+        else if (components.phys.velocity.y <= 0)
             ChangeAnimation(AnimationStates.StartFalling);
     }
     private void Land()
@@ -366,7 +374,11 @@ public class StateController : MonoBehaviour
     }
     private void StartFalling()
     {
-        if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        if (components.msng.NeedTurn)
+            ChangeAnimation(AnimationStates.TurnOnAir);
+        else if (components.msng.IsOnGround)
+            ChangeAnimation(AnimationStates.Land);
+        else if (components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
             ChangeAnimation(AnimationStates.Fall);
     }
     private void StartGoingBackwards()
@@ -479,19 +491,12 @@ public class StateController : MonoBehaviour
     }
     private void Turn()
     {
-        if (components.msng.NeedTurn)
-        {
-            components.msng.NeedTurn = false;
-            components.msng.IsTurning = true;
-        }
-
-
         bool animationFinished = components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f;
+
+        AnyTurnLogic(animationFinished);
 
         if (animationFinished)
         {
-            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-            components.msng.IsTurning = false;
             bool iddle = components.phys.velocity.x == 0;
             bool walk = components.msng.IsWalking &&
                         (transform.localScale.x > 0 && components.phys.velocity.x > 0 ||
@@ -528,6 +533,48 @@ public class StateController : MonoBehaviour
                 ChangeAnimation(AnimationStates.MiddleKick);
             else if (components.msng.KickChain[2])
                 ChangeAnimation(AnimationStates.HardKick);
+        }
+    }
+    private void TurnAir()
+    {
+        bool animationFinished = components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f;
+
+        AnyTurnLogic(animationFinished);
+
+        if (animationFinished)
+        {
+            if (!components.msng.IsOnGround)
+                ChangeAnimation(AnimationStates.StartFalling);
+            else
+                ChangeAnimation(AnimationStates.Land);
+        }
+    }
+    private void TurnCrouch()
+    {
+        bool animationFinished = components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f;
+
+        AnyTurnLogic(animationFinished);
+
+        if (animationFinished)
+            if (components.msng.IsCrouching)
+                ChangeAnimation(AnimationStates.Crouch);
+            else
+                ChangeAnimation(AnimationStates.Iddle);
+
+
+    }
+    private void AnyTurnLogic(bool animationFinished)
+    {
+        if (components.msng.NeedTurn)
+        {
+            components.msng.NeedTurn = false;
+            components.msng.IsTurning = true;
+        }
+
+        if (animationFinished)
+        {
+            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+            components.msng.IsTurning = false;
         }
     }
     private void Walk()

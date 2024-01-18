@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65e834e6cd2ee3339a08d6a22ebba3b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitstopTimer: 0.15
+  hitstopTimer: 0.1
   Timer: 0.06
   attackClips:
   - {fileID: 7400000, guid: b8e020cf44a434d528714175dfb2236b, type: 2}
@@ -265,8 +265,8 @@ MonoBehaviour:
   enemy: {fileID: 0}
   normalHitbox: {fileID: 8116149525101368235}
   Reference: {fileID: 0}
-  jumpxForce: 0
-  jumpForce: 0
+  jumpxForce: 4
+  jumpForce: 22.5
   dashForce: 20
   crouchHitbox: {fileID: 3831560138555275375}
 --- !u!50 &-8789320162414708856
