@@ -311,10 +311,20 @@ Para lograr los especiales va ser necesario que se ejecuten la secuencia de tres
 
 - [x] Patada especial: Se puede realizar cuando Chie haya completado la secuencia de tres patadas de manera correcta. Ninguna acción puede interrumpir a esta. No puede tomar daño estando en este estado
 
-- [ ] SomersaultKick: Es una patada combinada con un Dash hacia atrás. Este ataque se puede hacer cuando Chie esta en estado Iddle o caminando hacía atrás. Ninguna acción puede interrumpir a esta.
+- [x] Patada agachado: Esta patada se puede hacer cuando Chie esta agachada. Ninguna acción puede interrumpir a esta.
 
-- [ ] Patada en el aire: Esta patada se puede hacer cuando Chie no esta en el suelo. Ninguna acción puede interrumpir a esta.
+- [x] Bloqueo: Mecánica para bloquear golpes, los golpes bloqueados pueden
+tener fisicas menores para hacer notar el contacto de los golpes.
 
-- [ ] Patada agachado: Esta patada se puede hacer cuando Chie esta agachada. Ninguna acción puede interrumpir a esta.
+- [x] Bloqueo agachado: La misma tarea que el bloqueo normal
+
+- [x] Sistema de golpes - bloqueos: Algunos golpes solo se podrán bloquear
+de manera normal o agachado.
+
+- [ ] Tolerancia al dolor: Mecánica para que no se puedan bloquear más de
+cuatro golpes
+
+- [ ] Vida: vida de cada personaje junto con la implementación del daño de
+cada golpe o patada
 
 __Nota: Tomar en cuenta que todo lo que no especifique que no puede tomar daño o que es invulnerable es considerado como que si se le puede hacer daño__

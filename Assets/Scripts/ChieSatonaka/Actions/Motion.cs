@@ -30,7 +30,7 @@ public class Motion : MonoBehaviour
             components.msng.IsAttacking || components.msng.IsCrouching ||
             components.msng.IsDashing || components.msng.IsDashingBack ||
             components.msng.IsTakingDamage || components.msng.IsTurning ||
-            components.msng.IsJumping
+            components.msng.IsJumping || components.msng.IsBlocking
         );
 
         if (canDo)
@@ -83,7 +83,8 @@ public class Motion : MonoBehaviour
     {
         bool canDo = components.msng.IsOnGround && Time.time - lastJump >= waitingBetweenJumps && !(
             components.msng.IsAttacking || components.msng.IsTakingDamage ||
-            components.msng.IsDashing || components.msng.IsDashingBack || components.msng.IsTurning
+            components.msng.IsDashing || components.msng.IsDashingBack ||
+            components.msng.IsTurning || components.msng.IsBlocking
         );
 
         if (canDo)
@@ -136,7 +137,9 @@ public class Motion : MonoBehaviour
         bool canDo = components.msng.IsOnGround && !(
             components.msng.IsCrouching || components.msng.IsAttacking ||
             components.msng.IsRunning || components.msng.IsDashing ||
-            components.msng.IsDashingBack || components.msng.IsTakingDamage);
+            components.msng.IsDashingBack || components.msng.IsTakingDamage ||
+            components.msng.IsBlocking
+        );
 
         if (!components.msng.DashTimer && canDo)
         {
@@ -172,7 +175,8 @@ public class Motion : MonoBehaviour
         bool canDo = components.msng.IsOnGround && !(
             components.msng.IsCrouching || components.msng.IsAttacking ||
             components.msng.IsRunning || components.msng.IsDashingBack ||
-            components.msng.IsDashing || components.msng.IsTakingDamage
+            components.msng.IsDashing || components.msng.IsTakingDamage ||
+            components.msng.IsBlocking
         );
 
         if (!components.msng.DashBackTimer && canDo)
@@ -206,7 +210,7 @@ public class Motion : MonoBehaviour
         // Aqui la comprobación se hace con las transiciones de los estados, es decir, esta función solo debería detechat
         // que se ocupa girar y no estar validando si se puede girar por lo tanto esta primera validación no va
 
-        if (!components.msng.IsAttacking)
+        if (!components.msng.IsAttacking && !components.msng.IsBlocking)
         {
             if (transform.position.x - Reference.transform.position.x <= 0 && transform.localScale.x < 0)
                 return 1;
@@ -215,6 +219,27 @@ public class Motion : MonoBehaviour
             else return (int)transform.localScale.x;
         }
         else return (int)transform.localScale.x;
+    }
+    #endregion
+
+    #region Block
+    public void Block()
+    {
+        bool canDo = components.msng.IsOnGround && !(
+            components.msng.IsRunning || components.msng.IsAttacking ||
+            components.msng.IsDashing || components.msng.IsDashingBack ||
+            components.msng.IsTakingDamage || components.msng.IsTurning
+        );
+
+        if (canDo)
+        {
+            components.msng.IsBlocking = true;
+            components.phys.velocity = Vector2.zero;
+        }
+    }
+    public void StopBlock()
+    {
+        components.msng.IsBlocking = false;
     }
     #endregion
 }

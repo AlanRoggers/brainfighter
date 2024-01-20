@@ -13,6 +13,7 @@ public class ClassMessenger : MonoBehaviour
     public bool DashTimer;
     public bool DashBackTimer;
     public bool IsAttacking; //Restricción de acciones motion y acciones damage
+    public bool IsBlocking;
     public bool IsCrouching;
     public bool IsDashing;
     public bool IsDashingBack;

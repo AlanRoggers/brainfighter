@@ -24,7 +24,6 @@ public class CollisionDetector : MonoBehaviour
         groundLayer = LayerMask.GetMask("Ground");
         gameStarted = true;
         CanCheckGround = true;
-        // Physics2D.IgnoreCollision(playerCollider, enemyCollider);
     }
     void FixedUpdate()
     {
