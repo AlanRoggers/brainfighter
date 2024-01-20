@@ -6,6 +6,7 @@ public class StateController : MonoBehaviour
     [SerializeField] private AnimationStates currentState;
     private Coroutine await_another_damage = null;
     private Components components;
+    public GameObject Reference;
     void Awake()
     {
         components = GetComponent<Components>();
@@ -18,7 +19,6 @@ public class StateController : MonoBehaviour
     {
         if (components.msng.Dead)
             ChangeAnimation(AnimationStates.Dead);
-
         switch (currentState)
         {
             case AnimationStates.Iddle:
@@ -578,6 +578,13 @@ public class StateController : MonoBehaviour
     }
     private void Turn()
     {
+        if (components.msng.NeedTurn)
+        {
+            components.msng.NeedTurn = false;
+            components.msng.IsTurning = true;
+        }
+
+
         bool animationFinished = components.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f;
 
         AnyTurnLogic(animationFinished);

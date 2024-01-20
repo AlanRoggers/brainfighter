@@ -39,7 +39,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 629898329708468478}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -369,6 +369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
+  Reference: {fileID: 0}
 --- !u!114 &5822056414935985545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -486,7 +487,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
