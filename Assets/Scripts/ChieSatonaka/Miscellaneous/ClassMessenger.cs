@@ -12,7 +12,9 @@ public class ClassMessenger : MonoBehaviour
     public bool DamageApplied;
     public bool DashTimer;
     public bool DashBackTimer;
+    public bool Dead;
     public bool IsAttacking; //Restricción de acciones motion y acciones damage
+    public bool IsBlocking;
     public bool IsCrouching;
     public bool IsDashing;
     public bool IsDashingBack;
@@ -26,8 +28,6 @@ public class ClassMessenger : MonoBehaviour
     public bool StartedWithFirst;
     public Collider2D DamageHitbox;
     public Collider2D enemy;
-    public Coroutine clear_attack = null;
-    public Coroutine chain_oportunity = null;
     public Coroutine cooldown_timmer = null;
     [SerializeField]
     private float coolDown;
@@ -35,6 +35,7 @@ public class ClassMessenger : MonoBehaviour
     {
         IsJumping = false;
         AttackRestricted = false;
+        Dead = false;
     }
     public IEnumerator COOLDOWN_TIMER()
     {

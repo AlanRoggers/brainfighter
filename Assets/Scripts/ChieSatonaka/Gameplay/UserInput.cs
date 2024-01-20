@@ -24,6 +24,8 @@ public class UserInput : MonoBehaviour
         MiddleKickInput();
         HardKickInput();
         SpecialKickInput();
+        CrouchKickInput();
+        BlockInput();
         // KeyChecker();
     }
 
@@ -35,9 +37,19 @@ public class UserInput : MonoBehaviour
     }
     private void HardPunchInput()
     {
-        if (Input.GetKeyDown(KeyCode.L) && !Input.GetKey(KeyCode.LeftAlt))
+        if (gameObject.layer == 6)
         {
-            components.attacks.HardPunch();
+            if (Input.GetKeyDown(KeyCode.L) && !Input.GetKey(KeyCode.LeftAlt))
+            {
+                components.attacks.HardPunch();
+            }
+        }
+        else if (gameObject.layer == 7)
+        {
+            if (Input.GetKeyDown(KeyCode.P) && !Input.GetKey(KeyCode.LeftAlt))
+            {
+                components.attacks.HardPunch();
+            }
         }
     }
     private void LowPunchInput()
@@ -75,6 +87,14 @@ public class UserInput : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K) && Input.GetKey(KeyCode.LeftAlt))
             components.attacks.SpecialKick();
     }
+    private void CrouchKickInput()
+    {
+        if (Input.GetKey(KeyCode.S) && Input.GetKeyDown(KeyCode.J))
+        {
+            print("Hola");
+            components.attacks.CrouchKick();
+        }
+    }
     private void KeyChecker()
     {
         if (Input.GetKey(KeyCode.LeftAlt))
@@ -83,6 +103,13 @@ public class UserInput : MonoBehaviour
     #endregion
 
     #region MotionInputs
+    private void BlockInput()
+    {
+        if (Input.GetKey(KeyCode.F))
+            components.motion.Block();
+        else if (Input.GetKeyUp(KeyCode.F))
+            components.motion.StopBlock();
+    }
     private void CrouchInput()
     {
         if (Input.GetKey(KeyCode.S))
@@ -100,7 +127,7 @@ public class UserInput : MonoBehaviour
         else
         {
             if (Input.GetKeyDown(KeyCode.A) && !Input.GetKey(KeyCode.D))
-                components.motion.Dash(true);
+                components.motion.Dash();
         }
     }
     private void DashBackInput()
@@ -108,12 +135,12 @@ public class UserInput : MonoBehaviour
         if (transform.localScale.x > 0)
         {
             if (Input.GetKeyDown(KeyCode.A) && !Input.GetKey(KeyCode.D))
-                components.motion.DashBack(false);
+                components.motion.DashBack();
         }
         else
         {
             if (Input.GetKeyDown(KeyCode.D) && !Input.GetKey(KeyCode.A))
-                components.motion.Dash(true);
+                components.motion.DashBack(true);
         }
     }
     private void JumpInput()

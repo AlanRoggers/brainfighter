@@ -19,6 +19,8 @@ public enum AnimationStates
     Run,
     Dash,
     DashBack,
+    Block,
+    BlockWhileCrouch,
     #endregion
     #region Attacks
     LowPunch, ChainLowPunch,
