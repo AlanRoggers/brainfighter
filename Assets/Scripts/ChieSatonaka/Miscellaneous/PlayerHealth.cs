@@ -1,18 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public int Health;
+    private Components components;
+    void Awake()
+    {
+        components = GetComponent<Components>();
+    }
     void Start()
     {
-        
+        Health = 100;
     }
-
-    // Update is called once per frame
     void Update()
     {
-        
+        if (Health == 0)
+        {
+            components.msng.Dead = true;
+        }
+    }
+
+    public void ReduceHealth(int damage)
+    {
+        if (Health - damage > 0)
+            Health -= damage;
+        else
+            Health = 0;
     }
 }

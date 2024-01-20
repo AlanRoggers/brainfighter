@@ -11,7 +11,7 @@ public class Attacks : MonoBehaviour
     private Rigidbody2D enemyPhys = null;
     private bool normalForces;
     private bool crouchKick;
-    private float currentDamageAttack;
+    private int currentDamageAttack;
     private AnimationClip currentClipAttack;
     private Components components;
     private Vector2 currentAttackForce;
@@ -91,7 +91,7 @@ public class Attacks : MonoBehaviour
                 crouchKick = false;
 
             components.msng.DamageApplied = true;
-            float damage = currentDamageAttack; //Esta parte aún no se implementa
+            enemyComponents.Health.ReduceHealth(currentDamageAttack);
             enemyComponents.msng.HitStunCausant = currentClipAttack.name;
             enemyComponents.msng.HitStunTimer = currentClipAttack.length + Timer;
             enemyComponents.msng.IsTakingDamage = true;
@@ -119,7 +119,7 @@ public class Attacks : MonoBehaviour
         {
             AnyAttackLogic(2, AttacksInertia[6], isKick: true);
             currentAttackForce = AttackForces[6];
-            currentDamageAttack = 10f;
+            currentDamageAttack = 10;
             currentClipAttack = attackClips[6];
         }
     }
@@ -134,7 +134,7 @@ public class Attacks : MonoBehaviour
         {
             AnyAttackLogic(0, AttacksInertia[4], isKick: true);
             currentAttackForce = AttackForces[4];
-            currentDamageAttack = 10f;
+            currentDamageAttack = 10;
             currentClipAttack = attackClips[4];
         }
     }
@@ -151,7 +151,7 @@ public class Attacks : MonoBehaviour
         {
             AnyAttackLogic(1, AttacksInertia[5], isKick: true);
             currentAttackForce = AttackForces[5];
-            currentDamageAttack = 10f;
+            currentDamageAttack = 10;
             currentClipAttack = attackClips[5];
         }
     }
@@ -164,7 +164,7 @@ public class Attacks : MonoBehaviour
         {
             AnyAttackLogic(3, AttacksInertia[7], isKick: true);
             currentAttackForce = AttackForces[7];
-            currentDamageAttack = 10f;
+            currentDamageAttack = 10;
             currentClipAttack = attackClips[7];
         }
     }
@@ -177,7 +177,7 @@ public class Attacks : MonoBehaviour
         {
             AnyAttackLogic(0, Vector2.zero, noChainKick: true);
             currentAttackForce = Vector2.zero;
-            currentDamageAttack = 10f;
+            currentDamageAttack = 10;
             currentClipAttack = attackClips[8];
             crouchKick = true;
         }
@@ -200,7 +200,7 @@ public class Attacks : MonoBehaviour
 
             // Parametros para la interacción entre el personaje y el enemigo cuando se causa daño
             currentAttackForce = AttackForces[2];
-            currentDamageAttack = 10f;
+            currentDamageAttack = 10;
             currentClipAttack = attackClips[2];
         }
     }
@@ -215,7 +215,7 @@ public class Attacks : MonoBehaviour
         {
             AnyAttackLogic(0, AttacksInertia[0]);
             currentAttackForce = AttackForces[0];
-            currentDamageAttack = 10f;
+            currentDamageAttack = 10;
             currentClipAttack = attackClips[0];
         }
     }
@@ -232,7 +232,7 @@ public class Attacks : MonoBehaviour
         {
             AnyAttackLogic(1, AttacksInertia[1]);
             currentAttackForce = AttackForces[1];
-            currentDamageAttack = 10f;
+            currentDamageAttack = 10;
             currentClipAttack = attackClips[1];
         }
     }
@@ -245,7 +245,7 @@ public class Attacks : MonoBehaviour
         {
             AnyAttackLogic(3, AttacksInertia[3]);
             currentAttackForce = AttackForces[3];
-            currentDamageAttack = 10f;
+            currentDamageAttack = 10;
             currentClipAttack = attackClips[3];
         }
     }

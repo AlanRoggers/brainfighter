@@ -16,6 +16,9 @@ public class StateController : MonoBehaviour
     }
     void Update()
     {
+        if (components.msng.Dead)
+            ChangeAnimation(AnimationStates.Dead);
+
         switch (currentState)
         {
             case AnimationStates.Iddle:

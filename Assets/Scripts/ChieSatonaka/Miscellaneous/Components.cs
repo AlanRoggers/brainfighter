@@ -7,8 +7,10 @@ public class Components : MonoBehaviour
     public CollisionDetector coll;
     public Motion motion;
     public Attacks attacks;
+    public PlayerHealth Health;
     public Rigidbody2D phys;
     public StateController states;
+    public UserInput Input;
     void Awake()
     {
         phys = GetComponent<Rigidbody2D>();
@@ -18,5 +20,7 @@ public class Components : MonoBehaviour
         msng = GetComponent<ClassMessenger>();
         motion = GetComponent<Motion>();
         attacks = GetComponent<Attacks>();
+        Health = GetComponent<PlayerHealth>();
+        Input = GetComponent<UserInput>();
     }
 }
