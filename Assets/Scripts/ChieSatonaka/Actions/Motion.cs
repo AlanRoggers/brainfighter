@@ -241,24 +241,6 @@ public class Motion : MonoBehaviour
     {
         components.msng.IsBlocking = false;
     }
-    #endregion}
-
-    #region Turn
-    [SerializeField] private BoxCollider2D crouchHitbox;
-    private int KeepLooking()
-    {
-        // Aqui la comprobación se hace con las transiciones de los estados, es decir, esta función solo debería detechat
-        // que se ocupa girar y no estar validando si se puede girar por lo tanto esta primera validación no va
-
-        if (!components.msng.IsAttacking)
-        {
-            if (transform.position.x - Reference.transform.position.x <= 0 && transform.localScale.x < 0)
-                return 1;
-            else if (transform.position.x - Reference.transform.position.x > 0 && transform.localScale.x > 0)
-                return -1;
-            else return (int)transform.localScale.x;
-        }
-        else return (int)transform.localScale.x;
-    }
     #endregion
+
 }
