@@ -1,8 +1,9 @@
 using UnityEngine;
-
+using TMPro;
 public class PlayerHealth : MonoBehaviour
 {
-    public int Health;
+    [SerializeField] private TMP_Text displayHealth;
+    public int Health { get; private set; }
     private Components components;
     void Awake()
     {
@@ -11,6 +12,7 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         Health = 100;
+        UpdateDisplay();
     }
     void Update()
     {
@@ -19,12 +21,18 @@ public class PlayerHealth : MonoBehaviour
             components.msng.Dead = true;
         }
     }
-
     public void ReduceHealth(int damage)
     {
         if (Health - damage > 0)
             Health -= damage;
         else
             Health = 0;
+
+        UpdateDisplay();
+    }
+    private void UpdateDisplay()
+    {
+        string healthString = gameObject.layer == 6 ? $"P1: {Health}" : $"P2: {Health}";
+        displayHealth.text = healthString;
     }
 }

@@ -78,13 +78,20 @@ public class Attacks : MonoBehaviour
             // Implementar fisicas para cuando el enemigo bloquea los ataques
             if (enemyComponents.msng.IsBlocking)
             {
+                components.msng.DamageApplied = true;
                 if (enemyComponents.msng.IsCrouching)
                 {
                     if (!(currentClipAttack.name == "Punch1" || currentClipAttack.name == "Kick2"))
+                    {
+                        enemyComponents.Health.ReduceHealth(1);
                         return;
+                    }
                 }
                 else if (!crouchKick)
+                {
+                    enemyComponents.Health.ReduceHealth(1);
                     return;
+                }
             }
 
             if (crouchKick)

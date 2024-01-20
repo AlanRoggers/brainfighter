@@ -321,10 +321,7 @@ tener fisicas menores para hacer notar el contacto de los golpes.
 - [x] Sistema de golpes - bloqueos: Algunos golpes solo se podrán bloquear
 de manera normal o agachado.
 
-- [ ] Tolerancia al dolor: Mecánica para que no se puedan bloquear más de
-cuatro golpes
-
-- [ ] Vida: vida de cada personaje junto con la implementación del daño de
+- [x] Vida: vida de cada personaje junto con la implementación del daño de
 cada golpe o patada
 
 __Nota: Tomar en cuenta que todo lo que no especifique que no puede tomar daño o que es invulnerable es considerado como que si se le puede hacer daño__

@@ -194,9 +194,11 @@ MonoBehaviour:
   coll: {fileID: 0}
   motion: {fileID: 0}
   attacks: {fileID: 0}
+  PainResistance: {fileID: 0}
   Health: {fileID: 0}
   phys: {fileID: 0}
   states: {fileID: 0}
+  Input: {fileID: 0}
 --- !u!114 &4322640517048138981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,6 +216,7 @@ MonoBehaviour:
   PunchChain: 00000000
   KickChain: 00000000
   AttackRestricted: 0
+  BlockRestricted: 0
   ChainOportunity: 0
   DamageApplied: 0
   DashTimer: 0
@@ -435,6 +438,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6610751e4f57f392f8c69bf394daf1a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayHealth: {fileID: 0}
 --- !u!1 &2931522487674685199
 GameObject:
   m_ObjectHideFlags: 0
