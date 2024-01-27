@@ -1,0 +1,6 @@
+Behaviour Parameters Component:
+Inference device: Dispositivo y Backend quer se usará para entrenar / controlar el modelo.
+		  Burst = CPU
+		  ComputeShader = GPU + Actual Backend
+		  PixelShader = GPU + Legacy (old) Backend. No recomendable para usar.
+

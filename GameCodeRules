@@ -1,0 +1,34 @@
+La nomenclatura que voy a usar es la siguiente:
+-Pascal Case para variables públicas y para funciones sin importar su accesibilidad
+-camel Case para variables privadas
+-Todo mayúsculas separados por guiones para las corrutinas (funciones): START_DAMAGE()
+-Todo minusculas separados por guiones para las corrutinas (variables): Coroutine start_damage()
+
+La estructura de cada clase debe ser la siguiente:
+Variables bool
+Variables int
+variables float
+variables string
+variables custom (Orden alfabetico de las clases)
+primero variables publicas, luego privadas (Declarar public y private)
+Nota: Si las variables son arrays van primero los arrays del tipo y luego las variables del tipo
+
+metodo Awake
+metodo Start
+metodo Update
+metodo LateUpdate
+metodo FixedUpdate
+
+metodos void
+metodos bool
+metodos int
+metodos float
+metodos string
+metodos custom (Corrutinas incluidas) (orden alfabetico de las clases)- primero los metodos publicos, luego los privados
+regiones (Variables y métodos como si fuera una clase a parte)
+
+Nota: Las cosas que no son de tipo Custom, ordenarlas por orden alfabetico de acuerdo
+a su nombre.
+Si hay metodos que se puedan agrupar, entonces mantenerlos juntos, por ejemplo todos los metodos
+de las transiciones
+
