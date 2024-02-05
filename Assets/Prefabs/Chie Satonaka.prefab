@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 5822056414935985545}
   - component: {fileID: 3535539590287390944}
   - component: {fileID: 2354231370631239894}
+  - component: {fileID: 7636072572162245178}
   m_Layer: 6
   m_Name: Chie Satonaka
   m_TagString: Player
@@ -194,7 +195,6 @@ MonoBehaviour:
   coll: {fileID: 0}
   motion: {fileID: 0}
   attacks: {fileID: 0}
-  PainResistance: {fileID: 0}
   Health: {fileID: 0}
   phys: {fileID: 0}
   states: {fileID: 0}
@@ -216,7 +216,6 @@ MonoBehaviour:
   PunchChain: 00000000
   KickChain: 00000000
   AttackRestricted: 0
-  BlockRestricted: 0
   ChainOportunity: 0
   DamageApplied: 0
   DashTimer: 0
@@ -377,7 +376,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1918396725094044388}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df172ce2f73a73a1fa55eac145760345, type: 3}
   m_Name: 
@@ -440,6 +439,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayHealth: {fileID: 0}
+--- !u!114 &7636072572162245178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918396725094044388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13383b2475f43628a8c1468cd921f7b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2931522487674685199
 GameObject:
   m_ObjectHideFlags: 0

@@ -29,13 +29,40 @@ public class ClassMessenger : MonoBehaviour
     public Collider2D DamageHitbox;
     public Collider2D enemy;
     public Coroutine cooldown_timmer = null;
-    [SerializeField]
-    private float coolDown;
+    [SerializeField] private float coolDown;
     void Start()
     {
-        IsJumping = false;
+        StartValues();
+    }
+    public void StartValues()
+    {
+        HitStunCausant = "";
+        HitStunTimer = 0f;
+        for (int i = 0; i < PunchChain.Length; i++)
+            PunchChain[i] = false;
+        for (int i = 0; i < KickChain.Length; i++)
+            KickChain[i] = false;
         AttackRestricted = false;
+        ChainOportunity = false;
+        DamageApplied = false;
+        DashTimer = false;
+        DashBackTimer = false;
         Dead = false;
+        IsAttacking = false;
+        IsBlocking = false;
+        IsCrouching = false;
+        IsDashing = false;
+        IsDashingBack = false;
+        IsJumping = false;
+        IsOnGround = false;
+        IsRunning = false;
+        IsTakingDamage = false;
+        IsTurning = false;
+        IsWalking = false;
+        NeedTurn = false;
+        StartedWithFirst = false;
+        AttackRestricted = false;
+        cooldown_timmer = null;
     }
     public IEnumerator COOLDOWN_TIMER()
     {
