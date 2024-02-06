@@ -27,7 +27,8 @@ public class ClassMessenger : MonoBehaviour
     public bool NeedTurn;
     public bool StartedWithFirst;
     public Collider2D DamageHitbox;
-    public Collider2D enemy;
+    public GameObject Enemy;
+    public Collider2D EnemyCollider;
     public Coroutine cooldown_timmer = null;
     [SerializeField] private float coolDown;
     void Start()

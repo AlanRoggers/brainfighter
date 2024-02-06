@@ -39,7 +39,7 @@ public class CollisionDetector : MonoBehaviour
             Physics2D.IgnoreCollision(playerCollider, enemyCollider, false);
         }
 
-        components.msng.enemy = DamageDetection();
+        components.msng.EnemyCollider = DamageDetection();
     }
     void OnDrawGizmos()
     {
@@ -51,7 +51,7 @@ public class CollisionDetector : MonoBehaviour
             //     Gizmos.color = Color.red;
 
             // Gizmos.DrawWireCube((Vector2)transform.localPosition + feetsPosition, feetsSize);
-            if (components.msng.enemy != null)
+            if (components.msng.EnemyCollider != null)
                 Gizmos.color = Color.green;
             else
                 Gizmos.color = Color.red;

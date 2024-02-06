@@ -89,6 +89,8 @@ GameObject:
   - component: {fileID: 3535539590287390944}
   - component: {fileID: 2354231370631239894}
   - component: {fileID: 7636072572162245178}
+  - component: {fileID: 3553429927769815381}
+  - component: {fileID: 7362226966127225087}
   m_Layer: 6
   m_Name: Chie Satonaka
   m_TagString: Player
@@ -235,7 +237,8 @@ MonoBehaviour:
   NeedTurn: 0
   StartedWithFirst: 0
   DamageHitbox: {fileID: 4263537106808565861}
-  enemy: {fileID: 0}
+  Enemy: {fileID: 0}
+  EnemyCollider: {fileID: 0}
   coolDown: 0.3
 --- !u!114 &7854134084774301650
 MonoBehaviour:
@@ -381,6 +384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df172ce2f73a73a1fa55eac145760345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: 0
 --- !u!61 &3535539590287390944
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -451,6 +455,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13383b2475f43628a8c1468cd921f7b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+--- !u!114 &3553429927769815381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918396725094044388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    VectorObservationSize: 8
+    NumStackedVectorObservations: 1
+    m_ActionSpec:
+      m_NumContinuousActions: 0
+      BranchSizes: 050000000d000000
+    VectorActionSize: 050000000d000000
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 0
+    hasUpgradedBrainParametersWithActionSpec: 1
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: My Behavior
+  TeamId: 0
+  m_UseChildSensors: 1
+  m_UseChildActuators: 1
+  m_DeterministicInference: 0
+  m_ObservableAttributeHandling: 0
+--- !u!114 &7362226966127225087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918396725094044388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  DecisionStep: 0
+  TakeActionsBetweenDecisions: 1
 --- !u!1 &2931522487674685199
 GameObject:
   m_ObjectHideFlags: 0

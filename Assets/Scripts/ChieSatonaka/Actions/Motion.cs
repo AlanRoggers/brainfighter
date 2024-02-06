@@ -125,8 +125,12 @@ public class Motion : MonoBehaviour
     }
     public void StandUp()
     {
-        Hitboxes(true, false);
-        components.msng.IsCrouching = false;
+        if (components.msng.IsCrouching)
+        {
+            Hitboxes(true, false);
+            components.msng.IsCrouching = false;
+        }
+
     }
     #endregion
 
