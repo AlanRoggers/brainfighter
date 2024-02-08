@@ -41,6 +41,7 @@ public class PPOAgent : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
+        components.BrainAgent.AddReward(-0.001f);
         int motionAction = actions.DiscreteActions[0];
         int behaviourAction = actions.DiscreteActions[1];
         switch (motionAction)
@@ -111,5 +112,7 @@ public class PPOAgent : Agent
     {
         float posX = Random.Range(maxNegativeX, maxPositieX);
         transform.position = new Vector2(posX, -4.5f);
+        components.Health.NewLife();
+        components.msng.StartValues();
     }
 }

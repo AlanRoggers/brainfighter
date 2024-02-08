@@ -11,25 +11,39 @@ public class PlayerHealth : MonoBehaviour
     }
     void Start()
     {
-        Health = 100;
+        NewLife();
         UpdateDisplay();
     }
     void Update()
     {
-        if (Health == 0)
+        if (IsDead())
         {
             components.msng.Dead = true;
+        }
+    }
+    void FixedUpdate()
+    {
+        if (IsDead())
+        {
+            components.BrainAgent.AddReward(-100f);
+            components.BrainAgent.EndEpisode();
         }
     }
     public void ReduceHealth(int damage)
     {
         if (Health - damage > 0)
+        {
             Health -= damage;
+            components.BrainAgent.AddReward(-0.1f * damage);
+        }
         else
+        {
             Health = 0;
-
+        }
         UpdateDisplay();
     }
+    public bool IsDead() => Health == 0;
+    public void NewLife() => Health = 100;
     private void UpdateDisplay()
     {
         string healthString = gameObject.layer == 6 ? $"P1: {Health}" : $"P2: {Health}";

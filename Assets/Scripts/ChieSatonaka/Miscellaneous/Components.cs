@@ -8,6 +8,7 @@ public class Components : MonoBehaviour
     public Motion motion;
     public Attacks attacks;
     public PlayerHealth Health;
+    public PPOAgent BrainAgent;
     public Rigidbody2D phys;
     public StateController states;
     public UserInput Input;
@@ -22,5 +23,6 @@ public class Components : MonoBehaviour
         attacks = GetComponent<Attacks>();
         Health = GetComponent<PlayerHealth>();
         Input = GetComponent<UserInput>();
+        BrainAgent = GetComponent<PPOAgent>();
     }
 }

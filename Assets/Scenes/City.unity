@@ -336,10 +336,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7636072572162245178, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7854134084774301650, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
       propertyPath: enemyCollider
       value: 
@@ -2096,10 +2092,6 @@ PrefabInstance:
     - target: {fileID: 5822056414935985545, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
       propertyPath: m_Enabled
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7636072572162245178, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7854134084774301650, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
       propertyPath: enemyCollider
