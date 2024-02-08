@@ -19,6 +19,7 @@ public class StateController : MonoBehaviour
     {
         if (components.msng.Dead)
             ChangeAnimation(AnimationStates.Dead);
+
         switch (currentState)
         {
             case AnimationStates.Iddle:
@@ -822,4 +823,9 @@ public class StateController : MonoBehaviour
     #endregion
 
     #endregion
+    public void RestartAgent()
+    {
+        currentState = AnimationStates.Iddle;
+        await_another_damage = null;
+    }
 }
