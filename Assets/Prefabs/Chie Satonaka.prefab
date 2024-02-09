@@ -192,12 +192,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a88e21ed822cf5b55ba3c1a4fbb59244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Academy: {fileID: 0}
   anim: {fileID: 0}
   msng: {fileID: 0}
   coll: {fileID: 0}
   motion: {fileID: 0}
   attacks: {fileID: 0}
   Health: {fileID: 0}
+  Brain: {fileID: 0}
   phys: {fileID: 0}
   states: {fileID: 0}
   Input: {fileID: 0}
@@ -259,6 +261,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 0
+  feetsPosition: {x: 0, y: 0}
 --- !u!114 &401957065536032946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,7 +307,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!212 &-7062242214442092753
 SpriteRenderer:
@@ -458,7 +461,8 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 10000
+  MaxStep: 1000
+  gameManager: {fileID: 0}
 --- !u!114 &3553429927769815381
 MonoBehaviour:
   m_ObjectHideFlags: 0

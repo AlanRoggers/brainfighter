@@ -2,13 +2,14 @@ using UnityEngine;
 
 public class Components : MonoBehaviour
 {
+    public EnvController Academy;
     public Animator anim;
     public ClassMessenger msng;
     public CollisionDetector coll;
     public Motion motion;
     public Attacks attacks;
     public PlayerHealth Health;
-    public PPOAgent BrainAgent;
+    public PPOAgent Brain;
     public Rigidbody2D phys;
     public StateController states;
     public UserInput Input;
@@ -23,6 +24,7 @@ public class Components : MonoBehaviour
         attacks = GetComponent<Attacks>();
         Health = GetComponent<PlayerHealth>();
         Input = GetComponent<UserInput>();
-        BrainAgent = GetComponent<PPOAgent>();
+        Brain = GetComponent<PPOAgent>();
+        Academy = GetComponentInParent<EnvController>();
     }
 }

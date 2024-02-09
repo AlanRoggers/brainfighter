@@ -826,6 +826,10 @@ public class StateController : MonoBehaviour
     public void RestartAgent()
     {
         currentState = AnimationStates.Iddle;
+        if (await_another_damage != null)
+        {
+            StopCoroutine(await_another_damage);
+        }
         await_another_damage = null;
     }
 }

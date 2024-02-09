@@ -11,7 +11,7 @@ public class CollisionDetector : MonoBehaviour
     private Components components;
     private LayerMask groundLayer;
     [SerializeField] private LayerMask enemyLayer;
-    private Vector2 feetsPosition;
+    [SerializeField] private Vector2 feetsPosition;
     private Vector2 feetsSize;
     void Awake()
     {
@@ -50,7 +50,7 @@ public class CollisionDetector : MonoBehaviour
             // else
             //     Gizmos.color = Color.red;
 
-            // Gizmos.DrawWireCube((Vector2)transform.localPosition + feetsPosition, feetsSize);
+            // Gizmos.DrawWireCube((Vector2)transform.position + feetsPosition, feetsSize);
             if (components.msng.EnemyCollider != null)
                 Gizmos.color = Color.green;
             else
@@ -62,7 +62,7 @@ public class CollisionDetector : MonoBehaviour
     }
     private bool GroundDetection()
     {
-        return Physics2D.OverlapBox((Vector2)transform.localPosition + feetsPosition, feetsSize, 0f, groundLayer) != null;
+        return Physics2D.OverlapBox((Vector2)transform.position + feetsPosition, feetsSize, 0f, groundLayer) != null;
     }
     private Collider2D DamageDetection()
     {

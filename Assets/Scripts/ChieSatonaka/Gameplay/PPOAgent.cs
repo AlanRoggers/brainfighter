@@ -4,12 +4,8 @@ using Unity.MLAgents.Actuators;
 using UnityEngine;
 public class PPOAgent : Agent
 {
-    public string name;
-    private int x = 0;
+    [SerializeField] GameManager gameManager;
     private Components components;
-    private readonly float maxNegativeX = -8.3f;
-    private readonly float maxPositieX = 17.7f;
-
     protected override void Awake()
     {
         base.Awake();
@@ -18,10 +14,7 @@ public class PPOAgent : Agent
 
     public override void OnEpisodeBegin()
     {
-        print($"Episodio comienza por parte de {name}");
-        components.msng.StartValues();
-        components.phys.velocity = Vector2.zero;
-        Spawn();
+        components.Academy.Spawn();
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -43,7 +36,7 @@ public class PPOAgent : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-        components.BrainAgent.AddReward(-0.001f);
+        // print($"Action entered   {actions.DiscreteActions[0]}   {actions.DiscreteActions[1]}");
         int motionAction = actions.DiscreteActions[0];
         int behaviourAction = actions.DiscreteActions[1];
         switch (motionAction)
@@ -104,18 +97,6 @@ public class PPOAgent : Agent
                 components.motion.Block();
                 break;
         }
-        // x++;
-        // print($"Acción recibida del primer vector al momento {x} : {actions.DiscreteActions[0]}");
-        // print($"Acción recibida del segundo vector al momento {x} : {actions.DiscreteActions[1]}");
     }
 
-
-    private void Spawn()
-    {
-        float posX = Random.Range(maxNegativeX, maxPositieX);
-        transform.position = new Vector2(posX, -4.5f);
-        components.states.RestartAgent();
-        components.Health.NewLife();
-        components.msng.StartValues();
-    }
 }

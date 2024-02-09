@@ -12,38 +12,33 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         NewLife();
-        UpdateDisplay();
+        if (displayHealth != null)
+            UpdateDisplay();
     }
     void Update()
     {
-        if (IsDead())
+        if (Health <= 0)
         {
             components.msng.Dead = true;
+            components.Academy.ManageEvents(AgentEvents.Loss, gameObject.layer == 6);
         }
     }
-    void FixedUpdate()
+    void LateUpdate()
     {
-        if (IsDead())
-        {
-            components.BrainAgent.AddReward(-100f);
-            components.BrainAgent.EndEpisode();
-        }
+        if (displayHealth != null)
+            UpdateDisplay();
     }
     public void ReduceHealth(int damage)
     {
         if (Health - damage > 0)
-        {
             Health -= damage;
-            components.BrainAgent.AddReward(-0.1f * damage);
-        }
         else
-        {
             Health = 0;
-        }
-        UpdateDisplay();
     }
-    public bool IsDead() => Health == 0;
-    public void NewLife() => Health = 100;
+    public void NewLife()
+    {
+        Health = 100;
+    }
     private void UpdateDisplay()
     {
         string healthString = gameObject.layer == 6 ? $"P1: {Health}" : $"P2: {Health}";

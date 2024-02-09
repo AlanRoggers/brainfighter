@@ -72,11 +72,10 @@ public class Attacks : MonoBehaviour
     {
         if (components.msng.EnemyCollider != null)
         {
-            // print($"Any Attack Behaviour; Current Clip: {currentClipAttack.name} Fuerza que se aplicara: {currentAttackForce}");
             Components enemyComponents = components.msng.Enemy.GetComponent<Components>();
             StartCoroutine(HITSTOP());
             enemyPhys = enemyComponents.phys;
-            // Implementar fisicas para cuando el enemigo bloquea los ataques
+
             if (enemyComponents.msng.IsBlocking)
             {
                 components.msng.DamageApplied = true;
@@ -85,14 +84,18 @@ public class Attacks : MonoBehaviour
                     if (!(currentClipAttack.name == "Punch1" || currentClipAttack.name == "Kick2"))
                     {
                         enemyComponents.Health.ReduceHealth(1);
-                        components.BrainAgent.AddReward(0.1f);
+
+                        components.Academy.ManageEvents(AgentEvents.Damage, gameObject.layer == 6, 1f);
+
                         return;
                     }
                 }
                 else if (!crouchKick)
                 {
                     enemyComponents.Health.ReduceHealth(1);
-                    components.BrainAgent.AddReward(0.1f);
+
+                    components.Academy.ManageEvents(AgentEvents.Damage, gameObject.layer == 6, 1f);
+
                     return;
                 }
             }
@@ -101,18 +104,17 @@ public class Attacks : MonoBehaviour
                 crouchKick = false;
 
             components.msng.DamageApplied = true;
-            components.BrainAgent.AddReward(0.1f * currentDamageAttack);
+
+            components.Academy.ManageEvents(AgentEvents.Damage, gameObject.layer == 6, 0.1f * currentDamageAttack);
+
             enemyComponents.Health.ReduceHealth(currentDamageAttack);
 
-            if (enemyComponents.Health.IsDead())
-            {
-                components.BrainAgent.AddReward(100f);
-                components.BrainAgent.EndEpisode();
-            }
             enemyComponents.msng.HitStunCausant = currentClipAttack.name;
             enemyComponents.msng.HitStunTimer = currentClipAttack.length + Timer;
             enemyComponents.msng.IsTakingDamage = true;
         }
+        else
+            components.Academy.ManageEvents(AgentEvents.Nothing, gameObject.layer == 6);
     }
     private IEnumerator HITSTOP()
     {
