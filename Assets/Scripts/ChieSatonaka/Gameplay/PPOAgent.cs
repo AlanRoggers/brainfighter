@@ -65,7 +65,7 @@ public class PPOAgent : Agent
                 components.motion.Walk(1);
                 break;
             case 2: // Caminar Left
-                components.motion.Walk(2);
+                components.motion.Walk(-1);
                 break;
             case 3: // Impulso normal
                 if (transform.localScale.x > 0)
@@ -127,9 +127,9 @@ public class PPOAgent : Agent
             actions[0] = 1;
         else if (Input.GetKey(onePlayer["Left"]) && !Input.GetKey(onePlayer["Right"]))
             actions[0] = 2;
-        else if (Input.GetKey(onePlayer["Dash"]))
+        else if (transform.localScale.x > 0 && Input.GetKey(onePlayer["Dash"]) || transform.localScale.x < 0 && Input.GetKey(onePlayer["DashBack"]))
             actions[0] = 3;
-        else if (Input.GetKey(onePlayer["DashBack"]))
+        else if (transform.localScale.x > 0 && Input.GetKey(onePlayer["DashBack"]) || transform.localScale.x < 0 && Input.GetKey(onePlayer["Dash"]))
             actions[0] = 4;
     }
     void InitDictionarites()
