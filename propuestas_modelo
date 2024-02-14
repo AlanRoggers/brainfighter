@@ -93,3 +93,40 @@ Entonces la funcion de la recompensa sería
 	Recompensa = -0.001 + 0.1 * (Daño aplicado) + 100 * (enemigo muerto) -0.1 * (Daño recibido) - 100(muerto)
 
 Objetivo: Tener más vida que el enemigo (Puede ser que incluso no lo mate pero si tenga más vida)
+
+
+Modelo 1.1
+
+Observaciones:
+	-> Distancia del enemigo (flotante, normalizado)
+	-> Distancia a la que los golpes logran realizar contacto (boolean)
+	-> Vida (flotante, normalizado)
+	-> Vida del enemigo (flotante, normalizado)
+	-> No puedo realizar ciertos movimientos porque me están haciendo daño (boolean)
+	-> No puedo atacar porque entre en tiempo de recuperación (boolean)
+	-> No puedo realizar ciertos movimientos porque estoy en el aire (boolean)
+	-> Vivo (boolean) (Dejarlo para el 1.1.1)
+	-> Enemigo vivo (boolean) (Dejarlo para el 1.1.1)
+	-> Enemigo esta bloqueando (boolean)
+
+Acciones:
+	-> Branch 1:
+		<- Caminar(Dos acciones) 
+		<- Impulsos(Dos acciones)
+		<- Agacharse(Una accion)
+		<- No hacer nada(Una acción)
+	-> Branch 2:
+		<- Saltar
+		<- Golpes(Cuatro acciones)
+		<- Patadas(Cuatro acciones)
+		<- Bloquear(Una accion)
+		<- No hacer nada(Una acción)
+
+Recompensas:
+	-> +Daño aplicado * (0.01)
+	-> -Daño recibido * (0.01)
+	-> +0.01 por bloquear un ataque o golpear a alguien que esta atacando
+	-> +20 por ganar
+
+Formula por cada step: 
+R = 0.01(Daño aplicado no bloqueado) - 0.01(Daño recibido) + 0.01(bloqueo) + 0.01(Daño aplicado bloqueado) + 20(gano)

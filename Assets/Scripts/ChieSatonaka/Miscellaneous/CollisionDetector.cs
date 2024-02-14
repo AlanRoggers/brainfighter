@@ -68,6 +68,10 @@ public class CollisionDetector : MonoBehaviour
     {
         return Physics2D.OverlapCircle(damage.bounds.center, damage.radius, enemyLayer);
     }
+    // private bool NearEnemy()
+    // {
+    //     return Physics2D.OverlapCircle()
+    // }
     private IEnumerator IGNORE_GROUND()
     {
         yield return new WaitForSeconds(0.2f);
