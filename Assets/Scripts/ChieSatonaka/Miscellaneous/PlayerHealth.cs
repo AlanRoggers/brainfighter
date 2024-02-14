@@ -30,10 +30,15 @@ public class PlayerHealth : MonoBehaviour
     }
     public void ReduceHealth(int damage)
     {
+        if (damage == 1)
+            components.Academy.ManageEvents(AgentEvents.AttackBlocked, gameObject.layer == 6);
+
         if (Health - damage > 0)
             Health -= damage;
         else
             Health = 0;
+
+        components.Academy.ManageEvents(AgentEvents.ReceivedDamage, gameObject.layer == 6, damage);
     }
     public void NewLife()
     {

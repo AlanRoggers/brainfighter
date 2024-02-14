@@ -123,10 +123,14 @@ Acciones:
 		<- No hacer nada(Una acción)
 
 Recompensas:
-	-> +Daño aplicado * (0.01)
-	-> -Daño recibido * (0.01)
-	-> +0.01 por bloquear un ataque o golpear a alguien que esta atacando
+	-> +Daño aplicado * (0.1)
+	-> -Daño recibido * (0.1)
+	-> +0.5 por bloquear un ataque
+	-> +0.05 por aplicar daño mientras el enemigo esta cubierto
 	-> +20 por ganar
 
 Formula por cada step: 
 R = 0.01(Daño aplicado no bloqueado) - 0.01(Daño recibido) + 0.01(bloqueo) + 0.01(Daño aplicado bloqueado) + 20(gano)
+
+Clases utilizadas para desencadenar recompensas: PlayerHealth y Attacks
+

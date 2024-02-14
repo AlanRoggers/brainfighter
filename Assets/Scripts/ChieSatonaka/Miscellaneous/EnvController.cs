@@ -9,40 +9,30 @@ public class EnvController : MonoBehaviour
     private readonly float maxPositiveX = 0f;
     public void ManageEvents(AgentEvents eventReceived, bool chie, float damage = 0)
     {
+        Components agent = chie ? chieAgent : satonakaAgent;
         switch (eventReceived)
         {
-            case AgentEvents.Damage:
-                if (chie)
-                {
-                    chieAgent.Brain.AddReward(0.1f * damage);
-                    satonakaAgent.Brain.AddReward(-0.1f * damage);
-                }
-                else
-                {
-                    satonakaAgent.Brain.AddReward(0.1f * damage);
-                    chieAgent.Brain.AddReward(-0.1f * damage);
-                }
+            case AgentEvents.DidDamage:
+                agent.Brain.AddReward(0.1f * damage);
+                break;
+            case AgentEvents.ReceivedDamage:
+                agent.Brain.AddReward(-0.1f * damage);
+                break;
+            case AgentEvents.KickWhileBlocked:
+                agent.Brain.AddReward(0.05f);
+                break;
+            case AgentEvents.AttackBlocked:
+                agent.Brain.AddReward(0.5f);
                 break;
             case AgentEvents.Loss:
-                if (!chie)
-                {
-                    chieAgent.Brain.AddReward(+100f);
-                    satonakaAgent.Brain.AddReward(-100f);
-                }
+                if (chie)
+                    satonakaAgent.Brain.AddReward(+20f);
                 else
-                {
-                    satonakaAgent.Brain.AddReward(+100f);
-                    chieAgent.Brain.AddReward(-100f);
-                }
+                    chieAgent.Brain.AddReward(+20f);
                 chieAgent.Brain.EndEpisode();
                 satonakaAgent.Brain.EndEpisode();
                 break;
-            case AgentEvents.Nothing:
-                if (chie)
-                    chieAgent.Brain.AddReward(-0.0001f);
-                else
-                    satonakaAgent.Brain.AddReward(-0.0001f);
-                break;
+
         }
     }
     private void InitialValues(Components agent)

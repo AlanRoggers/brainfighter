@@ -1,6 +1,8 @@
 public enum AgentEvents
 {
-    Damage,
+    DidDamage,
+    ReceivedDamage,
     Loss,
-    Nothing
+    KickWhileBlocked,
+    AttackBlocked
 }

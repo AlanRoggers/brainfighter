@@ -85,7 +85,7 @@ public class Attacks : MonoBehaviour
                     {
                         enemyComponents.Health.ReduceHealth(1);
 
-                        components.Academy.ManageEvents(AgentEvents.Damage, gameObject.layer == 6, 1f);
+                        components.Academy.ManageEvents(AgentEvents.KickWhileBlocked, gameObject.layer == 6);
 
                         return;
                     }
@@ -94,7 +94,7 @@ public class Attacks : MonoBehaviour
                 {
                     enemyComponents.Health.ReduceHealth(1);
 
-                    components.Academy.ManageEvents(AgentEvents.Damage, gameObject.layer == 6, 1f);
+                    components.Academy.ManageEvents(AgentEvents.KickWhileBlocked, gameObject.layer == 6);
 
                     return;
                 }
@@ -105,7 +105,7 @@ public class Attacks : MonoBehaviour
 
             components.msng.DamageApplied = true;
 
-            components.Academy.ManageEvents(AgentEvents.Damage, gameObject.layer == 6, 0.1f * currentDamageAttack);
+            components.Academy.ManageEvents(AgentEvents.DidDamage, gameObject.layer == 6, currentDamageAttack);
 
             enemyComponents.Health.ReduceHealth(currentDamageAttack);
 
@@ -113,8 +113,6 @@ public class Attacks : MonoBehaviour
             enemyComponents.msng.HitStunTimer = currentClipAttack.length + Timer;
             enemyComponents.msng.IsTakingDamage = true;
         }
-        else
-            components.Academy.ManageEvents(AgentEvents.Nothing, gameObject.layer == 6);
     }
     private IEnumerator HITSTOP()
     {
