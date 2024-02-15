@@ -70,12 +70,12 @@ public class Attacks : MonoBehaviour
     }
     private void AnyAttackDamage()
     {
-        if (components.msng.enemy != null)
+        if (components.msng.EnemyCollider != null)
         {
-            // print($"Any Attack Behaviour; Current Clip: {currentClipAttack.name} Fuerza que se aplicara: {currentAttackForce}");
-            Components enemyComponents = components.msng.enemy.GetComponentInParent<Components>();
+            Components enemyComponents = components.msng.Enemy.GetComponent<Components>();
             StartCoroutine(HITSTOP());
-            // Implementar fisicas para cuando el enemigo bloquea los ataques
+            enemyPhys = enemyComponents.phys;
+
             if (enemyComponents.msng.IsBlocking)
             {
                 components.msng.DamageApplied = true;
@@ -84,12 +84,18 @@ public class Attacks : MonoBehaviour
                     if (!(currentClipAttack.name == "Punch1" || currentClipAttack.name == "Kick2"))
                     {
                         enemyComponents.Health.ReduceHealth(1);
+
+                        components.Academy.ManageEvents(AgentEvents.KickWhileBlocked, gameObject.layer == 6);
+
                         return;
                     }
                 }
                 else if (!crouchKick)
                 {
                     enemyComponents.Health.ReduceHealth(1);
+
+                    components.Academy.ManageEvents(AgentEvents.KickWhileBlocked, gameObject.layer == 6);
+
                     return;
                 }
             }
@@ -98,11 +104,14 @@ public class Attacks : MonoBehaviour
                 crouchKick = false;
 
             components.msng.DamageApplied = true;
+
+            components.Academy.ManageEvents(AgentEvents.DidDamage, gameObject.layer == 6, currentDamageAttack);
+
             enemyComponents.Health.ReduceHealth(currentDamageAttack);
+
             enemyComponents.msng.HitStunCausant = currentClipAttack.name;
             enemyComponents.msng.HitStunTimer = currentClipAttack.length + Timer;
             enemyComponents.msng.IsTakingDamage = true;
-            enemyPhys = enemyComponents.phys;
         }
     }
     private IEnumerator HITSTOP()
@@ -126,7 +135,7 @@ public class Attacks : MonoBehaviour
         {
             AnyAttackLogic(2, AttacksInertia[6], isKick: true);
             currentAttackForce = AttackForces[6];
-            currentDamageAttack = 10;
+            currentDamageAttack = 8;
             currentClipAttack = attackClips[6];
         }
     }
@@ -141,7 +150,7 @@ public class Attacks : MonoBehaviour
         {
             AnyAttackLogic(0, AttacksInertia[4], isKick: true);
             currentAttackForce = AttackForces[4];
-            currentDamageAttack = 10;
+            currentDamageAttack = 4;
             currentClipAttack = attackClips[4];
         }
     }
@@ -158,7 +167,7 @@ public class Attacks : MonoBehaviour
         {
             AnyAttackLogic(1, AttacksInertia[5], isKick: true);
             currentAttackForce = AttackForces[5];
-            currentDamageAttack = 10;
+            currentDamageAttack = 6;
             currentClipAttack = attackClips[5];
         }
     }
@@ -184,7 +193,7 @@ public class Attacks : MonoBehaviour
         {
             AnyAttackLogic(0, Vector2.zero, noChainKick: true);
             currentAttackForce = Vector2.zero;
-            currentDamageAttack = 10;
+            currentDamageAttack = 5;
             currentClipAttack = attackClips[8];
             crouchKick = true;
         }
@@ -207,7 +216,7 @@ public class Attacks : MonoBehaviour
 
             // Parametros para la interacción entre el personaje y el enemigo cuando se causa daño
             currentAttackForce = AttackForces[2];
-            currentDamageAttack = 10;
+            currentDamageAttack = 7;
             currentClipAttack = attackClips[2];
         }
     }
@@ -222,7 +231,7 @@ public class Attacks : MonoBehaviour
         {
             AnyAttackLogic(0, AttacksInertia[0]);
             currentAttackForce = AttackForces[0];
-            currentDamageAttack = 10;
+            currentDamageAttack = 3;
             currentClipAttack = attackClips[0];
         }
     }
@@ -239,7 +248,7 @@ public class Attacks : MonoBehaviour
         {
             AnyAttackLogic(1, AttacksInertia[1]);
             currentAttackForce = AttackForces[1];
-            currentDamageAttack = 10;
+            currentDamageAttack = 5;
             currentClipAttack = attackClips[1];
         }
     }
@@ -252,7 +261,7 @@ public class Attacks : MonoBehaviour
         {
             AnyAttackLogic(3, AttacksInertia[3]);
             currentAttackForce = AttackForces[3];
-            currentDamageAttack = 10;
+            currentDamageAttack = 11;
             currentClipAttack = attackClips[3];
         }
     }

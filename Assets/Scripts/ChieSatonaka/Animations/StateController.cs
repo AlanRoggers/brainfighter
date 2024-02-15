@@ -19,6 +19,7 @@ public class StateController : MonoBehaviour
     {
         if (components.msng.Dead)
             ChangeAnimation(AnimationStates.Dead);
+
         switch (currentState)
         {
             case AnimationStates.Iddle:
@@ -369,8 +370,14 @@ public class StateController : MonoBehaviour
     {
         bool iddle = components.phys.velocity.x == 0;
 
+        bool walk = components.msng.IsWalking &&
+                    (transform.localScale.x > 0 && components.phys.velocity.x > 0 ||
+                    transform.localScale.x < 0 && components.phys.velocity.x < 0);
+
         if (iddle)
             ChangeAnimation(AnimationStates.Iddle);
+        else if (walk)
+            ChangeAnimation(AnimationStates.StartWalking);
         else if (components.msng.IsJumping)
             ChangeAnimation(AnimationStates.StartJumping);
         else if (components.msng.NeedTurn)
@@ -675,8 +682,16 @@ public class StateController : MonoBehaviour
     {
         bool iddle = components.phys.velocity.x == 0;
 
+        bool walk = components.msng.IsWalking &&
+                    (transform.localScale.x > 0 && components.phys.velocity.x > 0 ||
+                    transform.localScale.x < 0 && components.phys.velocity.x < 0);
+
+        bool goingBack = components.msng.IsWalking && !walk;
+
         if (iddle)
             ChangeAnimation(AnimationStates.Iddle);
+        else if (goingBack)
+            ChangeAnimation(AnimationStates.StartGoingBackwards);
         else if (components.msng.IsJumping)
             ChangeAnimation(AnimationStates.StartJumping);
         else if (components.msng.NeedTurn)
@@ -822,4 +837,13 @@ public class StateController : MonoBehaviour
     #endregion
 
     #endregion
+    public void RestartAgent()
+    {
+        currentState = AnimationStates.Iddle;
+        if (await_another_damage != null)
+        {
+            StopCoroutine(await_another_damage);
+        }
+        await_another_damage = null;
+    }
 }

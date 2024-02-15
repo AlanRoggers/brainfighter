@@ -11,24 +11,38 @@ public class PlayerHealth : MonoBehaviour
     }
     void Start()
     {
-        Health = 100;
-        UpdateDisplay();
+        NewLife();
+        if (displayHealth != null)
+            UpdateDisplay();
     }
     void Update()
     {
-        if (Health == 0)
+        if (Health <= 0)
         {
             components.msng.Dead = true;
+            components.Academy.ManageEvents(AgentEvents.Loss, gameObject.layer == 6);
         }
+    }
+    void LateUpdate()
+    {
+        if (displayHealth != null)
+            UpdateDisplay();
     }
     public void ReduceHealth(int damage)
     {
+        if (damage == 1)
+            components.Academy.ManageEvents(AgentEvents.AttackBlocked, gameObject.layer == 6);
+
         if (Health - damage > 0)
             Health -= damage;
         else
             Health = 0;
 
-        UpdateDisplay();
+        components.Academy.ManageEvents(AgentEvents.ReceivedDamage, gameObject.layer == 6, damage);
+    }
+    public void NewLife()
+    {
+        Health = 100;
     }
     private void UpdateDisplay()
     {

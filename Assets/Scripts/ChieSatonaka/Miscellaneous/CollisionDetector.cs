@@ -11,7 +11,7 @@ public class CollisionDetector : MonoBehaviour
     private Components components;
     private LayerMask groundLayer;
     [SerializeField] private LayerMask enemyLayer;
-    private Vector2 feetsPosition;
+    [SerializeField] private Vector2 feetsPosition;
     private Vector2 feetsSize;
     void Awake()
     {
@@ -39,7 +39,7 @@ public class CollisionDetector : MonoBehaviour
             Physics2D.IgnoreCollision(playerCollider, enemyCollider, false);
         }
 
-        components.msng.enemy = DamageDetection();
+        components.msng.EnemyCollider = DamageDetection();
     }
     void OnDrawGizmos()
     {
@@ -50,8 +50,8 @@ public class CollisionDetector : MonoBehaviour
             // else
             //     Gizmos.color = Color.red;
 
-            // Gizmos.DrawWireCube((Vector2)transform.localPosition + feetsPosition, feetsSize);
-            if (components.msng.enemy != null)
+            // Gizmos.DrawWireCube((Vector2)transform.position + feetsPosition, feetsSize);
+            if (components.msng.EnemyCollider != null)
                 Gizmos.color = Color.green;
             else
                 Gizmos.color = Color.red;
@@ -62,12 +62,16 @@ public class CollisionDetector : MonoBehaviour
     }
     private bool GroundDetection()
     {
-        return Physics2D.OverlapBox((Vector2)transform.localPosition + feetsPosition, feetsSize, 0f, groundLayer) != null;
+        return Physics2D.OverlapBox((Vector2)transform.position + feetsPosition, feetsSize, 0f, groundLayer) != null;
     }
     private Collider2D DamageDetection()
     {
         return Physics2D.OverlapCircle(damage.bounds.center, damage.radius, enemyLayer);
     }
+    // private bool NearEnemy()
+    // {
+    //     return Physics2D.OverlapCircle()
+    // }
     private IEnumerator IGNORE_GROUND()
     {
         yield return new WaitForSeconds(0.2f);

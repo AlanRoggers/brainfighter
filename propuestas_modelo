@@ -1,0 +1,137 @@
+Cualquier algoritmo de aprendizaje por refuerzo ocupa los siguientes elementos para poder funcionar:
+- Entorno (Ambiente)
+- Conjunto de acciones
+- Conjunto de observaciones
+- Conjunto de recompensas
+- Objetivo
+
+Para BrainFighter se definen los elementos de la siguiente manera (Version 1)
+- Entorno: Un nivel que tiene un piso, un enemigo y lo demás es mera decoración (el piso sirve para
+permitir la implementación de la gravedad y movimientos como el salto)
+
+- Conjunto de acciones:
+	-> Caminar hacia adelante y hacia atrás (0)
+	-> Saltar (1)
+	-> Agacharse (1)
+	-> Impulso hacia adelante y hacia atrás (2)
+	-> Correr (solo hacia adelante) (1) (descartable)
+	-> Bloquear en estado normal y agachado (2)
+	-> Golpe bajo, medio y fuerte (3)
+	-> Patada baja, media y fuerte (3)
+	-> Especial golpe (1) (descartable)
+	-> Especial patada (1) (descartable)
+	-> Golpe agachado (1) 
+En total el conjunto de acciones son 18 pero algunas son descartables.
+
+Adicionalmente existen conjuntos de acciones que se podrían realizar al mismo tiempo y otras que estan restringidas a realizarse dependiendo del estado del personaje:
+- Combinación de acciones:
+	-> Caminar y saltar (Esto hara que el personaje salte en diagonal)
+	-> Agacharse y pegar (Esto hara que el personaje realice el golpe agachado)
+	-> Agacharse y bloquear (Esto hará que el personaje bloque agachado)
+- Acciones restringidas
+	-> Los golpes especiales solamente se pueden realizar cuando la cadena de golpes se realizo en orden
+	-> Caminar solo se puede realizar cuando esta en contacto con el piso y no esta haciendo cualquier otra acción
+	-> Los golpes, si no se realizan en orden tienen un tiempo de espera entre golpe y golpe
+	-> Bloquear no se puede hacer cuando el personaje esta en el aire
+	-> Impulsos no se pueden hacer cuando el personaje esta en el aire
+
+La manera en como entendí que Unity trabaja las acciones es de manera continua o de manera discreta, las acciones continuas tienen que ver con valores flotantes y las acciones discretas con valores
+enteros.
+
+Para no complicarme tanto la vida, voy a trabajar con puras acciones discretas, las cuales voy a agrupar en vectores de manera que queden categorizadas:
+	-Primer vector: Acciones que tengan que ver con el movimiento
+		-> Caminar adelante (0)
+		-> Caminar atrás (1)
+		-> Saltar (2)
+		-> Agacharse (3)
+		-> Impulso adelante (4)
+		-> Impulso atrás (5)
+	-Segundo vector: Golpes
+		-> Golpe débil (0)
+		-> Golpe medio (1)
+		-> Golpe fuerte (2)
+		-> Golpe especial (3)
+	-Tercer vector: Patadas
+		-> Patada débil (0)
+		-> Patada media (1)
+		-> Patada fuerte (2)
+		-> Patada especial (3)
+	-Cuarto vector: Acciones especiales
+		-> Bloquear (0)
+		-> Bloquear agachado (1)
+		-> Patada agachado (2)
+		-> Adelante Saltar (3)
+		-> Atrás Saltar (4)
+
+Entonces en la versión de modelo de entrenamiento 1.0 tenemos 19 acciones
+
+Al momento en que escribí esto lo vi útil debido a que las combinaciones de acciones generan nuevas acciones, es decir, hasta ahora no se me ocurre como podriamos dejar al personaje haciendo una acción
+para que a la par haga otra, no es como un humano que va jugar con un control, entonces en teoría este debe tener las acciones predefinidas incluso los combos podrían ser una acción completa, aunque esto
+no me parece correcto. Por otro lado las acciones restringidas son una guía útil para ver que variables podemos mandar al agente como observaciones del entorno pues el agente al momento de realizar una
+acción no permitida en cierto estado, debería obtener información de porque no la esta pudiendo hacer.
+
+- Conjunto de Observaciones:
+	-> Distancia al enemigo
+	-> Vida del enemigo
+	-> Vida propia
+	-> Puedo atacar (Como las acciones del personaje se restringen por varias razones, se me ocurre que podría juntar todas esas variables que restringen las acciones y pasarla como una sola
+			 las variables que restringen son AttackRestricted, IsAttacking, IsTakingDamage e IsTurning (Creo pero no se me hace necesario incluirla))
+	-> Estoy en contacto con el piso
+	-> Tiempo de espera entre golpe y golpe (Esto ya estaria incluido en puedo atacar)
+	-> Enemigo vivo o muerto (no implementada ahorita)
+	-> Estoy vivo o muerto
+	(Siete observaciones, 1 Vector2 y 7 booleanas)
+
+- Conjunto de recompensas:
+	-> Muy pequeña penalización por cada momento que pase en el juego
+	-> +0.1 * Daño del golpe cada vez que logre bajar la vida del enemigo
+	-> +100 si logra ganar
+	-> -0.1 * Cantidad de vida disminuida
+	-> -100 si se muere
+
+Entonces la funcion de la recompensa sería
+	Recompensa = -0.001 + 0.1 * (Daño aplicado) + 100 * (enemigo muerto) -0.1 * (Daño recibido) - 100(muerto)
+
+Objetivo: Tener más vida que el enemigo (Puede ser que incluso no lo mate pero si tenga más vida)
+
+
+Modelo 1.1
+
+Observaciones:
+	-> Distancia del enemigo (flotante, normalizado)
+	-> Distancia a la que los golpes logran realizar contacto (boolean)
+	-> Vida (flotante, normalizado)
+	-> Vida del enemigo (flotante, normalizado)
+	-> No puedo realizar ciertos movimientos porque me están haciendo daño (boolean)
+	-> No puedo atacar porque entre en tiempo de recuperación (boolean)
+	-> No puedo realizar ciertos movimientos porque estoy en el aire (boolean)
+	-> Vivo (boolean) (Dejarlo para el 1.1.1)
+	-> Enemigo vivo (boolean) (Dejarlo para el 1.1.1)
+	-> Enemigo esta bloqueando (boolean)
+
+Acciones:
+	-> Branch 1:
+		<- Caminar(Dos acciones) 
+		<- Impulsos(Dos acciones)
+		<- Agacharse(Una accion)
+		<- No hacer nada(Una acción)
+	-> Branch 2:
+		<- Saltar
+		<- Golpes(Cuatro acciones)
+		<- Patadas(Cuatro acciones)
+		<- Bloquear(Una accion)
+		<- No hacer nada(Una acción)
+
+Recompensas:
+	-> -10 / MaxSteps cada step
+	-> +Daño aplicado * (0.1)
+	-> -Daño recibido * (0.1)
+	-> +0.5 por bloquear un ataque
+	-> +0.05 por aplicar daño mientras el enemigo esta cubierto
+	-> +20 por ganar
+
+Formula por cada step: 
+R = 0.01(Daño aplicado no bloqueado) - 0.01(Daño recibido) + 0.01(bloqueo) + 0.01(Daño aplicado bloqueado) + 20(gano)
+
+Clases utilizadas para desencadenar recompensas: PlayerHealth y Attacks
+
