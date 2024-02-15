@@ -30,10 +30,22 @@ public class EnvController : MonoBehaviour
                 agent.Brain.AddReward(-0.1f * damage);
                 break;
             case AgentEvents.KickWhileBlocked:
-                agent.Brain.AddReward(0.05f);
+                agent.Brain.AddReward(-0.5f);
                 break;
             case AgentEvents.AttackBlocked:
                 agent.Brain.AddReward(0.5f);
+                break;
+            case AgentEvents.EnemyStuned:
+                if (chie)
+                {
+                    chieAgent.Brain.AddReward(1.5f);
+                    satonakaAgent.Brain.AddReward(-1.5f);
+                }
+                else
+                {
+                    chieAgent.Brain.AddReward(-1.5f);
+                    satonakaAgent.Brain.AddReward(1.5f);
+                }
                 break;
             case AgentEvents.Loss:
                 if (chie)

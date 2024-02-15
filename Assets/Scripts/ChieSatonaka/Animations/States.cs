@@ -43,5 +43,6 @@ public enum AnimationStates
     Recover,
     Dead,
     Land,
+    Incapacite,
     #endregion
 }

@@ -85,7 +85,10 @@ public class Attacks : MonoBehaviour
                     {
                         enemyComponents.Health.BlockedAttack();
 
-                        components.Academy.ManageEvents(AgentEvents.KickWhileBlocked, gameObject.layer == 6);
+                        if (enemyComponents.msng.Stuned)
+                            components.Academy.ManageEvents(AgentEvents.EnemyStuned, gameObject.layer == 6);
+                        else
+                            components.Academy.ManageEvents(AgentEvents.KickWhileBlocked, gameObject.layer == 6);
 
                         return;
                     }
@@ -94,7 +97,10 @@ public class Attacks : MonoBehaviour
                 {
                     enemyComponents.Health.BlockedAttack();
 
-                    components.Academy.ManageEvents(AgentEvents.KickWhileBlocked, gameObject.layer == 6);
+                    if (enemyComponents.msng.Stuned)
+                        components.Academy.ManageEvents(AgentEvents.EnemyStuned, gameObject.layer == 6);
+                    else
+                        components.Academy.ManageEvents(AgentEvents.KickWhileBlocked, gameObject.layer == 6);
 
                     return;
                 }
