@@ -461,8 +461,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 1000
-  gameManager: {fileID: 0}
+  MaxStep: 0
 --- !u!114 &3553429927769815381
 MonoBehaviour:
   m_ObjectHideFlags: 0

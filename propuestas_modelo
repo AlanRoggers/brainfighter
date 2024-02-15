@@ -123,6 +123,7 @@ Acciones:
 		<- No hacer nada(Una acción)
 
 Recompensas:
+	-> -10 / MaxSteps cada step
 	-> +Daño aplicado * (0.1)
 	-> -Daño recibido * (0.1)
 	-> +0.5 por bloquear un ataque

@@ -7,6 +7,17 @@ public class EnvController : MonoBehaviour
     [SerializeField] private Components satonakaAgent;
     private readonly float maxNegativeX = -15f;
     private readonly float maxPositiveX = 0f;
+    private int stepCounter = 0;
+    void FixedUpdate()
+    {
+        if (stepCounter < maxSteps)
+            stepCounter++;
+        else
+        {
+            chieAgent.Brain.EpisodeInterrupted();
+            satonakaAgent.Brain.EpisodeInterrupted();
+        }
+    }
     public void ManageEvents(AgentEvents eventReceived, bool chie, float damage = 0)
     {
         Components agent = chie ? chieAgent : satonakaAgent;
@@ -65,5 +76,7 @@ public class EnvController : MonoBehaviour
 
         chieAgent.transform.localPosition = new Vector2(chieX, -4.5f);
         satonakaAgent.transform.localPosition = new Vector2(satonakaX, -4.5f);
+
+        stepCounter = 0;
     }
 }

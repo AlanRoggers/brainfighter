@@ -8,6 +8,7 @@ public class PPOAgent : Agent
     private Components components;
     private readonly float maxDistance = 32.10f;
     private readonly float minDistance = 1f;
+    private readonly int maxSteps = 2000;
     private Dictionary<string, KeyCode> onePlayer = new Dictionary<string, KeyCode>();
     // private Dictionary<string, KeyCode> twoPlayer = new Dictionary<string, KeyCode>();
     protected override void Awake()
@@ -52,6 +53,7 @@ public class PPOAgent : Agent
     }
     public override void OnActionReceived(ActionBuffers actions)
     {
+        this.AddReward(-1f / maxSteps);
         // print($"Action entered   {actions.DiscreteActions[0]}   {actions.DiscreteActions[1]}");
         int motionAction = actions.DiscreteActions[0];
         int behaviourAction = actions.DiscreteActions[1];

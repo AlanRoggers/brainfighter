@@ -1427,7 +1427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b263b4b57ade17e8b8c9436dad95510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSteps: 0
+  maxSteps: 2000
   chieAgent: {fileID: 4739004648292120114}
   satonakaAgent: {fileID: 578201780609190205}
 --- !u!1 &6347500366735634536
@@ -1798,22 +1798,6 @@ PrefabInstance:
       propertyPath: DecisionPeriod
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 7636072572162245178, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
-      propertyPath: name
-      value: Chie1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7636072572162245178, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
-      propertyPath: MaxStep
-      value: 3000
-      objectReference: {fileID: 0}
-    - target: {fileID: 7636072572162245178, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7636072572162245178, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
-      propertyPath: gameManager
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 7854134084774301650, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
       propertyPath: enemyCollider
       value: 
@@ -1952,22 +1936,6 @@ PrefabInstance:
     - target: {fileID: 5822056414935985545, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
       propertyPath: m_Enabled
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7636072572162245178, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
-      propertyPath: name
-      value: Chie2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7636072572162245178, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
-      propertyPath: MaxStep
-      value: 3000
-      objectReference: {fileID: 0}
-    - target: {fileID: 7636072572162245178, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7636072572162245178, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
-      propertyPath: gameManager
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7854134084774301650, guid: 6396f39dca4f543229eeb7fa72c34c1d, type: 3}
       propertyPath: enemyCollider
