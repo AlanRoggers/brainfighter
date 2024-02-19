@@ -83,18 +83,24 @@ public class Attacks : MonoBehaviour
                 {
                     if (!(currentClipAttack.name == "Punch1" || currentClipAttack.name == "Kick2"))
                     {
-                        enemyComponents.Health.ReduceHealth(1);
+                        enemyComponents.Health.BlockedAttack();
 
-                        components.Academy.ManageEvents(AgentEvents.KickWhileBlocked, gameObject.layer == 6);
+                        if (enemyComponents.msng.Stuned)
+                            components.Academy.ManageEvents(AgentEvents.EnemyStuned, gameObject.layer == 6);
+                        else
+                            components.Academy.ManageEvents(AgentEvents.KickWhileBlocked, gameObject.layer == 6);
 
                         return;
                     }
                 }
                 else if (!crouchKick)
                 {
-                    enemyComponents.Health.ReduceHealth(1);
+                    enemyComponents.Health.BlockedAttack();
 
-                    components.Academy.ManageEvents(AgentEvents.KickWhileBlocked, gameObject.layer == 6);
+                    if (enemyComponents.msng.Stuned)
+                        components.Academy.ManageEvents(AgentEvents.EnemyStuned, gameObject.layer == 6);
+                    else
+                        components.Academy.ManageEvents(AgentEvents.KickWhileBlocked, gameObject.layer == 6);
 
                     return;
                 }
@@ -127,7 +133,8 @@ public class Attacks : MonoBehaviour
         bool canAttack = components.msng.IsOnGround && !components.msng.IsCrouching &&
                             !components.msng.IsDashing && !components.msng.IsDashingBack &&
                             !components.msng.AttackRestricted && !components.msng.IsAttacking &&
-                            !components.msng.IsTakingDamage && !components.msng.IsBlocking;
+                            !components.msng.IsTakingDamage && !components.msng.IsBlocking &&
+                            !components.msng.Stuned;
 
         bool chainOportunity = components.msng.KickChain[1] && components.msng.ChainOportunity;
 
@@ -144,7 +151,8 @@ public class Attacks : MonoBehaviour
         bool canAttack = components.msng.IsOnGround && !components.msng.IsCrouching &&
                             !components.msng.IsDashing && !components.msng.IsDashingBack &&
                             !components.msng.AttackRestricted && !components.msng.IsAttacking &&
-                            !components.msng.IsTakingDamage && !components.msng.IsBlocking;
+                            !components.msng.IsTakingDamage && !components.msng.IsBlocking &&
+                            !components.msng.Stuned;
 
         if (canAttack)
         {
@@ -159,7 +167,8 @@ public class Attacks : MonoBehaviour
         bool canAttack = components.msng.IsOnGround && !components.msng.IsCrouching &&
                             !components.msng.IsDashing && !components.msng.IsDashingBack &&
                             !components.msng.AttackRestricted && !components.msng.IsAttacking &&
-                            !components.msng.IsTakingDamage && !components.msng.IsBlocking;
+                            !components.msng.IsTakingDamage && !components.msng.IsBlocking &&
+                            !components.msng.Stuned;
 
         bool chainOportunity = components.msng.KickChain[0] && components.msng.ChainOportunity;
 
@@ -187,7 +196,8 @@ public class Attacks : MonoBehaviour
     public void CrouchKick()
     {
         bool canAttack = components.msng.IsCrouching && !components.msng.IsBlocking &&
-                            !components.msng.IsTakingDamage && !components.msng.AttackRestricted;
+                            !components.msng.IsTakingDamage && !components.msng.AttackRestricted &&
+                            !components.msng.Stuned;
 
         if (canAttack)
         {
@@ -206,7 +216,8 @@ public class Attacks : MonoBehaviour
         bool canAttack = components.msng.IsOnGround && !components.msng.IsCrouching &&
                             !components.msng.IsDashing && !components.msng.IsDashingBack &&
                             !components.msng.AttackRestricted && !components.msng.IsAttacking &&
-                            !components.msng.IsTakingDamage && !components.msng.IsBlocking;
+                            !components.msng.IsTakingDamage && !components.msng.IsBlocking &&
+                            !components.msng.Stuned;
 
         bool chainOportunity = components.msng.PunchChain[1] && components.msng.ChainOportunity;
 
@@ -225,7 +236,8 @@ public class Attacks : MonoBehaviour
         bool canAttack = components.msng.IsOnGround && !components.msng.IsCrouching &&
                             !components.msng.IsDashing && !components.msng.IsDashingBack &&
                             !components.msng.AttackRestricted && !components.msng.IsAttacking &&
-                            !components.msng.IsTakingDamage && !components.msng.IsBlocking;
+                            !components.msng.IsTakingDamage && !components.msng.IsBlocking &&
+                            !components.msng.Stuned;
 
         if (canAttack)
         {
@@ -240,7 +252,8 @@ public class Attacks : MonoBehaviour
         bool canAttack = components.msng.IsOnGround && !components.msng.IsCrouching &&
                             !components.msng.IsDashing && !components.msng.IsDashingBack &&
                             !components.msng.AttackRestricted && !components.msng.IsAttacking &&
-                            !components.msng.IsTakingDamage && !components.msng.IsBlocking;
+                            !components.msng.IsTakingDamage && !components.msng.IsBlocking &&
+                            !components.msng.Stuned;
 
         bool chainOportunity = components.msng.PunchChain[0] && components.msng.ChainOportunity;
 

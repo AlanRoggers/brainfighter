@@ -4,5 +4,6 @@ public enum AgentEvents
     ReceivedDamage,
     Loss,
     KickWhileBlocked,
-    AttackBlocked
+    AttackBlocked,
+    EnemyStuned,
 }

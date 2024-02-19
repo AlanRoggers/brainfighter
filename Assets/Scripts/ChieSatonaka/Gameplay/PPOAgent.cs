@@ -8,7 +8,6 @@ public class PPOAgent : Agent
     private Components components;
     private readonly float maxDistance = 32.10f;
     private readonly float minDistance = 1f;
-    private readonly int maxSteps = 2000;
     private Dictionary<string, KeyCode> onePlayer = new Dictionary<string, KeyCode>();
     // private Dictionary<string, KeyCode> twoPlayer = new Dictionary<string, KeyCode>();
     protected override void Awake()
@@ -53,7 +52,6 @@ public class PPOAgent : Agent
     }
     public override void OnActionReceived(ActionBuffers actions)
     {
-        this.AddReward(-1f / maxSteps);
         // print($"Action entered   {actions.DiscreteActions[0]}   {actions.DiscreteActions[1]}");
         int motionAction = actions.DiscreteActions[0];
         int behaviourAction = actions.DiscreteActions[1];
@@ -125,14 +123,19 @@ public class PPOAgent : Agent
     public override void Heuristic(in ActionBuffers actionsOut)
     {
         ActionSegment<int> actions = actionsOut.DiscreteActions;
-        if (Input.GetKey(onePlayer["Right"]) && !Input.GetKey(onePlayer["Left"]))
-            actions[0] = 1;
-        else if (Input.GetKey(onePlayer["Left"]) && !Input.GetKey(onePlayer["Right"]))
-            actions[0] = 2;
-        else if (transform.localScale.x > 0 && Input.GetKey(onePlayer["Dash"]) || transform.localScale.x < 0 && Input.GetKey(onePlayer["DashBack"]))
-            actions[0] = 3;
-        else if (transform.localScale.x > 0 && Input.GetKey(onePlayer["DashBack"]) || transform.localScale.x < 0 && Input.GetKey(onePlayer["Dash"]))
-            actions[0] = 4;
+        if (gameObject.layer == 6)
+        {
+            if (Input.GetKey(onePlayer["Right"]) && !Input.GetKey(onePlayer["Left"]))
+                actions[0] = 1;
+            else if (Input.GetKey(onePlayer["Left"]) && !Input.GetKey(onePlayer["Right"]))
+                actions[0] = 2;
+            else if (transform.localScale.x > 0 && Input.GetKey(onePlayer["Dash"]) || transform.localScale.x < 0 && Input.GetKey(onePlayer["DashBack"]))
+                actions[0] = 3;
+            else if (transform.localScale.x > 0 && Input.GetKey(onePlayer["DashBack"]) || transform.localScale.x < 0 && Input.GetKey(onePlayer["Dash"]))
+                actions[0] = 4;
+            else if (Input.GetKey(onePlayer["LowPunch"]))
+                actions[1] = 2;
+        }
     }
     void InitDictionarites()
     {

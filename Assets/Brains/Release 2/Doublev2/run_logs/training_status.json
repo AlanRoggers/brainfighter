@@ -1,0 +1,48 @@
+{
+    "Brainfighter": {
+        "checkpoints": [
+            {
+                "steps": 249979,
+                "file_path": "results/Doublev2/Brainfighter/Brainfighter-249979.onnx",
+                "reward": -1176.4999694824219,
+                "creation_time": 1708059892.2114477,
+                "auxillary_file_paths": [
+                    "results/Doublev2/Brainfighter/Brainfighter-249979.pt"
+                ]
+            },
+            {
+                "steps": 499995,
+                "file_path": "results/Doublev2/Brainfighter/Brainfighter-499995.onnx",
+                "reward": null,
+                "creation_time": 1708064761.9871829,
+                "auxillary_file_paths": [
+                    "results/Doublev2/Brainfighter/Brainfighter-499995.pt"
+                ]
+            },
+            {
+                "steps": 500011,
+                "file_path": "results/Doublev2/Brainfighter/Brainfighter-500011.onnx",
+                "reward": -4082.5999450683594,
+                "creation_time": 1708064762.029416,
+                "auxillary_file_paths": [
+                    "results/Doublev2/Brainfighter/Brainfighter-500011.pt"
+                ]
+            }
+        ],
+        "elo": 1268.876021311667,
+        "final_checkpoint": {
+            "steps": 500011,
+            "file_path": "results/Doublev2/Brainfighter.onnx",
+            "reward": -4082.5999450683594,
+            "creation_time": 1708064762.029416,
+            "auxillary_file_paths": [
+                "results/Doublev2/Brainfighter/Brainfighter-500011.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "2.2.0+cu121"
+    }
+}

@@ -151,6 +151,9 @@ public class StateController : MonoBehaviour
             case AnimationStates.BlockWhileCrouch:
                 BlockWhileCrouch();
                 break;
+            case AnimationStates.Incapacite:
+                Incapacite();
+                break;
         }
     }
     private void ChangeAnimation(AnimationStates animation)
@@ -308,12 +311,15 @@ public class StateController : MonoBehaviour
     #region Motion
     private void Block()
     {
-        if (!components.msng.IsBlocking)
+        if (components.msng.IsTakingDamage)
+            ChangeAnimation(AnimationStates.Damage);
+
+        if (components.msng.Stuned)
+            ChangeAnimation(AnimationStates.Incapacite);
+        else if (!components.msng.IsBlocking)
             ChangeAnimation(AnimationStates.Iddle);
         else if (components.msng.IsCrouching)
             ChangeAnimation(AnimationStates.BlockWhileCrouch);
-        else if (components.msng.IsTakingDamage)
-            ChangeAnimation(AnimationStates.Damage);
     }
     private void BlockWhileCrouch()
     {
@@ -329,6 +335,9 @@ public class StateController : MonoBehaviour
         }
         else if (!components.msng.IsCrouching)
             ChangeAnimation(AnimationStates.Block);
+
+        if (components.msng.Stuned)
+            ChangeAnimation(AnimationStates.Incapacite);
     }
     private void Crouch()
     {
@@ -817,6 +826,19 @@ public class StateController : MonoBehaviour
     private void Damage()
     {
         await_another_damage ??= StartCoroutine(AWAIT_ANOTHER_DAMAGE(components.msng.HitStunCausant));
+    }
+    private void Incapacite()
+    {
+        if (components.msng.IsTakingDamage)
+            ChangeAnimation(AnimationStates.Damage);
+
+        if (!components.msng.Stuned)
+        {
+            if (components.msng.IsCrouching)
+                ChangeAnimation(AnimationStates.StartCrouching);
+            else
+                ChangeAnimation(AnimationStates.Iddle);
+        }
     }
     private IEnumerator AWAIT_ANOTHER_DAMAGE(string attackCausant)
     {

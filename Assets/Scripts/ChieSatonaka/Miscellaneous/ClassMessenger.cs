@@ -26,6 +26,7 @@ public class ClassMessenger : MonoBehaviour
     public bool IsWalking;
     public bool NeedTurn;
     public bool StartedWithFirst;
+    public bool Stuned;
     public Collider2D DamageHitbox;
     public GameObject Enemy;
     public Collider2D EnemyCollider;
@@ -64,6 +65,7 @@ public class ClassMessenger : MonoBehaviour
         StartedWithFirst = false;
         AttackRestricted = false;
         cooldown_timmer = null;
+        Stuned = false;
     }
     public IEnumerator COOLDOWN_TIMER()
     {

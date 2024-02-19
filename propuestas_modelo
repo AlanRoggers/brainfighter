@@ -95,7 +95,7 @@ Entonces la funcion de la recompensa sería
 Objetivo: Tener más vida que el enemigo (Puede ser que incluso no lo mate pero si tenga más vida)
 
 
-Modelo 1.1
+Modelo 2
 
 Observaciones:
 	-> Distancia del enemigo (flotante, normalizado)
@@ -135,3 +135,46 @@ R = 0.01(Daño aplicado no bloqueado) - 0.01(Daño recibido) + 0.01(bloqueo) + 0
 
 Clases utilizadas para desencadenar recompensas: PlayerHealth y Attacks
 
+Modelo 3
+Lo único que cambia son las recompensas, desde el modelo 2 ya esta implementada la mecanica de tolerancia al dolor
+
+Recompensas:
+	-> Daño aplicado * 0.1
+	-> Daño recibido * -0.1
+	-> 0.2 por bloquear un ataque
+	-> -0.2 por golpear a alguien que esta bloqueando
+	-> 0.6 por estunear al enemigo
+	-> -0.6 por estunearse
+	-> 50 por matar al enemigo
+	-> -50 por morir
+	-> Al final comprobar quien tiene mas vida y sumar la diferencia de las vidas al ganador y restarla al perdedor
+
+R(t) = Dmgd * 0.1 - Dmgr * 0.1 + 0.01 (block) - 0.01 (dmgwhblock) + 0.1 (enemyStun) - 0.1(selfStun) + 50(win) - 50(loss)
+
+Nomenclatura:
+
+Dmgd: Daño hecho
+Dmgr: Daño recibido
+Block: Ataque bloqueado
+dmgwhblock: Daño hecho mientras el enemigo bloquea
+enemyStun: Incapacitar al enemigo
+selfStun: Incapacitado
+win: En cero la vida del contrincante
+loss: En cero la vida propia
+difHealth: Diferencia de vida entre un personaje y otro 
+EndEpisode: Final del episodio por lograr el objetivo o maximo de steps
+
+Ahora, sumado a eso, cada diez steps voy a verificar la vida de ambos personajes, si la vida no bajo o subio de alguno de los dos, a ambos los voy a castigar pseudocódigo:
+valor = 0.1
+multiplicador = 1
+vida
+vida enemigo
+Primeros diez steps:
+		vida = vida actual
+		vida enemigo = vida enemigo actual
+Si no son los primeros diez:
+	Si la vida actual es igual a la vida y la vida enemigo es igual a la vida enemigo actual
+		castigar con 0.1 por multiplicador
+		multiplicador *= 2
+	Si no se cumple lo anterior
+		resetear el multiplicador a uno

@@ -2,18 +2,54 @@ using UnityEngine;
 
 public class EnvController : MonoBehaviour
 {
+    public bool monitorRewards;
     [SerializeField] private int maxSteps;
     [SerializeField] private Components chieAgent;
     [SerializeField] private Components satonakaAgent;
     private readonly float maxNegativeX = -15f;
     private readonly float maxPositiveX = 0f;
     private int stepCounter = 0;
+    private int chieLife;
+    private int satonakaLife;
+    [SerializeField] private int numSum;
     void FixedUpdate()
     {
         if (stepCounter < maxSteps)
+        {
             stepCounter++;
+            if (stepCounter % 10 == 0)
+            {
+                if (stepCounter == 10)
+                {
+                    chieLife = chieAgent.Health.Health;
+                    satonakaLife = satonakaAgent.Health.Health;
+                }
+                else
+                {
+                    if (chieLife == chieAgent.Health.Health && satonakaLife == satonakaAgent.Health.Health)
+                    {
+                        chieAgent.Brain.AddReward(-numSum);
+                        satonakaAgent.Brain.AddReward(-numSum);
+                        numSum += 2;
+                    }
+                    else
+                    {
+                        if (monitorRewards)
+                            print("Hola se reseteo");
+                        chieLife = chieAgent.Health.Health;
+                        satonakaLife = satonakaAgent.Health.Health;
+                        numSum = 1;
+                    }
+                }
+            }
+        }
         else
         {
+            if (monitorRewards)
+            {
+                print($"Recompensa de Chie:{chieAgent.Brain.GetCumulativeReward()}");
+                print($"Recompensa de Satonaka:{satonakaAgent.Brain.GetCumulativeReward()}");
+            }
             chieAgent.Brain.EpisodeInterrupted();
             satonakaAgent.Brain.EpisodeInterrupted();
         }
@@ -25,21 +61,46 @@ public class EnvController : MonoBehaviour
         {
             case AgentEvents.DidDamage:
                 agent.Brain.AddReward(0.1f * damage);
+                // print($"Hice daño {(chie ? "Chie" : "Satonaka")}");
                 break;
             case AgentEvents.ReceivedDamage:
                 agent.Brain.AddReward(-0.1f * damage);
+                // print($"Me hicieron daño {(chie ? "Chie" : "Satonaka")}");
                 break;
             case AgentEvents.KickWhileBlocked:
-                agent.Brain.AddReward(0.05f);
+                agent.Brain.AddReward(-0.2f);
                 break;
             case AgentEvents.AttackBlocked:
-                agent.Brain.AddReward(0.5f);
+                agent.Brain.AddReward(0.2f);
+                break;
+            case AgentEvents.EnemyStuned:
+                if (chie)
+                {
+                    chieAgent.Brain.AddReward(0.6f);
+                    satonakaAgent.Brain.AddReward(0.6f);
+                }
+                else
+                {
+                    chieAgent.Brain.AddReward(-0.6f);
+                    satonakaAgent.Brain.AddReward(0.6f);
+                }
                 break;
             case AgentEvents.Loss:
                 if (chie)
-                    satonakaAgent.Brain.AddReward(+20f);
+                {
+                    satonakaAgent.Brain.AddReward(50f);
+                    chieAgent.Brain.AddReward(-50f);
+                }
                 else
-                    chieAgent.Brain.AddReward(+20f);
+                {
+                    satonakaAgent.Brain.AddReward(-50f);
+                    chieAgent.Brain.AddReward(50f);
+                }
+                if (monitorRewards)
+                {
+                    print($"Recompensa de Chie:{chieAgent.Brain.GetCumulativeReward()}");
+                    print($"Recompensa de Satonaka:{satonakaAgent.Brain.GetCumulativeReward()}");
+                }
                 chieAgent.Brain.EndEpisode();
                 satonakaAgent.Brain.EndEpisode();
                 break;
@@ -78,5 +139,6 @@ public class EnvController : MonoBehaviour
         satonakaAgent.transform.localPosition = new Vector2(satonakaX, -4.5f);
 
         stepCounter = 0;
+        numSum = 1;
     }
 }
