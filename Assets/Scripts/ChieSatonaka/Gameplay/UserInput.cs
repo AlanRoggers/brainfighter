@@ -3,9 +3,11 @@ using UnityEngine;
 
 public class UserInput : MonoBehaviour
 {
+    public bool Multiplayer;
     [SerializeField] private int player;
     private Dictionary<string, KeyCode> onePlayer = new Dictionary<string, KeyCode>();
     private Dictionary<string, KeyCode> twoPlayer = new Dictionary<string, KeyCode>();
+    private Dictionary<string, KeyCode> onlyOnePlayer = new Dictionary<string, KeyCode>();
     private Components components;
     void Start()
     {
@@ -67,6 +69,20 @@ public class UserInput : MonoBehaviour
         twoPlayer.Add("LowKick", KeyCode.Keypad4);
         twoPlayer.Add("SpecialPunch", KeyCode.Keypad7);
         twoPlayer.Add("SpecialKick", KeyCode.Keypad4);
+        onlyOnePlayer.Add("Block", KeyCode.H);
+        onlyOnePlayer.Add("Crouch", KeyCode.S);
+        onlyOnePlayer.Add("Right", KeyCode.D);
+        onlyOnePlayer.Add("Left", KeyCode.A);
+        onlyOnePlayer.Add("Jump", KeyCode.W);
+        onlyOnePlayer.Add("Run", KeyCode.LeftControl);
+        onlyOnePlayer.Add("HardPunch", KeyCode.O);
+        onlyOnePlayer.Add("MiddlePunch", KeyCode.I);
+        onlyOnePlayer.Add("LowPunch", KeyCode.U);
+        onlyOnePlayer.Add("HardKick", KeyCode.L);
+        onlyOnePlayer.Add("MiddleKick", KeyCode.K);
+        onlyOnePlayer.Add("LowKick", KeyCode.J);
+        onlyOnePlayer.Add("SpecialPunch", KeyCode.U);
+        onlyOnePlayer.Add("SpecialKick", KeyCode.J);
 
     }
 
@@ -78,56 +94,67 @@ public class UserInput : MonoBehaviour
     }
     private void HardPunchInput()
     {
-        KeyCode input = player == 1 ? onePlayer["HardPunch"] : twoPlayer["HardPunch"];
+        KeyCode input = !Multiplayer ? onlyOnePlayer["HardPunch"] :
+                        player == 1 ? onePlayer["HardPunch"] : twoPlayer["HardPunch"];
         if (Input.GetKeyDown(input))
             components.attacks.HardPunch();
     }
     private void LowPunchInput()
     {
-        KeyCode input = player == 1 ? onePlayer["LowPunch"] : twoPlayer["LowPunch"];
+        KeyCode input = !Multiplayer ? onlyOnePlayer["LowPunch"] :
+                        player == 1 ? onePlayer["LowPunch"] : twoPlayer["LowPunch"];
         if (Input.GetKeyDown(input))
             components.attacks.LowPunch();
     }
     private void MiddlePunchInput()
     {
-        KeyCode input = player == 1 ? onePlayer["MiddlePunch"] : twoPlayer["MiddlePunch"];
+        KeyCode input = !Multiplayer ? onlyOnePlayer["MiddlePunch"] :
+                        player == 1 ? onePlayer["MiddlePunch"] : twoPlayer["MiddlePunch"];
         if (Input.GetKeyDown(input))
             components.attacks.MiddlePunch();
     }
     private void SpecialPunchInput()
     {
-        KeyCode input = player == 1 ? onePlayer["SpecialPunch"] : twoPlayer["SpecialPunch"];
+        KeyCode input = !Multiplayer ? onlyOnePlayer["SpecialPunch"] :
+                        player == 1 ? onePlayer["SpecialPunch"] : twoPlayer["SpecialPunch"];
         if (Input.GetKeyDown(input))
             components.attacks.SpecialPunch();
     }
     private void HardKickInput()
     {
-        KeyCode input = player == 1 ? onePlayer["HardKick"] : twoPlayer["HardKick"];
+        KeyCode input = !Multiplayer ? onlyOnePlayer["HardKick"] :
+                        player == 1 ? onePlayer["HardKick"] : twoPlayer["HardKick"];
         if (Input.GetKeyDown(input))
             components.attacks.HardKick();
     }
     private void LowKickInput()
     {
-        KeyCode input = player == 1 ? onePlayer["LowKick"] : twoPlayer["LowKick"];
+        KeyCode input = !Multiplayer ? onlyOnePlayer["LowKick"] :
+                        player == 1 ? onePlayer["LowKick"] : twoPlayer["LowKick"];
         if (Input.GetKeyDown(input))
             components.attacks.LowKick();
     }
     private void MiddleKickInput()
     {
-        KeyCode input = player == 1 ? onePlayer["MiddleKick"] : twoPlayer["MiddleKick"];
+        KeyCode input = !Multiplayer ? onlyOnePlayer["MiddleKick"] :
+                        player == 1 ? onePlayer["MiddleKick"] : twoPlayer["MiddleKick"];
         if (Input.GetKeyDown(input))
             components.attacks.MiddleKick();
     }
     private void SpecialKickInput()
     {
-        KeyCode input = player == 1 ? onePlayer["SpecialKick"] : twoPlayer["SpecialKick"];
+        KeyCode input = !Multiplayer ? onlyOnePlayer["SpecialKick"] :
+                        player == 1 ? onePlayer["SpecialKick"] : twoPlayer["SpecialKick"];
         if (Input.GetKeyDown(input))
             components.attacks.SpecialKick();
     }
     private void CrouchKickInput()
     {
-        KeyCode input1 = player == 1 ? onePlayer["LowKick"] : twoPlayer["LowKick"];
-        KeyCode input2 = player == 1 ? onePlayer["Crouch"] : twoPlayer["Crouch"];
+        KeyCode input1 = !Multiplayer ? onlyOnePlayer["LowKick"] :
+                        player == 1 ? onePlayer["LowKick"] : twoPlayer["LowKick"];
+
+        KeyCode input2 = !Multiplayer ? onlyOnePlayer["Crouch"] :
+                        player == 1 ? onePlayer["Crouch"] : twoPlayer["Crouch"];
         if (Input.GetKey(input2) && Input.GetKeyDown(input1))
             components.attacks.CrouchKick();
     }
@@ -141,7 +168,8 @@ public class UserInput : MonoBehaviour
     #region MotionInputs
     private void BlockInput()
     {
-        KeyCode input = player == 1 ? onePlayer["Block"] : twoPlayer["Block"];
+        KeyCode input = !Multiplayer ? onlyOnePlayer["Block"] :
+                        player == 1 ? onePlayer["Block"] : twoPlayer["Block"];
         if (Input.GetKey(input))
             components.motion.Block();
         else if (Input.GetKeyUp(input))
@@ -149,7 +177,8 @@ public class UserInput : MonoBehaviour
     }
     private void CrouchInput()
     {
-        KeyCode input = player == 1 ? onePlayer["Crouch"] : twoPlayer["Crouch"];
+        KeyCode input = !Multiplayer ? onlyOnePlayer["Crouch"] :
+                        player == 1 ? onePlayer["Crouch"] : twoPlayer["Crouch"];
         if (Input.GetKey(input))
             components.motion.Crouch();
         if (Input.GetKeyUp(input))
@@ -157,8 +186,10 @@ public class UserInput : MonoBehaviour
     }
     private void DashInput()
     {
-        KeyCode input1 = player == 1 ? onePlayer["Left"] : twoPlayer["Left"];
-        KeyCode input2 = player == 1 ? onePlayer["Right"] : twoPlayer["Right"];
+        KeyCode input1 = !Multiplayer ? onlyOnePlayer["Left"] :
+                        player == 1 ? onePlayer["Left"] : twoPlayer["Left"];
+        KeyCode input2 = !Multiplayer ? onlyOnePlayer["Right"] :
+                        player == 1 ? onePlayer["Right"] : twoPlayer["Right"];
         if (transform.localScale.x > 0)
         {
             if (Input.GetKeyDown(input2) && !Input.GetKey(input1))
@@ -172,8 +203,12 @@ public class UserInput : MonoBehaviour
     }
     private void DashBackInput()
     {
-        KeyCode input1 = player == 1 ? onePlayer["Left"] : twoPlayer["Left"];
-        KeyCode input2 = player == 1 ? onePlayer["Right"] : twoPlayer["Right"];
+        KeyCode input1 = !Multiplayer ? onlyOnePlayer["Left"] :
+                        player == 1 ? onePlayer["Left"] : twoPlayer["Left"];
+
+        KeyCode input2 = !Multiplayer ? onlyOnePlayer["Right"] :
+                        player == 1 ? onePlayer["Right"] : twoPlayer["Right"];
+
         if (transform.localScale.x > 0)
         {
             if (Input.GetKeyDown(input1) && !Input.GetKey(input2))
@@ -187,15 +222,21 @@ public class UserInput : MonoBehaviour
     }
     private void JumpInput()
     {
-        KeyCode input = player == 1 ? onePlayer["Jump"] : twoPlayer["Jump"];
+        KeyCode input = !Multiplayer ? onlyOnePlayer["Jump"] :
+                        player == 1 ? onePlayer["Jump"] : twoPlayer["Jump"];
         if (Input.GetKeyDown(input))
             components.motion.Jump();
     }
     private void RunInput()
     {
-        KeyCode input1 = player == 1 ? onePlayer["Run"] : twoPlayer["Run"];
-        KeyCode input2 = player == 1 ? onePlayer["Left"] : twoPlayer["Left"];
-        KeyCode input3 = player == 1 ? onePlayer["Right"] : twoPlayer["Right"];
+        KeyCode input1 = !Multiplayer ? onlyOnePlayer["Run"] :
+                        player == 1 ? onePlayer["Run"] : twoPlayer["Run"];
+
+        KeyCode input2 = !Multiplayer ? onlyOnePlayer["Left"] :
+                        player == 1 ? onePlayer["Left"] : twoPlayer["Left"];
+
+        KeyCode input3 = !Multiplayer ? onlyOnePlayer["Right"] :
+                        player == 1 ? onePlayer["Right"] : twoPlayer["Right"];
         if (Input.GetKey(input1))
         {
             if (Input.GetKey(input3) && transform.localScale.x > 0)
@@ -212,8 +253,12 @@ public class UserInput : MonoBehaviour
     }
     private void WalkInput()
     {
-        KeyCode input1 = player == 1 ? onePlayer["Right"] : twoPlayer["Right"];
-        KeyCode input2 = player == 1 ? onePlayer["Left"] : twoPlayer["Left"];
+        KeyCode input1 = !Multiplayer ? onlyOnePlayer["Right"] :
+                        player == 1 ? onePlayer["Right"] : twoPlayer["Right"];
+
+        KeyCode input2 = !Multiplayer ? onlyOnePlayer["Left"] :
+                        player == 1 ? onePlayer["Left"] : twoPlayer["Left"];
+
         bool right = Input.GetKey(input1);
         bool left = Input.GetKey(input2);
         int direction = !right && left ? -1 : right && !left ? 1 : 0;
