@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class UserInput : MonoBehaviour
@@ -10,10 +9,6 @@ public class UserInput : MonoBehaviour
         private Dictionary<string, KeyCode> twoPlayer = new Dictionary<string, KeyCode>();
         private Dictionary<string, KeyCode> onlyOnePlayer = new Dictionary<string, KeyCode>();
         private Components components;
-        void Start()
-        {
-                InitDictionarites();
-        }
         void Start()
         {
                 InitDictionarites();
@@ -178,8 +173,7 @@ public class UserInput : MonoBehaviour
                 if (Input.GetKey(input))
                         components.motion.Block();
                 else if (Input.GetKeyUp(input))
-        else if (Input.GetKeyUp(input))
-                                        components.motion.StopBlock();
+                        components.motion.StopBlock();
         }
         private void CrouchInput()
         {
@@ -254,9 +248,8 @@ public class UserInput : MonoBehaviour
                                 if (Input.GetKey(input3) && transform.localScale.x > 0)
                                         components.motion.Run();
                                 else if (Input.GetKey(input2) && transform.localScale.x < 0)
-            else if (Input.GetKey(input2) && transform.localScale.x < 0)
-                                                        components.motion.Run();
-                                                else components.msng.IsRunning = false;
+                                        components.motion.Run();
+                                else components.msng.IsRunning = false;
                 }
                 else
                 {

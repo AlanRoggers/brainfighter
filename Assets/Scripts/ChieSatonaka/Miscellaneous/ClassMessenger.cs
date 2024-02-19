@@ -30,8 +30,6 @@ public class ClassMessenger : MonoBehaviour
     public Collider2D DamageHitbox;
     public GameObject Enemy;
     public Collider2D EnemyCollider;
-    public GameObject Enemy;
-    public Collider2D EnemyCollider;
     public Coroutine cooldown_timmer = null;
     [SerializeField] private float coolDown;
     void Start()
