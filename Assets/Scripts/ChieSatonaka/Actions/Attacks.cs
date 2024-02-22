@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Attacks : MonoBehaviour
 {
-    [SerializeField] private float hitstopTimer;
     public float Timer;
     public AnimationClip[] attackClips = new AnimationClip[8];
     public Vector2[] AttackForces = new Vector2[8];
@@ -73,7 +72,7 @@ public class Attacks : MonoBehaviour
         if (components.msng.EnemyCollider != null)
         {
             Components enemyComponents = components.msng.Enemy.GetComponent<Components>();
-            StartCoroutine(HITSTOP());
+            StartCoroutine(GetComponentInParent<GameManager>().HIT_FREEZE());
             enemyPhys = enemyComponents.phys;
 
             if (enemyComponents.msng.IsBlocking)
@@ -120,13 +119,6 @@ public class Attacks : MonoBehaviour
             enemyComponents.msng.IsTakingDamage = true;
         }
     }
-    private IEnumerator HITSTOP()
-    {
-        Time.timeScale = 0f;
-        yield return new WaitForSecondsRealtime(hitstopTimer);
-        Time.timeScale = 1;
-    }
-
     #region Kicks
     public void HardKick()
     {

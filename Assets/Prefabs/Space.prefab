@@ -1390,6 +1390,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6897757261209626811}
   - component: {fileID: 8056229144554400118}
+  - component: {fileID: 5343501415379736090}
   m_Layer: 0
   m_Name: Space
   m_TagString: Untagged
@@ -1427,9 +1428,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b263b4b57ade17e8b8c9436dad95510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monitorRewards: 0
   maxSteps: 2000
   chieAgent: {fileID: 4739004648292120114}
   satonakaAgent: {fileID: 578201780609190205}
+  numSum: 0
+--- !u!114 &5343501415379736090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6321830280111792495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 465a94a82be06511388baf463288282e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  freezeTime: 0.2
 --- !u!1 &6347500366735634536
 GameObject:
   m_ObjectHideFlags: 0
