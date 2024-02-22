@@ -62,14 +62,14 @@ public class Attacks : MonoBehaviour
         components.msng.IsAttacking = true;
         components.msng.IsWalking = false;
         components.msng.IsRunning = false;
-        components.msng.DamageHitbox.enabled = true;
+        // components.msng.DamageHitbox.enabled = true;
 
         // Movimiento del personaje
         components.phys.AddForce(inertia);
     }
     private void AnyAttackDamage()
     {
-        if (components.msng.EnemyCollider != null)
+        if (components.msng.EnemyCollider != null && components.msng.DamageHitbox.enabled)
         {
             Components enemyComponents = components.msng.Enemy.GetComponent<Components>();
             StartCoroutine(GetComponentInParent<GameManager>().HIT_FREEZE());
