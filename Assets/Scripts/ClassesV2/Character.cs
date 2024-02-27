@@ -12,15 +12,18 @@ public abstract class Character : Agent
     protected override void Awake()
     {
         base.Awake();
-
+        phys = GetComponent<Rigidbody2D>();
     }
     protected abstract void AssignAttacks();
-    protected void Walk(int direction, int localScale, float maxSpeed)
+    protected void Walk(int direction, float maxSpeed)
     {
-        float force = phys.mass * 50 * (Mathf.Abs(maxSpeed - phys.velocity.x)) * Time.deltaTime;
+        float force = phys.mass * 200 * (maxSpeed - Mathf.Abs(phys.velocity.x)) * Time.deltaTime;
         phys.AddForce(new Vector2(force * direction, 0));
     }
-
+    protected void StopWalk()
+    {
+        phys.velocity = Vector2.zero;
+    }
     // protected void Jump(float jumpForce, float moveSpeed)
     // {
 
