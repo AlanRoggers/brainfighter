@@ -3,17 +3,17 @@ using UnityEngine;
 
 public class Attack
 {
-    public CircleCollider2D Hitbox;
-    public AnimationStates State { get; private set; }
-    public AnimationStates FinalState { get; private set; }
-    public bool HitFreeze { get; private set; }
-    public int Damage { get; private set; }
-    public float HitStun { get; private set; }
     public float CoolDown { get; private set; }
+    public int Damage { get; private set; }
+    public AnimationStates FinalState { get; private set; }
     public Vector2 Force { get; private set; }
+    private readonly CircleCollider2D hitbox;
+    public bool HitFreeze { get; private set; }
+    public float HitStun { get; private set; }
     public Vector2 Inertia { get; private set; }
-    private int timesDamagedApplied;
-    public Attack(int damage, Vector2 force, Vector2 inertia, float hitStun, float coolDown, bool hitFreeze, AnimationStates state, AnimationStates finalState)
+    public AnimationStates State { get; private set; }
+    private readonly int timesDamagedApplied;
+    public Attack(int damage, Vector2 force, Vector2 inertia, float hitStun, float coolDown, bool hitFreeze, AnimationStates state, AnimationStates finalState, CircleCollider2D hitbox)
     {
         HitFreeze = hitFreeze;
         Damage = damage;
@@ -23,6 +23,11 @@ public class Attack
         Inertia = inertia;
         State = state;
         FinalState = finalState;
+        this.hitbox = hitbox;
+    }
+    public virtual bool CanExecuteAttack()
+    {
+        return true;
     }
     public virtual IEnumerator ExecuteAttack(AnimationMachine machine, Messenger msng, Rigidbody2D phys, LayerMask contactMask)
     {
@@ -58,22 +63,19 @@ public class Attack
             InterruptState(msng, machine.CurrentState == FinalState);
         }
     }
-    public virtual bool CanExecuteAttack()
-    {
-        return true;
-    }
     protected virtual void ExitState(Messenger msng)
     {
         msng.Attacking = false;
         msng.AttackCooldown = false;
+    }
+    private Collider2D HitboxCollision(LayerMask enemyLayer)
+    {
+        return Physics2D.OverlapCircle(hitbox.bounds.center, hitbox.radius, enemyLayer);
     }
     protected virtual void InterruptState(Messenger msng, bool byCombo)
     {
         if (!byCombo)
             ExitState(msng);
     }
-    private Collider2D HitboxCollision(LayerMask enemyLayer)
-    {
-        return Physics2D.OverlapCircle(Hitbox.bounds.center, Hitbox.radius, enemyLayer);
-    }
+    protected bool NullRestrictions(AnimationStates nullState, AnimationStates currentState) { return nullState == currentState; }
 }
