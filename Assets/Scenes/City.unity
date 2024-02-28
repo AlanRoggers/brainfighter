@@ -668,11 +668,11 @@ GameObject:
   - component: {fileID: 1798440795}
   - component: {fileID: 1798440794}
   - component: {fileID: 1798440793}
-  - component: {fileID: 1798440799}
   - component: {fileID: 1798440800}
-  m_Layer: 0
+  - component: {fileID: 1798440801}
+  m_Layer: 6
   m_Name: ChieSatonaka
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -817,6 +817,11 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  feetsPosition: {x: 0, y: 0}
+  feetsSize: {x: 1, y: 0.1}
   ControlledByUser: 0
   hitbox: {fileID: 0}
 --- !u!114 &1798440797
@@ -858,26 +863,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1798440792}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 4.355118, y: 7.276677, z: -0.042431027}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1798440799
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1798440792}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9e7f7251867b5ebda06f521b13a6f36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CurrentState: 0
 --- !u!95 &1798440800
 Animator:
   serializedVersion: 5
@@ -899,6 +891,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1798440801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1798440792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4ddcea191af601e58ea7642f0d084ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentState: 0
 --- !u!1001 &7579777135345321110
 PrefabInstance:
   m_ObjectHideFlags: 0

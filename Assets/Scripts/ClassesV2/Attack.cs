@@ -54,7 +54,7 @@ public class Attack
             machine.Transition(FinalState);
             yield return new WaitForEndOfFrame();
             yield return new WaitUntil(() => machine.GetCurrentAnimationTime() > 1.0f);
-            msng.AttackCooldown = true;
+            msng.AttackInCooldown = true;
             yield return new WaitForSecondsRealtime(CoolDown);
             ExitState(msng);
         }
@@ -66,7 +66,7 @@ public class Attack
     protected virtual void ExitState(Messenger msng)
     {
         msng.Attacking = false;
-        msng.AttackCooldown = false;
+        msng.AttackInCooldown = false;
     }
     private Collider2D HitboxCollision(LayerMask enemyLayer)
     {

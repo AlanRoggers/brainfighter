@@ -11,13 +11,14 @@ public class ChieSatonaka : Character
     }
     void Update()
     {
-        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D)) { }
+        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D))
+            StopWalk();
         else if (Input.GetKey(KeyCode.A))
             Walk(-1, 12);
         else if (Input.GetKey(KeyCode.D))
             Walk(1, 12);
 
-        if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+        if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
             StopWalk();
 
         if (Input.GetKeyDown(KeyCode.U))
@@ -27,6 +28,8 @@ public class ChieSatonaka : Character
                 StartCoroutine(attacks[0].ExecuteAttack(animationMachine, msng, phys, gameObject.layer == 6 ? 7 : 6));
             }
         }
+        if (Input.GetKey(KeyCode.Space) && msng.InGround)
+            Jump(22.5f, 10);
     }
     protected override void AssignAttacks()
     {

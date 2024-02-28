@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class AnimationMachine : MonoBehaviour
 {
-    public AnimationStates CurrentState;
-    private Coroutine await_end_animation;
-    private Animator animator;
-    private void Awake()
+    protected virtual void InitParameters()
     {
         animator = GetComponent<Animator>();
     }
+    public AnimationStates CurrentState;
+    private Coroutine await_end_animation;
+    protected Animator animator;
     public void Transition(AnimationStates toState, bool isFinalState = true)
     {
         CurrentState = toState;
