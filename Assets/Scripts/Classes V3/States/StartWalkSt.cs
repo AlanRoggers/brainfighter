@@ -11,6 +11,8 @@ public class StartWalkSt : State
     {
         if (msng.Iddle)
             animator.ChangeAnimation(states[AnimationStates.Iddle]);
+        else if (msng.Walking < 0)
+            animator.ChangeAnimation(states[AnimationStates.GoingBackwards]);
         else if (animator.CurrentTime() > 1.0f)
             animator.ChangeAnimation(states[AnimationStates.Walk]);
     }

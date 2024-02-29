@@ -4,4 +4,5 @@ public class Messenger
     public bool Attacking;
     public bool InCooldown;
     public bool Hurt;
+    public int Walking;
 }

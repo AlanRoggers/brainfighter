@@ -10,6 +10,7 @@ public class StateMachine : MonoBehaviour
     }
     public void ChangeAnimation(State nextState)
     {
+        CurrentState = nextState;
         animator.Play(nextState.StateName.ToString());
     }
     public float CurrentTime() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime;

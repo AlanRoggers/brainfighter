@@ -10,7 +10,9 @@ public class ChieLP : Attack
             3,
             1,
             0.2f,
-            0.1f
+            0.1f,
+            AnimationStates.LowPunch,
+            AnimationStates.ChainLowPunch
         );
     }
 }
