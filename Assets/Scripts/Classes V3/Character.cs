@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.MLAgents;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine;
 public abstract class Character : Agent
 {
     public string Name;
-    protected List<Attack> attacks;
+    protected Dictionary<AnimationStates, Attack> attacks;
     protected Dictionary<AnimationStates, State> animations;
     protected HandlerComp components;
     protected override void Awake()
@@ -17,11 +18,18 @@ public abstract class Character : Agent
             Machine = GetComponent<StateMachine>(),
             Messenger = new Messenger(),
             ContactLayer = gameObject.layer == 6 ? 7 : 6,
-            Physics = GetComponent<Rigidbody2D>()
+            Physics = GetComponent<Rigidbody2D>(),
+            CircleHitBox = GetComponentInChildren<CircleCollider2D>(),
+            collision = new OverlapDetector()
         };
         InitAnimations();
         InitAttacks();
         components.Machine.CurrentState = animations[AnimationStates.Iddle];
+    }
+    protected virtual void Update()
+    {
+        components.Messenger.Iddle = components.Messenger.Walking == 0 && !components.Messenger.Attacking &&
+                                        components.Messenger.Hurt
     }
     protected virtual void LateUpdate()
     {
@@ -46,7 +54,6 @@ public abstract class Character : Agent
     protected virtual void StopWalk()
     {
         Debug.Log("[No caminar]");
-        components.Messenger.Iddle = true;
         components.Messenger.Walking = 0;
         components.Physics.velocity = Vector2.zero;
     }
@@ -66,10 +73,42 @@ public abstract class Character : Agent
     {
         Debug.Log("[Agacharse]");
     }
+    protected virtual IEnumerator Attack(Attack attack)
+    {
+        try
+        {
+            components.Messenger.Attacking = true;
+            components.Machine.ChangeAnimation(animations[attack.initState]);
+            yield return new WaitForEndOfFrame();
+            while (components.Machine.CurrentTime() < 1.0f)
+            {
+                if (attack.timesDamageApplied > 0)
+                {
+                    Collider2D enemy = components.collision.AttackHit(components.ContactLayer, components.CircleHitBox);
+                    if (enemy)
+                    {
+                        enemy.GetComponent<CharacterHealth>().ReduceHealth(attack.Damage);
+                        attack.timesDamageApplied--;
+                    }
+                }
+                yield return null;
+            }
+            components.Machine.ChangeAnimation(attack.endState);
+            yield return new WaitForEndOfFrame();
+            yield return new WaitUntil(() => components.Machine.CurrentTime() > 1.0f);
+            components.Messenger.Attacking = false;
+            components.Messenger.InCooldown = true;
+            yield return new WaitForSecondsRealtime(attack.CoolDown);
+            components.Messenger.InCooldown = false;
+        }
+        finally
+        {
+            if (components.Messenger.Hurt)
+                components.Messenger.Attacking = false;
+
+            components.Messenger.InCooldown = false;
+        }
+    }
     protected abstract void InitAttacks();
     protected abstract void InitAnimations();
-    protected virtual void DoDamage(int damage, Collider2D enemy)
-    {
-        enemy.GetComponent<CharacterHealth>().ReduceHealth(damage);
-    }
 }

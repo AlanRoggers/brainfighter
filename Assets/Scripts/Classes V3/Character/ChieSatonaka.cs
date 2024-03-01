@@ -14,25 +14,29 @@ public class ChieSatonaka : Character
         else
             StopWalk();
 
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            StopWalk();
+            StartCoroutine(Attack(attacks[AnimationStates.LowPunch]));
+        }
+
     }
     protected override void InitAnimations()
     {
         animations = new Dictionary<AnimationStates, State>
         {
-            { AnimationStates.LowPunch, new ChieLowPunchSt() },
-            { AnimationStates.StartWalking, new StartWalkSt() },
+            { AnimationStates.LowPunch, new ChieLPST() },
             { AnimationStates.Walk, new WalkSt() },
             { AnimationStates.Iddle, new IddleSt() },
-            { AnimationStates.StartGoingBackwards, new StartBackwardSt() },
             { AnimationStates.GoingBackwards, new BackwardSt() }
         };
     }
 
     protected override void InitAttacks()
     {
-        attacks = new List<Attack>
+        attacks = new Dictionary<AnimationStates, Attack>
         {
-            new ChieLP()
+            {AnimationStates.LowPunch, new ChieLP()}
         };
     }
 }

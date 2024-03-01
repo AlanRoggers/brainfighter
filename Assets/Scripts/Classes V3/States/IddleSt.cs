@@ -11,8 +11,8 @@ public class IddleSt : State
     public override void Transitions(StateMachine animator, Messenger msng, Dictionary<AnimationStates, State> states)
     {
         if (msng.Walking > 0)
-            animator.ChangeAnimation(states[AnimationStates.StartWalking]);
+            animator.ChangeAnimation(states[AnimationStates.Walk]);
         else if (msng.Walking < 0)
-            animator.ChangeAnimation(states[AnimationStates.StartGoingBackwards]);
+            animator.ChangeAnimation(states[AnimationStates.GoingBackwards]);
     }
 }
