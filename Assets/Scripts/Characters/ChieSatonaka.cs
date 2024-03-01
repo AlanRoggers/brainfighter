@@ -46,8 +46,9 @@ public class ChieSatonaka : Character
         }
 
     }
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
+        base.FixedUpdate();
         if (components.Messenger.Walking == 0)
             StopWalk();
         else if (components.Messenger.Walking > 0)
@@ -68,38 +69,13 @@ public class ChieSatonaka : Character
 
         if (components.Messenger.Jumping)
         {
-            if (currentCommand != actions[AnimationStates.Jump])
+            if (currentCommand != actions[AnimationStates.Jump] && !components.Messenger.Falling)
             {
-                Debug.Log("[Salto] Aplicando fuerza");
                 components.Machine.ChangeAnimation(actions[AnimationStates.Jump].ActionStates[0]);
                 actions[AnimationStates.Jump].Execute(components);
+                currentCommand = actions[AnimationStates.Jump];
             }
-            currentCommand = actions[AnimationStates.Jump];
         }
-    }
-    protected override void LateUpdate()
-    {
-        base.LateUpdate();
-
-        bool iddle = !components.Messenger.Attacking && !components.Messenger.Hurt && components.Messenger.Walking == 0 && !components.Messenger.Jumping;
-
-        components.Messenger.Falling = components.Physics.velocity.y < 0 && !components.Messenger.Hurt;
-
-        if (iddle)
-        {
-            components.Machine.ChangeAnimation(AnimationStates.Iddle);
-            currentCommand = null;
-        }
-
-        // if (components.Messenger.Falling)
-        // {
-        //     if (currentCommand != actions[AnimationStates.Fall])
-        //         components.Machine.ChangeAnimation(actions[AnimationStates.Fall].ActionStates[0]);
-
-        //     actions[AnimationStates.Fall].Execute(components);
-        //     currentCommand = actions[AnimationStates.Fall];
-        // }
-
     }
     protected override void InitActions()
     {
@@ -229,5 +205,28 @@ public class ChieSatonaka : Character
             },
         };
     }
+    void OnDrawGizmos()
+    {
+        if (components != null)
+        {
+            if (components.Messenger.InGround)
+                Gizmos.color = Color.green;
+            else
+                Gizmos.color = Color.red;
 
+            Gizmos.DrawWireCube((Vector2)transform.localPosition + feetsPos, feetsSize);
+            // if (components.msng.EnemyCollider != null)
+            //     Gizmos.color = Color.green;
+            // else
+            //     Gizmos.color = Color.red;
+
+            // if (damage.enabled)
+            //     Gizmos.DrawWireSphere(damage.bounds.center, damage.radius);
+        }
+        else
+        {
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawWireCube((Vector2)transform.localPosition + feetsPos, feetsSize);
+        }
+    }
 }

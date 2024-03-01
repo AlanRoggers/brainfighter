@@ -13,8 +13,8 @@ public class Jump : Action
     {
         // float asd = components.phys.velocity.x != 0 ? jumpxForce : 0;
         // asd *= Mathf.Sign(components.phys.velocity.x);
+        Debug.Log("[Saltando]");
         components.Physics.velocity = Vector2.zero;
-
         components.Physics.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
         // lastJump = Time.time;
         // components.coll.CanCheckGround = false;

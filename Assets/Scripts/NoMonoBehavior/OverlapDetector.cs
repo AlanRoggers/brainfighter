@@ -7,6 +7,6 @@ public class OverlapDetector
 
     public bool GroundDetection(Transform transform, Vector2 position, Vector2 size, LayerMask ground)
     {
-        return Physics2D.OverlapBox((Vector2)transform.position + position, size, 0f, ground) != null;
+        return Physics2D.OverlapBox((Vector2)transform.localPosition + position, size, 0f, ground) != null;
     }
 }

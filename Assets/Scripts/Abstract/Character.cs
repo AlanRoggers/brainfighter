@@ -6,6 +6,7 @@ using UnityEngine;
 
 public abstract class Character : Agent
 {
+    public LayerMask ground;
     public Vector2 feetsPos;
     public Vector2 feetsSize;
     protected Command currentCommand;
@@ -43,18 +44,52 @@ public abstract class Character : Agent
     }
     protected virtual void Update()
     {
-        components.Messenger.InGround = components.collision.GroundDetection(transform, feetsPos, feetsSize, 3);
+        if (components.Messenger.InGround)
+        {
+            Debug.Log("[En piso]");
+        }
     }
     protected virtual void LateUpdate()
     {
         // Mantener siempre comprobandose las transiciones del estado actual
         currentCommand?.Transitions(components.Machine, components.Messenger);
 
+        bool iddle = !components.Messenger.Attacking && !components.Messenger.Hurt && components.Messenger.Walking == 0 && !components.Messenger.Jumping
+                        && !components.Messenger.Falling;
+
+        components.Messenger.Falling = components.Physics.velocity.y < 0 && !components.Messenger.Hurt;
+
+        if (iddle)
+        {
+            // Debug.Log("[Iddle]");
+            components.Machine.ChangeAnimation(AnimationStates.Iddle);
+            currentCommand = null;
+        }
+
+        if (components.Messenger.Falling)
+        {
+            if (currentCommand != actions[AnimationStates.Fall])
+            {
+                components.Machine.ChangeAnimation(actions[AnimationStates.Fall].ActionStates[0]);
+                actions[AnimationStates.Fall].Execute(components);
+                currentCommand = actions[AnimationStates.Fall];
+                components.Messenger.Jumping = false;
+            }
+        }
+
+    }
+    protected virtual void FixedUpdate()
+    {
+        components.Messenger.InGround = components.collision.GroundDetection(transform, feetsPos, feetsSize, ground) && !components.Messenger.Jumping;
+        if (components.Messenger.InGround)
+            components.Messenger.Falling = false;
+
     }
     protected virtual void StopWalk()
     {
+        // Debug.Log("[StopWalk]");
         components.Messenger.Walking = 0;
-        components.Physics.velocity = Vector2.zero;
+        components.Physics.velocity = new Vector2(0, components.Physics.velocity.y);
     }
     protected virtual void Jump()
     {

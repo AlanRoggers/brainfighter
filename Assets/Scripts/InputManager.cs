@@ -12,15 +12,15 @@ public class InputManager : MonoBehaviour
 
         Kicks();
 
-        if (Input.GetKeyDown(KeyCode.Space) && !ActionsGeneralRestrictions())
+        if (Input.GetKeyDown(KeyCode.Space) && !ActionsGeneralRestrictions() && Messenger.InGround)
             Messenger.Jumping = true;
 
     }
-    private bool AttackGeneralRestrictions() => Messenger.Hurt || Messenger.Attacking || Messenger.InCooldown;
+    private bool AttackGeneralRestrictions() => Messenger.Hurt || Messenger.Attacking || Messenger.InCooldown || Messenger.Jumping || Messenger.Falling;
     private bool ActionsGeneralRestrictions() => Messenger.Attacking || Messenger.Hurt;
     private void Walk()
     {
-        if (!ActionsGeneralRestrictions())
+        if (!ActionsGeneralRestrictions() && !Messenger.Jumping && !Messenger.Falling)
         {
             if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D))
                 Messenger.Walking = 0;

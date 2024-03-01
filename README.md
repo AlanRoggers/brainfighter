@@ -325,3 +325,23 @@ de manera normal o agachado.
 cada golpe o patada
 
 __Nota: Tomar en cuenta que todo lo que no especifique que no puede tomar daño o que es invulnerable es considerado como que si se le puede hacer daño__
+
+
+Actualización del Código a Clean Architecture
+
+Acciones reales: Son acciones ejecutadas por una entrada del usuario
+
+Acciones virtuales: Son acciones que se ejecutan debido a que se cumplio una condición que no es una entrada del
+                    usuario
+
+La clase InputManager es responsable de validar si es posible ejecutar la acción real requerida por la entrada del 
+usuario pero no las ejecuta.
+
+La clase abstracta Character es responsable de validar las acciones virtuales y las ejecuta
+
+Las clases que deriben de Character son responsables de ejecutar las acciones reales.
+
+FixedUpdate se utiliza para ejecutar acciones que tengan que ver con movimientos y tambien para comprobar colisiones
+que no tengan que ver con ataques
+
+Update se utiliza para ejecutar los ataques porque la ejecución de un ataque es una corrutina
