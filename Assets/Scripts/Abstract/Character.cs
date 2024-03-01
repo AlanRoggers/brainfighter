@@ -6,6 +6,7 @@ using UnityEngine;
 
 public abstract class Character : Agent
 {
+    public Transform TurnReferece;
     public LayerMask ground;
     public Vector2 feetsPos;
     public Vector2 feetsSize;
@@ -64,6 +65,7 @@ public abstract class Character : Agent
             // Debug.Log("[Iddle]");
             components.Machine.ChangeAnimation(AnimationStates.Iddle);
             currentCommand = null;
+            StopWalk();
         }
 
         if (components.Messenger.Falling)
@@ -77,6 +79,10 @@ public abstract class Character : Agent
             }
         }
 
+        // Estado virtual turn;
+        float signDistance = MathF.Sign(transform.localPosition.x - TurnReferece.localPosition.x);
+        if (MathF.Sign(transform.localScale.x) == signDistance)
+            transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
     }
     protected virtual void FixedUpdate()
     {
@@ -87,7 +93,7 @@ public abstract class Character : Agent
     }
     protected virtual void StopWalk()
     {
-        // Debug.Log("[StopWalk]");
+        Debug.Log("[StopWalk]");
         components.Messenger.Walking = 0;
         components.Physics.velocity = new Vector2(0, components.Physics.velocity.y);
     }
