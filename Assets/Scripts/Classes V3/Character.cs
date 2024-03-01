@@ -6,54 +6,47 @@ using UnityEngine;
 
 public abstract class Character : Agent
 {
+    protected Command currentCommand;
     public string Name;
-    protected Dictionary<AnimationStates, Attack> attacks;
-    protected Dictionary<AnimationStates, State> animations;
+    protected Dictionary<AnimationStates, AttackV4> attacksv4;
+    protected Dictionary<AnimationStates, ActionV4> actions;
     protected HandlerComp components;
+    protected Coroutine attackCoroutine;
     protected override void Awake()
     {
         base.Awake();
-        components = new HandlerComp
+        try
         {
-            Machine = GetComponent<StateMachine>(),
-            Messenger = new Messenger(),
-            ContactLayer = gameObject.layer == 6 ? 7 : 6,
-            Physics = GetComponent<Rigidbody2D>(),
-            CircleHitBox = GetComponentInChildren<CircleCollider2D>(),
-            collision = new OverlapDetector()
-        };
-        InitAnimations();
+            components = new HandlerComp
+            {
+                Machine = GetComponent<StateMachine>(),
+                Messenger = new Messenger(),
+                ContactLayer = gameObject.layer == 6 ? 7 : 6,
+                Physics = GetComponent<Rigidbody2D>(),
+                CircleHitBox = GetComponentInChildren<CircleCollider2D>(),
+                collision = new OverlapDetector()
+            };
+            components.Machine.CurrentClip = AnimationStates.Iddle;
+            InputManager input = GetComponent<InputManager>();
+            input.Messenger = components.Messenger;
+            input.Machine = components.Machine;
+        }
+        catch (Exception e)
+        {
+            Debug.Log($"[Error en la inicialización del personaje] {e}");
+        }
+        InitActions();
         InitAttacks();
-        components.Machine.CurrentState = animations[AnimationStates.Iddle];
-    }
-    protected virtual void Update()
-    {
-        components.Messenger.Iddle = components.Messenger.Walking == 0 && !components.Messenger.Attacking &&
-                                        components.Messenger.Hurt
+
     }
     protected virtual void LateUpdate()
     {
         // Mantener siempre comprobandose las transiciones del estado actual
-        if (components.Machine.CurrentState != null)
-        {
-            components.Machine.CurrentState.Transitions(components.Machine, components.Messenger, animations);
-            Debug.Log("[CurrentState]");
-        }
+        currentCommand?.Transitions(components.Machine, components.Messenger);
 
-    }
-    protected virtual void Walk(int direction)
-    {
-        components.Messenger.Iddle = false;
-        Debug.Log($"[Caminando]");
-        if (Mathf.Sign(direction) != MathF.Sign(components.Physics.velocity.x))
-            components.Physics.velocity = new Vector2(0, components.Physics.velocity.y);
-        float force = components.Physics.mass * 500 * (10 - Mathf.Abs(components.Physics.velocity.x)) * Time.deltaTime * Mathf.Sign(direction);
-        components.Physics.AddForce(new Vector2(force, 0));
-        components.Messenger.Walking = direction;
     }
     protected virtual void StopWalk()
     {
-        Debug.Log("[No caminar]");
         components.Messenger.Walking = 0;
         components.Physics.velocity = Vector2.zero;
     }
@@ -73,42 +66,41 @@ public abstract class Character : Agent
     {
         Debug.Log("[Agacharse]");
     }
-    protected virtual IEnumerator Attack(Attack attack)
+    protected virtual IEnumerator Attack(AttackV4 attack)
     {
-        try
+        Debug.Log($"[Corrutina] {attack.ActionStates[0]}");
+        currentCommand = attack;
+        components.Messenger.Attacking = true;
+        components.Messenger.RequestedAttack = AnimationStates.Null;
+        components.Machine.ChangeAnimation(attack.ActionStates[0]);
+        yield return new WaitForEndOfFrame();
+        while (components.Machine.CurrentTime() < 1.0f)
         {
-            components.Messenger.Attacking = true;
-            components.Machine.ChangeAnimation(animations[attack.initState]);
-            yield return new WaitForEndOfFrame();
-            while (components.Machine.CurrentTime() < 1.0f)
+            if (attack.TimesDamageApplied > 0)
             {
-                if (attack.timesDamageApplied > 0)
+                Collider2D enemy = components.collision.AttackHit(components.ContactLayer, components.CircleHitBox);
+                if (enemy)
                 {
-                    Collider2D enemy = components.collision.AttackHit(components.ContactLayer, components.CircleHitBox);
-                    if (enemy)
-                    {
-                        enemy.GetComponent<CharacterHealth>().ReduceHealth(attack.Damage);
-                        attack.timesDamageApplied--;
-                    }
+                    enemy.GetComponent<CharacterHealth>().ReduceHealth(attack.Damage);
+                    attack.TimesDamageApplied--;
                 }
-                yield return null;
             }
-            components.Machine.ChangeAnimation(attack.endState);
-            yield return new WaitForEndOfFrame();
-            yield return new WaitUntil(() => components.Machine.CurrentTime() > 1.0f);
-            components.Messenger.Attacking = false;
-            components.Messenger.InCooldown = true;
-            yield return new WaitForSecondsRealtime(attack.CoolDown);
-            components.Messenger.InCooldown = false;
+            yield return null;
         }
-        finally
-        {
-            if (components.Messenger.Hurt)
-                components.Messenger.Attacking = false;
+        yield return new WaitForEndOfFrame();
+        yield return new WaitUntil(() => components.Machine.CurrentTime() > 1.0f);
+        components.Messenger.Attacking = false;
+        components.Messenger.InCooldown = true;
+        yield return new WaitForSecondsRealtime(attack.CoolDown);
+        components.Messenger.InCooldown = false;
 
-            components.Messenger.InCooldown = false;
-        }
     }
     protected abstract void InitAttacks();
-    protected abstract void InitAnimations();
+    protected abstract void InitActions();
+    protected void InterruptCoroutine()
+    {
+        if (components.Messenger.Hurt)
+            components.Messenger.Attacking = false;
+        components.Messenger.InCooldown = false;
+    }
 }

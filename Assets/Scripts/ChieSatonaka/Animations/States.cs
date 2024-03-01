@@ -45,4 +45,5 @@ public enum AnimationStates
     Land,
     Incapacite,
     #endregion
+    Null,
 }

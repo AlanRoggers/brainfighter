@@ -1,18 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class ChieMPST : MonoBehaviour
+public class ChieMPST : State
 {
-    // Start is called before the first frame update
-    void Start()
+    public ChieMPST()
     {
-        
+        StateName = AnimationStates.MiddlePunch;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Transitions(StateMachine animator, Messenger msng, Dictionary<AnimationStates, State> states)
     {
-        
+        // if (animator.CurrentClip == AnimationStates.ChainMiddlePunch && animator.CurrentTime() > 1.0f)
+        //     animator.ChangeAnimation(states[AnimationStates.Iddle]);
     }
 }
