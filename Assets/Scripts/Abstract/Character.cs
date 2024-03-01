@@ -6,10 +6,12 @@ using UnityEngine;
 
 public abstract class Character : Agent
 {
+    public Vector2 feetsPos;
+    public Vector2 feetsSize;
     protected Command currentCommand;
     public string Name;
-    protected Dictionary<AnimationStates, AttackV4> attacksv4;
-    protected Dictionary<AnimationStates, ActionV4> actions;
+    protected Dictionary<AnimationStates, Attack> attacks;
+    protected Dictionary<AnimationStates, Action> actions;
     protected HandlerComp components;
     protected Coroutine attackCoroutine;
     protected override void Awake()
@@ -39,6 +41,10 @@ public abstract class Character : Agent
         InitAttacks();
 
     }
+    protected virtual void Update()
+    {
+        components.Messenger.InGround = components.collision.GroundDetection(transform, feetsPos, feetsSize, 3);
+    }
     protected virtual void LateUpdate()
     {
         // Mantener siempre comprobandose las transiciones del estado actual
@@ -66,7 +72,7 @@ public abstract class Character : Agent
     {
         Debug.Log("[Agacharse]");
     }
-    protected virtual IEnumerator Attack(AttackV4 attack)
+    protected virtual IEnumerator Attack(Attack attack)
     {
         Debug.Log($"[Corrutina] {attack.ActionStates[0]}");
         currentCommand = attack;
@@ -90,6 +96,7 @@ public abstract class Character : Agent
         yield return new WaitForEndOfFrame();
         yield return new WaitUntil(() => components.Machine.CurrentTime() > 1.0f);
         components.Messenger.Attacking = false;
+        components.Messenger.ComboCount = 0;
         components.Messenger.InCooldown = true;
         yield return new WaitForSecondsRealtime(attack.CoolDown);
         components.Messenger.InCooldown = false;

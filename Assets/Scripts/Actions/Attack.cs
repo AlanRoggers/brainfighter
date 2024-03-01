@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackV4 : Command
+public class Attack : Command
 {
     public bool HitFreeze { get; private set; }
     public int Damage { get; private set; }
@@ -21,7 +21,7 @@ public class AttackV4 : Command
     /// <param name="inertia">Inercia aplicada al personaje que ejecuta este ataque</param>
     /// <param name="force">Fuerza que se le aplica al enemigo</param>
     /// <param name="actionStates">Animaciones del ataque</param>
-    public AttackV4(bool hitF, int dmg, int timeDmg, float hitS, float cd, Vector2 inertia, Vector2 force, List<AnimationStates> actionStates) : base(actionStates)
+    public Attack(bool hitF, int dmg, int timeDmg, float hitS, float cd, Vector2 inertia, Vector2 force, List<AnimationStates> actionStates) : base(actionStates)
     {
         HitFreeze = hitF;
         Damage = dmg;

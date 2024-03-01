@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Back : ActionV4
+public class Back : Action
 {
     private readonly float maxSpeed;
     private readonly float maxForce;
@@ -14,8 +14,6 @@ public class Back : ActionV4
     public override void Execute(HandlerComp components)
     {
         Debug.Log($"[Retrocediendo]");
-
-        components.Messenger.Walking = -1;
 
         if (MathF.Sign(components.Physics.velocity.x) > 0)
             components.Physics.velocity = new Vector2(0, components.Physics.velocity.y);

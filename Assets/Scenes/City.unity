@@ -205,9 +205,9 @@ GameObject:
   - component: {fileID: 373551200}
   - component: {fileID: 373551201}
   - component: {fileID: 373551203}
-  - component: {fileID: 373551202}
   - component: {fileID: 373551204}
   - component: {fileID: 373551205}
+  - component: {fileID: 373551206}
   m_Layer: 6
   m_Name: Chie
   m_TagString: Untagged
@@ -376,25 +376,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.9733334, y: 4.7733335}
   m_EdgeRadius: 0
---- !u!114 &373551202
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 373551194}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84bb6bda94f92fd5b8c74d5a8fafedde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentParameters:
-    maxStep: 0
-  hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
-  Name: Chie Satonaka
-  forceHelper: {x: 0, y: 0}
-  inertiaHelper: {x: 0, y: 0}
 --- !u!114 &373551203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -452,6 +433,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Machine: {fileID: 0}
+--- !u!114 &373551206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373551194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 943f1ddfc0456379dbe04f3a13fdf955, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  Name: Chie Satonka
+  forceHelper: {x: 0, y: 0}
+  inertiaHelper: {x: 0, y: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

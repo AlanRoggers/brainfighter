@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Walk : ActionV4
+public class Walk : Action
 {
     private readonly float maxSpeed;
     private readonly float maxForce;
@@ -15,8 +15,6 @@ public class Walk : ActionV4
     public override void Execute(HandlerComp components)
     {
         Debug.Log($"[Caminando]");
-
-        components.Messenger.Walking = 1;
 
         if (MathF.Sign(components.Physics.velocity.x) < 0)
             components.Physics.velocity = new Vector2(0, components.Physics.velocity.y);
