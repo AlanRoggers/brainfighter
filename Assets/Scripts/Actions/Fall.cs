@@ -5,5 +5,6 @@ public class Fall : Action
 {
     public Fall(List<AnimationStates> actionStates) : base(actionStates) { }
 
-    public override void Execute(HandlerComp components) => Debug.Log("[Cayendo]");
+    public override void Execute(HandlerComp components) { }
+    // Debug.Log("[Cayendo]");
 }

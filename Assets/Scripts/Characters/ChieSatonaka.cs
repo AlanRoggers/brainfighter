@@ -49,24 +49,23 @@ public class ChieSatonaka : Character
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-        if (components.Messenger.Walking != 0)
-        {
-            if (Mathf.Sign(components.Messenger.Walking) == Mathf.Sign(transform.localScale.x))
-            {
-                if (currentCommand != actions[AnimationStates.Walk])
-                    components.Machine.ChangeAnimation(actions[AnimationStates.Walk].ActionStates[0]);
 
-                actions[AnimationStates.Walk].Execute(components);
-                currentCommand = actions[AnimationStates.Walk];
-            }
-            else
-            {
-                if (currentCommand != actions[AnimationStates.GoingBackwards])
-                    components.Machine.ChangeAnimation(actions[AnimationStates.GoingBackwards].ActionStates[0]);
-                actions[AnimationStates.GoingBackwards].Execute(components);
-                currentCommand = actions[AnimationStates.GoingBackwards];
-            }
+        if (components.Messenger.Walking == 0) { }
+        else if (Mathf.Sign(components.Messenger.Walking) > 0 && !(components.Messenger.Jumping || components.Messenger.Falling))
+        {
+            if (currentCommand != actions[AnimationStates.Walk])
+                components.Machine.ChangeAnimation(actions[AnimationStates.Walk].ActionStates[0]);
+            actions[AnimationStates.Walk].Execute(components);
+            currentCommand = actions[AnimationStates.Walk];
         }
+        else if (!(components.Messenger.Jumping || components.Messenger.Falling))
+        {
+            if (currentCommand != actions[AnimationStates.GoingBackwards])
+                components.Machine.ChangeAnimation(actions[AnimationStates.GoingBackwards].ActionStates[0]);
+            actions[AnimationStates.GoingBackwards].Execute(components);
+            currentCommand = actions[AnimationStates.GoingBackwards];
+        }
+
 
         if (components.Messenger.Jumping)
         {

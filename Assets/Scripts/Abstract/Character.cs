@@ -28,7 +28,8 @@ public abstract class Character : Agent
                 ContactLayer = gameObject.layer == 6 ? 7 : 6,
                 Physics = GetComponent<Rigidbody2D>(),
                 CircleHitBox = GetComponentInChildren<CircleCollider2D>(),
-                collision = new OverlapDetector()
+                collision = new OverlapDetector(),
+                Transform = transform
             };
             components.Machine.CurrentClip = AnimationStates.Iddle;
             InputManager input = GetComponent<InputManager>();
@@ -47,7 +48,7 @@ public abstract class Character : Agent
     {
         if (components.Messenger.InGround)
         {
-            Debug.Log("[En piso]");
+            // Debug.Log("[En piso]");
         }
     }
     protected virtual void LateUpdate()
@@ -93,7 +94,7 @@ public abstract class Character : Agent
     }
     protected virtual void StopWalk()
     {
-        Debug.Log("[StopWalk]");
+        // Debug.Log("[StopWalk]");
         components.Messenger.Walking = 0;
         components.Physics.velocity = new Vector2(0, components.Physics.velocity.y);
     }

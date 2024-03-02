@@ -16,18 +16,28 @@ public class InputManager : MonoBehaviour
             Messenger.Jumping = true;
 
     }
-    private bool AttackGeneralRestrictions() => Messenger.Hurt || Messenger.Attacking || Messenger.InCooldown || Messenger.Jumping || Messenger.Falling;
+    private bool AttackGeneralRestrictions() => Messenger.Hurt || Messenger.Attacking || Messenger.InCooldown;
     private bool ActionsGeneralRestrictions() => Messenger.Attacking || Messenger.Hurt;
     private void Walk()
     {
-        if (!ActionsGeneralRestrictions() && !Messenger.Jumping && !Messenger.Falling)
+        if (!ActionsGeneralRestrictions())
         {
             if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D))
                 Messenger.Walking = 0;
             else if (Input.GetKey(KeyCode.D))
-                Messenger.Walking = 1;
+            {
+                if (Mathf.Sign(transform.localScale.x) == 1)
+                    Messenger.Walking = 1;
+                else
+                    Messenger.Walking = -1;
+            }
             else if (Input.GetKey(KeyCode.A))
-                Messenger.Walking = -1;
+            {
+                if (Mathf.Sign(transform.localScale.x) == 1)
+                    Messenger.Walking = -1;
+                else
+                    Messenger.Walking = 1;
+            }
             else
                 Messenger.Walking = 0;
         }

@@ -14,7 +14,7 @@ public class Messenger
     public bool ApplyForce;
     public bool ApplyInertia;
     public bool Jumping;
-    public short Walking;
-    public short ComboCount;
+    public sbyte Walking;
+    public sbyte ComboCount;
     public AnimationStates RequestedAttack;
 }

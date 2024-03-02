@@ -8,4 +8,5 @@ public class HandlerComp
     public LayerMask ContactLayer;
     public Messenger Messenger;
     public Rigidbody2D Physics;
+    public Transform Transform;
 }
