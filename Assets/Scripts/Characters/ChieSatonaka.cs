@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class ChieSatonaka : Character
 {
-    public Vector2 forceHelper;
-    public Vector2 inertiaHelper;
     protected override void Update()
     {
         base.Update();
@@ -100,7 +98,7 @@ public class ChieSatonaka : Character
                     timeDmg: 1,
                     hitS: 0.2f,
                     cd: 0.1f,
-                    inertia: Vector2.zero,
+                    inertia: new Vector2(-1.5f, 0),
                     force: new Vector2(1.5f, 0),
                     actionStates: new List<AnimationStates>(){AnimationStates.LowPunch,AnimationStates.ChainLowPunch}
                 )
@@ -114,7 +112,7 @@ public class ChieSatonaka : Character
                     timeDmg: 1,
                     hitS: 0.3f,
                     cd: 0.4f,
-                    inertia: Vector2.zero,
+                    inertia: new Vector2(0.5f,0),
                     force: new Vector2(0,12),
                     actionStates: new List<AnimationStates>(){AnimationStates.MiddlePunch,AnimationStates.ChainMiddlePunch}
                 )
@@ -128,7 +126,7 @@ public class ChieSatonaka : Character
                     timeDmg: 1,
                     hitS: 0.5f,
                     cd: 0.8f,
-                    inertia: new Vector2(160,270),
+                    inertia: new Vector2(1,4),
                     force: new Vector2(10,0),
                     actionStates: new List<AnimationStates>(){AnimationStates.HardPunch,AnimationStates.ChainHardPunch}
                 )
@@ -142,7 +140,7 @@ public class ChieSatonaka : Character
                     timeDmg: 1,
                     hitS: 1f,
                     cd: 1f,
-                    inertia: new Vector2(200,700),
+                    inertia: new Vector2(6,13.3f),
                     force: new Vector2(1.5f,15),
                     actionStates: new List<AnimationStates>(){AnimationStates.SpecialPunch,AnimationStates.ChainSpecialPunch}
                 )
@@ -156,7 +154,7 @@ public class ChieSatonaka : Character
                     timeDmg: 1,
                     hitS: 0.35f,
                     cd: 0.3f,
-                    inertia: new Vector2(0,250),
+                    inertia: new Vector2(-0.5f,7.5f),
                     force: new Vector2(3.5f,0),
                     actionStates: new List<AnimationStates>(){AnimationStates.LowKick,AnimationStates.ChainLowKick}
                 )
@@ -170,7 +168,7 @@ public class ChieSatonaka : Character
                     timeDmg: 1,
                     hitS: 0.3f,
                     cd: 0.55f,
-                    inertia: new Vector2(150,0),
+                    inertia: new Vector2(0,8),
                     force: new Vector2(0,10),
                     actionStates: new List<AnimationStates>(){AnimationStates.MiddleKick,AnimationStates.ChainMiddleKick}
                 )
@@ -184,7 +182,7 @@ public class ChieSatonaka : Character
                     timeDmg: 1,
                     hitS: 0.5f,
                     cd: 0.85f,
-                    inertia: new Vector2(0,500),
+                    inertia: new Vector2(1.9f,10),
                     force: new Vector2(5,0),
                     actionStates: new List<AnimationStates>(){AnimationStates.HardKick,AnimationStates.ChainHardKick}
                 )
@@ -198,35 +196,11 @@ public class ChieSatonaka : Character
                     timeDmg: 2,
                     hitS: 1f,
                     cd: 1f,
-                    inertia: new Vector2(250,0),
+                    inertia: new Vector2(-0.5f,5),
                     force: new Vector2(0,10),
                     actionStates: new List<AnimationStates>(){AnimationStates.SpecialKick,AnimationStates.ChainSpecialKick}
                 )
             },
         };
-    }
-    void OnDrawGizmos()
-    {
-        if (components != null)
-        {
-            if (components.Messenger.InGround)
-                Gizmos.color = Color.green;
-            else
-                Gizmos.color = Color.red;
-
-            Gizmos.DrawWireCube((Vector2)transform.localPosition + feetsPos, feetsSize);
-            // if (components.msng.EnemyCollider != null)
-            //     Gizmos.color = Color.green;
-            // else
-            //     Gizmos.color = Color.red;
-
-            // if (damage.enabled)
-            //     Gizmos.DrawWireSphere(damage.bounds.center, damage.radius);
-        }
-        else
-        {
-            Gizmos.color = Color.magenta;
-            Gizmos.DrawWireCube((Vector2)transform.localPosition + feetsPos, feetsSize);
-        }
     }
 }

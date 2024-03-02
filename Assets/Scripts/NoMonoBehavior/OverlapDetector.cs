@@ -2,7 +2,11 @@ using UnityEngine;
 
 public class OverlapDetector
 {
-    public Collider2D AttackHit(LayerMask contactLayer, CircleCollider2D hitbox) => Physics2D.OverlapCircle(hitbox.bounds.center, hitbox.radius, contactLayer);
+    public Collider2D AttackHit(LayerMask contactLayer, CircleCollider2D hitbox)
+    {
+        Debug.Log("[Checando Hit]");
+        return Physics2D.OverlapCircle(hitbox.bounds.center, hitbox.radius, contactLayer);
+    }
 
 
     public bool GroundDetection(Transform transform, Vector2 position, Vector2 size, LayerMask ground)

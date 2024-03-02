@@ -6,10 +6,12 @@ using UnityEngine;
 
 public abstract class Character : Agent
 {
+    public Vector2 forceHelper;
+    public Vector2 inertiaHelper;
     public Transform TurnReferece;
     public LayerMask ground;
-    public Vector2 feetsPos;
-    public Vector2 feetsSize;
+    private Vector2 bottomPos;
+    private Vector2 bottomSize;
     protected Command currentCommand;
     public string Name;
     protected Dictionary<AnimationStates, Attack> attacks;
@@ -42,6 +44,8 @@ public abstract class Character : Agent
         }
         InitActions();
         InitAttacks();
+        bottomSize = new Vector2(1.1f, 0.01f);
+        bottomPos = new Vector2(12.29f, -0.15f);
 
     }
     protected virtual void Update()
@@ -64,7 +68,7 @@ public abstract class Character : Agent
     }
     protected virtual void FixedUpdate()
     {
-        components.Messenger.InGround = components.collision.GroundDetection(transform, feetsPos, feetsSize, ground) && !components.Messenger.Jumping;
+        components.Messenger.InGround = components.collision.GroundDetection(transform, bottomPos, bottomSize, ground) && !components.Messenger.Jumping;
         if (components.Messenger.InGround)
             components.Messenger.Falling = false;
 
@@ -99,6 +103,7 @@ public abstract class Character : Agent
         components.Messenger.RequestedAttack = AnimationStates.Null;
         components.Machine.ChangeAnimation(attack.ActionStates[0]);
         yield return new WaitForEndOfFrame();
+        components.Physics.AddForce(attack.Inertia, ForceMode2D.Impulse);
         while (components.Machine.CurrentTime() < 1.0f)
         {
             if (attack.TimesDamageApplied > 0)
@@ -106,7 +111,8 @@ public abstract class Character : Agent
                 Collider2D enemy = components.collision.AttackHit(components.ContactLayer, components.CircleHitBox);
                 if (enemy)
                 {
-                    enemy.GetComponent<CharacterHealth>().ReduceHealth(attack.Damage);
+                    Debug.Log("[Enemigo golpeado]");
+                    // enemy.GetComponent<CharacterHealth>().ReduceHealth(attack.Damage);
                     attack.TimesDamageApplied--;
                 }
             }
@@ -146,7 +152,8 @@ public abstract class Character : Agent
     }
     private void Fall()
     {
-        components.Messenger.Falling = components.Physics.velocity.y < 0 && !components.Messenger.Hurt;
+        // Debug.Log("[Cayendo]");
+        components.Messenger.Falling = components.Physics.velocity.y < 0 && !components.Messenger.Hurt && !components.Messenger.Attacking;
 
         if (components.Messenger.Falling)
         {
@@ -174,6 +181,30 @@ public abstract class Character : Agent
             else
                 components.Machine.ChangeAnimation(AnimationStates.DamageWhileCrouch);
             currentCommand = null;
+        }
+    }
+    void OnDrawGizmos()
+    {
+        if (components != null)
+        {
+            if (components.Messenger.InGround)
+                Gizmos.color = Color.green;
+            else
+                Gizmos.color = Color.red;
+
+            Gizmos.DrawWireCube((Vector2)transform.localPosition + bottomPos, bottomSize);
+            // if (components.msng.EnemyCollider != null)
+            //     Gizmos.color = Color.green;
+            // else
+            //     Gizmos.color = Color.red;
+
+            // if (damage.enabled)
+            //     Gizmos.DrawWireSphere(damage.bounds.center, damage.radius);
+        }
+        else
+        {
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawWireCube((Vector2)transform.localPosition + bottomPos, bottomSize);
         }
     }
 }
