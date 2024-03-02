@@ -6,6 +6,7 @@ using UnityEngine;
 
 public abstract class Character : Agent
 {
+    private readonly Vector2 xSignHelper = new(-1, 1);
     public Vector2 forceHelper;
     public Vector2 inertiaHelper;
     public Transform TurnReferece;
@@ -103,7 +104,10 @@ public abstract class Character : Agent
         components.Messenger.RequestedAttack = AnimationStates.Null;
         components.Machine.ChangeAnimation(attack.ActionStates[0]);
         yield return new WaitForEndOfFrame();
-        components.Physics.AddForce(attack.Inertia, ForceMode2D.Impulse);
+        if (transform.localScale.x > 0)
+            components.Physics.AddForce(attack.Inertia, ForceMode2D.Impulse);
+        else
+            components.Physics.AddForce(attack.Inertia * xSignHelper, ForceMode2D.Impulse);
         while (components.Machine.CurrentTime() < 1.0f)
         {
             if (attack.TimesDamageApplied > 0)
@@ -169,7 +173,7 @@ public abstract class Character : Agent
     private void Orientation()
     {
         float signDistance = MathF.Sign(transform.localPosition.x - TurnReferece.localPosition.x);
-        if (MathF.Sign(transform.localScale.x) == signDistance)
+        if (MathF.Sign(transform.localScale.x) == signDistance && !components.Messenger.Attacking)
             transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
     }
     private void Damaged()
