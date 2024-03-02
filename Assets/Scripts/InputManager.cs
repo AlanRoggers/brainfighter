@@ -2,19 +2,19 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
+    public bool ArtificialInteligence;
     public Messenger Messenger;
     public StateMachine Machine;
     void Update()
     {
-        Walk();
-
-        Punches();
-
-        Kicks();
-
-        if (Input.GetKeyDown(KeyCode.Space) && !ActionsGeneralRestrictions() && Messenger.InGround)
-            Messenger.Jumping = true;
-
+        if (!ArtificialInteligence)
+        {
+            Walk();
+            Punches();
+            Kicks();
+            if (Input.GetKeyDown(KeyCode.Space) && !ActionsGeneralRestrictions() && Messenger.InGround)
+                Messenger.Jumping = true;
+        }
     }
     private bool AttackGeneralRestrictions() => Messenger.Hurt || Messenger.Attacking || Messenger.InCooldown;
     private bool ActionsGeneralRestrictions() => Messenger.Attacking || Messenger.Hurt;

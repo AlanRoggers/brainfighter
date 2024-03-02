@@ -6,25 +6,26 @@ using UnityEngine;
 
 public abstract class Character : Agent
 {
-    private readonly Vector2 xSignHelper = new(-1, 1);
+    public HandlerComp Components { get; protected set; }
+    public Character Enemy;
+    public string Name;
     public Vector2 forceHelper;
-    public Vector2 inertiaHelper;
     public Transform TurnReferece;
+    private readonly Vector2 xSignHelper = new(-1, 1);
     public LayerMask ground;
     private Vector2 bottomPos;
     private Vector2 bottomSize;
     protected Command currentCommand;
-    public string Name;
     protected Dictionary<AnimationStates, Attack> attacks;
     protected Dictionary<AnimationStates, Action> actions;
-    protected HandlerComp components;
     protected Coroutine attackCoroutine;
+    protected Coroutine enemyHurtCoroutine;
     protected override void Awake()
     {
         base.Awake();
         try
         {
-            components = new HandlerComp
+            Components = new HandlerComp
             {
                 Machine = GetComponent<StateMachine>(),
                 Messenger = new Messenger(),
@@ -32,12 +33,13 @@ public abstract class Character : Agent
                 Physics = GetComponent<Rigidbody2D>(),
                 CircleHitBox = GetComponentInChildren<CircleCollider2D>(),
                 collision = new OverlapDetector(),
-                Transform = transform
+                Transform = transform,
+                Health = new CharacterHealth(100)
             };
-            components.Machine.CurrentClip = AnimationStates.Iddle;
+            Components.Machine.CurrentClip = AnimationStates.Iddle;
             InputManager input = GetComponent<InputManager>();
-            input.Messenger = components.Messenger;
-            input.Machine = components.Machine;
+            input.Messenger = Components.Messenger;
+            input.Machine = Components.Machine;
         }
         catch (Exception e)
         {
@@ -51,7 +53,7 @@ public abstract class Character : Agent
     }
     protected virtual void Update()
     {
-        if (components.Messenger.InGround)
+        if (Components.Messenger.InGround)
         {
             // Debug.Log("[En piso]");
         }
@@ -59,97 +61,90 @@ public abstract class Character : Agent
     protected virtual void LateUpdate()
     {
         // Mantener siempre comprobandose las transiciones del estado actual
-        currentCommand?.Transitions(components.Machine, components.Messenger);
+        currentCommand?.Transitions(Components.Machine, Components.Messenger);
         // Estados virtuales
         Iddle();
         Fall();
         Orientation();
-        Damaged();
-
     }
     protected virtual void FixedUpdate()
     {
-        components.Messenger.InGround = components.collision.GroundDetection(transform, bottomPos, bottomSize, ground) && !components.Messenger.Jumping;
-        if (components.Messenger.InGround)
-            components.Messenger.Falling = false;
+        Components.Messenger.InGround = Components.collision.GroundDetection(transform, bottomPos, bottomSize, ground) && !Components.Messenger.Jumping;
+        if (Components.Messenger.InGround)
+            Components.Messenger.Falling = false;
 
     }
     protected virtual void StopWalk()
     {
         // Debug.Log("[StopWalk]");
-        components.Messenger.Walking = 0;
-        components.Physics.velocity = new Vector2(0, components.Physics.velocity.y);
-    }
-    protected virtual void Jump()
-    {
-        Debug.Log("[Saltar]");
-    }
-    protected virtual void Dash()
-    {
-        Debug.Log("[Dash]");
-    }
-    protected virtual void Block()
-    {
-        Debug.Log("[Bloquear]");
-    }
-    protected virtual void Crouch()
-    {
-        Debug.Log("[Agacharse]");
+        Components.Messenger.Walking = 0;
+        Components.Physics.velocity = new Vector2(0, Components.Physics.velocity.y);
     }
     protected virtual IEnumerator Attack(Attack attack)
     {
         Debug.Log($"[Corrutina] {attack.ActionStates[0]}");
         currentCommand = attack;
-        components.Messenger.Attacking = true;
-        components.Messenger.RequestedAttack = AnimationStates.Null;
-        components.Machine.ChangeAnimation(attack.ActionStates[0]);
+        Components.Messenger.Attacking = true;
+        Components.Messenger.RequestedAttack = AnimationStates.Null;
+        Components.Machine.ChangeAnimation(attack.ActionStates[0]);
+
         yield return new WaitForEndOfFrame();
+
         if (transform.localScale.x > 0)
-            components.Physics.AddForce(attack.Inertia, ForceMode2D.Impulse);
+            Components.Physics.AddForce(attack.Inertia, ForceMode2D.Impulse);
         else
-            components.Physics.AddForce(attack.Inertia * xSignHelper, ForceMode2D.Impulse);
-        while (components.Machine.CurrentTime() < 1.0f)
+            Components.Physics.AddForce(attack.Inertia * xSignHelper, ForceMode2D.Impulse);
+
+        while (Components.Machine.CurrentTime() < 1.0f)
         {
             if (attack.TimesDamageApplied > 0)
             {
-                Collider2D enemy = components.collision.AttackHit(components.ContactLayer, components.CircleHitBox);
-                if (enemy)
+                if (Components.collision.AttackHit(Components.ContactLayer, Components.CircleHitBox))
                 {
-                    Debug.Log("[Enemigo golpeado]");
-                    // enemy.GetComponent<CharacterHealth>().ReduceHealth(attack.Damage);
-                    attack.TimesDamageApplied--;
+                    if (!Enemy.Components.Messenger.Blocking)
+                    {
+                        Debug.Log("[Enemigo golpeado]");
+                        enemyHurtCoroutine = StartCoroutine(Enemy.Hurt(attack.HitStun, attack.HitFreeze, attack.Damage, attack.Force));
+                        Vector2 current = Components.Physics.velocity;
+                        Components.Machine.Freeze(Components);
+                        yield return new WaitForSeconds(0.25f);
+                        Components.Machine.UnFreeze(Components, current);
+                        attack.TimesDamageApplied--;
+
+                    }
                 }
             }
             yield return null;
         }
+
         yield return new WaitForEndOfFrame();
-        yield return new WaitUntil(() => components.Machine.CurrentTime() > 1.0f);
-        components.Messenger.Attacking = false;
-        components.Messenger.ComboCount = 0;
-        components.Messenger.InCooldown = true;
+        yield return new WaitUntil(() => Components.Machine.CurrentTime() > 1.0f);
+        Components.Messenger.Attacking = false;
+        Components.Messenger.ComboCount = 0;
+        Components.Messenger.InCooldown = true;
         yield return new WaitForSecondsRealtime(attack.CoolDown);
-        components.Messenger.InCooldown = false;
+        Components.Messenger.InCooldown = false;
 
     }
     protected abstract void InitAttacks();
     protected abstract void InitActions();
     protected void InterruptCoroutine()
     {
-        if (components.Messenger.Hurt)
-            components.Messenger.Attacking = false;
-        components.Messenger.InCooldown = false;
+        if (Components.Messenger.Hurt)
+            Components.Messenger.Attacking = false;
+        Components.Messenger.InCooldown = false;
     }
     private void Iddle()
     {
-        bool iddle = !components.Messenger.Attacking && !components.Messenger.Hurt &&
-        components.Messenger.Walking == 0 && !components.Messenger.Jumping &&
-        !components.Messenger.Falling;
+        bool iddle = !Components.Messenger.Attacking && !Components.Messenger.Hurt &&
+        Components.Messenger.Walking == 0 && !Components.Messenger.Jumping &&
+        !Components.Messenger.Falling;
 
         // Estado virtual
         if (iddle)
         {
             // Debug.Log("[Iddle]");
-            components.Machine.ChangeAnimation(AnimationStates.Iddle);
+            Components.Machine.ChangeAnimation(AnimationStates.Iddle);
             currentCommand = null;
             StopWalk();
         }
@@ -157,47 +152,68 @@ public abstract class Character : Agent
     private void Fall()
     {
         // Debug.Log("[Cayendo]");
-        components.Messenger.Falling = components.Physics.velocity.y < 0 && !components.Messenger.Hurt && !components.Messenger.Attacking;
+        Components.Messenger.Falling = Components.Physics.velocity.y < 0 && !Components.Messenger.Hurt && !Components.Messenger.Attacking;
 
-        if (components.Messenger.Falling)
+        if (Components.Messenger.Falling)
         {
             if (currentCommand != actions[AnimationStates.Fall])
             {
-                components.Machine.ChangeAnimation(actions[AnimationStates.Fall].ActionStates[0]);
-                actions[AnimationStates.Fall].Execute(components);
+                Components.Machine.ChangeAnimation(actions[AnimationStates.Fall].ActionStates[0]);
+                // actions[AnimationStates.Fall].Execute(Components);
                 currentCommand = actions[AnimationStates.Fall];
-                components.Messenger.Jumping = false;
+                Components.Messenger.Jumping = false;
             }
         }
     }
     private void Orientation()
     {
         float signDistance = MathF.Sign(transform.localPosition.x - TurnReferece.localPosition.x);
-        if (MathF.Sign(transform.localScale.x) == signDistance && !components.Messenger.Attacking)
+        if (MathF.Sign(transform.localScale.x) == signDistance && !Components.Messenger.Attacking)
             transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
     }
-    private void Damaged()
+    public IEnumerator Hurt(float stun, bool freeze, int damage, Vector2 force)
     {
-        if (components.Messenger.Hurt)
+        StopCoroutine(attackCoroutine);
+        Components.Messenger.Hurt = true;
+        Components.Health.ReduceHealth(damage);
+        currentCommand = null;
+        if (!Components.Messenger.Crouching)
+            Components.Machine.ChangeAnimation(AnimationStates.Damage);
+        else
+            Components.Machine.ChangeAnimation(AnimationStates.DamageWhileCrouch);
+        yield return new WaitForEndOfFrame();
+
+        if (transform.localScale.x > 0)
+            Components.Physics.AddForce(force, ForceMode2D.Impulse);
+        else
+            Components.Physics.AddForce(force * xSignHelper, ForceMode2D.Impulse);
+
+        if (freeze)
         {
-            if (!components.Messenger.Crouching)
-                components.Machine.ChangeAnimation(AnimationStates.Damage);
-            else
-                components.Machine.ChangeAnimation(AnimationStates.DamageWhileCrouch);
-            currentCommand = null;
+            Vector2 current = Components.Physics.velocity;
+            Components.Machine.Freeze(Components);
+            yield return new WaitForSeconds(0.25f);
+            Components.Machine.UnFreeze(Components, current);
         }
+
+
+
+        yield return new WaitUntil(() => Components.Machine.CurrentTime() > 1.0f);
+        yield return new WaitForSeconds(stun);
+        Components.Messenger.Hurt = false;
     }
+
     void OnDrawGizmos()
     {
-        if (components != null)
+        if (Components != null)
         {
-            if (components.Messenger.InGround)
+            if (Components.Messenger.InGround)
                 Gizmos.color = Color.green;
             else
                 Gizmos.color = Color.red;
 
             Gizmos.DrawWireCube((Vector2)transform.localPosition + bottomPos, bottomSize);
-            // if (components.msng.EnemyCollider != null)
+            // if (Components.msng.EnemyCollider != null)
             //     Gizmos.color = Color.green;
             // else
             //     Gizmos.color = Color.red;

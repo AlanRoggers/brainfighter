@@ -6,7 +6,7 @@ public class ChieSatonaka : Character
     protected override void Update()
     {
         base.Update();
-        if (components.Messenger.RequestedAttack != AnimationStates.Null)
+        if (Components.Messenger.RequestedAttack != AnimationStates.Null)
         {
             StopWalk();
             if (attackCoroutine != null)
@@ -14,7 +14,7 @@ public class ChieSatonaka : Character
                 StopCoroutine(attackCoroutine);
                 InterruptCoroutine();
             }
-            switch (components.Messenger.RequestedAttack)
+            switch (Components.Messenger.RequestedAttack)
             {
                 case AnimationStates.LowPunch:
                     attackCoroutine = StartCoroutine(Attack(attacks[AnimationStates.LowPunch]));
@@ -48,29 +48,29 @@ public class ChieSatonaka : Character
     {
         base.FixedUpdate();
 
-        if (components.Messenger.Walking == 0) { }
-        else if (Mathf.Sign(components.Messenger.Walking) > 0 && !(components.Messenger.Jumping || components.Messenger.Falling))
+        if (Components.Messenger.Walking == 0) { }
+        else if (Mathf.Sign(Components.Messenger.Walking) > 0 && !(Components.Messenger.Jumping || Components.Messenger.Falling))
         {
             if (currentCommand != actions[AnimationStates.Walk])
-                components.Machine.ChangeAnimation(actions[AnimationStates.Walk].ActionStates[0]);
-            actions[AnimationStates.Walk].Execute(components);
+                Components.Machine.ChangeAnimation(actions[AnimationStates.Walk].ActionStates[0]);
+            actions[AnimationStates.Walk].Execute(Components);
             currentCommand = actions[AnimationStates.Walk];
         }
-        else if (!(components.Messenger.Jumping || components.Messenger.Falling))
+        else if (!(Components.Messenger.Jumping || Components.Messenger.Falling))
         {
             if (currentCommand != actions[AnimationStates.GoingBackwards])
-                components.Machine.ChangeAnimation(actions[AnimationStates.GoingBackwards].ActionStates[0]);
-            actions[AnimationStates.GoingBackwards].Execute(components);
+                Components.Machine.ChangeAnimation(actions[AnimationStates.GoingBackwards].ActionStates[0]);
+            actions[AnimationStates.GoingBackwards].Execute(Components);
             currentCommand = actions[AnimationStates.GoingBackwards];
         }
 
 
-        if (components.Messenger.Jumping)
+        if (Components.Messenger.Jumping)
         {
-            if (currentCommand != actions[AnimationStates.Jump] && !components.Messenger.Falling)
+            if (currentCommand != actions[AnimationStates.Jump] && !Components.Messenger.Falling)
             {
-                components.Machine.ChangeAnimation(actions[AnimationStates.Jump].ActionStates[0]);
-                actions[AnimationStates.Jump].Execute(components);
+                Components.Machine.ChangeAnimation(actions[AnimationStates.Jump].ActionStates[0]);
+                actions[AnimationStates.Jump].Execute(Components);
                 currentCommand = actions[AnimationStates.Jump];
             }
         }

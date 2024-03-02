@@ -9,4 +9,5 @@ public class HandlerComp
     public Messenger Messenger;
     public Rigidbody2D Physics;
     public Transform Transform;
+    public CharacterHealth Health;
 }
