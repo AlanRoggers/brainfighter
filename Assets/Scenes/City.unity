@@ -135,7 +135,7 @@ GameObject:
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -147,12 +147,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3851752}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.15, y: -1.0657558, z: 0.018260028}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -12.067752, y: -0.47477067, z: 0.2572247}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1927854787}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &238499460
 GameObject:
@@ -328,12 +328,12 @@ Transform:
   m_GameObject: {fileID: 373551194}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.52, y: 1.11, z: 0.038764834}
+  m_LocalPosition: {x: -22.73775, y: 1.7009852, z: 0.2777295}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 926712659}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1927854787}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &373551200
 Rigidbody2D:
@@ -394,7 +394,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 2.3866668}
+  m_Offset: {x: 0.07180309, y: 2.6051319}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -405,7 +405,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.9733334, y: 4.7733335}
+  m_Size: {x: 1.0981674, y: 4.3286967}
   m_EdgeRadius: 0
 --- !u!114 &373551203
 MonoBehaviour:
@@ -480,15 +480,13 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
+  forceHelper: {x: 0, y: 0}
+  inertiaHelper: {x: 0, y: 0}
   TurnReferece: {fileID: 3851753}
   ground:
     serializedVersion: 2
     m_Bits: 8
-  feetsPos: {x: 0, y: 0}
-  feetsSize: {x: 2, y: 0.2}
   Name: Chie Satonka
-  forceHelper: {x: 0, y: 0}
-  inertiaHelper: {x: 0, y: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -857,7 +855,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 926712658}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -884,7 +882,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.1
 --- !u!1 &1227133924
 GameObject:
   m_ObjectHideFlags: 0
@@ -1019,6 +1017,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1227133924}
   m_CullTransparentMesh: 1
+--- !u!4 &1927854787 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6897757261209626811, guid: cb777c3749c8f4147a3110a51aafcfc5, type: 3}
+  m_PrefabInstance: {fileID: 7579777135345321110}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7579777135345321110
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1169,7 +1172,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6897757261209626811, guid: cb777c3749c8f4147a3110a51aafcfc5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3851753}
+    - targetCorrespondingSourceObject: {fileID: 6897757261209626811, guid: cb777c3749c8f4147a3110a51aafcfc5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 373551197}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb777c3749c8f4147a3110a51aafcfc5, type: 3}
 --- !u!1660057539 &9223372036854775807
@@ -1180,5 +1189,3 @@ SceneRoots:
   - {fileID: 877143101}
   - {fileID: 238499463}
   - {fileID: 7579777135345321110}
-  - {fileID: 373551197}
-  - {fileID: 3851753}
