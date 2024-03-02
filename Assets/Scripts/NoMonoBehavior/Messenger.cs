@@ -2,7 +2,8 @@ public class Messenger
 {
     public Messenger()
     {
-        InCooldown = Hurt = Attacking = ApplyForce = ApplyInertia = Falling = Jumping = false;
+        InCooldown = Hurt = Attacking = ApplyForce = false;
+        Crouching = ApplyInertia = Falling = Jumping = false;
         Walking = ComboCount = 0;
         RequestedAttack = AnimationStates.Null;
     }
@@ -14,6 +15,7 @@ public class Messenger
     public bool ApplyForce;
     public bool ApplyInertia;
     public bool Jumping;
+    public bool Crouching;
     public sbyte Walking;
     public sbyte ComboCount;
     public AnimationStates RequestedAttack;

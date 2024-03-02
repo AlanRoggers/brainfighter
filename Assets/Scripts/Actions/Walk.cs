@@ -19,7 +19,7 @@ public class Walk : Action
     /// <param name="components">Componentes del personaje que podrían ser necesarios para ejecutar la acción</param>
     public override void Execute(HandlerComp components)
     {
-        Debug.Log($"[Caminando]");
+        // Debug.Log($"[Caminando]");
         if (Mathf.Sign(components.Transform.localScale.x) == 1)
         {
             if (MathF.Sign(components.Physics.velocity.x) < 0)

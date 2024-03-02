@@ -55,35 +55,12 @@ public abstract class Character : Agent
     {
         // Mantener siempre comprobandose las transiciones del estado actual
         currentCommand?.Transitions(components.Machine, components.Messenger);
+        // Estados virtuales
+        Iddle();
+        Fall();
+        Orientation();
+        Damaged();
 
-        bool iddle = !components.Messenger.Attacking && !components.Messenger.Hurt && components.Messenger.Walking == 0 && !components.Messenger.Jumping
-                        && !components.Messenger.Falling;
-
-        components.Messenger.Falling = components.Physics.velocity.y < 0 && !components.Messenger.Hurt;
-
-        if (iddle)
-        {
-            // Debug.Log("[Iddle]");
-            components.Machine.ChangeAnimation(AnimationStates.Iddle);
-            currentCommand = null;
-            StopWalk();
-        }
-
-        if (components.Messenger.Falling)
-        {
-            if (currentCommand != actions[AnimationStates.Fall])
-            {
-                components.Machine.ChangeAnimation(actions[AnimationStates.Fall].ActionStates[0]);
-                actions[AnimationStates.Fall].Execute(components);
-                currentCommand = actions[AnimationStates.Fall];
-                components.Messenger.Jumping = false;
-            }
-        }
-
-        // Estado virtual turn;
-        float signDistance = MathF.Sign(transform.localPosition.x - TurnReferece.localPosition.x);
-        if (MathF.Sign(transform.localScale.x) == signDistance)
-            transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
     }
     protected virtual void FixedUpdate()
     {
@@ -151,5 +128,52 @@ public abstract class Character : Agent
         if (components.Messenger.Hurt)
             components.Messenger.Attacking = false;
         components.Messenger.InCooldown = false;
+    }
+    private void Iddle()
+    {
+        bool iddle = !components.Messenger.Attacking && !components.Messenger.Hurt &&
+        components.Messenger.Walking == 0 && !components.Messenger.Jumping &&
+        !components.Messenger.Falling;
+
+        // Estado virtual
+        if (iddle)
+        {
+            // Debug.Log("[Iddle]");
+            components.Machine.ChangeAnimation(AnimationStates.Iddle);
+            currentCommand = null;
+            StopWalk();
+        }
+    }
+    private void Fall()
+    {
+        components.Messenger.Falling = components.Physics.velocity.y < 0 && !components.Messenger.Hurt;
+
+        if (components.Messenger.Falling)
+        {
+            if (currentCommand != actions[AnimationStates.Fall])
+            {
+                components.Machine.ChangeAnimation(actions[AnimationStates.Fall].ActionStates[0]);
+                actions[AnimationStates.Fall].Execute(components);
+                currentCommand = actions[AnimationStates.Fall];
+                components.Messenger.Jumping = false;
+            }
+        }
+    }
+    private void Orientation()
+    {
+        float signDistance = MathF.Sign(transform.localPosition.x - TurnReferece.localPosition.x);
+        if (MathF.Sign(transform.localScale.x) == signDistance)
+            transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
+    }
+    private void Damaged()
+    {
+        if (components.Messenger.Hurt)
+        {
+            if (!components.Messenger.Crouching)
+                components.Machine.ChangeAnimation(AnimationStates.Damage);
+            else
+                components.Machine.ChangeAnimation(AnimationStates.DamageWhileCrouch);
+            currentCommand = null;
+        }
     }
 }

@@ -19,7 +19,7 @@ public class Back : Action
     /// <param name="components"></param>
     public override void Execute(HandlerComp components)
     {
-        Debug.Log($"[Retrocediendo]");
+        // Debug.Log($"[Retrocediendo]");
 
         if (Mathf.Sign(components.Transform.localScale.x) == 1)
         {
