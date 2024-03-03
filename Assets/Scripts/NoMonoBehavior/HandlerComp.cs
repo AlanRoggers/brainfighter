@@ -4,7 +4,7 @@ public class HandlerComp
 {
     public HandlerComp(
         CircleCollider2D circleHitBox, OverlapDetector collision, StateMachine machine, LayerMask contact,
-        Messenger messenger, Rigidbody2D phys, Transform transform, CharacterHealth health, BoxCollider2D characterColl)
+        Messenger messenger, Rigidbody2D phys, Transform transform, BoxCollider2D characterColl)
     {
         CircleHitBox = circleHitBox;
         Machine = machine;
@@ -14,7 +14,6 @@ public class HandlerComp
         Collision = collision;
         ContactLayer = contact;
         Physics = phys;
-        Health = health;
     }
     public readonly CircleCollider2D CircleHitBox;
     public readonly OverlapDetector Collision;
@@ -23,6 +22,5 @@ public class HandlerComp
     public readonly Messenger Messenger;
     public readonly Rigidbody2D Physics;
     public readonly Transform Transform;
-    public readonly CharacterHealth Health;
     public readonly BoxCollider2D CharacterColl;
 }

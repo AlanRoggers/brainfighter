@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 4812457882377997207}
   - component: {fileID: 4334192494710836912}
   - component: {fileID: 5431641278066658814}
+  - component: {fileID: 2729409355858541977}
   m_Layer: 6
   m_Name: Chie
   m_TagString: Player
@@ -100,7 +101,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 950688175
-  m_SortingLayer: 8
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: -1329910632, guid: 9cceb64bcace95e3e8bd4ecf82ea857c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -263,6 +264,20 @@ MonoBehaviour:
   Name: Chie Satonka
   forceHelper: {x: 0, y: 0}
   TurnReferece: {fileID: 0}
+--- !u!114 &2729409355858541977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 80465209494156255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c714b658dc1b77e83aedfedfa49e99ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VisualHealth: {fileID: 0}
+  Health: {fileID: 0}
 --- !u!1 &5981024358786337769
 GameObject:
   m_ObjectHideFlags: 0

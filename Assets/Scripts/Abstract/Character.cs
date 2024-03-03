@@ -7,6 +7,7 @@ using UnityEngine;
 
 public abstract class Character : Agent
 {
+    public int Health { get; private set; }
     public HandlerComp Components { get; protected set; }
     public Character Enemy;
     public string Name;
@@ -35,9 +36,9 @@ public abstract class Character : Agent
                 new Messenger(),
                 GetComponent<Rigidbody2D>(),
                 transform,
-                new CharacterHealth(100),
                 GetComponent<BoxCollider2D>()
             );
+            Health = 100;
             ground = LayerMask.GetMask("Ground");
             Components.Machine.CurrentClip = AnimationStates.Iddle;
             InputManager input = GetComponent<InputManager>();
@@ -190,7 +191,7 @@ public abstract class Character : Agent
         if (attackCoroutine != null)
             StopCoroutine(attackCoroutine);
         Components.Messenger.Hurt = true;
-        Components.Health.ReduceHealth(damage);
+        ReduceHealth(damage);
         currentCommand = null;
         if (!Components.Messenger.Crouching)
             Components.Machine.ChangeAnimation(AnimationStates.Damage);
@@ -217,7 +218,13 @@ public abstract class Character : Agent
         yield return new WaitForSeconds(stun);
         Components.Messenger.Hurt = false;
     }
-
+    private void ReduceHealth(int damage)
+    {
+        if (Health - damage > 0)
+            Health -= damage;
+        else
+            Health = 0;
+    }
     void OnDrawGizmos()
     {
         if (Components != null)
