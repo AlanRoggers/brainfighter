@@ -72,7 +72,7 @@ public class Attacks : MonoBehaviour
         if (components.msng.EnemyCollider != null && components.msng.DamageHitbox.enabled)
         {
             Components enemyComponents = components.msng.Enemy.GetComponent<Components>();
-            StartCoroutine(GetComponentInParent<GameManager>().HIT_FREEZE());
+            // StartCoroutine(GetComponentInParent<GameManager>().HIT_FREEZE());
             enemyPhys = enemyComponents.phys;
 
             if (enemyComponents.msng.IsBlocking)

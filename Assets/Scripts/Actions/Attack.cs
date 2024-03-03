@@ -9,7 +9,7 @@ public class Attack : Command
     public float CoolDown { get; private set; }
     public Vector2 Inertia { get; private set; }
     public Vector2 Force { get; private set; }
-    public int TimesDamageApplied;
+    public int TimesDamageApplied { get; private set; }
     /// <summary>
     /// Ataque
     /// </summary>

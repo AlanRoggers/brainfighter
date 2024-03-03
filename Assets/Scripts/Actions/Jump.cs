@@ -11,6 +11,5 @@ public class Jump : Action
         Vector2 force = new(components.Physics.velocity.x != 0 ? Mathf.Round(components.Physics.velocity.x) : 0, jumpForce);
         components.Physics.velocity = Vector2.zero;
         components.Physics.AddForce(force, ForceMode2D.Impulse);
-        // Physics2D.IgnoreCollision(player, enemy);
     }
 }

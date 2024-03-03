@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.MLAgents;
+using Unity.Sentis.Layers;
 using UnityEngine;
 
 public abstract class Character : Agent
@@ -12,7 +13,7 @@ public abstract class Character : Agent
     public Vector2 forceHelper;
     public Transform TurnReferece;
     private readonly Vector2 xSignHelper = new(-1, 1);
-    public LayerMask ground;
+    private LayerMask ground;
     private Vector2 bottomPos;
     private Vector2 bottomSize;
     protected Command currentCommand;
@@ -26,16 +27,18 @@ public abstract class Character : Agent
         try
         {
             Components = new HandlerComp
-            {
-                Machine = GetComponent<StateMachine>(),
-                Messenger = new Messenger(),
-                ContactLayer = gameObject.layer == 6 ? 7 : 6,
-                Physics = GetComponent<Rigidbody2D>(),
-                CircleHitBox = GetComponentInChildren<CircleCollider2D>(),
-                collision = new OverlapDetector(),
-                Transform = transform,
-                Health = new CharacterHealth(100)
-            };
+            (
+                GetComponentInChildren<CircleCollider2D>(),
+                new OverlapDetector(),
+                GetComponent<StateMachine>(),
+                Mathf.Pow(2, gameObject.layer) == 64 ? LayerMask.GetMask("Player2") : LayerMask.GetMask("Player1"),
+                new Messenger(),
+                GetComponent<Rigidbody2D>(),
+                transform,
+                new CharacterHealth(100),
+                GetComponent<BoxCollider2D>()
+            );
+            ground = LayerMask.GetMask("Ground");
             Components.Machine.CurrentClip = AnimationStates.Iddle;
             InputManager input = GetComponent<InputManager>();
             input.Messenger = Components.Messenger;
@@ -48,7 +51,7 @@ public abstract class Character : Agent
         InitActions();
         InitAttacks();
         bottomSize = new Vector2(1.1f, 0.01f);
-        bottomPos = new Vector2(12.29f, -0.15f);
+        bottomPos = new Vector2(0.075f, 0.0425f);
 
     }
     protected virtual void Update()
@@ -69,7 +72,7 @@ public abstract class Character : Agent
     }
     protected virtual void FixedUpdate()
     {
-        Components.Messenger.InGround = Components.collision.GroundDetection(transform, bottomPos, bottomSize, ground) && !Components.Messenger.Jumping;
+        Components.Messenger.InGround = Components.Collision.GroundDetection(transform, bottomPos, bottomSize, ground) && !Components.Messenger.Jumping;
         if (Components.Messenger.InGround)
             Components.Messenger.Falling = false;
 
@@ -82,7 +85,7 @@ public abstract class Character : Agent
     }
     protected virtual IEnumerator Attack(Attack attack)
     {
-        Debug.Log($"[Corrutina] {attack.ActionStates[0]}");
+        // Debug.Log($"[Corrutina] {attack.ActionStates[0]}");
         currentCommand = attack;
         Components.Messenger.Attacking = true;
         Components.Messenger.RequestedAttack = AnimationStates.Null;
@@ -95,22 +98,28 @@ public abstract class Character : Agent
         else
             Components.Physics.AddForce(attack.Inertia * xSignHelper, ForceMode2D.Impulse);
 
+        int times = attack.TimesDamageApplied;
         while (Components.Machine.CurrentTime() < 1.0f)
         {
-            if (attack.TimesDamageApplied > 0)
+            if (times > 0)
             {
-                if (Components.collision.AttackHit(Components.ContactLayer, Components.CircleHitBox))
+                if (Components.Collision.AttackHit(Components.ContactLayer, Components.CircleHitBox) && Components.CircleHitBox.enabled)
                 {
+                    if (enemyHurtCoroutine != null)
+                        StopCoroutine(enemyHurtCoroutine);
+                    Components.CircleHitBox.enabled = false;
                     if (!Enemy.Components.Messenger.Blocking)
                     {
                         Debug.Log("[Enemigo golpeado]");
                         enemyHurtCoroutine = StartCoroutine(Enemy.Hurt(attack.HitStun, attack.HitFreeze, attack.Damage, attack.Force));
-                        Vector2 current = Components.Physics.velocity;
-                        Components.Machine.Freeze(Components);
-                        yield return new WaitForSeconds(0.25f);
-                        Components.Machine.UnFreeze(Components, current);
-                        attack.TimesDamageApplied--;
-
+                        if (attack.HitFreeze)
+                        {
+                            Vector2 current = Components.Physics.velocity;
+                            Components.Machine.Freeze(Components);
+                            yield return new WaitForSeconds(0.25f);
+                            Components.Machine.UnFreeze(Components, current);
+                        }
+                        times--;
                     }
                 }
             }
@@ -152,7 +161,7 @@ public abstract class Character : Agent
     private void Fall()
     {
         // Debug.Log("[Cayendo]");
-        Components.Messenger.Falling = Components.Physics.velocity.y < 0 && !Components.Messenger.Hurt && !Components.Messenger.Attacking;
+        Components.Messenger.Falling = Components.Physics.velocity.y < -1 && !Components.Messenger.Hurt && !Components.Messenger.Attacking;
 
         if (Components.Messenger.Falling)
         {
@@ -169,11 +178,17 @@ public abstract class Character : Agent
     {
         float signDistance = MathF.Sign(transform.localPosition.x - TurnReferece.localPosition.x);
         if (MathF.Sign(transform.localScale.x) == signDistance && !Components.Messenger.Attacking)
+        {
+            Debug.Log("[Orientacion]");
             transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
+        }
+
     }
     public IEnumerator Hurt(float stun, bool freeze, int damage, Vector2 force)
     {
-        StopCoroutine(attackCoroutine);
+        Debug.Log($"[{Name} Herido]");
+        if (attackCoroutine != null)
+            StopCoroutine(attackCoroutine);
         Components.Messenger.Hurt = true;
         Components.Health.ReduceHealth(damage);
         currentCommand = null;
@@ -212,7 +227,7 @@ public abstract class Character : Agent
             else
                 Gizmos.color = Color.red;
 
-            Gizmos.DrawWireCube((Vector2)transform.localPosition + bottomPos, bottomSize);
+            Gizmos.DrawWireCube((Vector2)transform.position + bottomPos, bottomSize);
             // if (Components.msng.EnemyCollider != null)
             //     Gizmos.color = Color.green;
             // else
@@ -224,7 +239,7 @@ public abstract class Character : Agent
         else
         {
             Gizmos.color = Color.magenta;
-            Gizmos.DrawWireCube((Vector2)transform.localPosition + bottomPos, bottomSize);
+            Gizmos.DrawWireCube((Vector2)transform.position + bottomPos, bottomSize);
         }
     }
 }
