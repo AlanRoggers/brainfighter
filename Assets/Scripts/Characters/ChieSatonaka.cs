@@ -42,7 +42,12 @@ public class ChieSatonaka : Character
                     break;
             }
         }
-
+        if (Components.Messenger.Blocking)
+        {
+            if (currentCommand != actions[AnimationStates.Block])
+                Components.Machine.ChangeAnimation(AnimationStates.Block);
+            currentCommand = actions[AnimationStates.Block];
+        }
     }
     protected override void FixedUpdate()
     {
@@ -83,6 +88,7 @@ public class ChieSatonaka : Character
             { AnimationStates.GoingBackwards, new Back(10f, 500f, new List<AnimationStates>(){AnimationStates.StartGoingBackwards, AnimationStates.GoingBackwards}) },
             { AnimationStates.Jump, new Jump(22.5f, new List<AnimationStates>(){AnimationStates.StartJumping, AnimationStates.Jump}) },
             { AnimationStates.Fall , new Fall(new List<AnimationStates>(){AnimationStates.StartFalling, AnimationStates.Fall}) },
+            { AnimationStates.Block , new Block(new List<AnimationStates>(){AnimationStates.Block, AnimationStates.BlockWhileCrouch}) },
         };
     }
     protected override void InitAttacks()

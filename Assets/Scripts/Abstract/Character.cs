@@ -57,10 +57,16 @@ public abstract class Character : Agent
     }
     protected virtual void Update()
     {
-        if (Components.Messenger.InGround)
-        {
-            // Debug.Log("[En piso]");
-        }
+        // Condiciones para que el personaje bloquee en caso de que apriete el Input (Input Manager involucrado tambien)
+        Components.Messenger.DistanceForBlock = BlockOrNot();
+        // if (gameObject.layer == 7)
+        // {
+        //     if (Input.GetKeyDown(KeyCode.LeftArrow))
+        //     {
+        //         Components.Messenger.Attacking = true;
+        //         attackCoroutine = StartCoroutine(Attack(attacks[AnimationStates.SpecialPunch]));
+        //     }
+        // }
     }
     protected virtual void LateUpdate()
     {
@@ -102,7 +108,7 @@ public abstract class Character : Agent
         int times = attack.TimesDamageApplied;
         while (Components.Machine.CurrentTime() < 1.0f)
         {
-            if (times > 0)
+            if (times > 0 && !Enemy.Components.Messenger.Blocking)
             {
                 if (Components.Collision.AttackHit(Components.ContactLayer, Components.CircleHitBox) && Components.CircleHitBox.enabled)
                 {
@@ -148,7 +154,7 @@ public abstract class Character : Agent
     {
         bool iddle = !Components.Messenger.Attacking && !Components.Messenger.Hurt &&
         Components.Messenger.Walking == 0 && !Components.Messenger.Jumping &&
-        !Components.Messenger.Falling;
+        !Components.Messenger.Falling && !Components.Messenger.Blocking;
 
         // Estado virtual
         if (iddle)
@@ -184,6 +190,11 @@ public abstract class Character : Agent
             transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
         }
 
+    }
+    private bool BlockOrNot()
+    {
+        // Debug.Log($"Distancia entre los changos: {Vector2.Distance(transform.localPosition, Enemy.transform.localPosition)}");
+        return Vector2.Distance(transform.localPosition, Enemy.transform.localPosition) < 3f && Enemy.Components.Messenger.Attacking;
     }
     public IEnumerator Hurt(float stun, bool freeze, int damage, Vector2 force)
     {

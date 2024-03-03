@@ -9,15 +9,39 @@ public class InputManager : MonoBehaviour
     {
         if (!ArtificialInteligence)
         {
-            Walk();
             Punches();
             Kicks();
-            if (Input.GetKeyDown(KeyCode.Space) && !ActionsGeneralRestrictions() && Messenger.InGround)
-                Messenger.Jumping = true;
+            Walk();
+            Jump();
+
+            if (transform.localScale.x > 0)
+            {
+                if (Input.GetKey(KeyCode.A) && Messenger.DistanceForBlock)
+                    Messenger.Blocking = true;
+                else
+                    Messenger.Blocking = false;
+            }
+            else if (transform.localScale.x < 0)
+            {
+                if (Input.GetKey(KeyCode.D) && Messenger.DistanceForBlock)
+                    Messenger.Blocking = true;
+                else
+                    Messenger.Blocking = false;
+            }
+
+            if (Input.GetKey(KeyCode.S))
+                Messenger.Crouching = true;
+            else
+                Messenger.Crouching = false;
         }
     }
-    private bool AttackGeneralRestrictions() => Messenger.Hurt || Messenger.Attacking || Messenger.InCooldown;
-    private bool ActionsGeneralRestrictions() => Messenger.Attacking || Messenger.Hurt;
+    private bool AttackGeneralRestrictions() => Messenger.Hurt || Messenger.Attacking || Messenger.InCooldown || Messenger.Blocking;
+    private bool ActionsGeneralRestrictions() => Messenger.Attacking || Messenger.Hurt || Messenger.Blocking;
+    private void Jump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && !ActionsGeneralRestrictions() && Messenger.InGround)
+            Messenger.Jumping = true;
+    }
     private void Walk()
     {
         if (!ActionsGeneralRestrictions())

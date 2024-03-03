@@ -17,6 +17,7 @@ public class Messenger
     public bool Jumping;
     public bool Crouching;
     public bool Blocking;
+    public bool DistanceForBlock;
     public sbyte Walking;
     public sbyte ComboCount;
     public AnimationStates RequestedAttack;
