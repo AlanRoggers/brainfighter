@@ -13,7 +13,6 @@ public class Crouch : Action
     }
     public override void Transitions(StateMachine animator, Messenger msng)
     {
-        Debug.Log("Transiciones de Crouch");
         int auxiliarIndex = ActionStates.IndexOf(animator.CurrentClip);
         if (auxiliarIndex != -1)
         {

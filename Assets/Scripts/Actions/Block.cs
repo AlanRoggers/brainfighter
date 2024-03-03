@@ -10,7 +10,7 @@ public class Block : Action
 
     public override void Execute(HandlerComp components)
     {
-        Debug.Log("[Esta acción no se usa asi]");
+        Debug.LogError("[Esta acción no se usa asi]");
     }
     public override void Transitions(StateMachine animator, Messenger msng)
     {

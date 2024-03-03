@@ -16,6 +16,7 @@ public abstract class Character : MonoBehaviour
     public string Name;
     public Transform TurnReferece;
     public Vector2 forceHelper;
+    public Vector2 size;
     #endregion
 
     #region Variables Privadas
@@ -23,6 +24,8 @@ public abstract class Character : MonoBehaviour
     private readonly Vector2 xSignHelper = new(-1, 1);
     private readonly Vector2 sizeColl = new(1.098f, 4.328f);
     private readonly Vector2 offsetColl = new(0.071f, 2.605f);
+    private readonly Vector2 enemyDetectorSize = new(1, 3);
+    private Vector2 enemyDetectorPos = new(0.3f, 2.5f);
     private Vector2 bottomPos;
     private Vector2 bottomSize;
     private Command auxiliar = null;
@@ -32,6 +35,7 @@ public abstract class Character : MonoBehaviour
     protected Command currentCommand;
     protected Coroutine attackC;
     protected Coroutine enemyHurtC;
+    protected Coroutine incapacitedC;
     protected Dictionary<AnimationStates, Action> actions;
     protected Dictionary<AnimationStates, Attack> attacks;
     #endregion
@@ -61,22 +65,27 @@ public abstract class Character : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.Log($"[Error en la inicialización del personaje] {e}");
+            Debug.LogError($"[Error en la inicialización del personaje] {e}");
         }
         InitActions();
         InitAttacks();
         bottomSize = new Vector2(1.1f, 0.01f);
         bottomPos = new Vector2(0.075f, 0.0425f);
-
+        Resistance = 50;
     }
 
     protected virtual void Update()
     {
-        if (gameObject.layer == 6)
-            Debug.Log($"Estado de Mexico {currentCommand}");
+
+        Components.Messenger.OverlappingEnemy = Components.Collision.EnemyOverlapping((Vector2)transform.position + enemyDetectorPos,
+            enemyDetectorSize, Mathf.Pow(2, gameObject.layer) == LayerMask.GetMask("Player1") ? LayerMask.GetMask("Player2") : LayerMask.GetMask("Player1"));
+
+        // if (gameObject.layer == 6)
+        //     StatePrinter();
         // Condiciones para que el personaje bloquee en caso de que apriete el Input (Input Manager involucrado tambien)
         Components.Messenger.DistanceForBlock = BlockOrNot();
-
+        Debug.Log($"[Resistencia] {Resistance}");
+        Incapacited();
         if (!Components.Messenger.Crouching && Components.CharacterColl.size != sizeColl)
         {
             Components.CharacterColl.size = sizeColl;
@@ -97,9 +106,9 @@ public abstract class Character : MonoBehaviour
         // Mantener siempre comprobandose las transiciones del estado actual
         currentCommand?.Transitions(Components.Machine, Components.Messenger);
         // Estados virtuales
-        Iddle();
         Fall();
         Orientation();
+        Iddle();
     }
 
     protected virtual void FixedUpdate()
@@ -114,12 +123,16 @@ public abstract class Character : MonoBehaviour
     {
         if (Components != null)
         {
-            if (Components.Messenger.InGround)
+            if (Components.Messenger.OverlappingEnemy)
                 Gizmos.color = Color.green;
             else
                 Gizmos.color = Color.red;
 
-            Gizmos.DrawWireCube((Vector2)transform.position + bottomPos, bottomSize);
+
+            Gizmos.DrawWireCube((Vector2)transform.position + enemyDetectorPos, enemyDetectorSize);
+
+
+            // Gizmos.DrawWireCube((Vector2)transform.position + bottomPos, bottomSize);
             // if (Components.msng.EnemyCollider != null)
             //     Gizmos.color = Color.green;
             // else
@@ -142,12 +155,12 @@ public abstract class Character : MonoBehaviour
         bool iddle = !Components.Messenger.Attacking && !Components.Messenger.Hurt &&
         Components.Messenger.Walking == 0 && !Components.Messenger.Jumping &&
         !Components.Messenger.Falling && !Components.Messenger.Blocking &&
-        !Components.Messenger.Crouching;
+        !Components.Messenger.Crouching && !Components.Messenger.Incapacited;
 
-        // Estado virtual
-        if (iddle)
+        if (iddle && Components.Machine.CurrentClip != AnimationStates.Iddle)
         {
-            // Debug.Log("[Iddle]");
+            if (gameObject.layer == 6)
+                Debug.Log("Se cambio a Iddle");
             Components.Machine.ChangeAnimation(AnimationStates.Iddle);
             currentCommand = null;
             StopWalk();
@@ -156,7 +169,6 @@ public abstract class Character : MonoBehaviour
 
     private void Fall()
     {
-        // Debug.Log("[Cayendo]");
         Components.Messenger.Falling = Components.Physics.velocity.y < -1 && !Components.Messenger.Hurt && !Components.Messenger.Attacking;
 
         if (Components.Messenger.Falling)
@@ -176,28 +188,41 @@ public abstract class Character : MonoBehaviour
         float signDistance = MathF.Sign(transform.localPosition.x - TurnReferece.localPosition.x);
         if (MathF.Sign(transform.localScale.x) == signDistance && !Components.Messenger.Attacking && !Components.Messenger.Blocking)
         {
-            Debug.Log("[Orientacion]");
             transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
+            enemyDetectorPos *= xSignHelper;
         }
 
     }
 
     private bool BlockOrNot()
     {
-        // Debug.Log($"Distancia entre los changos: {Vector2.Distance(transform.localPosition, Enemy.transform.localPosition)}");
-        return Vector2.Distance(transform.localPosition, Enemy.transform.localPosition) < 3.2f && Enemy.Components.Messenger.Attacking;
+        return Vector2.Distance(transform.localPosition, Enemy.transform.localPosition) < 3.8f && Enemy.Components.Messenger.Attacking && Resistance >= 0;
     }
 
-    protected virtual void StopWalk()
+    protected void StopWalk()
     {
-        // Debug.Log("[StopWalk]");
         Components.Messenger.Walking = 0;
         Components.Physics.velocity = new Vector2(0, Components.Physics.velocity.y);
     }
 
+    private void Incapacited()
+    {
+        if (Resistance < 0)
+        {
+            Debug.Log("Incapacitado");
+            Components.Messenger.Incapacited = true;
+            Components.Messenger.Falling = Components.Messenger.Attacking = Components.Messenger.InCooldown = Components.Messenger.Hurt = false;
+            Components.Messenger.Jumping = Components.Messenger.Crouching = Components.Messenger.Blocking = false;
+            Components.Messenger.Walking = 0;
+            Components.Machine.ChangeAnimation(AnimationStates.Incapacite);
+            Resistance = 10;
+            incapacitedC = StartCoroutine(IncapacitedTime());
+            currentCommand = null;
+        }
+    }
+
     public IEnumerator Hurt(float stun, bool freeze, int damage, float freezeTime, Vector2 force)
     {
-        Debug.Log($"[{Name} Herido]");
         if (attackC != null)
             StopCoroutine(attackC);
         Components.Messenger.Hurt = true;
@@ -212,7 +237,6 @@ public abstract class Character : MonoBehaviour
             Components.Machine.ChangeAnimation(AnimationStates.Damage);
         else
         {
-            Debug.Log("daño agachado");
             Components.Machine.ChangeAnimation(AnimationStates.DamageWhileCrouch);
         }
         yield return new WaitForEndOfFrame();
@@ -242,6 +266,11 @@ public abstract class Character : MonoBehaviour
         auxiliar = null;
     }
 
+    private IEnumerator IncapacitedTime()
+    {
+        yield return new WaitForSeconds(1);
+        Components.Messenger.Incapacited = false;
+    }
     #endregion
 
     protected void InterruptAttack()
@@ -252,10 +281,6 @@ public abstract class Character : MonoBehaviour
         Components.Messenger.InCooldown = false;
     }
 
-    protected void InterruptHurt()
-    {
-
-    }
     private void ReduceHealth(int damage)
     {
         if (Health - damage > 0)
@@ -264,19 +289,27 @@ public abstract class Character : MonoBehaviour
             Health = 0;
     }
 
-    private void ReduceResistance(int value)
+    public void ReduceResistance(int value)
     {
+        if (Resistance < 0)
+            return;
+
         Resistance -= value;
     }
 
-    private void GainResistance()
+    private void GainResistance(int value)
     {
-        Resistance += 10;
+        if (Resistance >= 50)
+            return;
+
+        if (Resistance + value < 50)
+            Resistance += value;
+        else
+            Resistance = 50;
     }
 
     protected virtual IEnumerator Attack(Attack attack)
     {
-        // Debug.Log($"[Corrutina] {attack.ActionStates[0]}");
         currentCommand = attack;
         Components.Messenger.Attacking = true;
         Components.Messenger.RequestedAttack = AnimationStates.Null;
@@ -292,16 +325,23 @@ public abstract class Character : MonoBehaviour
         int times = attack.TimesDamageApplied;
         while (Components.Machine.CurrentTime() < 1.0f)
         {
-            if (times > 0 && !Enemy.Components.Messenger.Blocking)
+            if (times > 0)
             {
                 if (Components.Collision.AttackHit(Components.ContactLayer, Components.CircleHitBox) && Components.CircleHitBox.enabled)
                 {
-                    if (enemyHurtC != null)
-                        StopCoroutine(enemyHurtC);
-                    Components.CircleHitBox.enabled = false;
-                    if (!Enemy.Components.Messenger.Blocking)
+                    if (!Enemy.Components.Messenger.Blocking && !Enemy.Components.Messenger.Immune)
                     {
-                        Debug.Log("[Enemigo golpeado]");
+                        if (Enemy.Components.Messenger.Incapacited)
+                        {
+                            if (incapacitedC != null)
+                                StopCoroutine(incapacitedC);
+                            Enemy.Components.Messenger.Incapacited = false;
+                            StartCoroutine(Enemy.Immune());
+                        }
+
+                        if (enemyHurtC != null)
+                            StopCoroutine(enemyHurtC);
+
                         enemyHurtC = StartCoroutine(Enemy.Hurt(attack.HitStun, attack.HitFreeze, attack.Damage, attack.HitFreezeTimer, attack.Force));
                         if (attack.HitFreeze)
                         {
@@ -310,8 +350,12 @@ public abstract class Character : MonoBehaviour
                             yield return new WaitForSeconds(attack.HitFreezeTimer);
                             Components.Machine.UnFreeze(Components, current);
                         }
-                        times--;
                     }
+                    else if (!Enemy.Components.Messenger.Immune)
+                        Enemy.ReduceResistance(attack.Damage);
+                    times--;
+                    GainResistance(attack.ResistanceGained);
+                    yield return new WaitForSeconds(0.2f);
                 }
             }
             yield return null;
@@ -326,4 +370,38 @@ public abstract class Character : MonoBehaviour
         Components.Messenger.InCooldown = false;
 
     }
+
+    public IEnumerator Immune()
+    {
+        Components.Messenger.Immune = true;
+        SpriteRenderer sp = GetComponent<SpriteRenderer>();
+        Color color = sp.color;
+        color.a = 0.5f;
+        sp.color = color;
+        yield return new WaitForSeconds(3f);
+        Components.Messenger.Immune = false;
+        color.a = 1f;
+        sp.color = color;
+    }
+
+    private void StatePrinter()
+    {
+        if (Components.Messenger.Attacking)
+            Debug.Log("Atacando");
+        if (Components.Messenger.Blocking)
+            Debug.Log("Bloqueando");
+        if (Components.Messenger.Crouching)
+            Debug.Log("Agachado");
+        if (Components.Messenger.Falling)
+            Debug.Log("Cayendo");
+        if (Components.Messenger.Hurt)
+            Debug.Log("Herido");
+        if (Components.Messenger.Incapacited)
+            Debug.Log("Incapacitado");
+        if (Components.Messenger.Jumping)
+            Debug.Log("Saltando");
+        if (Components.Messenger.Walking != 0)
+            Debug.Log("Caminando");
+    }
+
 }

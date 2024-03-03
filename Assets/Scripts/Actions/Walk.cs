@@ -19,20 +19,26 @@ public class Walk : Action
     /// <param name="components">Componentes del personaje que podrían ser necesarios para ejecutar la acción</param>
     public override void Execute(HandlerComp components)
     {
-        // Debug.Log($"[Caminando]");
-        if (Mathf.Sign(components.Transform.localScale.x) == 1)
+        if (!components.Messenger.OverlappingEnemy)
         {
-            if (MathF.Sign(components.Physics.velocity.x) < 0)
-                components.Physics.velocity = new Vector2(0, components.Physics.velocity.y);
+            if (Mathf.Sign(components.Transform.localScale.x) == 1)
+            {
+                if (MathF.Sign(components.Physics.velocity.x) < 0)
+                    components.Physics.velocity = new Vector2(0, components.Physics.velocity.y);
+            }
+            else
+            {
+                if (MathF.Sign(components.Physics.velocity.x) > 0)
+                    components.Physics.velocity = new Vector2(0, components.Physics.velocity.y);
+            }
+            float force = components.Physics.mass * maxForce * (maxSpeed - Mathf.Abs(components.Physics.velocity.x)) * Time.deltaTime * Mathf.Sign(components.Transform.localScale.x);
+            components.Physics.AddForce(new Vector2(force, 0));
         }
         else
-        {
-            if (MathF.Sign(components.Physics.velocity.x) > 0)
-                components.Physics.velocity = new Vector2(0, components.Physics.velocity.y);
-        }
+            components.Physics.velocity = new Vector2(components.Transform.localScale.x > 0 ? 1 : -1, components.Physics.velocity.y);
 
-        float force = components.Physics.mass * maxForce * (maxSpeed - Mathf.Abs(components.Physics.velocity.x)) * Time.deltaTime * Mathf.Sign(components.Transform.localScale.x);
 
-        components.Physics.AddForce(new Vector2(force, 0));
+
+
     }
 }

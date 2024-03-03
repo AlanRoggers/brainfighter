@@ -19,8 +19,6 @@ public class Back : Action
     /// <param name="components"></param>
     public override void Execute(HandlerComp components)
     {
-        // Debug.Log($"[Retrocediendo]");
-
         if (Mathf.Sign(components.Transform.localScale.x) == 1)
         {
             if (MathF.Sign(components.Physics.velocity.x) > 0)

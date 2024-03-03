@@ -17,11 +17,11 @@ public class InputManager : MonoBehaviour
             Crouch();
         }
     }
-    private bool AttackGeneralRestrictions() => Messenger.Hurt || Messenger.Attacking || Messenger.InCooldown || Messenger.Blocking;
-    private bool ActionsGeneralRestrictions() => Messenger.Attacking || Messenger.Hurt || Messenger.Blocking || Messenger.Crouching;
+    private bool AttackGeneralRestrictions() => Messenger.Hurt || Messenger.Attacking || Messenger.InCooldown || Messenger.Blocking || Messenger.Incapacited;
+    private bool ActionsGeneralRestrictions() => Messenger.Attacking || Messenger.Hurt || Messenger.Blocking || Messenger.Crouching || Messenger.Incapacited;
     private void Crouch()
     {
-        if (!Messenger.Attacking && !Messenger.Hurt)
+        if (!Messenger.Attacking && !Messenger.Hurt && !Messenger.Incapacited)
         {
             if (Input.GetKey(KeyCode.S))
                 Messenger.Crouching = true;
@@ -31,7 +31,7 @@ public class InputManager : MonoBehaviour
     }
     private void Block()
     {
-        if (!Messenger.Attacking && !Messenger.Hurt)
+        if (!Messenger.Attacking && !Messenger.Hurt && !Messenger.Incapacited)
         {
             if (transform.localScale.x > 0)
             {
@@ -91,7 +91,6 @@ public class InputManager : MonoBehaviour
         {
             if (Machine.CurrentClip == AnimationStates.ChainLowPunch)
             {
-                Debug.Log("[Combo]");
                 Messenger.ComboCount++;
             }
 
@@ -102,7 +101,6 @@ public class InputManager : MonoBehaviour
         {
             if (Machine.CurrentClip == AnimationStates.ChainMiddlePunch)
             {
-                Debug.Log("[Combo]");
                 Messenger.ComboCount++;
             }
 
@@ -111,9 +109,6 @@ public class InputManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.P) && Machine.CurrentClip == AnimationStates.ChainHardPunch && Messenger.ComboCount >= 2)
         {
-            if (Machine.CurrentClip == AnimationStates.ChainHardPunch)
-                Debug.Log("[Combo]");
-
             Messenger.RequestedAttack = AnimationStates.SpecialPunch;
         }
     }
@@ -126,7 +121,6 @@ public class InputManager : MonoBehaviour
         {
             if (Machine.CurrentClip == AnimationStates.ChainLowKick)
             {
-                Debug.Log("[Combo]");
                 Messenger.ComboCount++;
             }
 
@@ -137,7 +131,6 @@ public class InputManager : MonoBehaviour
         {
             if (Machine.CurrentClip == AnimationStates.ChainMiddleKick)
             {
-                Debug.Log("[Combo]");
                 Messenger.ComboCount++;
             }
 
@@ -147,9 +140,8 @@ public class InputManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Semicolon) && Machine.CurrentClip == AnimationStates.ChainHardKick && Messenger.ComboCount >= 2)
         {
             if (Machine.CurrentClip == AnimationStates.ChainHardKick)
-                Debug.Log("[Combo]");
 
-            Messenger.RequestedAttack = AnimationStates.SpecialKick;
+                Messenger.RequestedAttack = AnimationStates.SpecialKick;
         }
     }
 }
