@@ -79,7 +79,7 @@ public class PlayerHealth : MonoBehaviour
     }
     IEnumerator RECOVER_OF_STUNT()
     {
-        yield return new WaitForSecondsRealtime(1.6f);
+        yield return new WaitForSeconds(1.6f);
         components.msng.Stuned = false;
         hitTolerance = 2;
     }

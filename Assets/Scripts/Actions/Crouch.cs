@@ -3,12 +3,13 @@ using UnityEngine;
 
 public class Crouch : Action
 {
+    private readonly Vector2 sizeColl = new(1.098f, 2.642f);
+    private readonly Vector2 offsetColl = new(0.071f, 1.762f);
     public Crouch(List<AnimationStates> actionStates) : base(actionStates) { }
-
     public override void Execute(HandlerComp components)
     {
-        components.CharacterColl.size = new Vector2(1.098f, 2.642f);
-        components.CharacterColl.offset = new Vector2(0.071f, 1.762f);
+        components.CharacterColl.size = sizeColl;
+        components.CharacterColl.offset = offsetColl;
     }
     public override void Transitions(StateMachine animator, Messenger msng)
     {

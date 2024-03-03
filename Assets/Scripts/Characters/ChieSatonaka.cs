@@ -9,36 +9,36 @@ public class ChieSatonaka : Character
         if (Components.Messenger.RequestedAttack != AnimationStates.Null)
         {
             StopWalk();
-            if (attackCoroutine != null)
+            if (attackC != null)
             {
-                StopCoroutine(attackCoroutine);
-                InterruptCoroutine();
+                StopCoroutine(attackC);
+                InterruptAttack();
             }
             switch (Components.Messenger.RequestedAttack)
             {
                 case AnimationStates.LowPunch:
-                    attackCoroutine = StartCoroutine(Attack(attacks[AnimationStates.LowPunch]));
+                    attackC = StartCoroutine(Attack(attacks[AnimationStates.LowPunch]));
                     break;
                 case AnimationStates.MiddlePunch:
-                    attackCoroutine = StartCoroutine(Attack(attacks[AnimationStates.MiddlePunch]));
+                    attackC = StartCoroutine(Attack(attacks[AnimationStates.MiddlePunch]));
                     break;
                 case AnimationStates.HardPunch:
-                    attackCoroutine = StartCoroutine(Attack(attacks[AnimationStates.HardPunch]));
+                    attackC = StartCoroutine(Attack(attacks[AnimationStates.HardPunch]));
                     break;
                 case AnimationStates.SpecialPunch:
-                    attackCoroutine = StartCoroutine(Attack(attacks[AnimationStates.SpecialPunch]));
+                    attackC = StartCoroutine(Attack(attacks[AnimationStates.SpecialPunch]));
                     break;
                 case AnimationStates.LowKick:
-                    attackCoroutine = StartCoroutine(Attack(attacks[AnimationStates.LowKick]));
+                    attackC = StartCoroutine(Attack(attacks[AnimationStates.LowKick]));
                     break;
                 case AnimationStates.MiddleKick:
-                    attackCoroutine = StartCoroutine(Attack(attacks[AnimationStates.MiddleKick]));
+                    attackC = StartCoroutine(Attack(attacks[AnimationStates.MiddleKick]));
                     break;
                 case AnimationStates.HardKick:
-                    attackCoroutine = StartCoroutine(Attack(attacks[AnimationStates.HardKick]));
+                    attackC = StartCoroutine(Attack(attacks[AnimationStates.HardKick]));
                     break;
                 case AnimationStates.SpecialKick:
-                    attackCoroutine = StartCoroutine(Attack(attacks[AnimationStates.SpecialKick]));
+                    attackC = StartCoroutine(Attack(attacks[AnimationStates.SpecialKick]));
                     break;
             }
         }
@@ -59,6 +59,7 @@ public class ChieSatonaka : Character
             }
         }
     }
+
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
@@ -94,6 +95,7 @@ public class ChieSatonaka : Character
             }
         }
     }
+
     protected override void InitActions()
     {
         actions = new Dictionary<AnimationStates, Action>
@@ -106,6 +108,7 @@ public class ChieSatonaka : Character
             { AnimationStates.Crouch , new Crouch(new List<AnimationStates>(){AnimationStates.StartCrouching,AnimationStates.Crouch}) },
         };
     }
+
     protected override void InitAttacks()
     {
         attacks = new Dictionary<AnimationStates, Attack>
@@ -117,8 +120,10 @@ public class ChieSatonaka : Character
                     hitF: false,
                     dmg: 3,
                     timeDmg: 1,
+                    resGained: 2,
                     hitS: 0.2f,
                     cd: 0.1f,
+                    hitFT:0.25f,
                     inertia: new Vector2(-1.5f, 0),
                     force: new Vector2(1.5f, 0),
                     actionStates: new List<AnimationStates>(){AnimationStates.LowPunch,AnimationStates.ChainLowPunch}
@@ -131,8 +136,10 @@ public class ChieSatonaka : Character
                     hitF: true,
                     dmg: 5,
                     timeDmg: 1,
+                    resGained: 2,
                     hitS: 0.3f,
                     cd: 0.4f,
+                    hitFT:0.25f,
                     inertia: new Vector2(0.5f,0),
                     force: new Vector2(0,12),
                     actionStates: new List<AnimationStates>(){AnimationStates.MiddlePunch,AnimationStates.ChainMiddlePunch}
@@ -145,8 +152,10 @@ public class ChieSatonaka : Character
                     hitF: true,
                     dmg: 7,
                     timeDmg: 1,
+                    resGained: 2,
                     hitS: 0.5f,
                     cd: 0.8f,
+                    hitFT:0.25f,
                     inertia: new Vector2(1,4),
                     force: new Vector2(10,0),
                     actionStates: new List<AnimationStates>(){AnimationStates.HardPunch,AnimationStates.ChainHardPunch}
@@ -159,8 +168,10 @@ public class ChieSatonaka : Character
                     hitF: true,
                     dmg: 10,
                     timeDmg: 1,
+                    resGained: 2,
                     hitS: 1f,
                     cd: 1f,
+                    hitFT:0.25f,
                     inertia: new Vector2(6,13.3f),
                     force: new Vector2(1.5f,15),
                     actionStates: new List<AnimationStates>(){AnimationStates.SpecialPunch,AnimationStates.ChainSpecialPunch}
@@ -173,8 +184,10 @@ public class ChieSatonaka : Character
                     hitF: false,
                     dmg: 4,
                     timeDmg: 1,
+                    resGained: 2,
                     hitS: 0.35f,
                     cd: 0.3f,
+                    hitFT:0.25f,
                     inertia: new Vector2(-0.5f,7.5f),
                     force: new Vector2(3.5f,0),
                     actionStates: new List<AnimationStates>(){AnimationStates.LowKick,AnimationStates.ChainLowKick}
@@ -187,8 +200,10 @@ public class ChieSatonaka : Character
                     hitF: true,
                     dmg: 6,
                     timeDmg: 1,
+                    resGained: 2,
                     hitS: 0.3f,
                     cd: 0.55f,
+                    hitFT:0.25f,
                     inertia: new Vector2(0,8),
                     force: new Vector2(0,10),
                     actionStates: new List<AnimationStates>(){AnimationStates.MiddleKick,AnimationStates.ChainMiddleKick}
@@ -201,8 +216,10 @@ public class ChieSatonaka : Character
                     hitF: true,
                     dmg: 8,
                     timeDmg: 1,
+                    resGained: 2,
                     hitS: 0.5f,
                     cd: 0.85f,
+                    hitFT:0.25f,
                     inertia: new Vector2(1.9f,10),
                     force: new Vector2(5,0),
                     actionStates: new List<AnimationStates>(){AnimationStates.HardKick,AnimationStates.ChainHardKick}
@@ -215,8 +232,10 @@ public class ChieSatonaka : Character
                     hitF: true,
                     dmg: 11,
                     timeDmg: 2,
+                    resGained: 2,
                     hitS: 1f,
                     cd: 1f,
+                    hitFT:0.25f,
                     inertia: new Vector2(-0.5f,5),
                     force: new Vector2(0,10),
                     actionStates: new List<AnimationStates>(){AnimationStates.SpecialKick,AnimationStates.ChainSpecialKick}
