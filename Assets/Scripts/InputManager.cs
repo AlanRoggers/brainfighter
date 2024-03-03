@@ -17,7 +17,7 @@ public class InputManager : MonoBehaviour
             Crouch();
         }
     }
-    private bool AttackGeneralRestrictions() => Messenger.Hurt || Messenger.Attacking || Messenger.InCooldown || Messenger.Blocking || Messenger.Incapacited;
+    private bool AttackGeneralRestrictions() => Messenger.Hurt || Messenger.Attacking || Messenger.InCooldown || Messenger.Blocking || Messenger.Incapacited || !Messenger.InGround;
     private bool ActionsGeneralRestrictions() => Messenger.Attacking || Messenger.Hurt || Messenger.Blocking || Messenger.Crouching || Messenger.Incapacited;
     private void Crouch()
     {
@@ -31,7 +31,7 @@ public class InputManager : MonoBehaviour
     }
     private void Block()
     {
-        if (!Messenger.Attacking && !Messenger.Hurt && !Messenger.Incapacited)
+        if (!Messenger.Attacking && !Messenger.Hurt && !Messenger.Incapacited && !Messenger.InCooldown)
         {
             if (transform.localScale.x > 0)
             {
@@ -84,8 +84,24 @@ public class InputManager : MonoBehaviour
     }
     private void Punches()
     {
-        if (Input.GetKeyDown(KeyCode.U) && !AttackGeneralRestrictions())
-            Messenger.RequestedAttack = AnimationStates.LowPunch;
+        if (Input.GetKeyDown(KeyCode.U))
+            if (!AttackGeneralRestrictions())
+                Messenger.RequestedAttack = AnimationStates.LowPunch;
+            else
+            {
+                if (Messenger.Hurt)
+                    Debug.Log("No ataca por culpa de Hurt");
+                if (Messenger.Attacking)
+                    Debug.Log("No ataca por culpa de Atackking");
+                if (Messenger.InCooldown)
+                    Debug.Log("No ataca por culpa de InCooldown");
+                if (Messenger.Blocking)
+                    Debug.Log("No ataca por culpa de Blocking");
+                if (Messenger.Incapacited)
+                    Debug.Log("No ataca por culpa de InCapacited");
+                if (!Messenger.InGround)
+                    Debug.Log("No ataca por culpa de InGround");
+            }
 
         if (Input.GetKeyDown(KeyCode.I) && (!AttackGeneralRestrictions() || Machine.CurrentClip == AnimationStates.ChainLowPunch))
         {

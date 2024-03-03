@@ -80,8 +80,8 @@ public abstract class Character : MonoBehaviour
         Components.Messenger.OverlappingEnemy = Components.Collision.EnemyOverlapping((Vector2)transform.position + enemyDetectorPos,
             enemyDetectorSize, Mathf.Pow(2, gameObject.layer) == LayerMask.GetMask("Player1") ? LayerMask.GetMask("Player2") : LayerMask.GetMask("Player1"));
 
-        // if (gameObject.layer == 6)
-        //     StatePrinter();
+        if (gameObject.layer == 6)
+            StatePrinter();
         // Condiciones para que el personaje bloquee en caso de que apriete el Input (Input Manager involucrado tambien)
         Components.Messenger.DistanceForBlock = BlockOrNot();
         Debug.Log($"[Resistencia] {Resistance}");
@@ -93,7 +93,7 @@ public abstract class Character : MonoBehaviour
         }
         if (gameObject.layer == 7)
         {
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKeyDown(KeyCode.LeftArrow) && !Components.Messenger.Hurt && !Components.Messenger.Attacking)
             {
                 Components.Messenger.Attacking = true;
                 attackC = StartCoroutine(Attack(attacks[AnimationStates.SpecialPunch]));
@@ -225,6 +225,8 @@ public abstract class Character : MonoBehaviour
     {
         if (attackC != null)
             StopCoroutine(attackC);
+        Components.Messenger.Attacking = false;
+        Components.Messenger.InCooldown = false;
         Components.Messenger.Hurt = true;
         Components.Physics.velocity = Vector2.zero;
         ReduceHealth(damage);
@@ -257,7 +259,12 @@ public abstract class Character : MonoBehaviour
         }
 
         yield return new WaitUntil(() => Components.Machine.CurrentTime() > 1.0f);
-        yield return new WaitForSeconds(stun);
+        int framesWaiting = (int)stun;
+        while (framesWaiting > 0)
+        {
+            framesWaiting--;
+            yield return new WaitForEndOfFrame();
+        }
         Components.Messenger.Hurt = false;
 
         if (auxiliar != null)

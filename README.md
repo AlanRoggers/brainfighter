@@ -345,3 +345,50 @@ FixedUpdate se utiliza para ejecutar acciones que tengan que ver con movimientos
 que no tengan que ver con ataques
 
 Update se utiliza para ejecutar los ataques porque la ejecución de un ataque es una corrutina
+
+
+
+Tuneo de parametros de los golpes:
+
+Cada golpe puede proporcionar su propio tiempo de stun al enemigo, este tiempo se aplica al final del tiempo de animación del daño, como no queremos dar tanta ventaja a esto los valores tendrán que ser muy 
+cercanos. La cantidad de daño que se realice debe elevar la cantidad de tiempo que se debe esperar para poder dar otro ataque y tambien la cantidad de tiempo que el personaje esta stuneado
+
+LowPunch:
+    Daño: 3
+    hitStun: 0.2 -> nuevo valor 0.05
+    hitCD: 0.1 -> 0.1
+
+MiddlePunch:
+    Daño: 5
+    hitStun: (nuevos valores) 0.2
+    cd: (nuevos valores) 0.2
+
+HardPunch:
+    Daño: 7
+    hitStun: 0.5 -> 0.3
+    cd: 0.8 -> nuevo valor 0.4
+
+SpecialPunch:
+    Daño: 10
+    hitStun: 1 -> nuevo valor 0.45
+    cd: 1 -> nuevo valor 0.6
+
+LowKick:
+    Daño: 4
+    hitStun: 0.35 -> nuevo valor 0.1
+    cd: 0.3 -> nuevo valor 0.15
+
+MiddleKick:
+    Daño: 6 
+    hitStun: 0.3 -> nuevo valor 0.25
+    cd: 0.55 -> 0.25
+
+HardKick:
+    Daño: 8
+    hitStun: 0.5 -> nuevo valor 0.4
+    cd: 0.85 -> nuevo valor 0.45
+
+SpecialKick:
+    Daño: 11
+    hitStun: 1 -> nuevo valor 0.6
+    cd: 1 -> nuevo valor 0.8
