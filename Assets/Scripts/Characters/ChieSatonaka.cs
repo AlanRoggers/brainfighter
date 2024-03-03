@@ -42,11 +42,21 @@ public class ChieSatonaka : Character
                     break;
             }
         }
+
         if (Components.Messenger.Blocking)
         {
             if (currentCommand != actions[AnimationStates.Block])
-                Components.Machine.ChangeAnimation(AnimationStates.Block);
-            currentCommand = actions[AnimationStates.Block];
+                currentCommand = actions[AnimationStates.Block];
+        }
+
+        if (Components.Messenger.Crouching && !Components.Messenger.Hurt)
+        {
+            if (currentCommand != actions[AnimationStates.Crouch] && !Components.Messenger.Blocking)
+            {
+                Components.Machine.ChangeAnimation(actions[AnimationStates.Crouch].ActionStates[0]);
+                actions[AnimationStates.Crouch].Execute(Components);
+                currentCommand = actions[AnimationStates.Crouch];
+            }
         }
     }
     protected override void FixedUpdate()
@@ -57,16 +67,20 @@ public class ChieSatonaka : Character
         else if (Mathf.Sign(Components.Messenger.Walking) > 0 && !(Components.Messenger.Jumping || Components.Messenger.Falling))
         {
             if (currentCommand != actions[AnimationStates.Walk])
+            {
                 Components.Machine.ChangeAnimation(actions[AnimationStates.Walk].ActionStates[0]);
+                currentCommand = actions[AnimationStates.Walk];
+            }
             actions[AnimationStates.Walk].Execute(Components);
-            currentCommand = actions[AnimationStates.Walk];
         }
         else if (!(Components.Messenger.Jumping || Components.Messenger.Falling))
         {
             if (currentCommand != actions[AnimationStates.GoingBackwards])
+            {
                 Components.Machine.ChangeAnimation(actions[AnimationStates.GoingBackwards].ActionStates[0]);
+                currentCommand = actions[AnimationStates.GoingBackwards];
+            }
             actions[AnimationStates.GoingBackwards].Execute(Components);
-            currentCommand = actions[AnimationStates.GoingBackwards];
         }
 
 
@@ -89,6 +103,7 @@ public class ChieSatonaka : Character
             { AnimationStates.Jump, new Jump(22.5f, new List<AnimationStates>(){AnimationStates.StartJumping, AnimationStates.Jump}) },
             { AnimationStates.Fall , new Fall(new List<AnimationStates>(){AnimationStates.StartFalling, AnimationStates.Fall}) },
             { AnimationStates.Block , new Block(new List<AnimationStates>(){AnimationStates.Block, AnimationStates.BlockWhileCrouch}) },
+            { AnimationStates.Crouch , new Crouch(new List<AnimationStates>(){AnimationStates.StartCrouching,AnimationStates.Crouch}) },
         };
     }
     protected override void InitAttacks()

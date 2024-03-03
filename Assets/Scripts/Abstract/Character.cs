@@ -17,6 +17,10 @@ public abstract class Character : Agent
     private LayerMask ground;
     private Vector2 bottomPos;
     private Vector2 bottomSize;
+    private readonly Vector2 normalSizeColl = new(1.098f, 4.328f);
+    private readonly Vector2 crouchSizeColl = new(1.098f, 2.642f);
+    private readonly Vector2 normalOffsetColl = new(0.071f, 2.605f);
+    private readonly Vector2 crouchOffsetColl = new(0.071f, 1.762f);
     protected Command currentCommand;
     protected Dictionary<AnimationStates, Attack> attacks;
     protected Dictionary<AnimationStates, Action> actions;
@@ -57,16 +61,24 @@ public abstract class Character : Agent
     }
     protected virtual void Update()
     {
+        if (gameObject.layer == 6)
+            Debug.Log($"Estado de Mexico {currentCommand}");
         // Condiciones para que el personaje bloquee en caso de que apriete el Input (Input Manager involucrado tambien)
         Components.Messenger.DistanceForBlock = BlockOrNot();
-        // if (gameObject.layer == 7)
-        // {
-        //     if (Input.GetKeyDown(KeyCode.LeftArrow))
-        //     {
-        //         Components.Messenger.Attacking = true;
-        //         attackCoroutine = StartCoroutine(Attack(attacks[AnimationStates.SpecialPunch]));
-        //     }
-        // }
+
+        if (!Components.Messenger.Crouching && Components.CharacterColl.size != normalSizeColl)
+        {
+            Components.CharacterColl.size = new Vector2(1.098f, 4.328f);
+            Components.CharacterColl.offset = new Vector2(0.071f, 2.605f);
+        }
+        if (gameObject.layer == 7)
+        {
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                Components.Messenger.Attacking = true;
+                attackCoroutine = StartCoroutine(Attack(attacks[AnimationStates.SpecialPunch]));
+            }
+        }
     }
     protected virtual void LateUpdate()
     {
@@ -154,7 +166,8 @@ public abstract class Character : Agent
     {
         bool iddle = !Components.Messenger.Attacking && !Components.Messenger.Hurt &&
         Components.Messenger.Walking == 0 && !Components.Messenger.Jumping &&
-        !Components.Messenger.Falling && !Components.Messenger.Blocking;
+        !Components.Messenger.Falling && !Components.Messenger.Blocking &&
+        !Components.Messenger.Crouching;
 
         // Estado virtual
         if (iddle)
@@ -184,7 +197,7 @@ public abstract class Character : Agent
     private void Orientation()
     {
         float signDistance = MathF.Sign(transform.localPosition.x - TurnReferece.localPosition.x);
-        if (MathF.Sign(transform.localScale.x) == signDistance && !Components.Messenger.Attacking)
+        if (MathF.Sign(transform.localScale.x) == signDistance && !Components.Messenger.Attacking && !Components.Messenger.Blocking)
         {
             Debug.Log("[Orientacion]");
             transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
@@ -194,7 +207,7 @@ public abstract class Character : Agent
     private bool BlockOrNot()
     {
         // Debug.Log($"Distancia entre los changos: {Vector2.Distance(transform.localPosition, Enemy.transform.localPosition)}");
-        return Vector2.Distance(transform.localPosition, Enemy.transform.localPosition) < 3f && Enemy.Components.Messenger.Attacking;
+        return Vector2.Distance(transform.localPosition, Enemy.transform.localPosition) < 3.2f && Enemy.Components.Messenger.Attacking;
     }
     public IEnumerator Hurt(float stun, bool freeze, int damage, Vector2 force)
     {
@@ -202,15 +215,24 @@ public abstract class Character : Agent
         if (attackCoroutine != null)
             StopCoroutine(attackCoroutine);
         Components.Messenger.Hurt = true;
+        Components.Physics.velocity = Vector2.zero;
         ReduceHealth(damage);
+        Command auxiliar = null;
+        if (Components.Messenger.Crouching)
+        {
+            auxiliar = currentCommand;
+        }
         currentCommand = null;
         if (!Components.Messenger.Crouching)
             Components.Machine.ChangeAnimation(AnimationStates.Damage);
         else
+        {
+            Debug.Log("daño agachado");
             Components.Machine.ChangeAnimation(AnimationStates.DamageWhileCrouch);
+        }
         yield return new WaitForEndOfFrame();
 
-        if (transform.localScale.x > 0)
+        if (transform.localScale.x < 0)
             Components.Physics.AddForce(force, ForceMode2D.Impulse);
         else
             Components.Physics.AddForce(force * xSignHelper, ForceMode2D.Impulse);
@@ -223,11 +245,10 @@ public abstract class Character : Agent
             Components.Machine.UnFreeze(Components, current);
         }
 
-
-
         yield return new WaitUntil(() => Components.Machine.CurrentTime() > 1.0f);
         yield return new WaitForSeconds(stun);
         Components.Messenger.Hurt = false;
+        currentCommand = auxiliar;
     }
     private void ReduceHealth(int damage)
     {

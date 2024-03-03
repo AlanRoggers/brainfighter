@@ -13,7 +13,26 @@ public class InputManager : MonoBehaviour
             Kicks();
             Walk();
             Jump();
-
+            Block();
+            Crouch();
+        }
+    }
+    private bool AttackGeneralRestrictions() => Messenger.Hurt || Messenger.Attacking || Messenger.InCooldown || Messenger.Blocking;
+    private bool ActionsGeneralRestrictions() => Messenger.Attacking || Messenger.Hurt || Messenger.Blocking || Messenger.Crouching;
+    private void Crouch()
+    {
+        if (!Messenger.Attacking && !Messenger.Hurt)
+        {
+            if (Input.GetKey(KeyCode.S))
+                Messenger.Crouching = true;
+            else
+                Messenger.Crouching = false;
+        }
+    }
+    private void Block()
+    {
+        if (!Messenger.Attacking && !Messenger.Hurt)
+        {
             if (transform.localScale.x > 0)
             {
                 if (Input.GetKey(KeyCode.A) && Messenger.DistanceForBlock)
@@ -28,15 +47,8 @@ public class InputManager : MonoBehaviour
                 else
                     Messenger.Blocking = false;
             }
-
-            if (Input.GetKey(KeyCode.S))
-                Messenger.Crouching = true;
-            else
-                Messenger.Crouching = false;
         }
     }
-    private bool AttackGeneralRestrictions() => Messenger.Hurt || Messenger.Attacking || Messenger.InCooldown || Messenger.Blocking;
-    private bool ActionsGeneralRestrictions() => Messenger.Attacking || Messenger.Hurt || Messenger.Blocking;
     private void Jump()
     {
         if (Input.GetKeyDown(KeyCode.Space) && !ActionsGeneralRestrictions() && Messenger.InGround)
