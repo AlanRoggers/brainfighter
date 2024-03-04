@@ -40,6 +40,9 @@ public class ChieSatonaka : Character
                 case AnimationStates.SpecialKick:
                     attackC = StartCoroutine(Attack(attacks[AnimationStates.SpecialKick]));
                     break;
+                case AnimationStates.KickWhileCrouch:
+                    attackC = StartCoroutine(Attack(attacks[AnimationStates.KickWhileCrouch]));
+                    break;
             }
         }
 
@@ -49,7 +52,7 @@ public class ChieSatonaka : Character
                 currentCommand = actions[AnimationStates.Block];
         }
 
-        if (Components.Messenger.Crouching && !Components.Messenger.Hurt)
+        if (Components.Messenger.Crouching && !Components.Messenger.Hurt && !Components.Messenger.Attacking)
         {
             if (currentCommand != actions[AnimationStates.Crouch] && !Components.Messenger.Blocking)
             {
@@ -239,6 +242,22 @@ public class ChieSatonaka : Character
                     inertia: new Vector2(-0.5f,5),
                     force: new Vector2(0,10),
                     actionStates: new List<AnimationStates>(){AnimationStates.SpecialKick,AnimationStates.ChainSpecialKick}
+                )
+            },
+            {
+                AnimationStates.KickWhileCrouch,
+                new Attack
+                (
+                    hitF: true,
+                    dmg: 5,
+                    timeDmg: 2,
+                    resGained: 2,
+                    hitS: 65,
+                    cd: 0.8f,
+                    hitFT:0.25f,
+                    inertia: Vector2.zero,
+                    force: new Vector2(1.5f,2.5f),
+                    actionStates: new List<AnimationStates>(){AnimationStates.KickWhileCrouch}
                 )
             },
         };

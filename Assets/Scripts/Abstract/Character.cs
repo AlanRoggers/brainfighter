@@ -96,7 +96,7 @@ public abstract class Character : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.LeftArrow) && !Components.Messenger.Hurt && !Components.Messenger.Attacking)
             {
                 Components.Messenger.Attacking = true;
-                attackC = StartCoroutine(Attack(attacks[AnimationStates.SpecialPunch]));
+                attackC = StartCoroutine(Attack(attacks[AnimationStates.KickWhileCrouch]));
             }
         }
     }
@@ -263,7 +263,7 @@ public abstract class Character : MonoBehaviour
         while (framesWaiting > 0)
         {
             framesWaiting--;
-            yield return new WaitForEndOfFrame();
+            yield return null;
         }
         Components.Messenger.Hurt = false;
 
@@ -336,7 +336,7 @@ public abstract class Character : MonoBehaviour
             {
                 if (Components.Collision.AttackHit(Components.ContactLayer, Components.CircleHitBox) && Components.CircleHitBox.enabled)
                 {
-                    if (!Enemy.Components.Messenger.Blocking && !Enemy.Components.Messenger.Immune)
+                    if ((!Enemy.Components.Messenger.Blocking || attack.ActionStates[0] == AnimationStates.KickWhileCrouch || attack.ActionStates[0] == AnimationStates.SpecialPunch && Enemy.Components.Messenger.Crouching) && !Enemy.Components.Messenger.Immune)
                     {
                         if (Enemy.Components.Messenger.Incapacited)
                         {

@@ -17,7 +17,7 @@ public class InputManager : MonoBehaviour
             Crouch();
         }
     }
-    private bool AttackGeneralRestrictions() => Messenger.Hurt || Messenger.Attacking || Messenger.InCooldown || Messenger.Blocking || Messenger.Incapacited || !Messenger.InGround;
+    private bool AttackGeneralRestrictions() => Messenger.Hurt || Messenger.Attacking || Messenger.InCooldown || Messenger.Blocking || Messenger.Incapacited || !Messenger.InGround || Messenger.Crouching;
     private bool ActionsGeneralRestrictions() => Messenger.Attacking || Messenger.Hurt || Messenger.Blocking || Messenger.Crouching || Messenger.Incapacited;
     private void Crouch()
     {
@@ -159,5 +159,8 @@ public class InputManager : MonoBehaviour
 
                 Messenger.RequestedAttack = AnimationStates.SpecialKick;
         }
+
+        if (Input.GetKeyDown(KeyCode.J) && Messenger.Crouching && !Messenger.Blocking && !Messenger.Incapacited && !Messenger.Attacking && !Messenger.Hurt)
+            Messenger.RequestedAttack = AnimationStates.KickWhileCrouch;
     }
 }
