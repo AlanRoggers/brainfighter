@@ -1,0 +1,22 @@
+public enum State
+{
+    IDDLE,
+    JUMP,
+    FALL,
+    HURT,
+    IMMUNE,
+    CROUCH,
+    STUN,
+    BLOCK,
+    WALK,
+    BACK,
+    ATTACK_CROUCH,
+    LOW_KICK,
+    MIDDLE_KICK,
+    HARD_KICK,
+    SPECIAL_KICK,
+    LOW_PUNCH,
+    MIDDLE_PUNCH,
+    HARD_PUNCH,
+    SPECIAL_PUNCH
+}

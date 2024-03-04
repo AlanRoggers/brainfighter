@@ -17,7 +17,7 @@ public class HealthBars : MonoBehaviour
     }
     private void Update()
     {
-        UpdateUI();
+
     }
     private void UpdateUI()
     {
