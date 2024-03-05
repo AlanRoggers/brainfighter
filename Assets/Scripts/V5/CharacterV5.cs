@@ -1,27 +1,45 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterV5 : MonoBehaviour
 {
-    public PlayerState currentState;
+    private PlayerState currentState;
+    public Dictionary<State, PlayerState> States;
     public Animator animator;
-    public static Iddle iddle = new();
-    public static WalkV5 walk = new();
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        currentState = iddle;
+        try
+        {
+            CreateStates();
+            currentState = States[State.IDDLE];
+
+        }
+        catch { Debug.Log("Todo personaje debe tener un estado Iddle por lo menos"); }
+    }
+    private void CreateStates()
+    {
+        States = new Dictionary<State, PlayerState>()
+        {
+            { State.IDDLE, new Iddle() },
+            { State.WALK, new WalkV5() }
+        };
     }
     void Start()
     {
 
     }
-
-    // Update is called once per frame
     void Update()
     {
-        currentState.InputHandler(this);
         currentState.Update(this);
+        PlayerState auxiliar = currentState.InputHandler(this);
+        if (auxiliar != null)
+        {
+            currentState.OnExit(this);
+            currentState = auxiliar;
+            currentState.OnEntry(this);
+        }
     }
 }

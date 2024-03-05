@@ -2,21 +2,22 @@ using UnityEngine;
 
 public class Iddle : PlayerState
 {
-    public Iddle()
+    public override PlayerState InputHandler(CharacterV5 character)
     {
-        state = State.IDDLE;
+        if (Input.GetKey(KeyCode.D))
+            return character.States[State.WALK];
+        return null;
     }
-    public override void InputHandler(CharacterV5 character)
+    public override void OnEntry(CharacterV5 character)
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            character.currentState = CharacterV5.walk;
-        }
-
+        character.animator.Play(AnimationStates.Iddle.ToString());
     }
-
+    public override void OnExit(CharacterV5 character)
+    {
+        Debug.Log("Saliendo de Iddle");
+    }
     public override void Update(CharacterV5 character)
     {
-        Debug.Log("Input Iddle");
+        Debug.Log("Iddle");
     }
 }

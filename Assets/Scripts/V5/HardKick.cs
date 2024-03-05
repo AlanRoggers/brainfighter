@@ -1,8 +1,21 @@
+using System.Collections;
 using UnityEngine;
 
 public class HardKick : PlayerState
 {
-    public override void InputHandler(CharacterV5 character)
+    public override PlayerState InputHandler(CharacterV5 character)
+    {
+        throw new System.NotImplementedException();
+    }
+
+
+
+    public override void OnEntry(CharacterV5 character)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void OnExit(CharacterV5 character)
     {
         throw new System.NotImplementedException();
     }
@@ -11,4 +24,6 @@ public class HardKick : PlayerState
     {
         throw new System.NotImplementedException();
     }
+
+
 }
