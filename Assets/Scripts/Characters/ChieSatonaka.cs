@@ -105,7 +105,6 @@ public class ChieSatonaka : Character
         {
             { AnimationStates.Walk, new Walk(10f, 500f, new List<AnimationStates>(){AnimationStates.StartWalking, AnimationStates.Walk}) },
             { AnimationStates.GoingBackwards, new Back(10f, 500f, new List<AnimationStates>(){AnimationStates.StartGoingBackwards, AnimationStates.GoingBackwards}) },
-            { AnimationStates.Jump, new Jump(22.5f, new List<AnimationStates>(){AnimationStates.StartJumping, AnimationStates.Jump}) },
             { AnimationStates.Fall , new Fall(new List<AnimationStates>(){AnimationStates.StartFalling, AnimationStates.Fall}) },
             { AnimationStates.Block , new Block(new List<AnimationStates>(){AnimationStates.Block, AnimationStates.BlockWhileCrouch}) },
             { AnimationStates.Crouch , new Crouch(new List<AnimationStates>(){AnimationStates.StartCrouching,AnimationStates.Crouch}) },
