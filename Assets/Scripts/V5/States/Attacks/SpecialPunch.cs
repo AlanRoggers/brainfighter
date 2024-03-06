@@ -15,6 +15,9 @@ public class SpecialPunch : AttackV5
         hitFreeze = true;
         coolDown = 0.6f;
         hitFreezeTimer = 0.25f;
+        hitStun = 70;
+        damage = 10;
+        force = new Vector2(6, 15);
     }
     public override PlayerState InputHandler(CharacterV5 character)
     {
@@ -25,16 +28,10 @@ public class SpecialPunch : AttackV5
 
     public override void Update(CharacterV5 character)
     {
-        Debug.Log("Golpe especial");
+        // Debug.Log("Golpe especial");
     }
 
-    protected override void Freeze(CharacterV5 character)
-    {
-        Debug.Log("Freeze");
-    }
 
-    protected override void UnFreeze(CharacterV5 character, Vector2 current)
-    {
-        Debug.Log("Unfreeze");
-    }
+
+
 }

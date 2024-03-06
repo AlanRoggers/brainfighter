@@ -32,7 +32,7 @@ public class BackV5 : PlayerState
     }
     public override void Update(CharacterV5 character)
     {
-        Debug.Log("Back");
+        // Debug.Log("Back");
         if (Mathf.Sign(character.transform.localScale.x) == 1)
         {
             if (MathF.Sign(character.Physics.velocity.x) > 0)

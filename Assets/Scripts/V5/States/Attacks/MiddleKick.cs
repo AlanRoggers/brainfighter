@@ -16,6 +16,9 @@ public class MiddleKick : AttackV5
         hitFreeze = true;
         coolDown = 0.25f;
         hitFreezeTimer = 0.25f;
+        hitStun = 70;
+        damage = 6;
+        force = new Vector2(0, 12);
     }
     public override PlayerState InputHandler(CharacterV5 character)
     {
@@ -29,14 +32,6 @@ public class MiddleKick : AttackV5
     }
     public override void Update(CharacterV5 character)
     {
-        Debug.Log("MiddleKick");
-    }
-    protected override void Freeze(CharacterV5 character)
-    {
-        Debug.Log("Freeze");
-    }
-    protected override void UnFreeze(CharacterV5 character, Vector2 current)
-    {
-        Debug.Log("Unfreeze"); throw new System.NotImplementedException();
+        // Debug.Log("MiddleKick");
     }
 }

@@ -15,6 +15,9 @@ public class MiddlePunch : AttackV5
         hitFreeze = true;
         coolDown = 0.2f;
         hitFreezeTimer = 0.25f;
+        hitStun = 65;
+        damage = 5;
+        force = new Vector2(0, 11);
     }
     public override PlayerState InputHandler(CharacterV5 character)
     {
@@ -29,16 +32,6 @@ public class MiddlePunch : AttackV5
 
     public override void Update(CharacterV5 character)
     {
-        Debug.Log("Golpe ligero");
-    }
-
-    protected override void Freeze(CharacterV5 character)
-    {
-        Debug.Log("Freeze");
-    }
-
-    protected override void UnFreeze(CharacterV5 character, Vector2 current)
-    {
-        Debug.Log("Freeze");
+        // Debug.Log("Golpe ligero");
     }
 }

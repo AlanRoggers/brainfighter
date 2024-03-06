@@ -44,6 +44,12 @@ public class Iddle : PlayerState
 
                 if (Input.GetKeyDown(KeyCode.L))
                     return character.States.HardKick;
+
+                if (Input.GetKeyDown(KeyCode.P))
+                    return character.States.SpecialPunch;
+
+                if (Input.GetKeyDown(KeyCode.Semicolon))
+                    return character.States.SpecialKick;
             }
         }
 
@@ -51,15 +57,16 @@ public class Iddle : PlayerState
     }
     public override void OnEntry(CharacterV5 character)
     {
+        // Debug.Log("Iddle");
         character.Animator.Play(AnimationStates.Iddle.ToString());
         character.LastVelocity = 0;
     }
     public override void OnExit(CharacterV5 character)
     {
-        Debug.Log("Saliendo de Iddle");
+        // Debug.Log("Saliendo de Iddle");
     }
     public override void Update(CharacterV5 character)
     {
-        Debug.Log("Iddle");
+        // Debug.Log("Iddle");
     }
 }

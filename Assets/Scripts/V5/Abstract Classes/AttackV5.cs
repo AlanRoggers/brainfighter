@@ -6,10 +6,13 @@ public abstract class AttackV5 : PlayerState
     //Falta force y damage
     protected AnimationStates currentClip;
     protected Vector2 inertia;
+    protected Vector2 force;
+    protected int damage;
     protected int timesDamageApplied;
     protected bool hitFreeze;
     protected float coolDown;
     protected float hitFreezeTimer;
+    protected float hitStun;
     public override void OnEntry(CharacterV5 character)
     {
         if (character.CoolDownCor != null)
@@ -31,25 +34,31 @@ public abstract class AttackV5 : PlayerState
 
         int times = timesDamageApplied;
 
-        while (character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+        while (character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f)
         {
             if (times > 0)
             {
-                if (character.OverlapDetector.AttackHit(character.Layer == 64 ? 128 : 64, character.Hitbox) && character.Hitbox.enabled)
+                Collider2D enemy = character.OverlapDetector.AttackHit(character.Layer == 64 ? 128 : 64, character.Hitbox);
+                if (enemy && character.Hitbox.enabled)
                 {
-                    // Hacerle daño al enemigo
-                    // Sin implementar
+                    enemy.GetComponent<CharacterV5>().EntryAttack(damage, force, hitStun, hitFreeze);
+
                     if (hitFreeze)
                     {
                         Vector2 current = character.Physics.velocity;
-                        Freeze(character);
+                        character.Physics.velocity = Vector2.zero;
+                        character.Physics.gravityScale = 0;
+                        character.Animator.speed = 0;
                         yield return new WaitForSeconds(hitFreezeTimer);
-                        UnFreeze(character, current);
+                        character.Animator.speed = 1;
+                        character.Physics.velocity = current;
+                        character.Physics.gravityScale = 4;
                     }
+                    times--;
+                    // GainResistance(attack.ResistanceGained);
+                    yield return new WaitForSeconds(0.2f);
                 }
-                times--;
-                // GainResistance(attack.ResistanceGained);
-                yield return new WaitForSeconds(0.2f);
+
             }
             yield return null;
         }
@@ -61,6 +70,4 @@ public abstract class AttackV5 : PlayerState
         character.CoolDownCor = character.StartCoroutine(character.CoolDown(coolDown));
         character.HitsChained = 0;
     }
-    protected abstract void UnFreeze(CharacterV5 character, Vector2 current);
-    protected abstract void Freeze(CharacterV5 character);
 }

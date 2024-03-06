@@ -16,6 +16,9 @@ public class LowKick : AttackV5
         hitFreeze = true;
         coolDown = 0.1f;
         hitFreezeTimer = 0.25f;
+        hitStun = 41;
+        damage = 4;
+        force = new Vector2(4.5f, 0);
     }
     public override PlayerState InputHandler(CharacterV5 character)
     {
@@ -36,14 +39,6 @@ public class LowKick : AttackV5
     }
     public override void Update(CharacterV5 character)
     {
-        Debug.Log("Ataque debil");
-    }
-    protected override void Freeze(CharacterV5 character)
-    {
-        Debug.Log("Freeze");
-    }
-    protected override void UnFreeze(CharacterV5 character, Vector2 current)
-    {
-        Debug.Log("Unfreeze");
+        // Debug.Log("Ataque debil");
     }
 }

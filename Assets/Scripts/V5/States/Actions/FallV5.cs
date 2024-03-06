@@ -19,6 +19,6 @@ public class FallV5 : PlayerState
     }
     public override void Update(CharacterV5 character)
     {
-        Debug.Log("Cayendo");
+        // Debug.Log("Cayendo");
     }
 }

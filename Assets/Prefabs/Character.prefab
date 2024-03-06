@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4646376558562347118}
   - component: {fileID: 2268499190244839318}
   - component: {fileID: 1034225295489706800}
+  - component: {fileID: 1525663328156890903}
   m_Layer: 6
   m_Name: Character
   m_TagString: Player
@@ -29,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4231093324428746313}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.0722685, y: 2.797305, z: -0.02260232}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -194,13 +195,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ba76a513e438fa218f00a756c48a1ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  a: {x: 0, y: 0}
+  Friction: {fileID: 0}
+  CharacterLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  ArtificialInteligence: 0
+  EnemyTransform: {fileID: 0}
   HitsChained: 0
   OnColdoown: 0
   LastVelocity: 0
   Hitbox: {fileID: 724262824745318763}
   Layer: 0
+  Body: {fileID: 0}
   Animator: {fileID: 0}
   Physics: {fileID: 0}
+--- !u!114 &1525663328156890903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4231093324428746313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c714b658dc1b77e83aedfedfa49e99ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VisualHealth: {fileID: 0}
+  Health: {fileID: 0}
 --- !u!1 &9133980648876763632
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,10 +11,13 @@ public class SpecialKick : AttackV5
             AnimationStates.ChainSpecialKick
         };
         inertia = new Vector2(-0.5f, 5);
+        force = new Vector2(0, 7);
         timesDamageApplied = 3;
         hitFreeze = true;
         coolDown = 0.8f;
         hitFreezeTimer = 0.25f;
+        damage = 11;
+        hitStun = 65;
     }
     public override PlayerState InputHandler(CharacterV5 character)
     {
@@ -27,16 +29,10 @@ public class SpecialKick : AttackV5
 
     public override void Update(CharacterV5 character)
     {
-        Debug.Log("SpecialKick");
+        // Debug.Log("SpecialKick");
     }
 
-    protected override void Freeze(CharacterV5 character)
-    {
-        Debug.Log("Freeze");
-    }
 
-    protected override void UnFreeze(CharacterV5 character, Vector2 current)
-    {
-        Debug.Log("Unfreeze");
-    }
+
+
 }

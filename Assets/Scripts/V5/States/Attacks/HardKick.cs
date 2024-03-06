@@ -16,6 +16,9 @@ public class HardKick : AttackV5
         hitFreeze = true;
         coolDown = 0.45f;
         hitFreezeTimer = 0.25f;
+        hitStun = 65;
+        damage = 8;
+        force = new Vector2(2, 8);
     }
     public override PlayerState InputHandler(CharacterV5 character)
     {
@@ -29,14 +32,6 @@ public class HardKick : AttackV5
     }
     public override void Update(CharacterV5 character)
     {
-        Debug.Log("HardKick");
-    }
-    protected override void Freeze(CharacterV5 character)
-    {
-        Debug.Log("Freeze");
-    }
-    protected override void UnFreeze(CharacterV5 character, Vector2 current)
-    {
-        Debug.Log("Unfreeze");
+        // Debug.Log("HardKick");
     }
 }

@@ -62,7 +62,6 @@ public class ChieSatonaka : Character
             }
         }
     }
-
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
@@ -98,7 +97,6 @@ public class ChieSatonaka : Character
             }
         }
     }
-
     protected override void InitActions()
     {
         actions = new Dictionary<AnimationStates, Action>
@@ -110,7 +108,6 @@ public class ChieSatonaka : Character
             { AnimationStates.Crouch , new Crouch(new List<AnimationStates>(){AnimationStates.StartCrouching,AnimationStates.Crouch}) },
         };
     }
-
     protected override void InitAttacks()
     {
         attacks = new Dictionary<AnimationStates, Attack>

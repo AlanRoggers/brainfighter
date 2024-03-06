@@ -1275,7 +1275,7 @@ MonoBehaviour:
         Raw: 1920
         Type: 0
       Y:
-        Raw: 1079.2727
+        Raw: 1080.203
         Type: 0
       Z:
         Raw: 0
@@ -1455,7 +1455,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.8, y: 4.02, z: -9}
-  m_LocalScale: {x: 0.015340211, y: 0.015340211, z: 0.015340211}
+  m_LocalScale: {x: 0.015326999, y: 0.015326999, z: 0.015326999}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 630360175}
@@ -1477,6 +1477,18 @@ PrefabInstance:
       propertyPath: ArtificialInteligence
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1034225295489706800, guid: ab5326754e8a547f19751536a2856551, type: 3}
+      propertyPath: CharacterLayer.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 1525663328156890903, guid: ab5326754e8a547f19751536a2856551, type: 3}
+      propertyPath: Health
+      value: 
+      objectReference: {fileID: 122333239}
+    - target: {fileID: 1525663328156890903, guid: ab5326754e8a547f19751536a2856551, type: 3}
+      propertyPath: VisualHealth
+      value: 
+      objectReference: {fileID: 2074823071}
     - target: {fileID: 4231093324428746313, guid: ab5326754e8a547f19751536a2856551, type: 3}
       propertyPath: m_Name
       value: ChieRed
@@ -1737,7 +1749,7 @@ Transform:
   m_GameObject: {fileID: 630360174}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 489.63635, z: 0}
+  m_LocalPosition: {x: 0, y: 490.1015, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5547,6 +5559,18 @@ PrefabInstance:
       propertyPath: EnemyTransform
       value: 
       objectReference: {fileID: 125671480}
+    - target: {fileID: 1034225295489706800, guid: ab5326754e8a547f19751536a2856551, type: 3}
+      propertyPath: CharacterLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 1525663328156890903, guid: ab5326754e8a547f19751536a2856551, type: 3}
+      propertyPath: Health
+      value: 
+      objectReference: {fileID: 737057623}
+    - target: {fileID: 1525663328156890903, guid: ab5326754e8a547f19751536a2856551, type: 3}
+      propertyPath: VisualHealth
+      value: 
+      objectReference: {fileID: 1627062966}
     - target: {fileID: 4231093324428746313, guid: ab5326754e8a547f19751536a2856551, type: 3}
       propertyPath: m_Name
       value: ChieGreen

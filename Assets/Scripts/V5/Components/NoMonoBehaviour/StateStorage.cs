@@ -14,4 +14,5 @@ public class StateStorage
     public readonly MiddleKick MiddleKick = new();
     public readonly HardKick HardKick = new();
     public readonly SpecialKick SpecialKick = new();
+    public readonly Hurt Hurt = new();
 }

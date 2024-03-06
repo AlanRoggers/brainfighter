@@ -3,33 +3,34 @@ using Nova;
 public class HealthBars : MonoBehaviour
 {
     private int healthHandler;
-    private Character fighter;
+    private CharacterV5 fighter;
     public UIBlock2D VisualHealth = null;
     public TextBlock Health = null;
     private void Awake()
     {
-        fighter = GetComponent<Character>();
+        fighter = GetComponent<CharacterV5>();
 
-        healthHandler = fighter.Health;
+        healthHandler = fighter.Healt;
 
         if (Health != null)
-            Health.Text = $"{fighter.Health}";
+            Health.Text = $"{fighter.Healt}";
     }
     private void Update()
     {
-
+        UpdateUI();
     }
     private void UpdateUI()
     {
-        if (fighter.Health != healthHandler)
+        if (fighter.Healt != healthHandler)
         {
-            healthHandler = fighter.Health;
+            Debug.Log($"HealtBars {fighter.Healt}");
+            healthHandler = fighter.Healt;
             if (Health != null)
-                Health.Text = $"{fighter.Health}";
+                Health.Text = $"{fighter.Healt}";
             if (VisualHealth != null)
             {
                 VisualHealth.AutoSize.X = AutoSize.None;
-                VisualHealth.Size.X = Length.Percentage(fighter.Health / 100f * (1 - VisualHealth.CalculatedMargin.X.Sum().Percent));
+                VisualHealth.Size.X = Length.Percentage(fighter.Healt / 100f * (1 - VisualHealth.CalculatedMargin.X.Sum().Percent));
             }
         }
     }

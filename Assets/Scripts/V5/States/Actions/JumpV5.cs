@@ -28,7 +28,7 @@ public class JumpV5 : PlayerState
     }
     public override void Update(CharacterV5 character)
     {
-        Debug.Log("Saltando");
+        // Debug.Log("Saltando");
     }
 
 }

@@ -37,8 +37,9 @@ public class WalkV5 : PlayerState
     }
     public override void Update(CharacterV5 character)
     {
-        Debug.Log("Walk");
-        if (!character.OverlapDetector.EnemyOverlapping(Mathf.Pow(2, character.gameObject.layer) == 64 ? 128 : 64))
+        // Debug.Log("Walk");
+        if (!character.OverlapDetector.EnemyOverlapping(character.transform, character.Layer == 64 ? 128 : 64))
+        {
             if (Mathf.Sign(character.transform.localScale.x) == 1)
             {
                 if (MathF.Sign(character.Physics.velocity.x) < 0)
@@ -49,28 +50,11 @@ public class WalkV5 : PlayerState
                 if (MathF.Sign(character.Physics.velocity.x) > 0)
                     character.Physics.velocity = new Vector2(0, character.Physics.velocity.y);
             }
-        float force = character.Physics.mass * maxForce * (maxSpeed - Mathf.Abs(character.Physics.velocity.x)) * Time.deltaTime * Mathf.Sign(character.transform.localScale.x);
-        character.Physics.AddForce(new Vector2(force, 0), ForceMode2D.Force);
-
-
-        // if (!character.Messenger.OverlappingEnemy)
-        // {
-        //     if (Mathf.Sign(character.Transform.localScale.x) == 1)
-        //     {
-        //         if (MathF.Sign(character.Physics.velocity.x) < 0)
-        //             character.Physics.velocity = new Vector2(0, character.Physics.velocity.y);
-        //     }
-        //     else
-        //     {
-        //         if (MathF.Sign(character.Physics.velocity.x) > 0)
-        //             character.Physics.velocity = new Vector2(0, character.Physics.velocity.y);
-        //     }
-        //     float force = character.Physics.mass * maxForce * (maxSpeed - Mathf.Abs(character.Physics.velocity.x)) * Time.deltaTime * Mathf.Sign(character.Transform.localScale.x);
-        //     character.Physics.AddForce(new Vector2(force, 0));
-        // }
-        // else
-        //     character.Physics.velocity = new Vector2(character.Transform.localScale.x > 0 ? 1 : -1, character.Physics.velocity.y);
-
+            float force = character.Physics.mass * maxForce * (maxSpeed - Mathf.Abs(character.Physics.velocity.x)) * Time.deltaTime * Mathf.Sign(character.transform.localScale.x);
+            character.Physics.AddForce(new Vector2(force, 0), ForceMode2D.Force);
+        }
+        else
+            character.Physics.velocity = new Vector2(character.transform.localScale.x > 0 ? 1 : -1, character.Physics.velocity.y);
     }
 
 }
