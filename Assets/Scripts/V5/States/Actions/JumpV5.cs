@@ -21,7 +21,7 @@ public class JumpV5 : PlayerState
     public override void OnEntry(CharacterV5 character)
     {
         base.OnEntry(character);
-        float hasVelocity = character.States.Walk.lastVelocity != 0 ? character.States.Walk.lastVelocity : character.States.Back.lastVelocity != 0 ? character.States.Back.lastVelocity : 0;
+        float hasVelocity = character.LastVelocity;
         Vector2 force = new(Mathf.Round(hasVelocity), jumpForce);
         character.Physics.velocity = Vector2.zero;
         character.Physics.AddForce(force, ForceMode2D.Impulse);

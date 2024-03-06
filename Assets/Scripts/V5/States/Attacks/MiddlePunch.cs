@@ -18,8 +18,12 @@ public class MiddlePunch : AttackV5
     }
     public override PlayerState InputHandler(CharacterV5 character)
     {
-        if (currentClip == clips[1])
+        if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
             return character.States.Iddle;
+
+        if (Input.GetKeyDown(KeyCode.O) && currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+            return character.States.HardPunch;
+
         return null;
     }
 

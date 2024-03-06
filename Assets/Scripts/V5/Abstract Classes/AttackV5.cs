@@ -6,14 +6,16 @@ public abstract class AttackV5 : PlayerState
     //Falta force y damage
     protected AnimationStates currentClip;
     protected Vector2 inertia;
-    protected Vector2 xSignHelper = new(-1, 1);
     protected int timesDamageApplied;
     protected bool hitFreeze;
     protected float coolDown;
     protected float hitFreezeTimer;
     public override void OnEntry(CharacterV5 character)
     {
+        if (character.CoolDownCor != null)
+            character.StopCoroutine(character.CoolDownCor);
         animationCor = character.StartCoroutine(Attack(character));
+        character.HitsChained++;
     }
     protected virtual IEnumerator Attack(CharacterV5 character)
     {
@@ -25,7 +27,7 @@ public abstract class AttackV5 : PlayerState
         if (character.transform.localScale.x > 0)
             character.Physics.AddForce(inertia, ForceMode2D.Impulse);
         else
-            character.Physics.AddForce(inertia * xSignHelper, ForceMode2D.Impulse);
+            character.Physics.AddForce(inertia * new Vector2(-1, 1), ForceMode2D.Impulse);
 
         int times = timesDamageApplied;
 
@@ -55,8 +57,9 @@ public abstract class AttackV5 : PlayerState
         character.Animator.Play(clips[1].ToString());
         currentClip = clips[1];
         yield return new WaitForEndOfFrame();
-        yield return new WaitUntil(() => character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0f);
-        // Empezar el cd en una corrutina nueva
+        yield return new WaitWhile(() => character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
+        character.CoolDownCor = character.StartCoroutine(character.CoolDown(coolDown));
+        character.HitsChained = 0;
     }
     protected abstract void UnFreeze(CharacterV5 character, Vector2 current);
     protected abstract void Freeze(CharacterV5 character);

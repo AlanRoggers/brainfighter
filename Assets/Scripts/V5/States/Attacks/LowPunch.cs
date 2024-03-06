@@ -19,20 +19,24 @@ public class LowPunch : AttackV5
     }
     public override PlayerState InputHandler(CharacterV5 character)
     {
-        if (Input.GetKeyDown(KeyCode.I) && currentClip == clips[1])
-            return character.States.MiddlePunch;
+        if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+        {
+            if (Input.GetKeyDown(KeyCode.I))
+                return character.States.MiddlePunch;
 
-        if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0f)
+            if (Input.GetKeyDown(KeyCode.O))
+                return character.States.HardPunch;
+        }
+
+        if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
             return character.States.Iddle;
 
         return null;
     }
-
     public override void Update(CharacterV5 character)
     {
         Debug.Log("Golpe Débil");
     }
-
     protected override void Freeze(CharacterV5 character)
     {
         Debug.Log("Freeze");

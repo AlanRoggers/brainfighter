@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class WalkV5 : PlayerState
 {
-    public float lastVelocity;
     private readonly float maxForce = 500f;
     private readonly float maxSpeed = 10f;
     public WalkV5()
@@ -28,27 +27,28 @@ public class WalkV5 : PlayerState
     public override void OnEntry(CharacterV5 character)
     {
         base.OnEntry(character);
-        character.States.Back.lastVelocity = 0;
+        character.LastVelocity = 0;
     }
     public override void OnExit(CharacterV5 character)
     {
         base.OnExit(character);
-        lastVelocity = character.Physics.velocity.x;
+        character.LastVelocity = character.Physics.velocity.x;
         character.Physics.velocity = new Vector2(0, character.Physics.velocity.y);
     }
     public override void Update(CharacterV5 character)
     {
         Debug.Log("Walk");
-        if (Mathf.Sign(character.transform.localScale.x) == 1)
-        {
-            if (MathF.Sign(character.Physics.velocity.x) < 0)
-                character.Physics.velocity = new Vector2(0, character.Physics.velocity.y);
-        }
-        else
-        {
-            if (MathF.Sign(character.Physics.velocity.x) > 0)
-                character.Physics.velocity = new Vector2(0, character.Physics.velocity.y);
-        }
+        if (!character.OverlapDetector.EnemyOverlapping(Mathf.Pow(2, character.gameObject.layer) == 64 ? 128 : 64))
+            if (Mathf.Sign(character.transform.localScale.x) == 1)
+            {
+                if (MathF.Sign(character.Physics.velocity.x) < 0)
+                    character.Physics.velocity = new Vector2(0, character.Physics.velocity.y);
+            }
+            else
+            {
+                if (MathF.Sign(character.Physics.velocity.x) > 0)
+                    character.Physics.velocity = new Vector2(0, character.Physics.velocity.y);
+            }
         float force = character.Physics.mass * maxForce * (maxSpeed - Mathf.Abs(character.Physics.velocity.x)) * Time.deltaTime * Mathf.Sign(character.transform.localScale.x);
         character.Physics.AddForce(new Vector2(force, 0), ForceMode2D.Force);
 
@@ -72,6 +72,5 @@ public class WalkV5 : PlayerState
         //     character.Physics.velocity = new Vector2(character.Transform.localScale.x > 0 ? 1 : -1, character.Physics.velocity.y);
 
     }
-
 
 }

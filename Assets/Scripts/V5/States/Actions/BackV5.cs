@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BackV5 : PlayerState
 {
-    public float lastVelocity;
     private readonly float maxForce = 500f;
     private readonly float maxSpeed = 10f;
     public BackV5()
@@ -28,7 +27,7 @@ public class BackV5 : PlayerState
     public override void OnExit(CharacterV5 character)
     {
         base.OnExit(character);
-        lastVelocity = character.Physics.velocity.x;
+        character.LastVelocity = character.Physics.velocity.x;
         character.Physics.velocity = new Vector2(0, character.Physics.velocity.y);
     }
     public override void Update(CharacterV5 character)
@@ -50,6 +49,6 @@ public class BackV5 : PlayerState
     public override void OnEntry(CharacterV5 character)
     {
         base.OnEntry(character);
-        character.States.Walk.lastVelocity = 0;
+        character.LastVelocity = 0;
     }
 }
