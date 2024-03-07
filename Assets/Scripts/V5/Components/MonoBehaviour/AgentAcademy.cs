@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class AgentAcademy : MonoBehaviour
 {
-    public event ResetEnironment OnReset;
-    public delegate void ResetEnironment();
     [SerializeField] private int maxSteps;
     public CharacterV5 agent1;
     public CharacterV5 agent2;
@@ -28,6 +26,7 @@ public class AgentAcademy : MonoBehaviour
         CharacterV5.OnBlock += Block;
         CharacterV5.OnStun += Stuned;
         CharacterV5.OnWin += Win;
+        PPOAgent.OnReset += Spawn;
     }
     void FixedUpdate()
     {
@@ -65,10 +64,6 @@ public class AgentAcademy : MonoBehaviour
             // agent1Brain.EpisodeInterrupted();
             // agent2Brain.EpisodeInterrupted();
         }
-    }
-    private void InitialValues()
-    {
-
     }
     public void Spawn()
     {

@@ -22,17 +22,29 @@ public class LowKick : AttackV5
     }
     public override PlayerState InputHandler(CharacterV5 character)
     {
-        if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+        if (!character.IsAI)
         {
-            if (Input.GetKeyDown(KeyCode.K))
-                return character.States.MiddleKick;
+            if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+            {
+                if (Input.GetKeyDown(KeyCode.K))
+                    return character.States.MiddleKick;
 
-            if (Input.GetKeyDown(KeyCode.L))
-                return character.States.HardKick;
-
-            if (Input.GetKeyDown(KeyCode.LeftArrow) && character.gameObject.layer == 7)
-                return character.States.MiddleKick;
+                if (Input.GetKeyDown(KeyCode.L))
+                    return character.States.HardKick;
+            }
         }
+        else
+        {
+            if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+            {
+                if (character.RequestedBehaviourAction == State.MIDDLE_KICK)
+                    return character.States.MiddleKick;
+
+                if (character.RequestedBehaviourAction == State.HARD_KICK)
+                    return character.States.HardKick;
+            }
+        }
+
 
         if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
             return character.States.Iddle;

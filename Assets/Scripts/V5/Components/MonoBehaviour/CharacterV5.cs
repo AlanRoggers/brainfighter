@@ -25,6 +25,8 @@ public class CharacterV5 : MonoBehaviour
     public CircleCollider2D Hitbox;
     public Collider2D Body;
     [HideInInspector] public PhysicsMaterial2D Friction;
+    [HideInInspector] public State RequestedMotionAction;
+    [HideInInspector] public State RequestedBehaviourAction;
     [HideInInspector] public int HitsChained;
     [HideInInspector] public Coroutine CoolDownCor;
     [HideInInspector] public Coroutine HurtCor;
@@ -49,10 +51,14 @@ public class CharacterV5 : MonoBehaviour
         Health = 100;
         Resistance = 50;
     }
+    private void Start()
+    {
+        if (IsAI)
+            PPOAgent.OnReset += Reset;
+    }
     void Update()
     {
-        if (gameObject.layer == 6)
-            Debug.Log(Resistance);
+        Debug.Log(currentState);
         currentState.Update(this);
         PlayerState auxiliar = currentState.InputHandler(this);
         if (auxiliar != null)
@@ -88,7 +94,7 @@ public class CharacterV5 : MonoBehaviour
     private bool TurnPermitedStates()
     {
         return currentState == States.Walk || currentState == States.Back || currentState == States.Jump || currentState == States.Fall ||
-            currentState == States.Crouch || currentState == States.Iddle;
+            currentState == States.Iddle;
     }
     public void EntryAttack(AttackV5 attack)
     {
@@ -142,5 +148,12 @@ public class CharacterV5 : MonoBehaviour
             Resistance += value;
         else
             Resistance = 50;
+    }
+    private void Reset()
+    {
+        currentState = States.Iddle;
+        Friction.friction = 1;
+        Health = 100;
+        Resistance = 50;
     }
 }

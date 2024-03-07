@@ -23,10 +23,16 @@ public class MiddlePunch : AttackV5
     {
         if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
             return character.States.Iddle;
-
-        if (Input.GetKeyDown(KeyCode.O) && currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
-            return character.States.HardPunch;
-
+        if (!character.IsAI)
+        {
+            if (Input.GetKeyDown(KeyCode.O) && currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+                return character.States.HardPunch;
+        }
+        else
+        {
+            if (character.RequestedBehaviourAction == State.HARD_PUNCH && currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+                return character.States.HardPunch;
+        }
         return null;
     }
 

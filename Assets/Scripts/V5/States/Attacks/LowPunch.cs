@@ -22,13 +22,27 @@ public class LowPunch : AttackV5
     }
     public override PlayerState InputHandler(CharacterV5 character)
     {
-        if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+        if (!character.IsAI)
         {
-            if (Input.GetKeyDown(KeyCode.I))
-                return character.States.MiddlePunch;
+            if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+            {
+                if (Input.GetKeyDown(KeyCode.I))
+                    return character.States.MiddlePunch;
 
-            if (Input.GetKeyDown(KeyCode.O))
-                return character.States.HardPunch;
+                if (Input.GetKeyDown(KeyCode.O))
+                    return character.States.HardPunch;
+            }
+        }
+        else
+        {
+            if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+            {
+                if (character.RequestedBehaviourAction == State.MIDDLE_PUNCH)
+                    return character.States.MiddlePunch;
+
+                if (character.RequestedBehaviourAction == State.HARD_PUNCH)
+                    return character.States.HardPunch;
+            }
         }
 
         if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)

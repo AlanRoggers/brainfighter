@@ -22,8 +22,16 @@ public class MiddleKick : AttackV5
     }
     public override PlayerState InputHandler(CharacterV5 character)
     {
-        if (Input.GetKeyDown(KeyCode.L) && currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
-            return character.States.HardKick;
+        if (!character.IsAI)
+        {
+            if (Input.GetKeyDown(KeyCode.L) && currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+                return character.States.HardKick;
+        }
+        else
+        {
+            if (character.RequestedBehaviourAction == State.HARD_KICK && currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+                return character.States.HardKick;
+        }
 
         if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
             return character.States.Iddle;

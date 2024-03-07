@@ -5,7 +5,6 @@ public class StateStorage
     public readonly BackV5 Back = new();
     public readonly JumpV5 Jump = new();
     public readonly FallV5 Fall = new();
-    public readonly CrouchV5 Crouch = new();
     public readonly LowPunch LowPunch = new();
     public readonly MiddlePunch MiddlePunch = new();
     public readonly HardPunch HardPunch = new();

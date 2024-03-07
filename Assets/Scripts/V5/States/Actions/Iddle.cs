@@ -44,17 +44,58 @@ public class Iddle : PlayerState
 
                 if (Input.GetKeyDown(KeyCode.L))
                     return character.States.HardKick;
-
-                // if (Input.GetKeyDown(KeyCode.P))
-                //     return character.States.SpecialPunch;
-
-                // if (Input.GetKeyDown(KeyCode.Semicolon))
-                //     return character.States.SpecialKick;
             }
         }
-        if (character.gameObject.layer == 7 && Input.GetKeyDown(KeyCode.LeftArrow))
-            return character.States.LowKick;
+        else
+        {
+            if (!character.OnColdoown)
+            {
+                switch (character.RequestedBehaviourAction)
+                {
+                    case State.LOW_PUNCH:
+                        if (!character.OnColdoown)
+                            return character.States.LowPunch;
+                        break;
+                    case State.MIDDLE_PUNCH:
+                        if (!character.OnColdoown)
+                            return character.States.MiddlePunch;
+                        break;
+                    case State.HARD_PUNCH:
+                        if (!character.OnColdoown)
+                            return character.States.HardPunch;
+                        break;
+                    case State.LOW_KICK:
+                        if (!character.OnColdoown)
+                            return character.States.LowKick;
+                        break;
+                    case State.MIDDLE_KICK:
+                        if (!character.OnColdoown)
+                            return character.States.MiddleKick;
+                        break;
+                    case State.HARD_KICK:
+                        if (!character.OnColdoown)
+                            return character.States.HardKick;
+                        break;
+                }
+            }
 
+            if (character.RequestedBehaviourAction == State.JUMP)
+                return character.States.Jump;
+
+            switch (character.RequestedMotionAction)
+            {
+                case State.WALK:
+                    if (character.transform.localScale.x > 0)
+                        return character.States.Walk;
+                    else
+                        return character.States.Back;
+                case State.BACK:
+                    if (character.transform.localScale.x > 0)
+                        return character.States.Back;
+                    else
+                        return character.States.Walk;
+            }
+        }
         return null;
     }
     public override void OnEntry(CharacterV5 character)

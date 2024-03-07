@@ -9,12 +9,7 @@ public class BlockV5 : PlayerState
     public override PlayerState InputHandler(CharacterV5 character)
     {
         if (stopBlock)
-        {
-            if (Input.GetKey(KeyCode.S))
-                return character.States.Crouch;
-            else
-                return character.States.Iddle;
-        }
+            return character.States.Iddle;
 
         return null;
     }
