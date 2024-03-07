@@ -45,13 +45,15 @@ public class Iddle : PlayerState
                 if (Input.GetKeyDown(KeyCode.L))
                     return character.States.HardKick;
 
-                if (Input.GetKeyDown(KeyCode.P))
-                    return character.States.SpecialPunch;
+                // if (Input.GetKeyDown(KeyCode.P))
+                //     return character.States.SpecialPunch;
 
-                if (Input.GetKeyDown(KeyCode.Semicolon))
-                    return character.States.SpecialKick;
+                // if (Input.GetKeyDown(KeyCode.Semicolon))
+                //     return character.States.SpecialKick;
             }
         }
+        if (character.gameObject.layer == 7 && Input.GetKeyDown(KeyCode.LeftArrow))
+            return character.States.LowKick;
 
         return null;
     }

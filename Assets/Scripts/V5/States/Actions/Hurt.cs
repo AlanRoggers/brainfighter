@@ -65,5 +65,4 @@ public class Hurt : PlayerState
         }
         canExitState = true;
     }
-
 }

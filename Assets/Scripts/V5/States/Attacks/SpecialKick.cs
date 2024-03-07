@@ -10,14 +10,14 @@ public class SpecialKick : AttackV5
             AnimationStates.SpecialKick,
             AnimationStates.ChainSpecialKick
         };
-        inertia = new Vector2(-0.5f, 5);
+        inertia = new Vector2(1, 5);
         force = new Vector2(0, 7);
         timesDamageApplied = 3;
         hitFreeze = true;
         coolDown = 0.8f;
         hitFreezeTimer = 0.25f;
         damage = 11;
-        hitStun = 65;
+        hitStun = 35;
     }
     public override PlayerState InputHandler(CharacterV5 character)
     {

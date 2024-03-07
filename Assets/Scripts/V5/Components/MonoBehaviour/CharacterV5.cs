@@ -5,6 +5,7 @@ using UnityEngine;
 public class CharacterV5 : MonoBehaviour
 {
     // public Vector2 a;
+    public float b;
     public PhysicsMaterial2D Friction;
     public int Healt { get; private set; }
     public LayerMask CharacterLayer;
@@ -85,6 +86,16 @@ public class CharacterV5 : MonoBehaviour
     }
     public void EntryAttack(int damage, Vector2 force, float hitStun, bool hitFreeze)
     {
+        if (currentState == States.Back || currentState == States.Block)
+        {
+            currentState.OnExit(this);
+            States.Block.AttackFreeze = hitFreeze;
+            States.Block.Force = force;
+            currentState = States.Block;
+            currentState.OnEntry(this);
+            return;
+        }
+
         if (Healt - damage >= 0)
             Healt -= damage;
         else

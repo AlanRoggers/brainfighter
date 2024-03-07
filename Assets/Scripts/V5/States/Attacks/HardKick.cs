@@ -16,7 +16,7 @@ public class HardKick : AttackV5
         hitFreeze = true;
         coolDown = 0.45f;
         hitFreezeTimer = 0.25f;
-        hitStun = 65;
+        hitStun = 10;
         damage = 8;
         force = new Vector2(2, 8);
     }

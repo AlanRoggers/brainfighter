@@ -16,7 +16,7 @@ public class LowKick : AttackV5
         hitFreeze = true;
         coolDown = 0.1f;
         hitFreezeTimer = 0.25f;
-        hitStun = 41;
+        hitStun = 7;
         damage = 4;
         force = new Vector2(4.5f, 0);
     }
@@ -29,8 +29,10 @@ public class LowKick : AttackV5
 
             if (Input.GetKeyDown(KeyCode.L))
                 return character.States.HardKick;
-        }
 
+            if (Input.GetKeyDown(KeyCode.LeftArrow) && character.gameObject.layer == 7)
+                return character.States.MiddleKick;
+        }
 
         if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
             return character.States.Iddle;
