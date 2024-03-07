@@ -8,10 +8,10 @@ public class BackV5 : PlayerState
     private readonly float maxSpeed = 10f;
     public BackV5()
     {
-        clips = new List<AnimationStates>()
+        clips = new List<AnimationState>()
         {
-            AnimationStates.StartGoingBackwards,
-            AnimationStates.GoingBackwards,
+            AnimationState.StartGoingBackwards,
+            AnimationState.GoingBackwards,
         };
     }
     public override PlayerState InputHandler(CharacterV5 character)
@@ -21,6 +21,27 @@ public class BackV5 : PlayerState
 
         if (Input.GetKeyDown(KeyCode.Space))
             return character.States.Jump;
+
+        if (!character.OnColdoown)
+        {
+            if (Input.GetKeyDown(KeyCode.U))
+                return character.States.LowPunch;
+
+            if (Input.GetKeyDown(KeyCode.I))
+                return character.States.MiddlePunch;
+
+            if (Input.GetKeyDown(KeyCode.O))
+                return character.States.HardPunch;
+
+            if (Input.GetKeyDown(KeyCode.J))
+                return character.States.LowKick;
+
+            if (Input.GetKeyDown(KeyCode.K))
+                return character.States.MiddleKick;
+
+            if (Input.GetKeyDown(KeyCode.L))
+                return character.States.HardKick;
+        }
 
         return null;
     }

@@ -60,7 +60,7 @@ public class Iddle : PlayerState
     public override void OnEntry(CharacterV5 character)
     {
         // Debug.Log("Iddle");
-        character.Animator.Play(AnimationStates.Iddle.ToString());
+        character.Animator.Play(AnimationState.Iddle.ToString());
         character.LastVelocity = 0;
     }
     public override void OnExit(CharacterV5 character)
@@ -69,6 +69,7 @@ public class Iddle : PlayerState
     }
     public override void Update(CharacterV5 character)
     {
-        // Debug.Log("Iddle");
+        // if (character.Animator.speed == 0)
+        //     character.Animator.speed = 1;
     }
 }

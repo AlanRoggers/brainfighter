@@ -5,19 +5,19 @@ public class HardPunch : AttackV5
 {
     public HardPunch()
     {
-        clips = new List<AnimationStates>()
+        clips = new List<AnimationState>()
         {
-            AnimationStates.HardPunch,
-            AnimationStates.ChainHardPunch
+            AnimationState.HardPunch,
+            AnimationState.ChainHardPunch
         };
         inertia = new Vector2(1, 4);
         timesDamageApplied = 1;
-        hitFreeze = true;
+        HitFreeze = true;
         coolDown = 0.4f;
-        hitFreezeTimer = 0.25f;
-        hitStun = 15;
-        damage = 7;
-        force = new Vector2(13, 0);
+        HitFreezeTimer = 0.25f;
+        HitStun = 15;
+        Damage = 7;
+        Force = new Vector2(13, 0);
     }
     public override PlayerState InputHandler(CharacterV5 character)
     {

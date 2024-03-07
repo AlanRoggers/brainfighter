@@ -5,7 +5,7 @@ using UnityEngine;
 using System.Collections.Generic;
 public class PPOAgent : Agent
 {
-    private Components components;
+    private CharacterV5 character;
     private readonly float maxDistance = 32.10f;
     private readonly float minDistance = 1f;
     private Dictionary<string, KeyCode> onePlayer = new Dictionary<string, KeyCode>();
@@ -13,7 +13,7 @@ public class PPOAgent : Agent
     protected override void Awake()
     {
         base.Awake();
-        components = GetComponent<Components>();
+        character = GetComponent<CharacterV5>();
         InitDictionarites();
     }
     public override void OnEpisodeBegin()

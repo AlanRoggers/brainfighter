@@ -6,19 +6,19 @@ public class MiddleKick : AttackV5
 {
     public MiddleKick()
     {
-        clips = new List<AnimationStates>()
+        clips = new List<AnimationState>()
         {
-            AnimationStates.MiddleKick,
-            AnimationStates.ChainMiddleKick
+            AnimationState.MiddleKick,
+            AnimationState.ChainMiddleKick
         };
         inertia = new Vector2(0, 8);
         timesDamageApplied = 1;
-        hitFreeze = true;
+        HitFreeze = true;
         coolDown = 0.25f;
-        hitFreezeTimer = 0.25f;
-        hitStun = 22;
-        damage = 6;
-        force = new Vector2(0, 12);
+        HitFreezeTimer = 0.25f;
+        HitStun = 22;
+        Damage = 6;
+        Force = new Vector2(0, 12);
     }
     public override PlayerState InputHandler(CharacterV5 character)
     {

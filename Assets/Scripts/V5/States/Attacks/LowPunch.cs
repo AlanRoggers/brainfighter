@@ -6,19 +6,19 @@ public class LowPunch : AttackV5
 {
     public LowPunch()
     {
-        clips = new List<AnimationStates>()
+        clips = new List<AnimationState>()
         {
-            AnimationStates.LowPunch,
-            AnimationStates.ChainLowPunch
+            AnimationState.LowPunch,
+            AnimationState.ChainLowPunch
         };
         inertia = new Vector2(-1.5f, 0);
         timesDamageApplied = 1;
-        hitFreeze = false;
+        HitFreeze = false;
         coolDown = 0.1f;
-        hitFreezeTimer = 0.25f;
-        hitStun = 5;
-        damage = 3;
-        force = new Vector2(1f, 4.5f);
+        HitFreezeTimer = 0.25f;
+        HitStun = 5;
+        Damage = 3;
+        Force = new Vector2(1f, 4.5f);
     }
     public override PlayerState InputHandler(CharacterV5 character)
     {

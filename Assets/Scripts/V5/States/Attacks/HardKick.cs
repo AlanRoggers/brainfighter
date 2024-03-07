@@ -6,19 +6,19 @@ public class HardKick : AttackV5
 {
     public HardKick()
     {
-        clips = new List<AnimationStates>()
+        clips = new List<AnimationState>()
         {
-            AnimationStates.HardKick,
-            AnimationStates.ChainHardKick
+            AnimationState.HardKick,
+            AnimationState.ChainHardKick
         };
         inertia = new Vector2(0.4f, 10);
         timesDamageApplied = 1;
-        hitFreeze = true;
+        HitFreeze = true;
         coolDown = 0.45f;
-        hitFreezeTimer = 0.25f;
-        hitStun = 10;
-        damage = 8;
-        force = new Vector2(2, 8);
+        HitFreezeTimer = 0.25f;
+        HitStun = 10;
+        Damage = 8;
+        Force = new Vector2(2, 8);
     }
     public override PlayerState InputHandler(CharacterV5 character)
     {

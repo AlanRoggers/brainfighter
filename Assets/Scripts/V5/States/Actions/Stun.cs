@@ -1,29 +1,35 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Stun : PlayerState
 {
+    private bool endStun;
+    private Coroutine rescueCor;
     public override PlayerState InputHandler(CharacterV5 character)
     {
-        throw new System.NotImplementedException();
+        if (endStun)
+            return character.States.Iddle;
+        return null;
     }
-
-
-
     public override void OnEntry(CharacterV5 character)
     {
-        throw new System.NotImplementedException();
+        endStun = false;
+        character.Animator.Play(AnimationState.Incapacite.ToString());
+        rescueCor = character.StartCoroutine(RescueTime());
     }
-
     public override void OnExit(CharacterV5 character)
     {
-        throw new System.NotImplementedException();
+        if (rescueCor != null)
+            character.StopCoroutine(rescueCor);
     }
-
     public override void Update(CharacterV5 character)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Tiempo de recuperación");
     }
-
-
+    private IEnumerator RescueTime()
+    {
+        yield return new WaitForSeconds(2f);
+        endStun = true;
+    }
 }

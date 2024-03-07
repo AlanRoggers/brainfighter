@@ -5,19 +5,19 @@ public class SpecialPunch : AttackV5
 {
     public SpecialPunch()
     {
-        clips = new List<AnimationStates>()
+        clips = new List<AnimationState>()
         {
-            AnimationStates.SpecialPunch,
-            AnimationStates.ChainSpecialPunch
+            AnimationState.SpecialPunch,
+            AnimationState.ChainSpecialPunch
         };
         inertia = new Vector2(6, 13.3f);
         timesDamageApplied = 1;
-        hitFreeze = true;
+        HitFreeze = true;
         coolDown = 0.6f;
-        hitFreezeTimer = 0.25f;
-        hitStun = 25;
-        damage = 10;
-        force = new Vector2(6, 15);
+        HitFreezeTimer = 0.25f;
+        HitStun = 25;
+        Damage = 10;
+        Force = new Vector2(6, 15);
     }
     public override PlayerState InputHandler(CharacterV5 character)
     {

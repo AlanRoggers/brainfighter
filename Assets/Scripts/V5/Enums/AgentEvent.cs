@@ -1,4 +1,4 @@
-public enum AgentEvents
+public enum AgentEvent
 {
     DidDamage,
     ReceivedDamage,

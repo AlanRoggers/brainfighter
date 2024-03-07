@@ -5,19 +5,19 @@ public class MiddlePunch : AttackV5
 {
     public MiddlePunch()
     {
-        clips = new List<AnimationStates>()
+        clips = new List<AnimationState>()
         {
-            AnimationStates.MiddlePunch,
-            AnimationStates.ChainMiddlePunch
+            AnimationState.MiddlePunch,
+            AnimationState.ChainMiddlePunch
         };
         inertia = new Vector2(0.5f, 0);
         timesDamageApplied = 1;
-        hitFreeze = true;
+        HitFreeze = true;
         coolDown = 0.2f;
-        hitFreezeTimer = 0.25f;
-        hitStun = 19;
-        damage = 5;
-        force = new Vector2(0, 11);
+        HitFreezeTimer = 0.25f;
+        HitStun = 19;
+        Damage = 5;
+        Force = new Vector2(0, 11);
     }
     public override PlayerState InputHandler(CharacterV5 character)
     {

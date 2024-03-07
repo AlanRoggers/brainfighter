@@ -5,10 +5,10 @@ public class JumpV5 : PlayerState
 {
     public JumpV5()
     {
-        clips = new List<AnimationStates>()
+        clips = new List<AnimationState>()
         {
-            AnimationStates.StartJumping,
-            AnimationStates.Jump
+            AnimationState.StartJumping,
+            AnimationState.Jump
         };
     }
     private readonly float jumpForce = 22.5f;

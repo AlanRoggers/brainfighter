@@ -16,4 +16,5 @@ public class StateStorage
     public readonly SpecialKick SpecialKick = new();
     public readonly Hurt Hurt = new();
     public readonly BlockV5 Block = new();
+    public readonly Stun Stun = new();
 }

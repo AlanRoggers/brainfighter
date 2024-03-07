@@ -1,4 +1,4 @@
-public enum AnimationStates
+public enum AnimationState
 {
     #region Motion
     Iddle,

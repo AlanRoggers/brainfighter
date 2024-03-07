@@ -6,19 +6,19 @@ public class LowKick : AttackV5
 {
     public LowKick()
     {
-        clips = new List<AnimationStates>()
+        clips = new List<AnimationState>()
         {
-            AnimationStates.LowKick,
-            AnimationStates.ChainLowKick
+            AnimationState.LowKick,
+            AnimationState.ChainLowKick
         };
         inertia = new Vector2(-0.5f, 7.5f);
         timesDamageApplied = 1;
-        hitFreeze = true;
+        HitFreeze = true;
         coolDown = 0.1f;
-        hitFreezeTimer = 0.25f;
-        hitStun = 7;
-        damage = 4;
-        force = new Vector2(4.5f, 0);
+        HitFreezeTimer = 0.25f;
+        HitStun = 7;
+        Damage = 4;
+        Force = new Vector2(4.5f, 0);
     }
     public override PlayerState InputHandler(CharacterV5 character)
     {

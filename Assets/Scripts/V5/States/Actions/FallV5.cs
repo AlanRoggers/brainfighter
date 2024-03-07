@@ -5,10 +5,10 @@ public class FallV5 : PlayerState
 {
     public FallV5()
     {
-        clips = new List<AnimationStates>()
+        clips = new List<AnimationState>()
         {
-            AnimationStates.StartFalling,
-            AnimationStates.Fall
+            AnimationState.StartFalling,
+            AnimationState.Fall
         };
     }
     public override PlayerState InputHandler(CharacterV5 character)

@@ -3,16 +3,15 @@ using UnityEngine;
 
 public abstract class AttackV5 : PlayerState
 {
-    //Falta force y damage
-    protected AnimationStates currentClip;
-    protected Vector2 inertia;
-    protected Vector2 force;
-    protected int damage;
+    public bool HitFreeze { get; protected set; }
+    public int Damage { get; protected set; }
+    public float HitFreezeTimer { get; protected set; }
+    public float HitStun { get; protected set; }
+    public Vector2 Force { get; protected set; }
     protected int timesDamageApplied;
-    protected bool hitFreeze;
     protected float coolDown;
-    protected float hitFreezeTimer;
-    protected float hitStun;
+    protected AnimationState currentClip;
+    protected Vector2 inertia;
     public override void OnEntry(CharacterV5 character)
     {
         if (character.CoolDownCor != null)
@@ -41,21 +40,22 @@ public abstract class AttackV5 : PlayerState
                 Collider2D enemy = character.OverlapDetector.AttackHit(character.Layer == 64 ? 128 : 64, character.Hitbox);
                 if (enemy && character.Hitbox.enabled)
                 {
-                    enemy.GetComponent<CharacterV5>().EntryAttack(damage, force, hitStun, hitFreeze);
+                    enemy.GetComponent<CharacterV5>().EntryAttack(this);
 
-                    if (hitFreeze)
+                    character.IncrementResistance(Damage);
+
+                    if (HitFreeze)
                     {
                         Vector2 current = character.Physics.velocity;
                         character.Physics.velocity = Vector2.zero;
                         character.Physics.gravityScale = 0;
                         character.Animator.speed = 0;
-                        yield return new WaitForSeconds(hitFreezeTimer);
+                        yield return new WaitForSeconds(HitFreezeTimer);
                         character.Animator.speed = 1;
                         character.Physics.velocity = current;
                         character.Physics.gravityScale = 4;
                     }
                     times--;
-                    // GainResistance(attack.ResistanceGained);
                     yield return new WaitForSeconds(0.2f);
                 }
 

@@ -1,14 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BlockV5 : PlayerState
 {
     private bool stopBlock;
+    public AttackV5 AttackReceived;
     private Coroutine blockCor;
-    public bool AttackFreeze;
-    public Vector2 Force;
-    public float AttackStun;
     public override PlayerState InputHandler(CharacterV5 character)
     {
         if (stopBlock)
@@ -18,16 +15,19 @@ public class BlockV5 : PlayerState
             else
                 return character.States.Iddle;
         }
+
         return null;
     }
 
     public override void OnEntry(CharacterV5 character)
     {
-        stopBlock = false;
+        character.Physics.velocity = Vector2.zero;
+        character.ReduceResistance(AttackReceived.Damage);
+
         if (!Input.GetKey(KeyCode.S))
-            character.Animator.Play(AnimationStates.Block.ToString());
+            character.Animator.Play(AnimationState.Block.ToString());
         else
-            character.Animator.Play(AnimationStates.BlockWhileCrouch.ToString());
+            character.Animator.Play(AnimationState.BlockWhileCrouch.ToString());
 
         if (blockCor != null)
             character.StopCoroutine(blockCor);
@@ -37,31 +37,45 @@ public class BlockV5 : PlayerState
 
     public override void OnExit(CharacterV5 character)
     {
-        Debug.Log("Saliendo de bloquear");
+        if (blockCor != null)
+            character.StopCoroutine(blockCor);
+        character.Animator.speed = 1;
     }
 
     public override void Update(CharacterV5 character)
     {
-
     }
 
     private IEnumerator BlockLogic(CharacterV5 character)
     {
+
         stopBlock = false;
-        yield return null;
-        yield return null;
-        yield return null;
-        yield return null;
-        yield return null;
-        yield return null;
-        yield return null;
-        yield return null;
+        Debug.Log($"Aplicando fuerzas {AttackReceived.Force}");
+
+
+        if (character.transform.localScale.x < 0)
+            character.Physics.velocity = new Vector2(7, 0);
+        else
+            character.Physics.velocity = new Vector2(-7, 0);
+
+        for (int i = 0; i < 130; i++)
+        {
+            yield return null;
+        }
+
         character.Animator.speed = 0;
         Debug.Log("Bloqueando");
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.4f);
         Debug.Log("Desbloqueando");
         character.Animator.speed = 1;
-        yield return null;
+
+        for (int i = 1; i <= 80; i++)
+        {
+            if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+                break;
+            yield return null;
+
+        }
         stopBlock = true;
     }
 }

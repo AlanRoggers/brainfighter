@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class PlayerState
 {
     protected Coroutine animationCor = null;
-    protected List<AnimationStates> clips;
+    protected List<AnimationState> clips;
     public abstract PlayerState InputHandler(CharacterV5 character);
     public abstract void Update(CharacterV5 character);
     public virtual void OnEntry(CharacterV5 character)

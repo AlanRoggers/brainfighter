@@ -10,10 +10,10 @@ public class HealthBars : MonoBehaviour
     {
         fighter = GetComponent<CharacterV5>();
 
-        healthHandler = fighter.Healt;
+        healthHandler = fighter.Health;
 
         if (Health != null)
-            Health.Text = $"{fighter.Healt}";
+            Health.Text = $"{fighter.Health}";
     }
     private void Update()
     {
@@ -21,16 +21,16 @@ public class HealthBars : MonoBehaviour
     }
     private void UpdateUI()
     {
-        if (fighter.Healt != healthHandler)
+        if (fighter.Health != healthHandler)
         {
-            Debug.Log($"HealtBars {fighter.Healt}");
-            healthHandler = fighter.Healt;
+            Debug.Log($"HealtBars {fighter.Health}");
+            healthHandler = fighter.Health;
             if (Health != null)
-                Health.Text = $"{fighter.Healt}";
+                Health.Text = $"{fighter.Health}";
             if (VisualHealth != null)
             {
                 VisualHealth.AutoSize.X = AutoSize.None;
-                VisualHealth.Size.X = Length.Percentage(fighter.Healt / 100f * (1 - VisualHealth.CalculatedMargin.X.Sum().Percent));
+                VisualHealth.Size.X = Length.Percentage(fighter.Health / 100f * (1 - VisualHealth.CalculatedMargin.X.Sum().Percent));
             }
         }
     }

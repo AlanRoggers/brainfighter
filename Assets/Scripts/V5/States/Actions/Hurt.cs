@@ -3,11 +3,8 @@ using UnityEngine;
 
 public class Hurt : PlayerState
 {
+    public AttackV5 AttackReceived;
     private bool canExitState;
-    public Vector2 AttackForce;
-    public float AttackStun;
-    public bool AttackFreeze;
-    public float AttackFreezeTime = 0.25f;
     public override PlayerState InputHandler(CharacterV5 character)
     {
         if (canExitState)
@@ -17,7 +14,7 @@ public class Hurt : PlayerState
     public override void OnEntry(CharacterV5 character)
     {
         character.Friction.friction = 0;
-        character.Animator.Play(AnimationStates.Damage.ToString());
+        character.Animator.Play(AnimationState.Damage.ToString());
         canExitState = false;
         if (character.HurtCor != null)
         {
@@ -30,6 +27,7 @@ public class Hurt : PlayerState
     public override void OnExit(CharacterV5 character)
     {
         character.Friction.friction = 1;
+        character.Animator.speed = 1;
     }
     public override void Update(CharacterV5 character)
     {
@@ -37,27 +35,26 @@ public class Hurt : PlayerState
     }
     private IEnumerator HurtLogic(CharacterV5 character)
     {
-        // character.Physics.sharedMaterial
         if (character.transform.localScale.x < 0)
-            character.Physics.AddForce(AttackForce, ForceMode2D.Impulse);
+            character.Physics.AddForce(AttackReceived.Force, ForceMode2D.Impulse);
         else
-            character.Physics.AddForce(AttackForce * new Vector2(-1, 1), ForceMode2D.Impulse);
+            character.Physics.AddForce(AttackReceived.Force * new Vector2(-1, 1), ForceMode2D.Impulse);
         yield return new WaitForEndOfFrame();
 
-        if (AttackFreeze)
+        if (AttackReceived.HitFreeze)
         {
             Vector2 current = character.Physics.velocity;
             character.Physics.velocity = Vector2.zero;
             character.Physics.gravityScale = 0;
             character.Animator.speed = 0;
-            yield return new WaitForSeconds(AttackFreezeTime);
+            yield return new WaitForSeconds(AttackReceived.HitFreezeTimer);
             character.Animator.speed = 1;
             character.Physics.velocity = current;
             character.Physics.gravityScale = 4;
         }
 
         yield return new WaitUntil(() => character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0f);
-        int framesWaiting = (int)AttackStun;
+        int framesWaiting = (int)AttackReceived.HitStun;
         while (framesWaiting > 0)
         {
             framesWaiting--;

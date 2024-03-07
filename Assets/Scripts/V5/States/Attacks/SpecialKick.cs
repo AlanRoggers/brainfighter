@@ -5,19 +5,19 @@ public class SpecialKick : AttackV5
 {
     public SpecialKick()
     {
-        clips = new List<AnimationStates>()
+        clips = new List<AnimationState>()
         {
-            AnimationStates.SpecialKick,
-            AnimationStates.ChainSpecialKick
+            AnimationState.SpecialKick,
+            AnimationState.ChainSpecialKick
         };
         inertia = new Vector2(1, 5);
-        force = new Vector2(0, 7);
+        Force = new Vector2(0, 7);
         timesDamageApplied = 3;
-        hitFreeze = true;
+        HitFreeze = true;
         coolDown = 0.8f;
-        hitFreezeTimer = 0.25f;
-        damage = 11;
-        hitStun = 35;
+        HitFreezeTimer = 0.25f;
+        Damage = 11;
+        HitStun = 35;
     }
     public override PlayerState InputHandler(CharacterV5 character)
     {
