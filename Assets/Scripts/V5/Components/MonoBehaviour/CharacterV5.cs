@@ -1,10 +1,21 @@
 using System;
 using System.Collections;
+using Unity.MLAgents;
 using UnityEngine;
 
 public class CharacterV5 : MonoBehaviour
 {
-    public bool ArtificialInteligence;
+    public delegate void AgentHurt(int entryDamage, bool whichAgent);
+    public delegate void AgentBlock(int entryDamage, bool whichAgent);
+    public delegate void AgentStuned(bool whichAgent);
+    public delegate void AgentWin(bool whichAgent);
+    public static event AgentHurt OnHurt;
+    public static event AgentBlock OnBlock;
+    public static event AgentStuned OnStun;
+    public static event AgentWin OnWin;
+
+    public AgentAcademy trainerAI;
+    public bool IsAI;
     public int Health { get; private set; }
     public int Resistance { get; private set; }
     public readonly StateStorage States = new();
@@ -81,34 +92,42 @@ public class CharacterV5 : MonoBehaviour
     }
     public void EntryAttack(AttackV5 attack)
     {
+        // Manejo del estado bloqueando
         if (currentState == States.Back || currentState == States.Block)
         {
             currentState.OnExit(this);
+            // Manejo del estado bloqueo o stun
             if (Resistance > 0)
             {
                 States.Block.AttackReceived = attack;
                 currentState = States.Block;
                 currentState.OnEntry(this);
+                OnBlock?.Invoke(attack.Damage, gameObject.layer == 6);
                 return;
             }
             else
             {
                 currentState = States.Stun;
                 currentState.OnEntry(this);
+                OnStun?.Invoke(gameObject.layer == 6);
                 return;
             }
         }
 
+        //Manejo del daño y del fin del juego
         if (Health - attack.Damage >= 0)
             Health -= attack.Damage;
         else
+        {
             Health = 0;
+            OnWin.Invoke(gameObject.layer != 6);
+        }
 
         currentState.OnExit(this);
         States.Hurt.AttackReceived = attack;
         currentState = States.Hurt;
-
         currentState.OnEntry(this);
+        OnHurt?.Invoke(attack.Damage, gameObject.layer == 6);
     }
     public void ReduceResistance(int damage)
     {

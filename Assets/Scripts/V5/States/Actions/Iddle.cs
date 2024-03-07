@@ -4,7 +4,7 @@ public class Iddle : PlayerState
 {
     public override PlayerState InputHandler(CharacterV5 character)
     {
-        if (!character.ArtificialInteligence)
+        if (!character.IsAI)
         {
             if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
             {

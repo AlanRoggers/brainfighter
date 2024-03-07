@@ -3,13 +3,15 @@ using UnityEngine;
 
 public class AgentAcademy : MonoBehaviour
 {
+    public event ResetEnironment OnReset;
+    public delegate void ResetEnironment();
     [SerializeField] private int maxSteps;
-    [SerializeField] private CharacterV5 agent1;
-    [SerializeField] private CharacterV5 agent2;
+    public CharacterV5 agent1;
+    public CharacterV5 agent2;
     [SerializeField] private int numSum;
     private readonly float maxNegativeX = -15f;
-    public bool monitorRewards;
     private readonly float maxPositiveX = 0f;
+    public bool monitorRewards;
     private int lastAG1Health;
     private int lastAG2Health;
     private int stepCounter = 0;
@@ -19,6 +21,13 @@ public class AgentAcademy : MonoBehaviour
     {
         agent1Brain = agent1.GetComponent<Agent>();
         agent2Brain = agent2.GetComponent<Agent>();
+    }
+    private void Start()
+    {
+        CharacterV5.OnHurt += Hurt;
+        CharacterV5.OnBlock += Block;
+        CharacterV5.OnStun += Stuned;
+        CharacterV5.OnWin += Win;
     }
     void FixedUpdate()
     {
@@ -53,70 +62,8 @@ public class AgentAcademy : MonoBehaviour
                 print($"Recompensa de Chie:{agent1Brain.GetCumulativeReward()}");
                 print($"Recompensa de Satonaka:{agent2Brain.GetCumulativeReward()}");
             }
-            agent1Brain.EpisodeInterrupted();
-            agent2Brain.EpisodeInterrupted();
-        }
-    }
-    public void ManageEvents(AgentEvent eventReceived, bool agent1, float damage = 0)
-    {
-        switch (eventReceived)
-        {
-            case AgentEvent.DidDamage:
-                if (agent1)
-                    agent1Brain.AddReward(0.1f * damage);
-                else
-                    agent2Brain.AddReward(0.1f * damage);
-                break;
-            case AgentEvent.ReceivedDamage:
-                if (agent1)
-                    agent1Brain.AddReward(-0.1f * damage);
-                else
-                    agent2Brain.AddReward(-0.1f * damage);
-                break;
-            case AgentEvent.KickWhileBlocked:
-                if (agent1)
-                    agent1Brain.AddReward(-0.2f);
-                else
-                    agent2Brain.AddReward(-0.2f);
-                break;
-            case AgentEvent.AttackBlocked:
-                if (agent1)
-                    agent1Brain.AddReward(0.2f);
-                else
-                    agent2Brain.AddReward(-0.2f);
-                break;
-            case AgentEvent.EnemyStuned:
-                if (agent1)
-                {
-                    agent1Brain.AddReward(0.6f);
-                    agent2Brain.AddReward(-0.6f);
-                }
-                else
-                {
-                    agent1Brain.AddReward(-0.6f);
-                    agent2Brain.AddReward(0.6f);
-                }
-                break;
-            case AgentEvent.Loss:
-                if (agent1)
-                {
-                    agent2Brain.AddReward(50f);
-                    agent1Brain.AddReward(-50f);
-                }
-                else
-                {
-                    agent2Brain.AddReward(-50f);
-                    agent1Brain.AddReward(50f);
-                }
-                if (monitorRewards)
-                {
-                    print($"Recompensa de Chie:{agent1Brain.GetCumulativeReward()}");
-                    print($"Recompensa de Satonaka:{agent2Brain.GetCumulativeReward()}");
-                }
-                agent1Brain.EndEpisode();
-                agent2Brain.EndEpisode();
-                break;
-
+            // agent1Brain.EpisodeInterrupted();
+            // agent2Brain.EpisodeInterrupted();
         }
     }
     private void InitialValues()
@@ -146,5 +93,65 @@ public class AgentAcademy : MonoBehaviour
 
         stepCounter = 0;
         numSum = 1;
+    }
+    private void Hurt(int entryDamage, bool whichAgent)
+    {
+        if (whichAgent)
+        {
+            Debug.Log("[Hurt] -Agente1 +Agente2");
+            // agent1Brain.AddReward(-0.1f * entryDamage);
+            // agent2Brain.AddReward(0.1f * entryDamage);
+        }
+        else
+        {
+            Debug.Log("[Hurt] +Agente1 -Agente2");
+            // agent1Brain.AddReward(0.1f * entryDamage);
+            // agent2Brain.AddReward(-0.1f * entryDamage);
+        }
+    }
+    private void Block(int entryDamage, bool whichAgent)
+    {
+        if (whichAgent)
+        {
+            Debug.Log("[Block] +Agente1 -Agente2");
+            // agent1Brain.AddReward(0.2f);
+            // agent2Brain.AddReward(-0.2f);
+        }
+        else
+        {
+            Debug.Log("[Block] -Agente1 +Agente2");
+            // agent1Brain.AddReward(-0.2f);
+            // agent2Brain.AddReward(+0.2f);
+        }
+    }
+    private void Stuned(bool whichAgent)
+    {
+        if (whichAgent)
+        {
+            Debug.Log("[Stuned] -Agente1 +Agente2");
+            // agent1Brain.AddReward(-0.6f);
+            // agent2Brain.AddReward(+0.6f);
+        }
+        else
+        {
+            Debug.Log("[Stuned] +Agente1 -Agente2");
+            // agent1Brain.AddReward(+0.6f);
+            // agent2Brain.AddReward(-0.6f);
+        }
+    }
+    private void Win(bool whichAgent)
+    {
+        if (whichAgent)
+        {
+            Debug.Log("[Win] +Agente1 -Agente2");
+            // agent1Brain.AddReward(50f);
+            // agent2Brain.AddReward(-50f);
+        }
+        else
+        {
+            Debug.Log("[Win] -Agente1 +Agente2");
+            // agent1Brain.AddReward(-50f);
+            // agent2Brain.AddReward(+50f);
+        }
     }
 }

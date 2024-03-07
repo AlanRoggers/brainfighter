@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Collections.Generic;
 public class PPOAgent : Agent
 {
+    private AgentAcademy academy;
     private CharacterV5 character;
     private readonly float maxDistance = 32.10f;
     private readonly float minDistance = 1f;
@@ -14,15 +15,16 @@ public class PPOAgent : Agent
     {
         base.Awake();
         character = GetComponent<CharacterV5>();
-        InitDictionarites();
+        academy = GetComponent<AgentAcademy>();
+        // InitDictionarites();
     }
     public override void OnEpisodeBegin()
     {
-        components.Academy.Spawn();
+        // components.Academy.Spawn();
     }
     public override void CollectObservations(VectorSensor sensor)
     {
-        float currentDistanceX = Mathf.Abs(transform.localPosition.x - components.msng.Enemy.transform.localPosition.x);
+        float currentDistanceX = Mathf.Abs(academy.agent1.transform.localPosition.x - academy.agent2.transform.localPosition.x);
         float normalizedCurrentDistanceX = Mathf.Clamp(
             (currentDistanceX - minDistance) / (maxDistance - minDistance),
             0.0f,
@@ -32,19 +34,20 @@ public class PPOAgent : Agent
         // Distancia normalizada entre los personajes
         sensor.AddObservation(normalizedCurrentDistanceX); //Distancia entre el enemigo (Es un vector de dos dimensiones) 1+
         // Vida el enemigo normalizada
-        sensor.AddObservation(components.msng.Enemy.GetComponent<PlayerHealth>().Health / 100f); // Vida del enemigo 1 +
+        sensor.AddObservation(academy.agent1.Health / 100f); // Vida del enemigo 1 +
         // Vida normalizada
-        sensor.AddObservation(components.Health.Health / 100f); // Vida propia 1 +
-        // Me estan haciendo daño
-        sensor.AddObservation(components.msng.IsTakingDamage); // Esta variable controla si puede o no atacar 1 +
-        // Tiempo de recuperación
-        sensor.AddObservation(components.msng.AttackRestricted);
-        // Estoy atacando no puedo atacar más
-        sensor.AddObservation(components.msng.IsAttacking);
-        // Estoy en el aire
-        sensor.AddObservation(components.msng.IsOnGround); //Tocando el piso 1 +
-        // Enemigo esta bloquendo
-        sensor.AddObservation(components.msng.Enemy.GetComponent<Components>().msng.IsBlocking);
+        sensor.AddObservation(academy.agent1.Health / 100f); // Vida propia 1 +
+        // Esto se va reemplazar mandandole el estado completo en el que esta
+        // // Me estan haciendo daño
+        // sensor.AddObservation(components.msng.IsTakingDamage); // Esta variable controla si puede o no atacar 1 +
+        // // Tiempo de recuperación
+        // sensor.AddObservation(components.msng.AttackRestricted);
+        // // Estoy atacando no puedo atacar más
+        // sensor.AddObservation(components.msng.IsAttacking);
+        // // Estoy en el aire
+        // sensor.AddObservation(components.msng.IsOnGround); //Tocando el piso 1 +
+        // // Enemigo esta bloquendo
+        // sensor.AddObservation(components.msng.Enemy.GetComponent<Components>().msng.IsBlocking);
 
 
         // sensor.AddObservation(components.msng.Enemy.GetComponent<Components>().msng.Dead); //Enemigo muerto 1 +
@@ -52,90 +55,89 @@ public class PPOAgent : Agent
     }
     public override void OnActionReceived(ActionBuffers actions)
     {
-        // print($"Action entered   {actions.DiscreteActions[0]}   {actions.DiscreteActions[1]}");
-        int motionAction = actions.DiscreteActions[0];
-        int behaviourAction = actions.DiscreteActions[1];
-        switch (motionAction)
-        {
-            case 0: // No hacer nada
-                components.motion.StandUp();
-                components.motion.Walk(0);
-                break;
-            case 1: // Caminar Right
-                components.motion.Walk(1);
-                break;
-            case 2: // Caminar Left
-                components.motion.Walk(-1);
-                break;
-            case 3: // Impulso normal
-                if (transform.localScale.x > 0)
-                    components.motion.Dash(false);
-                else
-                    components.motion.Dash();
-                break;
-            case 4: // Impulso hacía atrás
-                if (transform.localScale.x > 0)
-                    components.motion.DashBack();
-                else
-                    components.motion.DashBack(true);
-                break;
-            case 5: // Agacharse
-                components.motion.Crouch();
-                break;
-        }
-        switch (behaviourAction)
-        {
-            case 0: // No hacer nada
-                components.motion.StopBlock();
-                break;
-            case 1: // Saltar
-                components.motion.Jump();
-                break;
-            case 2: // Golpe 1
-                components.attacks.LowPunch();
-                break;
-            case 3: // Golpe 2
-                components.attacks.MiddlePunch();
-                break;
-            case 4: // Golpe 3
-                components.attacks.HardPunch();
-                break;
-            case 5: // Golpe 4
-                components.attacks.SpecialPunch();
-                break;
-            case 6: // Patada 1
-                components.attacks.LowKick();
-                break;
-            case 7: // Patada 2
-                components.attacks.MiddleKick();
-                break;
-            case 8: // Patada 3
-                components.attacks.HardKick();
-                break;
-            case 9: // Patada 4
-                components.attacks.SpecialKick();
-                break;
-            case 10: // Bloquear
-                components.motion.Block();
-                break;
-        }
+        // int motionAction = actions.DiscreteActions[0];
+        // int behaviourAction = actions.DiscreteActions[1];
+        // switch (motionAction)
+        // {
+        //     case 0: // No hacer nada
+        //         components.motion.StandUp();
+        //         components.motion.Walk(0);
+        //         break;
+        //     case 1: // Caminar Right
+        //         components.motion.Walk(1);
+        //         break;
+        //     case 2: // Caminar Left
+        //         components.motion.Walk(-1);
+        //         break;
+        //     case 3: // Impulso normal
+        //         if (transform.localScale.x > 0)
+        //             components.motion.Dash(false);
+        //         else
+        //             components.motion.Dash();
+        //         break;
+        //     case 4: // Impulso hacía atrás
+        //         if (transform.localScale.x > 0)
+        //             components.motion.DashBack();
+        //         else
+        //             components.motion.DashBack(true);
+        //         break;
+        //     case 5: // Agacharse
+        //         components.motion.Crouch();
+        //         break;
+        // }
+        // switch (behaviourAction)
+        // {
+        //     case 0: // No hacer nada
+        //         components.motion.StopBlock();
+        //         break;
+        //     case 1: // Saltar
+        //         components.motion.Jump();
+        //         break;
+        //     case 2: // Golpe 1
+        //         components.attacks.LowPunch();
+        //         break;
+        //     case 3: // Golpe 2
+        //         components.attacks.MiddlePunch();
+        //         break;
+        //     case 4: // Golpe 3
+        //         components.attacks.HardPunch();
+        //         break;
+        //     case 5: // Golpe 4
+        //         components.attacks.SpecialPunch();
+        //         break;
+        //     case 6: // Patada 1
+        //         components.attacks.LowKick();
+        //         break;
+        //     case 7: // Patada 2
+        //         components.attacks.MiddleKick();
+        //         break;
+        //     case 8: // Patada 3
+        //         components.attacks.HardKick();
+        //         break;
+        //     case 9: // Patada 4
+        //         components.attacks.SpecialKick();
+        //         break;
+        //     case 10: // Bloquear
+        //         components.motion.Block();
+        //         break;
+        // }
     }
     public override void Heuristic(in ActionBuffers actionsOut)
     {
-        ActionSegment<int> actions = actionsOut.DiscreteActions;
-        if (gameObject.layer == 6)
-        {
-            if (Input.GetKey(onePlayer["Right"]) && !Input.GetKey(onePlayer["Left"]))
-                actions[0] = 1;
-            else if (Input.GetKey(onePlayer["Left"]) && !Input.GetKey(onePlayer["Right"]))
-                actions[0] = 2;
-            else if (transform.localScale.x > 0 && Input.GetKey(onePlayer["Dash"]) || transform.localScale.x < 0 && Input.GetKey(onePlayer["DashBack"]))
-                actions[0] = 3;
-            else if (transform.localScale.x > 0 && Input.GetKey(onePlayer["DashBack"]) || transform.localScale.x < 0 && Input.GetKey(onePlayer["Dash"]))
-                actions[0] = 4;
-            else if (Input.GetKey(onePlayer["LowPunch"]))
-                actions[1] = 2;
-        }
+        // ActionSegment<int> actions = actionsOut.DiscreteActions;
+        // if (gameObject.layer == 6)
+        // {
+        //     if (Input.GetKey(onePlayer["Right"]) && !Input.GetKey(onePlayer["Left"]))
+        //         actions[0] = 1;
+        //     else if (Input.GetKey(onePlayer["Left"]) && !Input.GetKey(onePlayer["Right"]))
+        //         actions[0] = 2;
+        //     else if (transform.localScale.x > 0 && Input.GetKey(onePlayer["Dash"]) || transform.localScale.x < 0 && Input.GetKey(onePlayer["DashBack"]))
+        //         actions[0] = 3;
+        //     else if (transform.localScale.x > 0 && Input.GetKey(onePlayer["DashBack"]) || transform.localScale.x < 0 && Input.GetKey(onePlayer["Dash"]))
+        //         actions[0] = 4;
+        //     else if (Input.GetKey(onePlayer["LowPunch"]))
+        //         actions[1] = 2;
+        // }
     }
     void InitDictionarites()
     {
