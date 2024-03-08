@@ -13,7 +13,7 @@ public class FallV5 : PlayerState
     }
     public override PlayerState InputHandler(CharacterV5 character)
     {
-        if (character.OverlapDetector.GroundDetection(character.GetComponent<Collider2D>(), LayerMask.GetMask("Ground")))
+        if (character.OverlapDetector.GroundDetection(character.Body, LayerMask.GetMask("Ground")))
             return character.States.Iddle;
         return null;
     }

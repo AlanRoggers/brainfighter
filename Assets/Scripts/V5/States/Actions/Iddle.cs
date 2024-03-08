@@ -22,7 +22,7 @@ public class Iddle : PlayerState
                     return character.States.Walk;
             }
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && character.OverlapDetector.GroundDetection(character.Body, LayerMask.GetMask("Ground")))
                 return character.States.Jump;
 
             if (!character.OnColdoown)

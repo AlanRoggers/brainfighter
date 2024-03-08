@@ -1742,7 +1742,6 @@ MonoBehaviour:
   agent1: {fileID: 4557813838715277410}
   agent2: {fileID: 4519203667240108038}
   numSum: 0
-  monitorRewards: 0
 --- !u!1 &4881211677071863255
 GameObject:
   m_ObjectHideFlags: 0
@@ -3545,6 +3544,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1034225295489706800, guid: ab5326754e8a547f19751536a2856551, type: 3}
+      propertyPath: Enemy
+      value: 
+      objectReference: {fileID: 4557813838715277410}
+    - target: {fileID: 1034225295489706800, guid: ab5326754e8a547f19751536a2856551, type: 3}
       propertyPath: EnemyTransform
       value: 
       objectReference: {fileID: 5866843362442746611}
@@ -3645,6 +3648,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1622227332243296152}
     m_Modifications:
+    - target: {fileID: 1034225295489706800, guid: ab5326754e8a547f19751536a2856551, type: 3}
+      propertyPath: Enemy
+      value: 
+      objectReference: {fileID: 4519203667240108038}
     - target: {fileID: 1034225295489706800, guid: ab5326754e8a547f19751536a2856551, type: 3}
       propertyPath: Danger
       value: 

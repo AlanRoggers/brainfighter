@@ -23,7 +23,6 @@ public class HealthBars : MonoBehaviour
     {
         if (fighter.Health != healthHandler)
         {
-            Debug.Log($"HealtBars {fighter.Health}");
             healthHandler = fighter.Health;
             if (Health != null)
                 Health.Text = $"{fighter.Health}";

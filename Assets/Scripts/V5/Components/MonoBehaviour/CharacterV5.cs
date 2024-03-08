@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CharacterV5 : MonoBehaviour
 {
+    public CharacterV5 Enemy;
     public delegate void AgentHurt(int entryDamage, bool whichAgent);
     public delegate void AgentBlock(int entryDamage, bool whichAgent);
     public delegate void AgentStuned(bool whichAgent);
@@ -51,14 +52,11 @@ public class CharacterV5 : MonoBehaviour
         Health = 100;
         Resistance = 50;
     }
-    private void Start()
-    {
-        if (IsAI)
-            PPOAgent.OnReset += Reset;
-    }
     void Update()
     {
-        Debug.Log(currentState);
+        if (gameObject.layer == 6)
+            Debug.Log(transform.localPosition);
+        // Debug.Log(currentState);
         currentState.Update(this);
         PlayerState auxiliar = currentState.InputHandler(this);
         if (auxiliar != null)
@@ -149,9 +147,11 @@ public class CharacterV5 : MonoBehaviour
         else
             Resistance = 50;
     }
-    private void Reset()
+    public void Reset()
     {
+        Physics.velocity = Vector2.zero;
         currentState = States.Iddle;
+        currentState.OnEntry(this);
         Friction.friction = 1;
         Health = 100;
         Resistance = 50;

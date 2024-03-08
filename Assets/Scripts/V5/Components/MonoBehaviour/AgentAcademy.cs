@@ -6,10 +6,9 @@ public class AgentAcademy : MonoBehaviour
     [SerializeField] private int maxSteps;
     public CharacterV5 agent1;
     public CharacterV5 agent2;
-    [SerializeField] private int numSum;
+    [SerializeField] private float numSum;
     private readonly float maxNegativeX = -15f;
-    private readonly float maxPositiveX = 0f;
-    public bool monitorRewards;
+    private readonly float maxPositiveX = 10f;
     private int lastAG1Health;
     private int lastAG2Health;
     private int stepCounter = 0;
@@ -26,10 +25,10 @@ public class AgentAcademy : MonoBehaviour
         CharacterV5.OnBlock += Block;
         CharacterV5.OnStun += Stuned;
         CharacterV5.OnWin += Win;
-        PPOAgent.OnReset += Spawn;
     }
     void FixedUpdate()
     {
+        Debug.Log($"Steps {stepCounter}");
         if (stepCounter < maxSteps)
         {
             stepCounter++;
@@ -39,31 +38,39 @@ public class AgentAcademy : MonoBehaviour
                 {
                     if (lastAG1Health == agent1.Health && lastAG2Health == agent2.Health)
                     {
+                        // Debug.Log("Entro");
                         agent1Brain.AddReward(-numSum);
                         agent2Brain.AddReward(-numSum);
-                        numSum += 2;
+                        numSum += 0.1f;
                     }
                     else
                     {
-                        // if (monitorRewards)
-                        //     print("Hola se reseteo");
                         lastAG1Health = agent1.Health;
                         lastAG2Health = agent2.Health;
-                        numSum = 1;
+                        numSum = 0.1f;
                     }
                 }
             }
         }
         else
         {
-            if (monitorRewards)
+            Debug.Log("Episodio Interrumpido");
+            if (agent1.Health > agent2.Health)
             {
-                print($"Recompensa de Chie:{agent1Brain.GetCumulativeReward()}");
-                print($"Recompensa de Satonaka:{agent2Brain.GetCumulativeReward()}");
+                agent1Brain.AddReward(25);
+                agent2Brain.AddReward(-25);
             }
-            // agent1Brain.EpisodeInterrupted();
-            // agent2Brain.EpisodeInterrupted();
+            else if (agent1.Health < agent2.Health)
+            {
+                agent1Brain.AddReward(-25);
+                agent2Brain.AddReward(25);
+            }
+            stepCounter = 0;
+            numSum = 1;
+            agent1Brain.EpisodeInterrupted();
+            agent2Brain.EpisodeInterrupted();
         }
+
     }
     public void Spawn()
     {
@@ -83,25 +90,24 @@ public class AgentAcademy : MonoBehaviour
             agent2X = Mathf.Clamp(agent2X, maxNegativeX, agent1X);
         }
 
-        agent1.transform.localPosition = new Vector2(agent1X, -4.5f);
-        agent2.transform.localPosition = new Vector2(agent2X, -4.5f);
+        agent1.transform.localPosition = new Vector2(agent1X, -8.51f);
+        agent2.transform.localPosition = new Vector2(agent2X, -8.51f);
 
-        stepCounter = 0;
-        numSum = 1;
+        Debug.LogAssertion("Spawn");
     }
     private void Hurt(int entryDamage, bool whichAgent)
     {
         if (whichAgent)
         {
             Debug.Log("[Hurt] -Agente1 +Agente2");
-            // agent1Brain.AddReward(-0.1f * entryDamage);
-            // agent2Brain.AddReward(0.1f * entryDamage);
+            agent1Brain.AddReward(-0.1f * entryDamage);
+            agent2Brain.AddReward(0.1f * entryDamage);
         }
         else
         {
             Debug.Log("[Hurt] +Agente1 -Agente2");
-            // agent1Brain.AddReward(0.1f * entryDamage);
-            // agent2Brain.AddReward(-0.1f * entryDamage);
+            agent1Brain.AddReward(0.1f * entryDamage);
+            agent2Brain.AddReward(-0.1f * entryDamage);
         }
     }
     private void Block(int entryDamage, bool whichAgent)
@@ -109,14 +115,14 @@ public class AgentAcademy : MonoBehaviour
         if (whichAgent)
         {
             Debug.Log("[Block] +Agente1 -Agente2");
-            // agent1Brain.AddReward(0.2f);
-            // agent2Brain.AddReward(-0.2f);
+            agent1Brain.AddReward(0.2f);
+            agent2Brain.AddReward(-0.2f);
         }
         else
         {
             Debug.Log("[Block] -Agente1 +Agente2");
-            // agent1Brain.AddReward(-0.2f);
-            // agent2Brain.AddReward(+0.2f);
+            agent1Brain.AddReward(-0.2f);
+            agent2Brain.AddReward(+0.2f);
         }
     }
     private void Stuned(bool whichAgent)
@@ -124,29 +130,38 @@ public class AgentAcademy : MonoBehaviour
         if (whichAgent)
         {
             Debug.Log("[Stuned] -Agente1 +Agente2");
-            // agent1Brain.AddReward(-0.6f);
-            // agent2Brain.AddReward(+0.6f);
+            agent1Brain.AddReward(-0.6f);
+            agent2Brain.AddReward(+0.6f);
         }
         else
         {
             Debug.Log("[Stuned] +Agente1 -Agente2");
-            // agent1Brain.AddReward(+0.6f);
-            // agent2Brain.AddReward(-0.6f);
+            agent1Brain.AddReward(+0.6f);
+            agent2Brain.AddReward(-0.6f);
         }
     }
     private void Win(bool whichAgent)
     {
+        Debug.LogAssertion("Win");
         if (whichAgent)
         {
             Debug.Log("[Win] +Agente1 -Agente2");
-            // agent1Brain.AddReward(50f);
-            // agent2Brain.AddReward(-50f);
+            agent1Brain.AddReward(50f);
+            agent2Brain.AddReward(-50f);
+            stepCounter = 0;
+            numSum = 1;
+            agent1Brain.EndEpisode();
+            agent2Brain.EndEpisode();
         }
         else
         {
             Debug.Log("[Win] -Agente1 +Agente2");
-            // agent1Brain.AddReward(-50f);
-            // agent2Brain.AddReward(+50f);
+            agent1Brain.AddReward(-50f);
+            agent2Brain.AddReward(+50f);
+            stepCounter = 0;
+            numSum = 1;
+            agent1Brain.EndEpisode();
+            agent2Brain.EndEpisode();
         }
     }
 }

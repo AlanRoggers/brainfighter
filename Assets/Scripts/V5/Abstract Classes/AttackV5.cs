@@ -40,7 +40,7 @@ public abstract class AttackV5 : PlayerState
                 Collider2D enemy = character.OverlapDetector.AttackHit(character.Layer == 64 ? 128 : 64, character.Hitbox);
                 if (enemy && character.Hitbox.enabled)
                 {
-                    enemy.GetComponent<CharacterV5>().EntryAttack(this);
+                    character.Enemy.EntryAttack(this);
 
                     character.IncrementResistance(Damage);
 
