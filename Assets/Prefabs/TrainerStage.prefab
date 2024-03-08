@@ -1733,12 +1733,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4752294996864679303}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a7f64d41284f7dbd9e071c3e1c40713, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSteps: 0
+  maxSteps: 3000
   agent1: {fileID: 4557813838715277410}
   agent2: {fileID: 4519203667240108038}
   numSum: 0
@@ -3559,6 +3559,14 @@ PrefabInstance:
       propertyPath: CharacterLayer.m_Bits
       value: 128
       objectReference: {fileID: 0}
+    - target: {fileID: 1422690843589029723, guid: ab5326754e8a547f19751536a2856551, type: 3}
+      propertyPath: academy
+      value: 
+      objectReference: {fileID: 2938783992746464438}
+    - target: {fileID: 1422690843589029723, guid: ab5326754e8a547f19751536a2856551, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1525663328156890903, guid: ab5326754e8a547f19751536a2856551, type: 3}
       propertyPath: Health
       value: 
@@ -3567,6 +3575,10 @@ PrefabInstance:
       propertyPath: VisualHealth
       value: 
       objectReference: {fileID: 8775998224310873293}
+    - target: {fileID: 1575962654500031732, guid: ab5326754e8a547f19751536a2856551, type: 3}
+      propertyPath: TeamId
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4231093324428746313, guid: ab5326754e8a547f19751536a2856551, type: 3}
       propertyPath: m_Name
       value: ChieRed
@@ -3664,6 +3676,14 @@ PrefabInstance:
       propertyPath: CharacterLayer.m_Bits
       value: 64
       objectReference: {fileID: 0}
+    - target: {fileID: 1422690843589029723, guid: ab5326754e8a547f19751536a2856551, type: 3}
+      propertyPath: academy
+      value: 
+      objectReference: {fileID: 2938783992746464438}
+    - target: {fileID: 1422690843589029723, guid: ab5326754e8a547f19751536a2856551, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1525663328156890903, guid: ab5326754e8a547f19751536a2856551, type: 3}
       propertyPath: Health
       value: 
@@ -3672,6 +3692,10 @@ PrefabInstance:
       propertyPath: VisualHealth
       value: 
       objectReference: {fileID: 1311407716681527326}
+    - target: {fileID: 1575962654500031732, guid: ab5326754e8a547f19751536a2856551, type: 3}
+      propertyPath: TeamId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4231093324428746313, guid: ab5326754e8a547f19751536a2856551, type: 3}
       propertyPath: m_Name
       value: ChieGreen
