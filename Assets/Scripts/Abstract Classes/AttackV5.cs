@@ -70,4 +70,9 @@ public abstract class Attack : PlayerState
         character.CoolDownCor = character.StartCoroutine(character.CoolDown(coolDown));
         character.HitsChained = 0;
     }
+    public override void OnExit(Character character)
+    {
+        base.OnExit(character);
+        character.RequestedBehaviourAction = State.IDDLE;
+    }
 }

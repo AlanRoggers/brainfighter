@@ -26,6 +26,9 @@ public class LowPunch : Attack
         if (character.EntryAttack)
             return character.States.Hurt;
 
+        if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
+            return character.States.Iddle;
+
         if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
         {
             if (character.RequestedBehaviourAction == State.MIDDLE_PUNCH)

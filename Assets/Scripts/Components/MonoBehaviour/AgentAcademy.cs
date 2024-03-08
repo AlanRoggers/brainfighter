@@ -21,14 +21,14 @@ public class AgentAcademy : MonoBehaviour
     }
     private void Start()
     {
-        agent1.OnHurt += Hurt;
-        agent1.OnBlock += Block;
-        agent1.OnStun += Stuned;
-        agent1.OnWin += Win;
-        agent2.OnHurt += Hurt;
-        agent2.OnBlock += Block;
-        agent2.OnStun += Stuned;
-        agent2.OnWin += Win;
+        agent1.States.Hurt.OnHurt += Hurt;
+        agent1.States.Block.OnBlock += Block;
+        agent1.States.Stun.OnStun += Stuned;
+        agent1.States.Dead.OnWin += Win;
+        agent2.States.Hurt.OnHurt += Hurt;
+        agent2.States.Block.OnBlock += Block;
+        agent2.States.Stun.OnStun += Stuned;
+        agent2.States.Dead.OnWin += Win;
         PPOAgent.OnBegin += Spawn;
     }
     void FixedUpdate()

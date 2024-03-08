@@ -4,7 +4,8 @@ using UnityEngine;
 public class Hurt : PlayerState
 {
     private bool canExitState;
-
+    public delegate void AgentHurt(int entryDamage, bool whichAgent);
+    public event AgentHurt OnHurt;
     public override PlayerState InputAIHandler(Character character)
     {
         if (character.Health <= 0)
@@ -47,6 +48,8 @@ public class Hurt : PlayerState
 
         if (character.Health <= 0)
             return;
+
+        OnHurt.Invoke(character.AttackReceived.Damage, character.gameObject.layer == 6);
 
         canExitState = false;
         character.Friction.friction = 0;

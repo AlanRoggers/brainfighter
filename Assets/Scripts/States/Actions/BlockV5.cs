@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Block : PlayerState
 {
+    public delegate void AgentBlock(int entryDamage, bool whichAgent);
+    public event AgentBlock OnBlock;
     private bool stopBlock;
     public Attack AttackReceived;
     private Coroutine blockCor;
@@ -25,10 +27,9 @@ public class Block : PlayerState
         if (character.Resistance <= 0)
             return;
 
-        if (!Input.GetKey(KeyCode.S))
-            character.Animator.Play(AnimationState.Block.ToString());
-        else
-            character.Animator.Play(AnimationState.BlockWhileCrouch.ToString());
+        OnBlock.Invoke(character.AttackReceived.Damage, character.gameObject.layer == 6);
+
+        character.Animator.Play(AnimationState.BlockWhileCrouch.ToString());
 
         if (blockCor != null)
             character.StopCoroutine(blockCor);

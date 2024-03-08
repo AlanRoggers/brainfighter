@@ -9,14 +9,6 @@ public class Character : MonoBehaviour
 
     #region AIEvents
     public Character Enemy;
-    public delegate void AgentHurt(int entryDamage, bool whichAgent);
-    public delegate void AgentBlock(int entryDamage, bool whichAgent);
-    public delegate void AgentStuned(bool whichAgent);
-    public delegate void AgentWin(bool whichAgent);
-    public event AgentHurt OnHurt;
-    public event AgentBlock OnBlock;
-    public event AgentStuned OnStun;
-    public event AgentWin OnWin;
     #endregion
 
     #region AI
@@ -76,6 +68,8 @@ public class Character : MonoBehaviour
     }
     void Update()
     {
+        if (gameObject.layer == 6)
+            Debug.Log(currentState);
         if (!EndGame)
         {
 
