@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public abstract class AttackV5 : PlayerState
+public abstract class Attack : PlayerState
 {
     public bool HitFreeze { get; protected set; }
     public int Damage { get; protected set; }
@@ -16,10 +16,10 @@ public abstract class AttackV5 : PlayerState
     {
         if (character.CoolDownCor != null)
             character.StopCoroutine(character.CoolDownCor);
-        animationCor = character.StartCoroutine(Attack(character));
+        animationCor = character.StartCoroutine(AttackLogic(character));
         character.HitsChained++;
     }
-    protected virtual IEnumerator Attack(Character character)
+    protected virtual IEnumerator AttackLogic(Character character)
     {
         character.Animator.Play(clips[0].ToString());
         currentClip = clips[0];

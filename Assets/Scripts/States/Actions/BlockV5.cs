@@ -4,7 +4,7 @@ using UnityEngine;
 public class Block : PlayerState
 {
     private bool stopBlock;
-    public AttackV5 AttackReceived;
+    public Attack AttackReceived;
     private Coroutine blockCor;
     public override PlayerState InputHandler(Character character)
     {
@@ -21,6 +21,9 @@ public class Block : PlayerState
     {
         character.Physics.velocity = Vector2.zero;
         character.ReduceResistance(AttackReceived.Damage);
+
+        if (character.Resistance <= 0)
+            return;
 
         if (!Input.GetKey(KeyCode.S))
             character.Animator.Play(AnimationState.Block.ToString());

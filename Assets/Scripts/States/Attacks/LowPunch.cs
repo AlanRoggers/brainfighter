@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LowPunch : AttackV5
+public class LowPunch : Attack
 {
     public LowPunch()
     {
@@ -23,32 +23,30 @@ public class LowPunch : AttackV5
 
     public override PlayerState InputAIHandler(Character character)
     {
-        throw new NotImplementedException();
+        if (character.EntryAttack)
+            return character.States.Hurt;
+
+        if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+        {
+            if (character.RequestedBehaviourAction == State.MIDDLE_PUNCH)
+                return character.States.MiddlePunch;
+
+            if (character.RequestedBehaviourAction == State.HARD_PUNCH)
+                return character.States.HardPunch;
+        }
+
+        return null;
     }
 
     public override PlayerState InputHandler(Character character)
     {
-        if (!character.IsAI)
+        if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
         {
-            if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
-            {
-                if (Input.GetKeyDown(KeyCode.I))
-                    return character.States.MiddlePunch;
+            if (Input.GetKeyDown(KeyCode.I))
+                return character.States.MiddlePunch;
 
-                if (Input.GetKeyDown(KeyCode.O))
-                    return character.States.HardPunch;
-            }
-        }
-        else
-        {
-            if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
-            {
-                if (character.RequestedBehaviourAction == State.MIDDLE_PUNCH)
-                    return character.States.MiddlePunch;
-
-                if (character.RequestedBehaviourAction == State.HARD_PUNCH)
-                    return character.States.HardPunch;
-            }
+            if (Input.GetKeyDown(KeyCode.O))
+                return character.States.HardPunch;
         }
 
         if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)

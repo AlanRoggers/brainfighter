@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JumpV5 : PlayerState
+public class Jump : PlayerState
 {
-    public JumpV5()
+    public Jump()
     {
         clips = new List<AnimationState>()
         {
@@ -14,8 +14,12 @@ public class JumpV5 : PlayerState
     private readonly float jumpForce = 22.5f;
     public override PlayerState InputHandler(Character character)
     {
+        if (character.EntryAttack)
+            return character.States.Hurt;
+
         if (character.Physics.velocity.y < 0)
             return character.States.Fall;
+
         return null;
     }
     public override void OnEntry(Character character)
@@ -33,6 +37,12 @@ public class JumpV5 : PlayerState
 
     public override PlayerState InputAIHandler(Character character)
     {
-        throw new System.NotImplementedException();
+        if (character.EntryAttack)
+            return character.States.Hurt;
+
+        if (character.Physics.velocity.y < 0)
+            return character.States.Fall;
+
+        return null;
     }
 }

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MiddlePunch : AttackV5
+public class MiddlePunch : Attack
 {
     public MiddlePunch()
     {
@@ -22,23 +22,26 @@ public class MiddlePunch : AttackV5
 
     public override PlayerState InputAIHandler(Character character)
     {
-        throw new System.NotImplementedException();
+        if (character.EntryAttack)
+            return character.States.Hurt;
+
+        if (character.RequestedBehaviourAction == State.HARD_PUNCH && currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+            return character.States.HardPunch;
+
+        return null;
     }
 
     public override PlayerState InputHandler(Character character)
     {
+        if (character.EntryAttack)
+            return character.States.Hurt;
+
         if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
             return character.States.Iddle;
-        if (!character.IsAI)
-        {
-            if (Input.GetKeyDown(KeyCode.O) && currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
-                return character.States.HardPunch;
-        }
-        else
-        {
-            if (character.RequestedBehaviourAction == State.HARD_PUNCH && currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
-                return character.States.HardPunch;
-        }
+
+        if (Input.GetKeyDown(KeyCode.O) && currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+            return character.States.HardPunch;
+
         return null;
     }
 

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HardPunch : AttackV5
+public class HardPunch : Attack
 {
     public HardPunch()
     {
@@ -22,24 +22,29 @@ public class HardPunch : AttackV5
 
     public override PlayerState InputAIHandler(Character character)
     {
-        throw new System.NotImplementedException();
+        if (character.EntryAttack)
+            return character.States.Hurt;
+
+        if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
+            return character.States.Iddle;
+
+        if (currentClip == clips[1] && character.RequestedBehaviourAction == State.SPECIAL_PUNCH && character.HitsChained >= 3)
+            return character.States.SpecialPunch;
+
+        return null;
     }
 
     public override PlayerState InputHandler(Character character)
     {
+        if (character.EntryAttack)
+            return character.States.Hurt;
+
         if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
             return character.States.Iddle;
 
-        if (!character.IsAI)
-        {
-            if (currentClip == clips[1] && Input.GetKeyDown(KeyCode.P) && character.HitsChained >= 3)
-                return character.States.SpecialPunch;
-        }
-        else
-        {
-            if (currentClip == clips[1] && character.RequestedBehaviourAction == State.SPECIAL_PUNCH && character.HitsChained >= 3)
-                return character.States.SpecialPunch;
-        }
+        if (currentClip == clips[1] && Input.GetKeyDown(KeyCode.P) && character.HitsChained >= 3)
+            return character.States.SpecialPunch;
+
         return null;
     }
     public override void Update(Character character)

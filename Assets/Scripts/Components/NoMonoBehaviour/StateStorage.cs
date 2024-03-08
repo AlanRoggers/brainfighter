@@ -3,8 +3,8 @@ public class StateStorage
     public readonly WalkV5 Walk = new();
     public readonly Iddle Iddle = new();
     public readonly Back Back = new();
-    public readonly JumpV5 Jump = new();
-    public readonly FallV5 Fall = new();
+    public readonly Jump Jump = new();
+    public readonly Fall Fall = new();
     public readonly LowPunch LowPunch = new();
     public readonly MiddlePunch MiddlePunch = new();
     public readonly HardPunch HardPunch = new();
@@ -16,4 +16,5 @@ public class StateStorage
     public readonly Hurt Hurt = new();
     public readonly Block Block = new();
     public readonly Stun Stun = new();
+    public readonly Dead Dead = new();
 }

@@ -13,14 +13,13 @@ public class Character : MonoBehaviour
     public delegate void AgentBlock(int entryDamage, bool whichAgent);
     public delegate void AgentStuned(bool whichAgent);
     public delegate void AgentWin(bool whichAgent);
-    public static event AgentHurt OnHurt;
-    public static event AgentBlock OnBlock;
-    public static event AgentStuned OnStun;
-    public static event AgentWin OnWin;
+    public event AgentHurt OnHurt;
+    public event AgentBlock OnBlock;
+    public event AgentStuned OnStun;
+    public event AgentWin OnWin;
     #endregion
 
     #region AI
-    public AgentAcademy trainerAI;
     public bool IsAI;
     [HideInInspector] public State RequestedBehaviourAction;
     [HideInInspector] public State RequestedMotionAction;
@@ -42,7 +41,8 @@ public class Character : MonoBehaviour
     #endregion
 
     #region Character Handlers
-    [HideInInspector] public AttackV5 AttackReceived;
+    [HideInInspector] public bool EndGame;
+    [HideInInspector] public Attack AttackReceived;
     [HideInInspector] public bool EntryAttack;
     [HideInInspector] public bool AttackBlocked;
     [HideInInspector] public bool Damaged;
@@ -59,42 +59,51 @@ public class Character : MonoBehaviour
         Animator = GetComponent<Animator>();
         Physics = GetComponent<Rigidbody2D>();
         Body = GetComponent<BoxCollider2D>();
-        currentState = States.Iddle;
-        CharacterLayer = (int)Mathf.Pow(2, gameObject.layer);
         Friction = new()
         {
             friction = 1
         };
         Physics.sharedMaterial = Friction;
+    }
+    private void Start()
+    {
+        EndGame = false;
+        currentState = States.Iddle;
+        CharacterLayer = (int)Mathf.Pow(2, gameObject.layer);
         Health = 100;
         Resistance = 50;
+        currentState.OnEntry(this);
     }
     void Update()
     {
-        if (!IsAI)
-            futureState = currentState.InputHandler(this);
-        else
-            futureState = currentState.InputAIHandler(this);
-
-        if (futureState != null)
+        if (!EndGame)
         {
-            currentState.OnExit(this);
-            currentState = futureState;
-            currentState.OnEntry(this);
+
+            if (!IsAI)
+                futureState = currentState.InputHandler(this);
+            else
+                futureState = currentState.InputAIHandler(this);
+
+            if (futureState != null)
+            {
+                currentState.OnExit(this);
+                currentState = futureState;
+                currentState.OnEntry(this);
+            }
+            Orientation();
         }
-        Orientation();
     }
     private void FixedUpdate()
     {
-        currentState.Update(this);
+        if (!EndGame)
+            currentState.Update(this);
     }
     private void OnDrawGizmos()
     {
-        Debug.Log($"Gameobject Layer {LayerMask.GetMask("Player2")}");
         // OverlapDetector.DrawGroundDetection(GetComponent<BoxCollider2D>(), LayerMask.GetMask("Ground"));
-        OverlapDetector.DrawEnemyOverlapping(Body, gameObject.layer == 6 ? 7 : 6);
+        // OverlapDetector.DrawEnemyOverlapping(Body, gameObject.layer == 6 ? 7 : 6);
         // Gizmos.DrawWireCube((Vector2)transform.position + enemyDetectorPos, enemyDetectorSize);
-        // OverlapDetector.DrawHitBox(CharacterLayer == 64 ? 128 : 64, Hitbox);
+        OverlapDetector.DrawHitBox(CharacterLayer == 64 ? 128 : 64, Hitbox);
     }
     public IEnumerator CoolDown(float cd)
     {
@@ -115,62 +124,23 @@ public class Character : MonoBehaviour
         return currentState == States.Walk || currentState == States.Back || currentState == States.Jump || currentState == States.Fall ||
             currentState == States.Iddle;
     }
-    public void SetAttack(AttackV5 attack)
+    public void SetAttack(Attack attack)
     {
         AttackReceived = attack;
         EntryAttack = true;
     }
-    // Manejo del estado bloqueando
-    // if (currentState == States.Back || currentState == States.Block)
-    // {
-    //     if (Resistance > 0)
-    //     {
-    //         AttackBlocked = true;
-    //         States.Block.AttackReceived = attack;
-    //     }
-    //     else
-    //         Stuned = true;
-
-
-    // {
-    //     currentState.OnExit(this);
-    //     // Manejo del estado bloqueo o stun
-    //     if (Resistance > 0)
-    //     {
-    //         States.Block.AttackReceived = attack;
-    //         currentState = States.Block;
-    //         currentState.OnEntry(this);
-    //         OnBlock?.Invoke(attack.Damage, gameObject.layer == 6);
-    //         return;
-    //     }
-    //     else
-    //     {
-    //         currentState = States.Stun;
-    //         currentState.OnEntry(this);
-    //         OnStun?.Invoke(gameObject.layer == 6);
-    //         return;
-    //     }
-    // }
-    // Damaged = true;
-    //     //Manejo del daño y del fin del juego
-    //     if (Health - attack.Damage >= 0)
-    //         Health -= attack.Damage;
-    //     else
-    //     {
-    //         Health = 0;
-    //         OnWin.Invoke(gameObject.layer != 6);
-    //     }
-
-    // currentState.OnExit(this);
-    // States.Hurt.AttackReceived = attack;
-    // currentState = States.Hurt;
-    // currentState.OnEntry(this);
-    // OnHurt?.Invoke(attack.Damage, gameObject.layer == 6);
-    // }
-    public void ReduceResistance(int damage)
+    public void ReduceHealth(int value)
     {
-        if (Resistance - damage > 0)
-            Resistance -= damage;
+        if (Health - value >= 0)
+            Health -= value;
+        else
+            Health = 0;
+        // OnWin.Invoke(gameObject.layer != 6);
+    }
+    public void ReduceResistance(int value)
+    {
+        if (Resistance - value > 0)
+            Resistance -= value;
         else
             Resistance = 0;
     }
@@ -189,5 +159,6 @@ public class Character : MonoBehaviour
         Friction.friction = 1;
         Health = 100;
         Resistance = 50;
+        EndGame = false;
     }
 }

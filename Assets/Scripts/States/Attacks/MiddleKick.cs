@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MiddleKick : AttackV5
+public class MiddleKick : Attack
 {
     public MiddleKick()
     {
@@ -23,27 +23,28 @@ public class MiddleKick : AttackV5
 
     public override PlayerState InputAIHandler(Character character)
     {
+        if (character.EntryAttack)
+            return character.States.Hurt;
+
         if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
             return character.States.Iddle;
+
+        if (character.RequestedBehaviourAction == State.HARD_KICK && currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+            return character.States.HardKick;
 
         return null;
     }
 
     public override PlayerState InputHandler(Character character)
     {
-        if (!character.IsAI)
-        {
-            if (Input.GetKeyDown(KeyCode.L) && currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
-                return character.States.HardKick;
-        }
-        else
-        {
-            if (character.RequestedBehaviourAction == State.HARD_KICK && currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
-                return character.States.HardKick;
-        }
+        if (character.EntryAttack)
+            return character.States.Hurt;
 
         if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
             return character.States.Iddle;
+
+        if (Input.GetKeyDown(KeyCode.L) && currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+            return character.States.HardKick;
 
         return null;
     }

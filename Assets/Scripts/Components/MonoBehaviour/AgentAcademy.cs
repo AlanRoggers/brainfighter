@@ -21,10 +21,15 @@ public class AgentAcademy : MonoBehaviour
     }
     private void Start()
     {
-        Character.OnHurt += Hurt;
-        Character.OnBlock += Block;
-        Character.OnStun += Stuned;
-        Character.OnWin += Win;
+        agent1.OnHurt += Hurt;
+        agent1.OnBlock += Block;
+        agent1.OnStun += Stuned;
+        agent1.OnWin += Win;
+        agent2.OnHurt += Hurt;
+        agent2.OnBlock += Block;
+        agent2.OnStun += Stuned;
+        agent2.OnWin += Win;
+        PPOAgent.OnBegin += Spawn;
     }
     void FixedUpdate()
     {
@@ -71,28 +76,11 @@ public class AgentAcademy : MonoBehaviour
         }
 
     }
-    public void Spawn()
+    public void Spawn(GameObject agent)
     {
-        float agent1X = Random.Range(maxNegativeX, maxPositiveX);
-        float agent2X;
-
-        int agent2Side = Random.Range(0, 1);
-
-        if (agent2Side == 1)
-        {
-            agent2X = agent1X + 8f;
-            agent2X = Mathf.Clamp(agent2X, agent1X, maxPositiveX);
-        }
-        else
-        {
-            agent2X = agent1X - 8f;
-            agent2X = Mathf.Clamp(agent2X, maxNegativeX, agent1X);
-        }
-
-        agent1.transform.localPosition = new Vector2(agent1X, -8.51f);
-        agent2.transform.localPosition = new Vector2(agent2X, -8.51f);
-
-        // Debug.LogAssertion("Spawn");
+        Debug.Log("Spawn");
+        float agentX = Random.Range(maxNegativeX, maxPositiveX);
+        agent.transform.localPosition = new Vector2(agentX, -8.51f);
     }
     private void Hurt(int entryDamage, bool whichAgent)
     {

@@ -4,6 +4,8 @@ using Unity.MLAgents.Actuators;
 using UnityEngine;
 public class PPOAgent : Agent
 {
+    public delegate void EpisodeBegin(GameObject gameObject);
+    public static event EpisodeBegin OnBegin;
     public AgentAcademy academy;
     private Character character;
     private readonly float maxDistance = 32.10f;
@@ -16,8 +18,9 @@ public class PPOAgent : Agent
     public override void OnEpisodeBegin()
     {
         character.Reset();
-        if (character.gameObject.layer == 6)
-            academy.Spawn();
+        OnBegin.Invoke(gameObject);
+        // if (character.gameObject.layer == 6)
+        //     academy.Spawn();
     }
     public override void CollectObservations(VectorSensor sensor)
     {
@@ -40,10 +43,10 @@ public class PPOAgent : Agent
             case Back:
                 currentState = 3;
                 break;
-            case JumpV5:
+            case Jump:
                 currentState = 4;
                 break;
-            case FallV5:
+            case Fall:
                 currentState = 5;
                 break;
             case LowPunch:

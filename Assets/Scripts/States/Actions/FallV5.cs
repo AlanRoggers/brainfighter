@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FallV5 : PlayerState
+public class Fall : PlayerState
 {
-    public FallV5()
+    public Fall()
     {
         clips = new List<AnimationState>()
         {
@@ -14,13 +14,23 @@ public class FallV5 : PlayerState
 
     public override PlayerState InputAIHandler(Character character)
     {
-        throw new System.NotImplementedException();
+        if (character.EntryAttack)
+            return character.States.Hurt;
+
+        if (character.OverlapDetector.GroundDetection(character.Body, LayerMask.GetMask("Ground")))
+            return character.States.Iddle;
+
+        return null;
     }
 
     public override PlayerState InputHandler(Character character)
     {
+        if (character.EntryAttack)
+            return character.States.Hurt;
+
         if (character.OverlapDetector.GroundDetection(character.Body, LayerMask.GetMask("Ground")))
             return character.States.Iddle;
+
         return null;
     }
     public override void Update(Character character)

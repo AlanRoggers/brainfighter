@@ -7,6 +7,12 @@ public class Hurt : PlayerState
 
     public override PlayerState InputAIHandler(Character character)
     {
+        if (character.Health <= 0)
+            return character.States.Dead;
+
+        if (character.EntryAttack)
+            return character.States.Hurt;
+
         if (canExitState)
         {
             if (character.OverlapDetector.GroundDetection(character.Body, LayerMask.GetMask("Ground")))
@@ -16,9 +22,14 @@ public class Hurt : PlayerState
         }
         return null;
     }
-
     public override PlayerState InputHandler(Character character)
     {
+        if (character.Health <= 0)
+            return character.States.Dead;
+
+        if (character.EntryAttack)
+            return character.States.Hurt;
+
         if (canExitState)
         {
             if (character.OverlapDetector.GroundDetection(character.Body, LayerMask.GetMask("Ground")))
@@ -31,9 +42,15 @@ public class Hurt : PlayerState
     public override void OnEntry(Character character)
     {
         character.EntryAttack = false;
+
+        character.ReduceHealth(character.AttackReceived.Damage);
+
+        if (character.Health <= 0)
+            return;
+
+        canExitState = false;
         character.Friction.friction = 0;
         character.Animator.Play(AnimationState.Damage.ToString());
-        canExitState = false;
         if (character.HurtCor != null)
         {
             character.StopCoroutine(character.HurtCor);

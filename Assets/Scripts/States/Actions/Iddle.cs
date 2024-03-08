@@ -4,6 +4,9 @@ public class Iddle : PlayerState
 {
     public override PlayerState InputAIHandler(Character character)
     {
+        if (character.EntryAttack)
+            return character.States.Hurt;
+
         if (Input.GetKeyDown(KeyCode.LeftArrow))
             return character.States.MiddleKick;
 

@@ -702,7 +702,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 2265115618355469831}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a7f64d41284f7dbd9e071c3e1c40713, type: 3}
   m_Name: 
@@ -1357,33 +1357,9 @@ PrefabInstance:
       propertyPath: m_DeterministicInference
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2938783992746464438, guid: 41dc3aaa417febf388fd25f6ad941d88, type: 3}
-      propertyPath: maxSteps
-      value: 3000
-      objectReference: {fileID: 0}
-    - target: {fileID: 2938783992746464438, guid: 41dc3aaa417febf388fd25f6ad941d88, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4519203667240108038, guid: 41dc3aaa417febf388fd25f6ad941d88, type: 3}
-      propertyPath: IsAI
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4519203667240108038, guid: 41dc3aaa417febf388fd25f6ad941d88, type: 3}
-      propertyPath: trainerAI
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4519203667240108038, guid: 41dc3aaa417febf388fd25f6ad941d88, type: 3}
       propertyPath: enemyLayer.m_Bits
       value: 64
-      objectReference: {fileID: 0}
-    - target: {fileID: 4557813838715277410, guid: 41dc3aaa417febf388fd25f6ad941d88, type: 3}
-      propertyPath: IsAI
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4557813838715277410, guid: 41dc3aaa417febf388fd25f6ad941d88, type: 3}
-      propertyPath: trainerAI
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4557813838715277410, guid: 41dc3aaa417febf388fd25f6ad941d88, type: 3}
       propertyPath: enemyLayer.m_Bits
@@ -1411,19 +1387,19 @@ PrefabInstance:
       objectReference: {fileID: 519420031}
     - target: {fileID: 7844281813048820127, guid: 41dc3aaa417febf388fd25f6ad941d88, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 489.38867
+      value: 489.86053
       objectReference: {fileID: 0}
     - target: {fileID: 8700282044460041129, guid: 41dc3aaa417febf388fd25f6ad941d88, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.015347254
+      value: 0.015333841
       objectReference: {fileID: 0}
     - target: {fileID: 8700282044460041129, guid: 41dc3aaa417febf388fd25f6ad941d88, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.015347254
+      value: 0.015333841
       objectReference: {fileID: 0}
     - target: {fileID: 8700282044460041129, guid: 41dc3aaa417febf388fd25f6ad941d88, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.015347254
+      value: 0.015333841
       objectReference: {fileID: 0}
     - target: {fileID: 8700282044460041129, guid: 41dc3aaa417febf388fd25f6ad941d88, type: 3}
       propertyPath: m_LocalPosition.x

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Stun : PlayerState
@@ -9,13 +8,23 @@ public class Stun : PlayerState
 
     public override PlayerState InputAIHandler(Character character)
     {
-        throw new System.NotImplementedException();
+        if (character.EntryAttack)
+            return character.States.Hurt;
+
+        if (endStun)
+            return character.States.Iddle;
+
+        return null;
     }
 
     public override PlayerState InputHandler(Character character)
     {
+        if (character.EntryAttack)
+            return character.States.Hurt;
+
         if (endStun)
             return character.States.Iddle;
+
         return null;
     }
     public override void OnEntry(Character character)
@@ -28,6 +37,8 @@ public class Stun : PlayerState
     {
         if (rescueCor != null)
             character.StopCoroutine(rescueCor);
+
+        character.IncrementResistance(20);
     }
     public override void Update(Character character)
     {

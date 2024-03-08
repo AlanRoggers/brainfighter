@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LowKick : AttackV5
+public class LowKick : Attack
 {
     public LowKick()
     {
@@ -23,34 +23,37 @@ public class LowKick : AttackV5
 
     public override PlayerState InputAIHandler(Character character)
     {
-        throw new System.NotImplementedException();
+        if (character.EntryAttack)
+            return character.States.Hurt;
+
+        if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
+            return character.States.Iddle;
+
+        if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+        {
+            if (character.RequestedBehaviourAction == State.MIDDLE_KICK)
+                return character.States.MiddleKick;
+
+            if (character.RequestedBehaviourAction == State.HARD_KICK)
+                return character.States.HardKick;
+        }
+
+        return null;
     }
 
     public override PlayerState InputHandler(Character character)
     {
-        if (!character.IsAI)
+        if (character.EntryAttack)
+            return character.States.Hurt;
+
+        if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
         {
-            if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
-            {
-                if (Input.GetKeyDown(KeyCode.K))
-                    return character.States.MiddleKick;
+            if (Input.GetKeyDown(KeyCode.K))
+                return character.States.MiddleKick;
 
-                if (Input.GetKeyDown(KeyCode.L))
-                    return character.States.HardKick;
-            }
+            if (Input.GetKeyDown(KeyCode.L))
+                return character.States.HardKick;
         }
-        else
-        {
-            if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
-            {
-                if (character.RequestedBehaviourAction == State.MIDDLE_KICK)
-                    return character.States.MiddleKick;
-
-                if (character.RequestedBehaviourAction == State.HARD_KICK)
-                    return character.States.HardKick;
-            }
-        }
-
 
         if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
             return character.States.Iddle;

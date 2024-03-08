@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpecialKick : AttackV5
+public class SpecialKick : Attack
 {
     public SpecialKick()
     {
@@ -22,7 +22,13 @@ public class SpecialKick : AttackV5
 
     public override PlayerState InputAIHandler(Character character)
     {
-        throw new System.NotImplementedException();
+        if (character.EntryAttack)
+            return character.States.Hurt;
+
+        if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
+            return character.States.Iddle;
+
+        return null;
     }
 
     public override PlayerState InputHandler(Character character)
