@@ -15,7 +15,10 @@ public abstract class PlayerState
     }
     public virtual void OnExit(Character character)
     {
-        character.StopCoroutine(animationCor);
+        if (animationCor != null)
+            character.StopCoroutine(animationCor);
+        else
+            Debug.LogAssertion("Rutina del animationCor es nula");
     }
     public virtual IEnumerator HandleMultipleAnimations(Character character)
     {

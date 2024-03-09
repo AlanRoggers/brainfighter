@@ -43,7 +43,6 @@ public class Character : MonoBehaviour
     [HideInInspector] public int HitsChained;
     [HideInInspector] public float LastVelocity;
     [HideInInspector] public Coroutine CoolDownCor;
-    [HideInInspector] public Coroutine HurtCor;
     #endregion
 
     private void Awake()
@@ -69,7 +68,7 @@ public class Character : MonoBehaviour
     void Update()
     {
         if (gameObject.layer == 6)
-            Debug.Log(currentState);
+            Debug.Log(RequestedBehaviourAction);
         if (!EndGame)
         {
 
@@ -147,6 +146,8 @@ public class Character : MonoBehaviour
     }
     public void Reset()
     {
+        StopAllCoroutines();
+        currentState.OnExit(this);
         Physics.velocity = Vector2.zero;
         currentState = States.Iddle;
         currentState.OnEntry(this);
@@ -154,5 +155,7 @@ public class Character : MonoBehaviour
         Health = 100;
         Resistance = 50;
         EndGame = false;
+        HitsChained = 0;
+        OnColdoown = false;
     }
 }

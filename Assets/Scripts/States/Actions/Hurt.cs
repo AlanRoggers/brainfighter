@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Hurt : PlayerState
 {
+    private Coroutine hurtCor;
     private bool canExitState;
     public delegate void AgentHurt(int entryDamage, bool whichAgent);
     public event AgentHurt OnHurt;
@@ -54,19 +55,18 @@ public class Hurt : PlayerState
         canExitState = false;
         character.Friction.friction = 0;
         character.Animator.Play(AnimationState.Damage.ToString());
-        if (character.HurtCor != null)
+        if (hurtCor != null)
         {
-            character.StopCoroutine(character.HurtCor);
+            character.StopCoroutine(hurtCor);
             character.Physics.velocity = Vector2.zero;
         }
-        character.HurtCor = character.StartCoroutine(HurtLogic(character));
+        hurtCor = character.StartCoroutine(HurtLogic(character));
 
     }
     public override void OnExit(Character character)
     {
         character.Friction.friction = 1;
         character.Animator.speed = 1;
-        character.AttackReceived = null;
     }
     public override void Update(Character character)
     {
@@ -99,6 +99,7 @@ public class Hurt : PlayerState
             framesWaiting--;
             yield return null;
         }
+        character.AttackReceived = null;
         canExitState = true;
     }
 }

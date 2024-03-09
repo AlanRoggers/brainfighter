@@ -74,5 +74,8 @@ public abstract class Attack : PlayerState
     {
         base.OnExit(character);
         character.RequestedBehaviourAction = State.IDDLE;
+        character.Physics.gravityScale = 4;
+        character.StopCoroutine(animationCor);
+        character.Animator.speed = 1;
     }
 }
