@@ -32,7 +32,7 @@ public class PPOAgent : Agent
             1.0f
         );
         float currentState = 0;
-        switch (character.currentState)
+        switch (character.CurrentState)
         {
             case Iddle:
                 currentState = 1;

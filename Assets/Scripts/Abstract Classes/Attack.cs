@@ -40,7 +40,7 @@ public abstract class Attack : PlayerState
                 Collider2D enemy = character.OverlapDetector.AttackHit(character.CharacterLayer == 64 ? 128 : 64, character.Hitbox);
                 if (enemy && character.Hitbox.enabled)
                 {
-                    character.Enemy.SetAttack(this);
+                    enemy.GetComponent<Character>().SetAttack(this);
 
                     character.IncrementResistance(Damage);
 
@@ -67,7 +67,7 @@ public abstract class Attack : PlayerState
         currentClip = clips[1];
         yield return new WaitForEndOfFrame();
         yield return new WaitWhile(() => character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
-        character.CoolDownCor = character.StartCoroutine(character.CoolDown(coolDown));
+        character.SetCoolDownCor(character.StartCoroutine(character.CoolDown(coolDown)));
         character.HitsChained = 0;
     }
     public override void OnExit(Character character)

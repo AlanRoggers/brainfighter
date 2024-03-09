@@ -113,11 +113,6 @@ public class Iddle : PlayerState
     {
         // Debug.Log("Iddle");
         character.Animator.Play(AnimationState.Iddle.ToString());
-        character.LastVelocity = 0;
-    }
-    public override void OnExit(Character character)
-    {
-        // Debug.Log("Saliendo de Iddle");
     }
     public override void Update(Character character)
     {

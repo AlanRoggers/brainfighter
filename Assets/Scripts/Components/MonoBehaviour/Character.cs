@@ -1,48 +1,39 @@
 using System;
 using System.Collections;
-using Unity.MLAgents;
 using UnityEngine;
 
 public class Character : MonoBehaviour
 {
     private PlayerState futureState;
-
-    #region AIEvents
-    public Character Enemy;
-    #endregion
-
     #region AI
     public bool IsAI;
     [HideInInspector] public State RequestedBehaviourAction;
     [HideInInspector] public State RequestedMotionAction;
+    private bool reset;
     #endregion
 
     #region Character Properties
     public int Health { get; private set; }
     public int Resistance { get; private set; }
-    public readonly StateStorage States = new();
-    public readonly Overlap OverlapDetector = new();
+    public StateStorage States { get; private set; }
+    public Overlap OverlapDetector { get; private set; }
     public Transform EnemyTransform;
     public CircleCollider2D Hitbox;
-    public Collider2D Body;
-    [HideInInspector] public int CharacterLayer;
+    public Collider2D Body { get; private set; }
+    public int CharacterLayer { get; private set; }
     [HideInInspector] public PhysicsMaterial2D Friction;
-    [HideInInspector] public Animator Animator;
-    [HideInInspector] public Rigidbody2D Physics;
-    [HideInInspector] public PlayerState currentState;
+    public Animator Animator { get; private set; }
+    public Rigidbody2D Physics { get; private set; }
+    public PlayerState CurrentState { get; private set; }
     #endregion
 
     #region Character Handlers
     [HideInInspector] public bool EndGame;
     [HideInInspector] public Attack AttackReceived;
     [HideInInspector] public bool EntryAttack;
-    [HideInInspector] public bool AttackBlocked;
-    [HideInInspector] public bool Damaged;
     [HideInInspector] public bool OnColdoown;
-    [HideInInspector] public bool Stuned;
     [HideInInspector] public int HitsChained;
-    [HideInInspector] public float LastVelocity;
-    [HideInInspector] public Coroutine CoolDownCor;
+    [HideInInspector] public Coroutine CoolDownCor { get; private set; }
     #endregion
 
     private void Awake()
@@ -50,20 +41,22 @@ public class Character : MonoBehaviour
         Animator = GetComponent<Animator>();
         Physics = GetComponent<Rigidbody2D>();
         Body = GetComponent<BoxCollider2D>();
+    }
+    private void Start()
+    {
+        EndGame = false;
+        CharacterLayer = (int)Mathf.Pow(2, gameObject.layer);
+        Health = 100;
+        Resistance = 50;
+        States = new StateStorage();
+        OverlapDetector = new Overlap();
         Friction = new()
         {
             friction = 1
         };
         Physics.sharedMaterial = Friction;
-    }
-    private void Start()
-    {
-        EndGame = false;
-        currentState = States.Iddle;
-        CharacterLayer = (int)Mathf.Pow(2, gameObject.layer);
-        Health = 100;
-        Resistance = 50;
-        currentState.OnEntry(this);
+        CurrentState = States.Iddle;
+        CurrentState.OnEntry(this);
     }
     void Update()
     {
@@ -71,17 +64,20 @@ public class Character : MonoBehaviour
             Debug.Log(RequestedBehaviourAction);
         if (!EndGame)
         {
-
-            if (!IsAI)
-                futureState = currentState.InputHandler(this);
-            else
-                futureState = currentState.InputAIHandler(this);
+            if (!reset)
+            {
+                if (!IsAI)
+                    futureState = CurrentState.InputHandler(this);
+                else
+                    futureState = CurrentState.InputAIHandler(this);
+            }
+            else reset = false;
 
             if (futureState != null)
             {
-                currentState.OnExit(this);
-                currentState = futureState;
-                currentState.OnEntry(this);
+                CurrentState.OnExit(this);
+                CurrentState = futureState;
+                CurrentState.OnEntry(this);
             }
             Orientation();
         }
@@ -89,7 +85,7 @@ public class Character : MonoBehaviour
     private void FixedUpdate()
     {
         if (!EndGame)
-            currentState.Update(this);
+            CurrentState.Update(this);
     }
     private void OnDrawGizmos()
     {
@@ -105,17 +101,21 @@ public class Character : MonoBehaviour
         yield return new WaitForSeconds(cd);
         // Debug.Log("Corrutina de salida");
         OnColdoown = false;
+        CoolDownCor = null;
     }
+    public void SetCoolDownCor(Coroutine routine) => CoolDownCor = routine;
     private void Orientation()
     {
         float signDistance = MathF.Sign(transform.localPosition.x - EnemyTransform.localPosition.x);
-        if (MathF.Sign(transform.localScale.x) == signDistance && TurnPermitedStates())
+
+        bool canTurn = CurrentState == States.Walk
+            || CurrentState == States.Back
+            || CurrentState == States.Jump
+            || CurrentState == States.Fall
+            || CurrentState == States.Iddle;
+
+        if (MathF.Sign(transform.localScale.x) == signDistance && canTurn)
             transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
-    }
-    private bool TurnPermitedStates()
-    {
-        return currentState == States.Walk || currentState == States.Back || currentState == States.Jump || currentState == States.Fall ||
-            currentState == States.Iddle;
     }
     public void SetAttack(Attack attack)
     {
@@ -128,7 +128,6 @@ public class Character : MonoBehaviour
             Health -= value;
         else
             Health = 0;
-        // OnWin.Invoke(gameObject.layer != 6);
     }
     public void ReduceResistance(int value)
     {
@@ -146,16 +145,21 @@ public class Character : MonoBehaviour
     }
     public void Reset()
     {
-        StopAllCoroutines();
-        currentState.OnExit(this);
+        CurrentState.OnExit(this);
+        EndGame = false;
+        AttackReceived = null;
+        EntryAttack = false;
+        OnColdoown = false;
+        HitsChained = 0;
         Physics.velocity = Vector2.zero;
-        currentState = States.Iddle;
-        currentState.OnEntry(this);
-        Friction.friction = 1;
+        if (CoolDownCor != null)
+        {
+            StopCoroutine(CoolDownCor);
+            CoolDownCor = null;
+        }
         Health = 100;
         Resistance = 50;
-        EndGame = false;
-        HitsChained = 0;
-        OnColdoown = false;
+        Friction.friction = 1; // Tal vez no
+        futureState = States.Iddle;
     }
 }

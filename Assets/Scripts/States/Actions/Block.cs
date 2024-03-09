@@ -6,7 +6,6 @@ public class Block : PlayerState
     public delegate void AgentBlock(int entryDamage, bool whichAgent);
     public event AgentBlock OnBlock;
     private bool stopBlock;
-    public Attack AttackReceived;
     private Coroutine blockCor;
     public override PlayerState InputHandler(Character character)
     {
@@ -22,7 +21,7 @@ public class Block : PlayerState
     public override void OnEntry(Character character)
     {
         character.Physics.velocity = Vector2.zero;
-        character.ReduceResistance(AttackReceived.Damage);
+        character.ReduceResistance(character.AttackReceived.Damage);
 
         if (character.Resistance <= 0)
             return;
@@ -52,8 +51,6 @@ public class Block : PlayerState
     {
 
         stopBlock = false;
-        Debug.Log($"Aplicando fuerzas {AttackReceived.Force}");
-
 
         if (character.transform.localScale.x < 0)
             character.Physics.velocity = new Vector2(7, 0);

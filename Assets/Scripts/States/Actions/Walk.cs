@@ -6,6 +6,7 @@ public class WalkV5 : PlayerState
 {
     private readonly float maxForce = 500f;
     private readonly float maxSpeed = 10f;
+    private bool jumpTransition;
     public WalkV5()
     {
         clips = new List<AnimationState>()
@@ -52,14 +53,16 @@ public class WalkV5 : PlayerState
         }
 
         if (character.RequestedBehaviourAction == State.JUMP)
+        {
+            jumpTransition = true;
             return character.States.Jump;
+        }
 
         if (character.RequestedMotionAction == State.IDDLE)
             return character.States.Iddle;
 
         return null;
     }
-
     public override PlayerState InputHandler(Character character)
     {
 
@@ -70,7 +73,10 @@ public class WalkV5 : PlayerState
             return character.States.Iddle;
 
         if (Input.GetKeyDown(KeyCode.Space))
+        {
+            jumpTransition = true;
             return character.States.Jump;
+        }
 
         if (!character.OnColdoown)
         {
@@ -95,20 +101,16 @@ public class WalkV5 : PlayerState
 
         return null;
     }
-    public override void OnEntry(Character character)
-    {
-        base.OnEntry(character);
-        character.LastVelocity = 0;
-    }
     public override void OnExit(Character character)
     {
         base.OnExit(character);
-        character.LastVelocity = character.Physics.velocity.x;
-        character.Physics.velocity = new Vector2(0, character.Physics.velocity.y);
+        if (!jumpTransition)
+            character.Physics.velocity = new Vector2(0, character.Physics.velocity.y);
+        else jumpTransition = false;
     }
     public override void Update(Character character)
     {
-        Debug.Log("Walk");
+        // Debug.Log("Walk");
         if (!character.OverlapDetector.EnemyOverlapping(character.Body))
         {
             if (Mathf.Sign(character.transform.localScale.x) == 1)

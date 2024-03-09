@@ -17,8 +17,6 @@ public abstract class PlayerState
     {
         if (animationCor != null)
             character.StopCoroutine(animationCor);
-        else
-            Debug.LogAssertion("Rutina del animationCor es nula");
     }
     public virtual IEnumerator HandleMultipleAnimations(Character character)
     {

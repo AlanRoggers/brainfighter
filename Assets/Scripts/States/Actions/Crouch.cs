@@ -1,6 +1,3 @@
-using System.Collections;
-using UnityEngine;
-
 public class CrouchV5 : PlayerState
 {
     public override PlayerState InputAIHandler(Character character)

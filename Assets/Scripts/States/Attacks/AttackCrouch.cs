@@ -1,6 +1,3 @@
-using System.Collections;
-using UnityEngine;
-
 public class AttackCrouch : PlayerState
 {
     public override PlayerState InputAIHandler(Character character)
