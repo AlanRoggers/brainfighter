@@ -195,24 +195,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ba76a513e438fa218f00a756c48a1ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enemy: {fileID: 0}
-  trainerAI: {fileID: 0}
   IsAI: 0
-  CharacterLayer:
-    serializedVersion: 2
-    m_Bits: 64
+  RequestedBehaviourAction: 0
+  RequestedMotionAction: 0
   EnemyTransform: {fileID: 0}
   Hitbox: {fileID: 724262824745318763}
-  Body: {fileID: 0}
   Friction: {fileID: 0}
-  RequestedMotionAction: 0
-  RequestedBehaviourAction: 0
-  HitsChained: 0
+  EndGame: 0
+  EntryAttack: 0
   OnColdoown: 0
-  LastVelocity: 0
-  Layer: 0
-  Animator: {fileID: 0}
-  Physics: {fileID: 0}
+  HitsChained: 0
 --- !u!114 &1525663328156890903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,7 +229,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5035716568516590766}
   - component: {fileID: 724262824745318763}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -57,15 +57,17 @@ public class Character : MonoBehaviour
         Physics.sharedMaterial = Friction;
         CurrentState = States.Iddle;
         CurrentState.OnEntry(this);
+        States.Dead.OnDead += FinshGame;
     }
     void Update()
     {
-        if (gameObject.layer == 6)
-            Debug.Log(RequestedBehaviourAction);
+        // if (gameObject.layer == 6)
+        //     Debug.Log(RequestedBehaviourAction);
         if (!EndGame)
         {
             if (!reset)
             {
+
                 if (!IsAI)
                     futureState = CurrentState.InputHandler(this);
                 else
@@ -78,6 +80,11 @@ public class Character : MonoBehaviour
                 CurrentState.OnExit(this);
                 CurrentState = futureState;
                 CurrentState.OnEntry(this);
+            }
+            else
+            {
+                Debug.Log($"Jugador: {gameObject.layer} Estado: {CurrentState} Future: {futureState}");
+
             }
             Orientation();
         }
@@ -92,7 +99,7 @@ public class Character : MonoBehaviour
         // OverlapDetector.DrawGroundDetection(GetComponent<BoxCollider2D>(), LayerMask.GetMask("Ground"));
         // OverlapDetector.DrawEnemyOverlapping(Body, gameObject.layer == 6 ? 7 : 6);
         // Gizmos.DrawWireCube((Vector2)transform.position + enemyDetectorPos, enemyDetectorSize);
-        OverlapDetector.DrawHitBox(CharacterLayer == 64 ? 128 : 64, Hitbox);
+        // OverlapDetector.DrawHitBox(CharacterLayer == 64 ? 128 : 64, Hitbox);
     }
     public IEnumerator CoolDown(float cd)
     {
@@ -163,4 +170,5 @@ public class Character : MonoBehaviour
         futureState = States.Iddle;
         reset = true;
     }
+    private void FinshGame(bool _) => EndGame = true;
 }

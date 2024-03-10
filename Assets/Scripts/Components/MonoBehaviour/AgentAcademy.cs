@@ -24,11 +24,11 @@ public class AgentAcademy : MonoBehaviour
         agent1.States.Hurt.OnHurt += Hurt;
         agent1.States.Block.OnBlock += Block;
         agent1.States.Stun.OnStun += Stuned;
-        agent1.States.Dead.OnWin += Win;
+        agent1.States.Dead.OnDead += Dead;
         agent2.States.Hurt.OnHurt += Hurt;
         agent2.States.Block.OnBlock += Block;
         agent2.States.Stun.OnStun += Stuned;
-        agent2.States.Dead.OnWin += Win;
+        agent2.States.Dead.OnDead += Dead;
         PPOAgent.OnBegin += Spawn;
     }
     void FixedUpdate()
@@ -59,18 +59,20 @@ public class AgentAcademy : MonoBehaviour
         else
         {
             // Debug.Log("Episodio Interrumpido");
-            if (agent1.Health > agent2.Health)
-            {
-                agent1Brain.AddReward(25);
-                agent2Brain.AddReward(-25);
-            }
-            else if (agent1.Health < agent2.Health)
-            {
-                agent1Brain.AddReward(-25);
-                agent2Brain.AddReward(25);
-            }
+            // if (agent1.Health > agent2.Health)
+            // {
+            //     agent1Brain.AddReward(25);
+            //     agent2Brain.AddReward(-25);
+            // }
+            // else if (agent1.Health < agent2.Health)
+            // {
+            //     agent1Brain.AddReward(-25);
+            //     agent2Brain.AddReward(25);
+            // }
             stepCounter = 0;
             numSum = 1;
+            // Debug.Log($"Recompensa del Agente 1: {agent1Brain.GetCumulativeReward()}");
+            // Debug.Log($"Recompensa del Agente 2: {agent2Brain.GetCumulativeReward()}");
             agent1Brain.EpisodeInterrupted();
             agent2Brain.EpisodeInterrupted();
         }
@@ -78,7 +80,7 @@ public class AgentAcademy : MonoBehaviour
     }
     public void Spawn(GameObject agent)
     {
-        Debug.Log("Spawn");
+        // Debug.Log("Spawn");
         float agentX = Random.Range(maxNegativeX, maxPositiveX);
         agent.transform.localPosition = new Vector2(agentX, -8.51f);
     }
@@ -127,14 +129,14 @@ public class AgentAcademy : MonoBehaviour
             agent2Brain.AddReward(-0.6f);
         }
     }
-    private void Win(bool whichAgent)
+    private void Dead(bool whichAgent)
     {
-        // Debug.LogAssertion("Win");
+        Debug.Log($"Win {(whichAgent ? "P2" : "P1")}");
         if (whichAgent)
         {
             // Debug.Log("[Win] +Agente1 -Agente2");
-            agent1Brain.AddReward(50f);
-            agent2Brain.AddReward(-50f);
+            agent1Brain.AddReward(-50f);
+            agent2Brain.AddReward(50f);
             stepCounter = 0;
             numSum = 1;
             agent1Brain.EndEpisode();
@@ -143,12 +145,14 @@ public class AgentAcademy : MonoBehaviour
         else
         {
             // Debug.Log("[Win] -Agente1 +Agente2");
-            agent1Brain.AddReward(-50f);
-            agent2Brain.AddReward(+50f);
+            agent1Brain.AddReward(50f);
+            agent2Brain.AddReward(-50f);
             stepCounter = 0;
             numSum = 1;
             agent1Brain.EndEpisode();
             agent2Brain.EndEpisode();
         }
+        // Debug.Log($"Recompensa del Agente 1: {agent1Brain.GetCumulativeReward()}");
+        // Debug.Log($"Recompensa del Agente 2: {agent2Brain.GetCumulativeReward()}");
     }
 }

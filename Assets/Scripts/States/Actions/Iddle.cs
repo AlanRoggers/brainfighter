@@ -103,7 +103,6 @@ public class Iddle : PlayerState
 
             if (Input.GetKeyDown(KeyCode.L))
                 return character.States.HardKick;
-
         }
 
 

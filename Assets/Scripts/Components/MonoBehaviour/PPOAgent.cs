@@ -17,6 +17,7 @@ public class PPOAgent : Agent
     }
     public override void OnEpisodeBegin()
     {
+        Debug.Log("Reseteo");
         character.Reset();
         OnBegin.Invoke(gameObject);
         // if (character.gameObject.layer == 6)
@@ -145,11 +146,13 @@ public class PPOAgent : Agent
     public override void Heuristic(in ActionBuffers actionsOut)
     {
         ActionSegment<int> actions = actionsOut.DiscreteActions;
-        if (gameObject.layer == 6)
+        if (gameObject.layer == 7)
         {
             BehaviourActions(actions);
-            MotionActions(actions);
         }
+
+        if (gameObject.layer == 6)
+            MotionActions(actions);
     }
     private void BehaviourActions(ActionSegment<int> actions)
     {

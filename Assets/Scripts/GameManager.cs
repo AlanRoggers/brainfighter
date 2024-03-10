@@ -6,12 +6,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Character char2;
     private void Update()
     {
-        if (char1.Health <= 0 || char2.Health <= 0)
-        {
-            char1.EndGame = true;
-            char1.EndGame = true;
-        }
-
         if (char1.CurrentState == char1.States.Jump || char1.CurrentState == char1.States.Fall ||
             char2.CurrentState == char2.States.Jump || char2.CurrentState == char2.States.Fall)
             Physics2D.IgnoreCollision(char1.Body, char2.Body);

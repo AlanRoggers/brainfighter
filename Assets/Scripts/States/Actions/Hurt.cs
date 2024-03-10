@@ -43,7 +43,6 @@ public class Hurt : PlayerState
     }
     public override void OnEntry(Character character)
     {
-        OnHurt.Invoke(character.AttackReceived.Damage, character.gameObject.layer == 6);
 
         character.EntryAttack = false;
 
@@ -52,8 +51,9 @@ public class Hurt : PlayerState
         if (character.Health <= 0)
             return;
 
+        OnHurt.Invoke(character.AttackReceived.Damage, character.gameObject.layer == 6);
 
-        canExitState = false;
+
         character.Friction.friction = 0;
         character.Animator.Play(AnimationState.Damage.ToString());
         if (hurtCor != null)
@@ -69,7 +69,11 @@ public class Hurt : PlayerState
         character.Friction.friction = 1;
         character.Animator.speed = 1;
         if (hurtCor != null)
+        {
             character.StopCoroutine(hurtCor);
+            hurtCor = null;
+        }
+        canExitState = false;
     }
     public override void Update(Character character)
     {

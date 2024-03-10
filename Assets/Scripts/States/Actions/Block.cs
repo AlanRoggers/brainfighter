@@ -7,10 +7,24 @@ public class Block : PlayerState
     public event AgentBlock OnBlock;
     private bool stopBlock;
     private Coroutine blockCor;
+    public override PlayerState InputAIHandler(Character character)
+    {
+        if (character.Resistance <= 0)
+            return character.States.Stun;
+        else if (character.EntryAttack)
+            return character.States.Block;
+
+        if (stopBlock)
+            return character.States.Iddle;
+
+        return null;
+    }
     public override PlayerState InputHandler(Character character)
     {
         if (character.Resistance <= 0)
             return character.States.Stun;
+        else if (character.EntryAttack)
+            return character.States.Block;
 
         if (stopBlock)
             return character.States.Iddle;
@@ -20,6 +34,7 @@ public class Block : PlayerState
 
     public override void OnEntry(Character character)
     {
+        character.EntryAttack = false;
         character.Physics.velocity = Vector2.zero;
         character.ReduceResistance(character.AttackReceived.Damage);
 
@@ -28,19 +43,20 @@ public class Block : PlayerState
 
         OnBlock.Invoke(character.AttackReceived.Damage, character.gameObject.layer == 6);
 
-        character.Animator.Play(AnimationState.BlockWhileCrouch.ToString());
-
-        if (blockCor != null)
-            character.StopCoroutine(blockCor);
+        character.Animator.Play(AnimationState.Block.ToString());
 
         blockCor = character.StartCoroutine(BlockLogic(character));
     }
 
     public override void OnExit(Character character)
     {
-        if (blockCor != null)
-            character.StopCoroutine(blockCor);
         character.Animator.speed = 1;
+        if (blockCor != null)
+        {
+            character.StopCoroutine(blockCor);
+            blockCor = null;
+        }
+        stopBlock = false;
     }
 
     public override void Update(Character character)
@@ -63,9 +79,9 @@ public class Block : PlayerState
         }
 
         character.Animator.speed = 0;
-        Debug.Log("Bloqueando");
+        // Debug.Log("Bloqueando");
         yield return new WaitForSeconds(0.4f);
-        Debug.Log("Desbloqueando");
+        // Debug.Log("Desbloqueando");
         character.Animator.speed = 1;
 
         for (int i = 1; i <= 80; i++)
@@ -76,10 +92,7 @@ public class Block : PlayerState
 
         }
         stopBlock = true;
-    }
-
-    public override PlayerState InputAIHandler(Character character)
-    {
-        throw new System.NotImplementedException();
+        character.AttackReceived = null;
+        blockCor = null;
     }
 }

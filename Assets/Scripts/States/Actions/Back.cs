@@ -17,8 +17,9 @@ public class Back : PlayerState
     }
     public override PlayerState InputAIHandler(Character character)
     {
+
         if (character.EntryAttack)
-            return character.States.Hurt;
+            return character.States.Block;
 
         if (!character.OnColdoown)
         {
@@ -65,9 +66,6 @@ public class Back : PlayerState
     }
     public override PlayerState InputHandler(Character character)
     {
-        if (character.EntryAttack)
-            return character.States.Hurt;
-
         if (character.EntryAttack)
             return character.States.Block;
 

@@ -145,7 +145,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2561777115840265049, guid: 183d7ac10344be55990a459c115b9d7a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3043906400132392895, guid: 183d7ac10344be55990a459c115b9d7a, type: 3}
       propertyPath: targetCamera
@@ -310,7 +310,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2561777115840265049, guid: 183d7ac10344be55990a459c115b9d7a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3043906400132392895, guid: 183d7ac10344be55990a459c115b9d7a, type: 3}
       propertyPath: targetCamera
@@ -383,7 +383,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2561777115840265049, guid: 183d7ac10344be55990a459c115b9d7a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3043906400132392895, guid: 183d7ac10344be55990a459c115b9d7a, type: 3}
       propertyPath: targetCamera
@@ -464,7 +464,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2561777115840265049, guid: 183d7ac10344be55990a459c115b9d7a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3043906400132392895, guid: 183d7ac10344be55990a459c115b9d7a, type: 3}
       propertyPath: targetCamera
@@ -537,7 +537,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2561777115840265049, guid: 183d7ac10344be55990a459c115b9d7a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3043906400132392895, guid: 183d7ac10344be55990a459c115b9d7a, type: 3}
       propertyPath: targetCamera
@@ -610,7 +610,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2561777115840265049, guid: 183d7ac10344be55990a459c115b9d7a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3043906400132392895, guid: 183d7ac10344be55990a459c115b9d7a, type: 3}
       propertyPath: targetCamera
@@ -683,7 +683,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2561777115840265049, guid: 183d7ac10344be55990a459c115b9d7a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3043906400132392895, guid: 183d7ac10344be55990a459c115b9d7a, type: 3}
       propertyPath: targetCamera
@@ -758,6 +758,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 490
       objectReference: {fileID: 0}
+    - target: {fileID: 1513710553476280756, guid: 183d7ac10344be55990a459c115b9d7a, type: 3}
+      propertyPath: IsAI
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2561777115840265049, guid: 183d7ac10344be55990a459c115b9d7a, type: 3}
       propertyPath: m_Name
       value: TrainerStage
@@ -782,13 +786,9 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -10
       objectReference: {fileID: 0}
-    - target: {fileID: 4813137031548131351, guid: 183d7ac10344be55990a459c115b9d7a, type: 3}
-      propertyPath: m_Model
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 5568576885630689147, guid: 183d7ac10344be55990a459c115b9d7a, type: 3}
       propertyPath: IsAI
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5826625133742237850, guid: 183d7ac10344be55990a459c115b9d7a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -862,7 +862,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2561777115840265049, guid: 183d7ac10344be55990a459c115b9d7a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3043906400132392895, guid: 183d7ac10344be55990a459c115b9d7a, type: 3}
       propertyPath: targetCamera

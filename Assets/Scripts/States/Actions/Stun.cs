@@ -32,14 +32,17 @@ public class Stun : PlayerState
     public override void OnEntry(Character character)
     {
         OnStun.Invoke(character.gameObject.layer == 6);
-        endStun = false;
         character.Animator.Play(AnimationState.Incapacite.ToString());
         rescueCor = character.StartCoroutine(RescueTime());
     }
     public override void OnExit(Character character)
     {
+        endStun = false;
         if (rescueCor != null)
+        {
             character.StopCoroutine(rescueCor);
+            rescueCor = null;
+        }
 
         character.IncrementResistance(20);
     }
@@ -51,5 +54,6 @@ public class Stun : PlayerState
     {
         yield return new WaitForSeconds(2f);
         endStun = true;
+        rescueCor = null;
     }
 }

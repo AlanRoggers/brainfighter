@@ -44,7 +44,7 @@ public class SpecialPunch : Attack
 
     public override void Update(Character character)
     {
-        // Debug.Log("Golpe especial");
+        Debug.Log("Golpe especial" + currentClip);
     }
 
 
