@@ -16,6 +16,7 @@ public abstract class Attack : PlayerState
     {
         if (character.CoolDownCor != null)
             character.StopCoroutine(character.CoolDownCor);
+
         animationCor = character.StartCoroutine(AttackLogic(character));
         character.HitsChained++;
     }
@@ -40,6 +41,7 @@ public abstract class Attack : PlayerState
                 Collider2D enemy = character.OverlapDetector.AttackHit(character.CharacterLayer == 64 ? 128 : 64, character.Hitbox);
                 if (enemy && character.Hitbox.enabled)
                 {
+                    // Esto se buguea si los dos se pegan al mismo tiempo
                     enemy.GetComponent<Character>().SetAttack(this);
 
                     character.IncrementResistance(Damage);
@@ -69,13 +71,15 @@ public abstract class Attack : PlayerState
         yield return new WaitWhile(() => character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
         character.SetCoolDownCor(character.StartCoroutine(character.CoolDown(coolDown)));
         character.HitsChained = 0;
+        animationCor = null;
     }
     public override void OnExit(Character character)
     {
         base.OnExit(character);
         character.RequestedBehaviourAction = State.IDDLE;
         character.Physics.gravityScale = 4;
-        character.StopCoroutine(animationCor);
         character.Animator.speed = 1;
+        if (animationCor != null)
+            character.StopCoroutine(animationCor);
     }
 }

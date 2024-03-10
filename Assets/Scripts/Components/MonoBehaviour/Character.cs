@@ -161,5 +161,6 @@ public class Character : MonoBehaviour
         Resistance = 50;
         Friction.friction = 1; // Tal vez no
         futureState = States.Iddle;
+        reset = true;
     }
 }

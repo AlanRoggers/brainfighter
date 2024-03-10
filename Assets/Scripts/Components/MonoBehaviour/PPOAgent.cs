@@ -8,8 +8,8 @@ public class PPOAgent : Agent
     public static event EpisodeBegin OnBegin;
     public AgentAcademy academy;
     private Character character;
-    private readonly float maxDistance = 32.10f;
-    private readonly float minDistance = 1f;
+    private readonly float maxDistance = 27.8f;
+    private readonly float minDistance = 1.26f;
     protected override void Awake()
     {
         base.Awake();
