@@ -81,11 +81,6 @@ public class Character : MonoBehaviour
                 CurrentState = futureState;
                 CurrentState.OnEntry(this);
             }
-            else
-            {
-                Debug.Log($"Jugador: {gameObject.layer} Estado: {CurrentState} Future: {futureState}");
-
-            }
             Orientation();
         }
     }

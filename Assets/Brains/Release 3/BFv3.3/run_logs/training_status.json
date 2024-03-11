@@ -1,0 +1,57 @@
+{
+    "Brainfighter": {
+        "checkpoints": [
+            {
+                "steps": 499951,
+                "file_path": "./BFv3.3/Brainfighter/Brainfighter-499951.onnx",
+                "reward": -248.68318581581116,
+                "creation_time": 1710118960.0755603,
+                "auxillary_file_paths": [
+                    "./BFv3.3/Brainfighter/Brainfighter-499951.pt"
+                ]
+            },
+            {
+                "steps": 749990,
+                "file_path": "./BFv3.3/Brainfighter/Brainfighter-749990.onnx",
+                "reward": -72.05248045921326,
+                "creation_time": 1710119293.9520354,
+                "auxillary_file_paths": [
+                    "./BFv3.3/Brainfighter/Brainfighter-749990.pt"
+                ]
+            },
+            {
+                "steps": 999957,
+                "file_path": "./BFv3.3/Brainfighter/Brainfighter-999957.onnx",
+                "reward": -132.97494220733643,
+                "creation_time": 1710119631.8221486,
+                "auxillary_file_paths": [
+                    "./BFv3.3/Brainfighter/Brainfighter-999957.pt"
+                ]
+            },
+            {
+                "steps": 1000021,
+                "file_path": "./BFv3.3/Brainfighter/Brainfighter-1000021.onnx",
+                "reward": -132.97494220733643,
+                "creation_time": 1710119631.86985,
+                "auxillary_file_paths": [
+                    "./BFv3.3/Brainfighter/Brainfighter-1000021.pt"
+                ]
+            }
+        ],
+        "elo": 1235.1139384256103,
+        "final_checkpoint": {
+            "steps": 1000021,
+            "file_path": "./BFv3.3/Brainfighter.onnx",
+            "reward": -132.97494220733643,
+            "creation_time": 1710119631.86985,
+            "auxillary_file_paths": [
+                "./BFv3.3/Brainfighter/Brainfighter-1000021.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "2.2.1+cu121"
+    }
+}

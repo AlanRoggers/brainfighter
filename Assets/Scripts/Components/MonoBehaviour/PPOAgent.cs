@@ -17,7 +17,7 @@ public class PPOAgent : Agent
     }
     public override void OnEpisodeBegin()
     {
-        Debug.Log("Reseteo");
+        // Debug.Log("Reseteo");
         character.Reset();
         OnBegin.Invoke(gameObject);
         // if (character.gameObject.layer == 6)
