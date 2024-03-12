@@ -3,7 +3,7 @@ behaviors:
     trainer_type: ppo
     summary_freq: 5000
     time_horizon: 64
-    max_steps: 1000000
+    max_steps: 10000000
     keep_checkpoints: 4
     even_checkpoints: false
     checkpoint_interval: 250000

@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] Components player1Components;
-    [SerializeField] Components player2Components;
-    void Update()
+    [SerializeField] private Character char1;
+    [SerializeField] private Character char2;
+    private void Update()
     {
-        if (player1Components.msng.Dead || player2Components.msng.Dead)
-        {
-            player1Components.Input.enabled = false;
-            player2Components.Input.enabled = false;
-        }
+        if (char1.CurrentState == char1.States.Jump || char1.CurrentState == char1.States.Fall ||
+            char2.CurrentState == char2.States.Jump || char2.CurrentState == char2.States.Fall)
+            Physics2D.IgnoreCollision(char1.Body, char2.Body);
+        else
+            Physics2D.IgnoreCollision(char1.Body, char2.Body, false);
     }
 }
