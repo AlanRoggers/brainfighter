@@ -1,6 +1,6 @@
 public class StateStorage
 {
-    public readonly WalkV5 Walk = new();
+    public readonly Walk Walk = new();
     public readonly Iddle Iddle = new();
     public readonly Back Back = new();
     public readonly Jump Jump = new();

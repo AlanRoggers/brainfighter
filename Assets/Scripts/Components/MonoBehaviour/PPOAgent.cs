@@ -32,64 +32,19 @@ public class PPOAgent : Agent
             0.0f,
             1.0f
         );
-        float currentState = 0;
-        switch (character.CurrentState)
-        {
-            case Iddle:
-                currentState = 1;
-                break;
-            case WalkV5:
-                currentState = 2;
-                break;
-            case Back:
-                currentState = 3;
-                break;
-            case Jump:
-                currentState = 4;
-                break;
-            case Fall:
-                currentState = 5;
-                break;
-            case LowPunch:
-                currentState = 6;
-                break;
-            case MiddlePunch:
-                currentState = 7;
-                break;
-            case HardPunch:
-                currentState = 8;
-                break;
-            case SpecialPunch:
-                currentState = 9;
-                break;
-            case LowKick:
-                currentState = 10;
-                break;
-            case MiddleKick:
-                currentState = 11;
-                break;
-            case HardKick:
-                currentState = 12;
-                break;
-            case SpecialKick:
-                currentState = 13;
-                break;
-            case Hurt:
-                currentState = 14;
-                break;
-            case Block:
-                currentState = 15;
-                break;
-            case Stun:
-                currentState = 16;
-                break;
-        }
+        int agentState = StateObservation(character.CurrentState);
+        int enemyState = StateObservation(gameObject.layer == 6 ? academy.agent2.CurrentState : academy.agent1.CurrentState);
+        // if (gameObject.layer == 6)
+        // {
+        //     Debug.Log($"CurrentState: {agentState}");
+        //     Debug.Log($"CurrentStateEnemy: {enemyState}");
+        // }
         sensor.AddObservation(normalizedCurrentDistanceX);
         sensor.AddObservation(academy.agent1.Health / 100f);
-        sensor.AddObservation(academy.agent1.Health / 100f);
+        sensor.AddObservation(academy.agent2.Health / 100f);
         sensor.AddObservation(character.OnColdoown);
         sensor.AddObservation(character.Resistance / 50f);
-        sensor.AddObservation(currentState / 16);
+        sensor.AddObservation(agentState);
     }
     public override void OnActionReceived(ActionBuffers actions)
     {
@@ -228,5 +183,28 @@ public class PPOAgent : Agent
         }
 
         actions[0] = 0;
+    }
+    private int StateObservation(PlayerState state)
+    {
+        return state switch
+        {
+            Iddle => 1,
+            Walk => 2,
+            Back => 3,
+            Jump => 4,
+            Fall => 5,
+            LowPunch => 6,
+            MiddlePunch => 7,
+            HardPunch => 8,
+            SpecialPunch => 9,
+            LowKick => 10,
+            MiddleKick => 11,
+            HardKick => 12,
+            SpecialKick => 13,
+            Hurt => 14,
+            Block => 15,
+            Stun => 16,
+            _ => 0,
+        };
     }
 }

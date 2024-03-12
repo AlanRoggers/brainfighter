@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WalkV5 : PlayerState
+public class Walk : PlayerState
 {
     private readonly float maxForce = 500f;
     private readonly float maxSpeed = 10f;
     private bool jumpTransition;
-    public WalkV5()
+    public Walk()
     {
         clips = new List<AnimationState>()
         {

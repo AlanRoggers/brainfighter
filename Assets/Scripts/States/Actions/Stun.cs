@@ -31,7 +31,7 @@ public class Stun : PlayerState
     }
     public override void OnEntry(Character character)
     {
-        OnStun.Invoke(character.gameObject.layer == 6);
+        // OnStun.Invoke(character.gameObject.layer == 6);
         character.Animator.Play(AnimationState.Incapacite.ToString());
         rescueCor = character.StartCoroutine(RescueTime());
     }

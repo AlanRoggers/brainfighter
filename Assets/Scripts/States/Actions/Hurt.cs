@@ -51,7 +51,7 @@ public class Hurt : PlayerState
         if (character.Health <= 0)
             return;
 
-        OnHurt.Invoke(character.AttackReceived.Damage, character.gameObject.layer == 6);
+        // OnHurt.Invoke(character.AttackReceived.Damage, character.gameObject.layer == 6);
 
 
         character.Friction.friction = 0;

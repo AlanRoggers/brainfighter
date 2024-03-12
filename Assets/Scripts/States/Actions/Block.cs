@@ -41,7 +41,7 @@ public class Block : PlayerState
         if (character.Resistance <= 0)
             return;
 
-        OnBlock.Invoke(character.AttackReceived.Damage, character.gameObject.layer == 6);
+        // OnBlock.Invoke(character.AttackReceived.Damage, character.gameObject.layer == 6);
 
         character.Animator.Play(AnimationState.Block.ToString());
 

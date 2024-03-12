@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class PlayerState
 {
+    public State StateName;
     protected Coroutine animationCor = null;
     protected List<AnimationState> clips;
     public abstract PlayerState InputAIHandler(Character character);

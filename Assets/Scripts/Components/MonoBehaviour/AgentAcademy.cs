@@ -21,13 +21,13 @@ public class AgentAcademy : MonoBehaviour
     }
     private void Start()
     {
-        agent1.States.Hurt.OnHurt += Hurt;
-        agent1.States.Block.OnBlock += Block;
-        agent1.States.Stun.OnStun += Stuned;
+        // agent1.States.Hurt.OnHurt += Hurt;
+        // agent1.States.Block.OnBlock += Block;
+        // agent1.States.Stun.OnStun += Stuned;
         agent1.States.Dead.OnDead += Dead;
-        agent2.States.Hurt.OnHurt += Hurt;
-        agent2.States.Block.OnBlock += Block;
-        agent2.States.Stun.OnStun += Stuned;
+        // agent2.States.Hurt.OnHurt += Hurt;
+        // agent2.States.Block.OnBlock += Block;
+        // agent2.States.Stun.OnStun += Stuned;
         agent2.States.Dead.OnDead += Dead;
         PPOAgent.OnBegin += Spawn;
     }
@@ -36,45 +36,47 @@ public class AgentAcademy : MonoBehaviour
         if (stepCounter < maxSteps)
         {
             stepCounter++;
-            if (stepCounter % 10 == 0)
-            {
-                if (stepCounter > 10)
-                {
-                    if (lastAG1Health == agent1.Health && lastAG2Health == agent2.Health)
-                    {
-                        // Debug.Log("Entro");
-                        agent1Brain.AddReward(-numSum);
-                        agent2Brain.AddReward(-numSum);
-                        numSum += 0.01f;
-                    }
-                    else
-                    {
-                        lastAG1Health = agent1.Health;
-                        lastAG2Health = agent2.Health;
-                        numSum = 0.1f;
-                    }
-                }
-            }
+            // if (stepCounter % 10 == 0)
+            // {
+            //     if (stepCounter > 10)
+            //     {
+            //         if (lastAG1Health == agent1.Health && lastAG2Health == agent2.Health)
+            //         {
+            //             // Debug.Log("Entro");
+            //             agent1Brain.AddReward(-numSum);
+            //             agent2Brain.AddReward(-numSum);
+            //             numSum += 0.01f;
+            //         }
+            //         else
+            //         {
+            //             lastAG1Health = agent1.Health;
+            //             lastAG2Health = agent2.Health;
+            //             numSum = 0.1f;
+            //         }
+            //     }
+            // }
         }
         else
         {
             // Debug.Log("Episodio Interrumpido");
-            // if (agent1.Health > agent2.Health)
-            // {
-            //     agent1Brain.AddReward(25);
-            //     agent2Brain.AddReward(-25);
-            // }
-            // else if (agent1.Health < agent2.Health)
-            // {
-            //     agent1Brain.AddReward(-25);
-            //     agent2Brain.AddReward(25);
-            // }
+            if (agent1.Health > agent2.Health)
+            {
+                agent1Brain.AddReward(1);
+                agent2Brain.AddReward(-1);
+            }
+            else if (agent1.Health < agent2.Health)
+            {
+                agent1Brain.AddReward(-1);
+                agent2Brain.AddReward(1);
+            }
+            agent1Brain.EndEpisode();
+            agent2Brain.EndEpisode();
             stepCounter = 0;
             numSum = 1;
             // Debug.Log($"Recompensa del Agente 1: {agent1Brain.GetCumulativeReward()}");
             // Debug.Log($"Recompensa del Agente 2: {agent2Brain.GetCumulativeReward()}");
-            agent1Brain.EpisodeInterrupted();
-            agent2Brain.EpisodeInterrupted();
+            // agent1Brain.EpisodeInterrupted();
+            // agent2Brain.EpisodeInterrupted();
         }
 
     }
@@ -135,8 +137,8 @@ public class AgentAcademy : MonoBehaviour
         if (whichAgent)
         {
             // Debug.Log("[Win] +Agente1 -Agente2");
-            agent1Brain.AddReward(-50f);
-            agent2Brain.AddReward(50f);
+            agent1Brain.AddReward(-1);
+            agent2Brain.AddReward(1f);
             stepCounter = 0;
             numSum = 1;
             agent1Brain.EndEpisode();
@@ -145,8 +147,8 @@ public class AgentAcademy : MonoBehaviour
         else
         {
             // Debug.Log("[Win] -Agente1 +Agente2");
-            agent1Brain.AddReward(50f);
-            agent2Brain.AddReward(-50f);
+            agent1Brain.AddReward(1f);
+            agent2Brain.AddReward(-1f);
             stepCounter = 0;
             numSum = 1;
             agent1Brain.EndEpisode();
