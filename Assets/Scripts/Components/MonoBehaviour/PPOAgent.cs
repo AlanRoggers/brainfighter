@@ -32,8 +32,6 @@ public class PPOAgent : Agent
             0.0f,
             1.0f
         );
-        int agentState = StateObservation(character.CurrentState);
-        int enemyState = StateObservation(gameObject.layer == 6 ? academy.agent2.CurrentState : academy.agent1.CurrentState);
         // if (gameObject.layer == 6)
         // {
         //     Debug.Log($"CurrentState: {agentState}");
@@ -44,7 +42,8 @@ public class PPOAgent : Agent
         sensor.AddObservation(academy.agent2.Health / 100f);
         sensor.AddObservation(character.OnColdoown);
         sensor.AddObservation(character.Resistance / 50f);
-        sensor.AddObservation(agentState);
+        sensor.AddObservation(StateObservation(character.CurrentState));
+        sensor.AddObservation(StateObservation(gameObject.layer == 6 ? academy.agent2.CurrentState : academy.agent1.CurrentState));
     }
     public override void OnActionReceived(ActionBuffers actions)
     {

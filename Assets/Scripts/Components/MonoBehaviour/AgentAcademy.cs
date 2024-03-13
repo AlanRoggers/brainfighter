@@ -61,13 +61,18 @@ public class AgentAcademy : MonoBehaviour
             // Debug.Log("Episodio Interrumpido");
             if (agent1.Health > agent2.Health)
             {
-                agent1Brain.AddReward(1);
+                agent1Brain.AddReward(1 + agent1.Health / 10f);
                 agent2Brain.AddReward(-1);
             }
             else if (agent1.Health < agent2.Health)
             {
                 agent1Brain.AddReward(-1);
-                agent2Brain.AddReward(1);
+                agent2Brain.AddReward(1 + agent2.Health / 10f);
+            }
+            else if (agent1.Health == 100 && agent2.Health == 100)
+            {
+                agent1Brain.SetReward(-10);
+                agent2Brain.SetReward(-10);
             }
             agent1Brain.EndEpisode();
             agent2Brain.EndEpisode();
@@ -138,7 +143,7 @@ public class AgentAcademy : MonoBehaviour
         {
             // Debug.Log("[Win] +Agente1 -Agente2");
             agent1Brain.AddReward(-1);
-            agent2Brain.AddReward(1f);
+            agent2Brain.AddReward(1 + agent1.Health / 10f);
             stepCounter = 0;
             numSum = 1;
             agent1Brain.EndEpisode();
@@ -147,7 +152,7 @@ public class AgentAcademy : MonoBehaviour
         else
         {
             // Debug.Log("[Win] -Agente1 +Agente2");
-            agent1Brain.AddReward(1f);
+            agent1Brain.AddReward(1 + agent2.Health / 10f);
             agent2Brain.AddReward(-1f);
             stepCounter = 0;
             numSum = 1;

@@ -786,10 +786,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -10
       objectReference: {fileID: 0}
-    - target: {fileID: 4813137031548131351, guid: 183d7ac10344be55990a459c115b9d7a, type: 3}
-      propertyPath: m_Model
-      value: 
-      objectReference: {fileID: 5022602860645237092, guid: c6b8ed5412b3d6b3f86948cb874bdaa0, type: 3}
     - target: {fileID: 5568576885630689147, guid: 183d7ac10344be55990a459c115b9d7a, type: 3}
       propertyPath: IsAI
       value: 1
