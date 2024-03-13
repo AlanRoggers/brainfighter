@@ -1,0 +1,29 @@
+{
+    "Brainfighter": {
+        "checkpoints": [
+            {
+                "steps": 90742,
+                "file_path": "./v4.0/Brainfighter/Brainfighter-90742.onnx",
+                "reward": null,
+                "creation_time": 1710369621.9351099,
+                "auxillary_file_paths": [
+                    "./v4.0/Brainfighter/Brainfighter-90742.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 90742,
+            "file_path": "./v4.0/Brainfighter.onnx",
+            "reward": null,
+            "creation_time": 1710369621.9351099,
+            "auxillary_file_paths": [
+                "./v4.0/Brainfighter/Brainfighter-90742.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "2.2.0+cu121"
+    }
+}
