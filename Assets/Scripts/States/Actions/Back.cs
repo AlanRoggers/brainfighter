@@ -15,55 +15,43 @@ public class Back : PlayerState
             AnimationState.GoingBackwards,
         };
     }
-    public override PlayerState InputAIHandler(Character character)
-    {
 
+    public override PlayerState InputAIHandler(Character character, PPOAgent agent)
+    {
         if (character.EntryAttack)
             return character.States.Block;
 
-        if (!character.OnColdoown)
-        {
-            switch (character.RequestedBehaviourAction)
-            {
-                case State.LOW_PUNCH:
-                    if (!character.OnColdoown)
-                        return character.States.LowPunch;
-                    break;
-                case State.MIDDLE_PUNCH:
-                    if (!character.OnColdoown)
-                        return character.States.MiddlePunch;
-                    break;
-                case State.HARD_PUNCH:
-                    if (!character.OnColdoown)
-                        return character.States.HardPunch;
-                    break;
-                case State.LOW_KICK:
-                    if (!character.OnColdoown)
-                        return character.States.LowKick;
-                    break;
-                case State.MIDDLE_KICK:
-                    if (!character.OnColdoown)
-                        return character.States.MiddleKick;
-                    break;
-                case State.HARD_KICK:
-                    if (!character.OnColdoown)
-                        return character.States.HardKick;
-                    break;
-            }
-        }
+        if (agent.RequestedAction == State.IDDLE)
+            return character.States.Iddle;
 
-        if (character.RequestedBehaviourAction == State.JUMP)
+        if (agent.RequestedAction == State.JUMP)
         {
             jumpTransition = true;
             return character.States.Jump;
         }
 
-        if (character.RequestedMotionAction == State.IDDLE)
-            return character.States.Iddle;
+        if (!character.OnColdoown)
+        {
+            switch (agent.RequestedAction)
+            {
+                case State.LOW_PUNCH:
+                    return character.States.LowPunch;
+                case State.MIDDLE_PUNCH:
+                    return character.States.MiddlePunch;
+                case State.HARD_PUNCH:
+                    return character.States.HardPunch;
+                case State.LOW_KICK:
+                    return character.States.LowKick;
+                case State.MIDDLE_KICK:
+                    return character.States.MiddleKick;
+                case State.HARD_KICK:
+                    return character.States.HardKick;
+            }
+        }
 
         return null;
-
     }
+
     public override PlayerState InputHandler(Character character)
     {
         if (character.EntryAttack)

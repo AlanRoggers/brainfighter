@@ -1,6 +1,6 @@
 public class CrouchV5 : PlayerState
 {
-    public override PlayerState InputAIHandler(Character character)
+    public override PlayerState InputAIHandler(Character character, PPOAgent agent)
     {
         throw new System.NotImplementedException();
     }
@@ -9,8 +9,6 @@ public class CrouchV5 : PlayerState
     {
         throw new System.NotImplementedException();
     }
-
-
 
     public override void OnEntry(Character character)
     {

@@ -20,15 +20,13 @@ public class HardKick : Attack
         Force = new Vector2(2, 8);
     }
 
-    public override PlayerState InputAIHandler(Character character)
+    public override PlayerState InputAIHandler(Character character, PPOAgent agent)
     {
-        if (character.EntryAttack)
-            return character.States.Hurt;
+        PlayerState shared = SharedActions(character);
 
-        if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
-            return character.States.Iddle;
+        if (shared != null) return shared;
 
-        if (currentClip == clips[1] && character.RequestedBehaviourAction == State.SPECIAL_KICK && character.HitsChained >= 3)
+        if (currentClip == clips[1] && agent.RequestedAction == State.SPECIAL_KICK && character.HitsChained >= 3)
             return character.States.SpecialKick;
 
         return null;
@@ -36,11 +34,9 @@ public class HardKick : Attack
 
     public override PlayerState InputHandler(Character character)
     {
-        if (character.EntryAttack)
-            return character.States.Hurt;
+        PlayerState shared = SharedActions(character);
 
-        if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
-            return character.States.Iddle;
+        if (shared != null) return shared;
 
         if (currentClip == clips[1] && Input.GetKeyDown(KeyCode.Semicolon) && character.HitsChained >= 3)
             return character.States.SpecialKick;
@@ -50,5 +46,16 @@ public class HardKick : Attack
     public override void Update(Character character)
     {
         // Debug.Log("HardKick");
+    }
+
+    private PlayerState SharedActions(Character character)
+    {
+        if (character.EntryAttack)
+            return character.States.Hurt;
+
+        if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
+            return character.States.Iddle;
+
+        return null;
     }
 }

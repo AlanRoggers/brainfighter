@@ -7,40 +7,8 @@ public class Hurt : PlayerState
     private bool canExitState;
     public delegate void AgentHurt(int entryDamage, bool whichAgent);
     public event AgentHurt OnHurt;
-    public override PlayerState InputAIHandler(Character character)
-    {
-        if (character.Health <= 0)
-            return character.States.Dead;
-
-        if (character.EntryAttack)
-            return character.States.Hurt;
-
-        if (canExitState)
-        {
-            if (character.OverlapDetector.GroundDetection(character.Body, LayerMask.GetMask("Ground")))
-                return character.States.Iddle;
-            else
-                return character.States.Fall;
-        }
-        return null;
-    }
-    public override PlayerState InputHandler(Character character)
-    {
-        if (character.Health <= 0)
-            return character.States.Dead;
-
-        if (character.EntryAttack)
-            return character.States.Hurt;
-
-        if (canExitState)
-        {
-            if (character.OverlapDetector.GroundDetection(character.Body, LayerMask.GetMask("Ground")))
-                return character.States.Iddle;
-            else
-                return character.States.Fall;
-        }
-        return null;
-    }
+    public override PlayerState InputAIHandler(Character character, PPOAgent agent) => SharedActions(character);
+    public override PlayerState InputHandler(Character character) => SharedActions(character);
     public override void OnEntry(Character character)
     {
 
@@ -109,5 +77,22 @@ public class Hurt : PlayerState
         character.AttackReceived = null;
         canExitState = true;
         hurtCor = null;
+    }
+    private PlayerState SharedActions(Character character)
+    {
+        if (character.Health <= 0)
+            return character.States.Dead;
+
+        if (character.EntryAttack)
+            return character.States.Hurt;
+
+        if (canExitState)
+        {
+            if (character.OverlapDetector.GroundDetection(character.Body, LayerMask.GetMask("Ground")))
+                return character.States.Iddle;
+            else
+                return character.States.Fall;
+        }
+        return null;
     }
 }

@@ -19,21 +19,18 @@ public class LowPunch : Attack
         Damage = 3;
         Force = new Vector2(1f, 4.5f);
     }
-
-    public override PlayerState InputAIHandler(Character character)
+    public override PlayerState InputAIHandler(Character character, PPOAgent agent)
     {
-        if (character.EntryAttack)
-            return character.States.Hurt;
+        PlayerState shared = SharedActions(character);
 
-        if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
-            return character.States.Iddle;
+        if (shared != null) return shared;
 
         if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
         {
-            if (character.RequestedBehaviourAction == State.MIDDLE_PUNCH)
+            if (agent.RequestedAction == State.MIDDLE_PUNCH)
                 return character.States.MiddlePunch;
 
-            if (character.RequestedBehaviourAction == State.HARD_PUNCH)
+            if (agent.RequestedAction == State.HARD_PUNCH)
                 return character.States.HardPunch;
         }
 
@@ -42,6 +39,10 @@ public class LowPunch : Attack
 
     public override PlayerState InputHandler(Character character)
     {
+        PlayerState shared = SharedActions(character);
+
+        if (shared != null) return shared;
+
         if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
         {
             if (Input.GetKeyDown(KeyCode.I))
@@ -51,9 +52,6 @@ public class LowPunch : Attack
                 return character.States.HardPunch;
         }
 
-        if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
-            return character.States.Iddle;
-
         return null;
     }
     public override void Update(Character character)
@@ -61,6 +59,15 @@ public class LowPunch : Attack
         // Debug.Log("Golpe Débil");
     }
 
+    private PlayerState SharedActions(Character character)
+    {
+        if (character.EntryAttack)
+            return character.States.Hurt;
 
+        if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
+            return character.States.Iddle;
+
+        return null;
+    }
 
 }

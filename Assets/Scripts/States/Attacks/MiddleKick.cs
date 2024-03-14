@@ -19,19 +19,17 @@ public class MiddleKick : Attack
         Damage = 6;
         Force = new Vector2(0, 12);
     }
-
-    public override PlayerState InputAIHandler(Character character)
+    public override PlayerState InputAIHandler(Character character, PPOAgent agent)
     {
-        if (character.EntryAttack)
-            return character.States.Hurt;
+        PlayerState shared = SharedActions(character);
 
-        if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
-            return character.States.Iddle;
+        if (shared != null) return shared;
 
-        if (character.RequestedBehaviourAction == State.HARD_KICK && currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+        if (agent.RequestedAction == State.HARD_KICK && currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
             return character.States.HardKick;
 
         return null;
+
     }
 
     public override PlayerState InputHandler(Character character)
@@ -50,5 +48,15 @@ public class MiddleKick : Attack
     public override void Update(Character character)
     {
         // Debug.Log("MiddleKick");
+    }
+    private PlayerState SharedActions(Character character)
+    {
+        if (character.EntryAttack)
+            return character.States.Hurt;
+
+        if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
+            return character.States.Iddle;
+
+        return null;
     }
 }

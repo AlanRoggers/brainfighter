@@ -5,16 +5,23 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     private PlayerState futureState;
+    public PlayerState FutureStateSet { set => futureState = value; }
+
     #region AI
     public bool IsAI;
     [HideInInspector] public State RequestedBehaviourAction;
     [HideInInspector] public State RequestedMotionAction;
-    private bool reset;
+    [HideInInspector] public PPOAgent Agent;
+    public delegate void StateChanged(PlayerState newState);
+    public event StateChanged OnStateChange;
+
     #endregion
 
     #region Character Properties
     public int Health { get; private set; }
+    public int HealthSet { set => Health = value; }
     public int Resistance { get; private set; }
+    public int ResistanceSet { set => Resistance = value; }
     public StateStorage States { get; private set; }
     public Overlap OverlapDetector { get; private set; }
     public Transform EnemyTransform;
@@ -28,12 +35,14 @@ public class Character : MonoBehaviour
     #endregion
 
     #region Character Handlers
-    [HideInInspector] public bool EndGame;
     [HideInInspector] public Attack AttackReceived;
     [HideInInspector] public bool EntryAttack;
     [HideInInspector] public bool OnColdoown;
-    [HideInInspector] public int HitsChained;
     [HideInInspector] public Coroutine CoolDownCor { get; private set; }
+    public Coroutine CoolDownSet { set => CoolDownCor = value; }
+    [HideInInspector] public int HitsChained;
+    public Vector2 Spawn;
+
     #endregion
 
     private void Awake()
@@ -41,61 +50,49 @@ public class Character : MonoBehaviour
         Animator = GetComponent<Animator>();
         Physics = GetComponent<Rigidbody2D>();
         Body = GetComponent<BoxCollider2D>();
+        Agent = GetComponent<PPOAgent>();
+
     }
     private void Start()
     {
-        EndGame = false;
         CharacterLayer = (int)Mathf.Pow(2, gameObject.layer);
-        Health = 100;
-        Resistance = 50;
         States = new StateStorage();
         OverlapDetector = new Overlap();
-        Friction = new()
-        {
-            friction = 1
-        };
+        Friction = new() { friction = 1 };
         Physics.sharedMaterial = Friction;
+        Health = 100;
+        Resistance = 50;
+        transform.localPosition = Spawn;
         CurrentState = States.Iddle;
         CurrentState.OnEntry(this);
-        States.Dead.OnDead += FinshGame;
     }
     void Update()
     {
-        // if (gameObject.layer == 6)
-        //     Debug.Log(RequestedBehaviourAction);
-        if (!EndGame)
+        // Manejar las acciones requeridoas por la IA o por el jugador
+        futureState = IsAI ? CurrentState.InputAIHandler(this, Agent) : CurrentState.InputHandler(this);
+
+        if (futureState != null)
         {
-            if (!reset)
-            {
-
-                if (!IsAI)
-                    futureState = CurrentState.InputHandler(this);
-                else
-                    futureState = CurrentState.InputAIHandler(this);
-            }
-            else reset = false;
-
-            if (futureState != null)
-            {
-                CurrentState.OnExit(this);
-                CurrentState = futureState;
-                CurrentState.OnEntry(this);
-            }
-            Orientation();
+            CurrentState.OnExit(this);
+            CurrentState = futureState;
+            CurrentState.OnEntry(this);
         }
+
+        Orientation();
     }
     private void FixedUpdate()
     {
-        if (!EndGame)
-            CurrentState.Update(this);
+
+
+        CurrentState.Update(this);
     }
-    private void OnDrawGizmos()
-    {
-        // OverlapDetector.DrawGroundDetection(GetComponent<BoxCollider2D>(), LayerMask.GetMask("Ground"));
-        // OverlapDetector.DrawEnemyOverlapping(Body, gameObject.layer == 6 ? 7 : 6);
-        // Gizmos.DrawWireCube((Vector2)transform.position + enemyDetectorPos, enemyDetectorSize);
-        // OverlapDetector.DrawHitBox(CharacterLayer == 64 ? 128 : 64, Hitbox);
-    }
+    // private void OnDrawGizmos()
+    // {
+    //     // OverlapDetector.DrawGroundDetection(GetComponent<BoxCollider2D>(), LayerMask.GetMask("Ground"));
+    //     // OverlapDetector.DrawEnemyOverlapping(Body, gameObject.layer == 6 ? 7 : 6);
+    //     // Gizmos.DrawWireCube((Vector2)transform.position + enemyDetectorPos, enemyDetectorSize);
+    //     // OverlapDetector.DrawHitBox(gameObject.layer == 6 ? LayerMask.GetMask("Player2") : LayerMask.GetMask("Player1"), Hitbox);
+    // }
     public IEnumerator CoolDown(float cd)
     {
         // Debug.Log("Corrutina entrante");
@@ -105,7 +102,6 @@ public class Character : MonoBehaviour
         OnColdoown = false;
         CoolDownCor = null;
     }
-    public void SetCoolDownCor(Coroutine routine) => CoolDownCor = routine;
     private void Orientation()
     {
         float signDistance = MathF.Sign(transform.localPosition.x - EnemyTransform.localPosition.x);
@@ -145,25 +141,5 @@ public class Character : MonoBehaviour
         else
             Resistance = 50;
     }
-    public void Reset()
-    {
-        CurrentState.OnExit(this);
-        EndGame = false;
-        AttackReceived = null;
-        EntryAttack = false;
-        OnColdoown = false;
-        HitsChained = 0;
-        Physics.velocity = Vector2.zero;
-        if (CoolDownCor != null)
-        {
-            StopCoroutine(CoolDownCor);
-            CoolDownCor = null;
-        }
-        Health = 100;
-        Resistance = 50;
-        Friction.friction = 1; // Tal vez no
-        futureState = States.Iddle;
-        reset = true;
-    }
-    private void FinshGame(bool _) => EndGame = true;
+
 }

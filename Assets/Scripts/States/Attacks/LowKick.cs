@@ -20,30 +20,28 @@ public class LowKick : Attack
         Force = new Vector2(4.5f, 0);
     }
 
-    public override PlayerState InputAIHandler(Character character)
+    public override PlayerState InputAIHandler(Character character, PPOAgent agent)
     {
-        if (character.EntryAttack)
-            return character.States.Hurt;
+        PlayerState shared = SharedActions(character);
 
-        if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
-            return character.States.Iddle;
+        if (shared != null) return shared;
 
         if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
         {
-            if (character.RequestedBehaviourAction == State.MIDDLE_KICK)
+            if (agent.RequestedAction == State.MIDDLE_KICK)
                 return character.States.MiddleKick;
 
-            if (character.RequestedBehaviourAction == State.HARD_KICK)
+            if (agent.RequestedAction == State.HARD_KICK)
                 return character.States.HardKick;
         }
 
         return null;
     }
-
     public override PlayerState InputHandler(Character character)
     {
-        if (character.EntryAttack)
-            return character.States.Hurt;
+        PlayerState shared = SharedActions(character);
+
+        if (shared != null) return shared;
 
         if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
         {
@@ -53,6 +51,13 @@ public class LowKick : Attack
             if (Input.GetKeyDown(KeyCode.L))
                 return character.States.HardKick;
         }
+
+        return null;
+    }
+    private PlayerState SharedActions(Character character)
+    {
+        if (character.EntryAttack)
+            return character.States.Hurt;
 
         if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
             return character.States.Iddle;

@@ -15,44 +15,31 @@ public class Walk : PlayerState
             AnimationState.Walk,
         };
     }
-
-    public override PlayerState InputAIHandler(Character character)
+    public override PlayerState InputAIHandler(Character character, PPOAgent agent)
     {
         if (character.EntryAttack)
             return character.States.Hurt;
 
         if (!character.OnColdoown)
         {
-            switch (character.RequestedBehaviourAction)
+            switch (agent.RequestedAction)
             {
                 case State.LOW_PUNCH:
-                    if (!character.OnColdoown)
-                        return character.States.LowPunch;
-                    break;
+                    return character.States.LowPunch;
                 case State.MIDDLE_PUNCH:
-                    if (!character.OnColdoown)
-                        return character.States.MiddlePunch;
-                    break;
+                    return character.States.MiddlePunch;
                 case State.HARD_PUNCH:
-                    if (!character.OnColdoown)
-                        return character.States.HardPunch;
-                    break;
+                    return character.States.HardPunch;
                 case State.LOW_KICK:
-                    if (!character.OnColdoown)
-                        return character.States.LowKick;
-                    break;
+                    return character.States.LowKick;
                 case State.MIDDLE_KICK:
-                    if (!character.OnColdoown)
-                        return character.States.MiddleKick;
-                    break;
+                    return character.States.MiddleKick;
                 case State.HARD_KICK:
-                    if (!character.OnColdoown)
-                        return character.States.HardKick;
-                    break;
+                    return character.States.HardKick;
             }
         }
 
-        if (character.RequestedBehaviourAction == State.JUMP)
+        if (agent.RequestedAction == State.JUMP)
         {
             jumpTransition = true;
             return character.States.Jump;
@@ -63,6 +50,7 @@ public class Walk : PlayerState
 
         return null;
     }
+
     public override PlayerState InputHandler(Character character)
     {
 
@@ -111,7 +99,7 @@ public class Walk : PlayerState
     public override void Update(Character character)
     {
         // Debug.Log("Walk");
-        if (!character.OverlapDetector.EnemyOverlapping(character.Body))
+        if (!character.OverlapDetector.EnemyOverlapping(character.Body, character.gameObject.layer == 6 ? LayerMask.GetMask("Player2") : LayerMask.GetMask("Player1")))
         {
             if (Mathf.Sign(character.transform.localScale.x) == 1)
             {

@@ -1,6 +1,6 @@
 public class AttackCrouch : PlayerState
 {
-    public override PlayerState InputAIHandler(Character character)
+    public override PlayerState InputAIHandler(Character character, PPOAgent agent)
     {
         throw new System.NotImplementedException();
     }

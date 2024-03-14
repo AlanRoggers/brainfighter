@@ -38,7 +38,7 @@ public abstract class Attack : PlayerState
         {
             if (times > 0)
             {
-                Collider2D enemy = character.OverlapDetector.AttackHit(character.CharacterLayer == 64 ? 128 : 64, character.Hitbox);
+                Collider2D enemy = character.OverlapDetector.AttackHit(character.gameObject.layer == 6 ? LayerMask.GetMask("Player2") : LayerMask.GetMask("Player1"), character.Hitbox);
                 if (enemy && character.Hitbox.enabled)
                 {
                     // Esto se buguea si los dos se pegan al mismo tiempo
@@ -69,7 +69,7 @@ public abstract class Attack : PlayerState
         currentClip = clips[1];
         yield return new WaitForEndOfFrame();
         yield return new WaitWhile(() => character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
-        character.SetCoolDownCor(character.StartCoroutine(character.CoolDown(coolDown)));
+        character.CoolDownSet = character.StartCoroutine(character.CoolDown(coolDown));
         character.HitsChained = 0;
         animationCor = null;
     }

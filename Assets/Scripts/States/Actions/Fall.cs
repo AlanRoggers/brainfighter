@@ -12,29 +12,23 @@ public class Fall : PlayerState
         };
     }
 
-    public override PlayerState InputAIHandler(Character character)
-    {
-        if (character.EntryAttack)
-            return character.States.Hurt;
+    public override PlayerState InputAIHandler(Character character, PPOAgent agent) => SharedActions(character);
 
-        if (character.OverlapDetector.GroundDetection(character.Body, LayerMask.GetMask("Ground")))
-            return character.States.Iddle;
+    public override PlayerState InputHandler(Character character) => SharedActions(character);
 
-        return null;
-    }
-
-    public override PlayerState InputHandler(Character character)
-    {
-        if (character.EntryAttack)
-            return character.States.Hurt;
-
-        if (character.OverlapDetector.GroundDetection(character.Body, LayerMask.GetMask("Ground")))
-            return character.States.Iddle;
-
-        return null;
-    }
     public override void Update(Character character)
     {
         // Debug.Log("Cayendo");
+    }
+
+    private PlayerState SharedActions(Character character)
+    {
+        if (character.EntryAttack)
+            return character.States.Hurt;
+
+        if (character.OverlapDetector.GroundDetection(character.Body, LayerMask.GetMask("Ground")))
+            return character.States.Iddle;
+
+        return null;
     }
 }

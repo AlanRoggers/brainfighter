@@ -12,26 +12,8 @@ public class Jump : PlayerState
         };
     }
     private readonly float jumpForce = 22.5f;
-    public override PlayerState InputAIHandler(Character character)
-    {
-        if (character.EntryAttack)
-            return character.States.Hurt;
-
-        if (character.Physics.velocity.y < 0)
-            return character.States.Fall;
-
-        return null;
-    }
-    public override PlayerState InputHandler(Character character)
-    {
-        if (character.EntryAttack)
-            return character.States.Hurt;
-
-        if (character.Physics.velocity.y < 0)
-            return character.States.Fall;
-
-        return null;
-    }
+    public override PlayerState InputAIHandler(Character character, PPOAgent agent) => SharedActions(character);
+    public override PlayerState InputHandler(Character character) => SharedActions(character);
     public override void OnEntry(Character character)
     {
         base.OnEntry(character);
@@ -42,5 +24,16 @@ public class Jump : PlayerState
     public override void Update(Character character)
     {
         // Debug.Log("Saltando");
+    }
+
+    private PlayerState SharedActions(Character character)
+    {
+        if (character.EntryAttack)
+            return character.States.Hurt;
+
+        if (character.Physics.velocity.y < 0)
+            return character.States.Fall;
+
+        return null;
     }
 }

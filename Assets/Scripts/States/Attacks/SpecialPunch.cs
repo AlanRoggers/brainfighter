@@ -20,34 +20,22 @@ public class SpecialPunch : Attack
         Force = new Vector2(6, 15);
     }
 
-    public override PlayerState InputAIHandler(Character character)
-    {
-        if (character.EntryAttack)
-            return character.States.Hurt;
+    public override PlayerState InputAIHandler(Character character, PPOAgent agent) => SharedActions(character);
 
-        if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
-            return character.States.Iddle;
-
-        return null;
-    }
-
-    public override PlayerState InputHandler(Character character)
-    {
-        if (character.EntryAttack)
-            return character.States.Hurt;
-
-        if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
-            return character.States.Iddle;
-
-        return null;
-    }
+    public override PlayerState InputHandler(Character character) => SharedActions(character);
 
     public override void Update(Character character)
     {
         // Debug.Log("Golpe especial" + currentClip);
     }
+    private PlayerState SharedActions(Character character)
+    {
+        if (character.EntryAttack)
+            return character.States.Hurt;
 
+        if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
+            return character.States.Iddle;
 
-
-
+        return null;
+    }
 }

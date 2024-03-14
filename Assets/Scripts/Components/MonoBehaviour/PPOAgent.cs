@@ -4,21 +4,23 @@ using Unity.MLAgents.Actuators;
 using UnityEngine;
 public class PPOAgent : Agent
 {
+    public State RequestedAction { get; private set; }
     public delegate void EpisodeBegin(GameObject gameObject);
     public static event EpisodeBegin OnBegin;
-    public AgentAcademy academy;
     private Character character;
+    private GameManager mngr;
     private readonly float maxDistance = 27.8f;
     private readonly float minDistance = 1.26f;
     protected override void Awake()
     {
         base.Awake();
         character = GetComponent<Character>();
+        mngr = GetComponentInParent<GameManager>();
     }
     public override void OnEpisodeBegin()
     {
         // Debug.Log("Reseteo");
-        character.Reset();
+        Reset();
         OnBegin.Invoke(gameObject);
         // if (character.gameObject.layer == 6)
         //     academy.Spawn();
@@ -26,9 +28,8 @@ public class PPOAgent : Agent
     public override void CollectObservations(VectorSensor sensor)
     {
         // Debug.Log($"Academia {academy}");
-        float currentDistanceX = Mathf.Abs(academy.agent1.transform.localPosition.x - academy.agent2.transform.localPosition.x);
         float normalizedCurrentDistanceX = Mathf.Clamp(
-            (currentDistanceX - minDistance) / (maxDistance - minDistance),
+            (mngr.playersDistance - minDistance) / (maxDistance - minDistance),
             0.0f,
             1.0f
         );
@@ -38,62 +39,58 @@ public class PPOAgent : Agent
         //     Debug.Log($"CurrentStateEnemy: {enemyState}");
         // }
         sensor.AddObservation(normalizedCurrentDistanceX);
-        sensor.AddObservation(academy.agent1.Health / 100f);
-        sensor.AddObservation(academy.agent2.Health / 100f);
+        sensor.AddObservation(character.Health / 100f);
+        sensor.AddObservation((gameObject.layer == 6 ? mngr.Player2.Health : mngr.Player1.Health) / 100f);
         sensor.AddObservation(character.OnColdoown);
         sensor.AddObservation(character.Resistance / 50f);
-        sensor.AddObservation(StateObservation(character.CurrentState));
-        sensor.AddObservation(StateObservation(gameObject.layer == 6 ? academy.agent2.CurrentState : academy.agent1.CurrentState));
+        sensor.AddOneHotObservation(StateObservation(character.CurrentState), 16);
+        sensor.AddOneHotObservation(StateObservation
+        (
+            gameObject.layer == 6 ? mngr.Player2.CurrentState : mngr.Player1.CurrentState), 16
+        );
     }
     public override void OnActionReceived(ActionBuffers actions)
     {
-        int motionAction = actions.DiscreteActions[0];
-        int behaviourAction = actions.DiscreteActions[1];
-
-        switch (motionAction)
+        switch (actions.DiscreteActions[0])
         {
             case 0:
-                character.RequestedMotionAction = State.IDDLE;
+                RequestedAction = State.IDDLE;
                 break;
             case 1:
-                character.RequestedMotionAction = State.WALK;
+                RequestedAction = State.WALK;
                 break;
             case 2:
-                character.RequestedMotionAction = State.BACK;
-                break;
-        }
-
-        switch (behaviourAction)
-        {
-            case 0:
-                character.RequestedBehaviourAction = State.IDDLE;
-                break;
-            case 1:
-                character.RequestedBehaviourAction = State.JUMP;
-                break;
-            case 2:
-                character.RequestedBehaviourAction = State.LOW_PUNCH;
+                RequestedAction = State.BACK;
                 break;
             case 3:
-                character.RequestedBehaviourAction = State.MIDDLE_PUNCH;
+                RequestedAction = State.IDDLE;
                 break;
             case 4:
-                character.RequestedBehaviourAction = State.HARD_PUNCH;
+                RequestedAction = State.JUMP;
                 break;
             case 5:
-                character.RequestedBehaviourAction = State.LOW_KICK;
+                RequestedAction = State.LOW_PUNCH;
                 break;
             case 6:
-                character.RequestedBehaviourAction = State.MIDDLE_KICK;
+                RequestedAction = State.MIDDLE_PUNCH;
                 break;
             case 7:
-                character.RequestedBehaviourAction = State.HARD_KICK;
+                RequestedAction = State.HARD_PUNCH;
                 break;
             case 8:
-                character.RequestedBehaviourAction = State.SPECIAL_KICK;
+                RequestedAction = State.LOW_KICK;
                 break;
             case 9:
-                character.RequestedBehaviourAction = State.SPECIAL_PUNCH;
+                RequestedAction = State.MIDDLE_KICK;
+                break;
+            case 10:
+                RequestedAction = State.HARD_KICK;
+                break;
+            case 11:
+                RequestedAction = State.SPECIAL_KICK;
+                break;
+            case 12:
+                RequestedAction = State.SPECIAL_PUNCH;
                 break;
         }
     }
@@ -187,23 +184,41 @@ public class PPOAgent : Agent
     {
         return state switch
         {
-            Iddle => 1,
-            Walk => 2,
-            Back => 3,
-            Jump => 4,
-            Fall => 5,
-            LowPunch => 6,
-            MiddlePunch => 7,
-            HardPunch => 8,
-            SpecialPunch => 9,
-            LowKick => 10,
-            MiddleKick => 11,
-            HardKick => 12,
-            SpecialKick => 13,
-            Hurt => 14,
-            Block => 15,
-            Stun => 16,
-            _ => 0,
+            Iddle => 0,
+            Walk => 1,
+            Back => 2,
+            Jump => 3,
+            Fall => 4,
+            LowPunch => 5,
+            MiddlePunch => 6,
+            HardPunch => 7,
+            SpecialPunch => 8,
+            LowKick => 9,
+            MiddleKick => 10,
+            HardKick => 11,
+            SpecialKick => 12,
+            Hurt => 13,
+            Block => 14,
+            Stun => 15,
+            _ => 16,
         };
+    }
+    public void Reset()
+    {
+        character.CurrentState.OnExit(character);
+        character.AttackReceived = null;
+        character.EntryAttack = false;
+        character.OnColdoown = false;
+        character.HitsChained = 0;
+        character.Physics.velocity = Vector2.zero;
+        if (character.CoolDownCor != null)
+        {
+            StopCoroutine(character.CoolDownCor);
+            character.CoolDownSet = null;
+        }
+        character.HealthSet = 100;
+        character.ResistanceSet = 50;
+        character.Friction.friction = 1; // Tal vez no
+        character.FutureStateSet = character.States.Iddle;
     }
 }

@@ -1,0 +1,136 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &8750569061969566879
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4231093324428746313, guid: ab5326754e8a547f19751536a2856551, type: 3}
+      propertyPath: m_Name
+      value: Character Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 6949585361238155681, guid: ab5326754e8a547f19751536a2856551, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -9.172269
+      objectReference: {fileID: 0}
+    - target: {fileID: 6949585361238155681, guid: ab5326754e8a547f19751536a2856551, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.0744123
+      objectReference: {fileID: 0}
+    - target: {fileID: 6949585361238155681, guid: ab5326754e8a547f19751536a2856551, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.7804809
+      objectReference: {fileID: 0}
+    - target: {fileID: 6949585361238155681, guid: ab5326754e8a547f19751536a2856551, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6949585361238155681, guid: ab5326754e8a547f19751536a2856551, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6949585361238155681, guid: ab5326754e8a547f19751536a2856551, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6949585361238155681, guid: ab5326754e8a547f19751536a2856551, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6949585361238155681, guid: ab5326754e8a547f19751536a2856551, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6949585361238155681, guid: ab5326754e8a547f19751536a2856551, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6949585361238155681, guid: ab5326754e8a547f19751536a2856551, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4231093324428746313, guid: ab5326754e8a547f19751536a2856551, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1995912608147963423}
+    - targetCorrespondingSourceObject: {fileID: 4231093324428746313, guid: ab5326754e8a547f19751536a2856551, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2052045664235341617}
+    - targetCorrespondingSourceObject: {fileID: 4231093324428746313, guid: ab5326754e8a547f19751536a2856551, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4837213840464982822}
+  m_SourcePrefab: {fileID: 100100000, guid: ab5326754e8a547f19751536a2856551, type: 3}
+--- !u!1 &4884040293304894166 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4231093324428746313, guid: ab5326754e8a547f19751536a2856551, type: 3}
+  m_PrefabInstance: {fileID: 8750569061969566879}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1995912608147963423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4884040293304894166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    VectorObservationSize: 1
+    NumStackedVectorObservations: 1
+    m_ActionSpec:
+      m_NumContinuousActions: 0
+      BranchSizes: 01000000
+    VectorActionSize: 01000000
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 0
+    hasUpgradedBrainParametersWithActionSpec: 1
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: Brainfighter
+  TeamId: 0
+  m_UseChildSensors: 1
+  m_UseChildActuators: 1
+  m_DeterministicInference: 0
+  m_ObservableAttributeHandling: 0
+--- !u!114 &2052045664235341617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4884040293304894166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13383b2475f43628a8c1468cd921f7b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  academy: {fileID: 0}
+--- !u!114 &4837213840464982822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4884040293304894166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 10
+  DecisionStep: 0
+  TakeActionsBetweenDecisions: 1

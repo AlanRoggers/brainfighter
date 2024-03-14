@@ -7,10 +7,6 @@ public class Dead : PlayerState
         OnDead.Invoke(character.gameObject.layer == 6);
         character.Animator.Play(AnimationState.Dead.ToString());
     }
-    public override PlayerState InputAIHandler(Character character)
-    {
-        return null;
-    }
 
     public override PlayerState InputHandler(Character character)
     {
@@ -20,5 +16,10 @@ public class Dead : PlayerState
     public override void Update(Character character)
     {
         return;
+    }
+
+    public override PlayerState InputAIHandler(Character character, PPOAgent agent)
+    {
+        return null;
     }
 }

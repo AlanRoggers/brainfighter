@@ -7,31 +7,8 @@ public class Block : PlayerState
     public event AgentBlock OnBlock;
     private bool stopBlock;
     private Coroutine blockCor;
-    public override PlayerState InputAIHandler(Character character)
-    {
-        if (character.Resistance <= 0)
-            return character.States.Stun;
-        else if (character.EntryAttack)
-            return character.States.Block;
-
-        if (stopBlock)
-            return character.States.Iddle;
-
-        return null;
-    }
-    public override PlayerState InputHandler(Character character)
-    {
-        if (character.Resistance <= 0)
-            return character.States.Stun;
-        else if (character.EntryAttack)
-            return character.States.Block;
-
-        if (stopBlock)
-            return character.States.Iddle;
-
-        return null;
-    }
-
+    public override PlayerState InputAIHandler(Character character, PPOAgent agent) => SharedActions(character);
+    public override PlayerState InputHandler(Character character) => SharedActions(character);
     public override void OnEntry(Character character)
     {
         character.EntryAttack = false;
@@ -47,7 +24,6 @@ public class Block : PlayerState
 
         blockCor = character.StartCoroutine(BlockLogic(character));
     }
-
     public override void OnExit(Character character)
     {
         character.Animator.speed = 1;
@@ -58,11 +34,7 @@ public class Block : PlayerState
         }
         stopBlock = false;
     }
-
-    public override void Update(Character character)
-    {
-    }
-
+    public override void Update(Character character) { }
     private IEnumerator BlockLogic(Character character)
     {
 
@@ -94,5 +66,17 @@ public class Block : PlayerState
         stopBlock = true;
         character.AttackReceived = null;
         blockCor = null;
+    }
+    private PlayerState SharedActions(Character character)
+    {
+        if (character.Resistance <= 0)
+            return character.States.Stun;
+        else if (character.EntryAttack)
+            return character.States.Block;
+
+        if (stopBlock)
+            return character.States.Iddle;
+
+        return null;
     }
 }

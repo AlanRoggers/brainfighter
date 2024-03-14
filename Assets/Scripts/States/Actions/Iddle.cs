@@ -2,64 +2,52 @@ using UnityEngine;
 
 public class Iddle : PlayerState
 {
-    public override PlayerState InputAIHandler(Character character)
+    public override PlayerState InputAIHandler(Character character, PPOAgent agent)
     {
         if (character.EntryAttack)
             return character.States.Hurt;
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-            return character.States.MiddleKick;
+        if (agent.RequestedAction == State.JUMP)
+            return character.States.Jump;
+
+        if (agent.RequestedAction == State.WALK)
+        {
+            if (character.transform.localScale.x > 0)
+                return character.States.Walk;
+            else
+                return character.States.Back;
+        }
+
+        if (agent.RequestedAction == State.BACK)
+        {
+            if (character.transform.localScale.x > 0)
+                return character.States.Back;
+            else
+                return character.States.Walk;
+        }
 
         if (!character.OnColdoown)
         {
-            switch (character.RequestedBehaviourAction)
+            switch (agent.RequestedAction)
             {
                 case State.LOW_PUNCH:
-                    if (!character.OnColdoown)
-                        return character.States.LowPunch;
-                    break;
+                    return character.States.LowPunch;
                 case State.MIDDLE_PUNCH:
-                    if (!character.OnColdoown)
-                        return character.States.MiddlePunch;
-                    break;
+                    return character.States.MiddlePunch;
                 case State.HARD_PUNCH:
-                    if (!character.OnColdoown)
-                        return character.States.HardPunch;
-                    break;
+                    return character.States.HardPunch;
                 case State.LOW_KICK:
-                    if (!character.OnColdoown)
-                        return character.States.LowKick;
-                    break;
+                    return character.States.LowKick;
                 case State.MIDDLE_KICK:
-                    if (!character.OnColdoown)
-                        return character.States.MiddleKick;
-                    break;
+                    return character.States.MiddleKick;
                 case State.HARD_KICK:
-                    if (!character.OnColdoown)
-                        return character.States.HardKick;
-                    break;
+                    return character.States.HardKick;
             }
-        }
-
-        if (character.RequestedBehaviourAction == State.JUMP)
-            return character.States.Jump;
-
-        switch (character.RequestedMotionAction)
-        {
-            case State.WALK:
-                if (character.transform.localScale.x > 0)
-                    return character.States.Walk;
-                else
-                    return character.States.Back;
-            case State.BACK:
-                if (character.transform.localScale.x > 0)
-                    return character.States.Back;
-                else
-                    return character.States.Walk;
         }
 
         return null;
     }
+
     public override PlayerState InputHandler(Character character)
     {
         if (character.EntryAttack)

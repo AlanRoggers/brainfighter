@@ -20,7 +20,16 @@ public class SpecialKick : Attack
         HitStun = 35;
     }
 
-    public override PlayerState InputAIHandler(Character character)
+    public override PlayerState InputAIHandler(Character character, PPOAgent agent) => SharedActions(character);
+
+    public override PlayerState InputHandler(Character character) => SharedActions(character);
+
+    public override void Update(Character character)
+    {
+        // Debug.Log("SpecialKick");
+    }
+
+    private PlayerState SharedActions(Character character)
     {
         if (character.EntryAttack)
             return character.States.Hurt;
@@ -30,21 +39,6 @@ public class SpecialKick : Attack
 
         return null;
     }
-
-    public override PlayerState InputHandler(Character character)
-    {
-        if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
-            return character.States.Iddle;
-
-        return null;
-    }
-
-    public override void Update(Character character)
-    {
-        // Debug.Log("SpecialKick");
-    }
-
-
 
 
 }

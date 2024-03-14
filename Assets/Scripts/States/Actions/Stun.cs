@@ -8,27 +8,8 @@ public class Stun : PlayerState
     private bool endStun;
     private Coroutine rescueCor;
 
-    public override PlayerState InputAIHandler(Character character)
-    {
-        if (character.EntryAttack)
-            return character.States.Hurt;
-
-        if (endStun)
-            return character.States.Iddle;
-
-        return null;
-    }
-
-    public override PlayerState InputHandler(Character character)
-    {
-        if (character.EntryAttack)
-            return character.States.Hurt;
-
-        if (endStun)
-            return character.States.Iddle;
-
-        return null;
-    }
+    public override PlayerState InputAIHandler(Character character, PPOAgent agent) => SharedActions(character);
+    public override PlayerState InputHandler(Character character) => SharedActions(character);
     public override void OnEntry(Character character)
     {
         // OnStun.Invoke(character.gameObject.layer == 6);
@@ -55,5 +36,15 @@ public class Stun : PlayerState
         yield return new WaitForSeconds(2f);
         endStun = true;
         rescueCor = null;
+    }
+    private PlayerState SharedActions(Character character)
+    {
+        if (character.EntryAttack)
+            return character.States.Hurt;
+
+        if (endStun)
+            return character.States.Iddle;
+
+        return null;
     }
 }

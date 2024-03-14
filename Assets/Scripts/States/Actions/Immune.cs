@@ -1,6 +1,6 @@
 public class Immune : PlayerState
 {
-    public override PlayerState InputAIHandler(Character character)
+    public override PlayerState InputAIHandler(Character character, PPOAgent agent)
     {
         throw new System.NotImplementedException();
     }

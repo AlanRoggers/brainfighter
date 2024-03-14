@@ -7,7 +7,7 @@ public abstract class PlayerState
     public State StateName;
     protected Coroutine animationCor = null;
     protected List<AnimationState> clips;
-    public abstract PlayerState InputAIHandler(Character character);
+    public abstract PlayerState InputAIHandler(Character character, PPOAgent agent);
     public abstract PlayerState InputHandler(Character character);
     public abstract void Update(Character character);
     public virtual void OnEntry(Character character)

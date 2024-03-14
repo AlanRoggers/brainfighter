@@ -20,27 +20,22 @@ public class HardPunch : Attack
         Force = new Vector2(13, 0);
     }
 
-    public override PlayerState InputAIHandler(Character character)
+    public override PlayerState InputAIHandler(Character character, PPOAgent agent)
     {
-        if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
-            return character.States.Iddle;
+        PlayerState shared = SharedActions(character);
 
-        if (character.EntryAttack)
-            return character.States.Hurt;
+        if (shared != null) return shared;
 
-        if (currentClip == clips[1] && character.RequestedBehaviourAction == State.SPECIAL_PUNCH && character.HitsChained >= 3)
+        if (currentClip == clips[1] && agent.RequestedAction == State.SPECIAL_PUNCH && character.HitsChained >= 3)
             return character.States.SpecialPunch;
 
         return null;
     }
-
     public override PlayerState InputHandler(Character character)
     {
-        if (character.EntryAttack)
-            return character.States.Hurt;
+        PlayerState shared = SharedActions(character);
 
-        if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
-            return character.States.Iddle;
+        if (shared != null) return shared;
 
         if (currentClip == clips[1] && Input.GetKeyDown(KeyCode.P) && character.HitsChained >= 3)
             return character.States.SpecialPunch;
@@ -52,5 +47,14 @@ public class HardPunch : Attack
         // Debug.Log("Golpe fuerte");
     }
 
+    private PlayerState SharedActions(Character character)
+    {
+        if (currentClip == clips[1] && character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.1f)
+            return character.States.Iddle;
 
+        if (character.EntryAttack)
+            return character.States.Hurt;
+
+        return null;
+    }
 }
