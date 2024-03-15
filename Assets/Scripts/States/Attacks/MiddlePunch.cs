@@ -15,7 +15,7 @@ public class MiddlePunch : Attack
         HitFreeze = true;
         coolDown = 0.2f;
         HitFreezeTimer = 0.25f;
-        HitStun = 19;
+        HitStun = 0.97f;
         Damage = 5;
         Force = new Vector2(0, 11);
     }

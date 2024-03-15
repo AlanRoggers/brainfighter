@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
 
         playersDistance = UpdatePlayerDistance();
 
-        Debug.Log(playersDistance);
+        // Debug.Log(playersDistance);
     }
     private float UpdatePlayerDistance() => Mathf.Abs(Player1.transform.localPosition.x - Player2.transform.localPosition.x);
 }

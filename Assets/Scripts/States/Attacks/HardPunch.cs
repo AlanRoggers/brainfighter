@@ -15,7 +15,7 @@ public class HardPunch : Attack
         HitFreeze = true;
         coolDown = 0.4f;
         HitFreezeTimer = 0.25f;
-        HitStun = 15;
+        HitStun = 1.15f;
         Damage = 7;
         Force = new Vector2(13, 0);
     }

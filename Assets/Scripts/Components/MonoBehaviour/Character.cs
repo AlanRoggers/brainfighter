@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    public bool AcceptInput;
     private PlayerState futureState;
     public PlayerState FutureStateSet { set => futureState = value; }
 
@@ -82,8 +83,6 @@ public class Character : MonoBehaviour
     }
     private void FixedUpdate()
     {
-
-
         CurrentState.Update(this);
     }
     // private void OnDrawGizmos()

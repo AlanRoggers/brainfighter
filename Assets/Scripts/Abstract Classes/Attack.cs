@@ -3,6 +3,7 @@ using UnityEngine;
 
 public abstract class Attack : PlayerState
 {
+    private float timeAttack;
     public bool HitFreeze { get; protected set; }
     public int Damage { get; protected set; }
     public float HitFreezeTimer { get; protected set; }
@@ -14,6 +15,7 @@ public abstract class Attack : PlayerState
     protected Vector2 inertia;
     public override void OnEntry(Character character)
     {
+        timeAttack = Time.time;
         if (character.CoolDownCor != null)
             character.StopCoroutine(character.CoolDownCor);
 
@@ -58,7 +60,8 @@ public abstract class Attack : PlayerState
                         character.Physics.gravityScale = 4;
                     }
                     times--;
-                    yield return new WaitForSeconds(0.2f);
+                    if (times > 0)
+                        yield return new WaitForSeconds(0.1f); //Aqui iba 0.2f
                 }
 
             }
@@ -76,6 +79,7 @@ public abstract class Attack : PlayerState
     public override void OnExit(Character character)
     {
         base.OnExit(character);
+        Debug.Log(Time.time - timeAttack);
         character.RequestedBehaviourAction = State.IDDLE;
         character.Physics.gravityScale = 4;
         character.Animator.speed = 1;

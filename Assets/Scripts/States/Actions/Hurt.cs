@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class Hurt : PlayerState
 {
+    private float timeHurt = 0.57f;
     private Coroutine hurtCor;
     private bool canExitState;
     public delegate void AgentHurt(int entryDamage, bool whichAgent);
@@ -11,29 +13,34 @@ public class Hurt : PlayerState
     public override PlayerState InputHandler(Character character) => SharedActions(character);
     public override void OnEntry(Character character)
     {
-
-        character.EntryAttack = false;
-
-        character.ReduceHealth(character.AttackReceived.Damage);
-
-        if (character.Health <= 0)
-            return;
-
-        // OnHurt.Invoke(character.AttackReceived.Damage, character.gameObject.layer == 6);
-
-
-        character.Friction.friction = 0;
-        character.Animator.Play(AnimationState.Damage.ToString());
-        if (hurtCor != null)
+        // timeHurt = Time.time;
+        if (character.AttackReceived != null)
         {
-            character.StopCoroutine(hurtCor);
-            character.Physics.velocity = Vector2.zero;
+            character.EntryAttack = false;
+            character.ReduceHealth(character.AttackReceived.Damage);
+
+            if (character.Health <= 0)
+                return;
+
+            // OnHurt.Invoke(character.AttackReceived.Damage, character.gameObject.layer == 6);
+
+
+            character.Friction.friction = 0;
+            character.Animator.Play(AnimationState.Damage.ToString());
+            if (hurtCor != null)
+            {
+                character.StopCoroutine(hurtCor);
+                character.Physics.velocity = Vector2.zero;
+            }
+            hurtCor = character.StartCoroutine(HurtLogic(character));
         }
-        hurtCor = character.StartCoroutine(HurtLogic(character));
+        else
+            canExitState = true;
 
     }
     public override void OnExit(Character character)
     {
+        // Debug.Log(Time.time - timeHurt);
         character.Friction.friction = 1;
         character.Animator.speed = 1;
         if (hurtCor != null)
@@ -52,7 +59,7 @@ public class Hurt : PlayerState
         if (character.transform.localScale.x < 0)
             character.Physics.AddForce(character.AttackReceived.Force, ForceMode2D.Impulse);
         else
-            character.Physics.AddForce(character.AttackReceived.Force * new Vector2(-1, 1), ForceMode2D.Impulse);
+            character.Physics.AddForce(character.AttackReceived.Force * new Vector2(-1, 1), ForceMode2D.Impulse); //Aca da bugs
         yield return new WaitForEndOfFrame();
 
         if (character.AttackReceived.HitFreeze)
@@ -68,12 +75,9 @@ public class Hurt : PlayerState
         }
 
         yield return new WaitUntil(() => character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0f);
-        int framesWaiting = (int)character.AttackReceived.HitStun;
-        while (framesWaiting > 0)
-        {
-            framesWaiting--;
-            yield return null;
-        }
+        float awaitTime = timeHurt - character.AttackReceived.HitStun;
+        if (Math.Sign(awaitTime) < 0)
+            yield return new WaitForSeconds(Mathf.Abs(awaitTime));
         character.AttackReceived = null;
         canExitState = true;
         hurtCor = null;

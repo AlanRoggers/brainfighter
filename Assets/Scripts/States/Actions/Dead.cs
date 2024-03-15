@@ -4,7 +4,7 @@ public class Dead : PlayerState
     public event AgentDead OnDead;
     public override void OnEntry(Character character)
     {
-        OnDead.Invoke(character.gameObject.layer == 6);
+        OnDead?.Invoke(character.gameObject.layer == 6);
         character.Animator.Play(AnimationState.Dead.ToString());
     }
 

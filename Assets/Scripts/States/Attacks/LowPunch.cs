@@ -15,7 +15,7 @@ public class LowPunch : Attack
         HitFreeze = false;
         coolDown = 0.1f;
         HitFreezeTimer = 0.25f;
-        HitStun = 5;
+        HitStun = 0.6f;
         Damage = 3;
         Force = new Vector2(1f, 4.5f);
     }

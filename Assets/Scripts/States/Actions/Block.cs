@@ -41,28 +41,16 @@ public class Block : PlayerState
         stopBlock = false;
 
         if (character.transform.localScale.x < 0)
-            character.Physics.velocity = new Vector2(7, 0);
+            character.Physics.velocity = new Vector2(1, 0);
         else
-            character.Physics.velocity = new Vector2(-7, 0);
+            character.Physics.velocity = new Vector2(-1, 0);
 
-        for (int i = 0; i < 130; i++)
-        {
-            yield return null;
-        }
+        yield return new WaitUntil(() => character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0f);
 
         character.Animator.speed = 0;
-        // Debug.Log("Bloqueando");
-        yield return new WaitForSeconds(0.4f);
-        // Debug.Log("Desbloqueando");
+        yield return new WaitForSeconds(1f);
         character.Animator.speed = 1;
 
-        for (int i = 1; i <= 80; i++)
-        {
-            if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
-                break;
-            yield return null;
-
-        }
         stopBlock = true;
         character.AttackReceived = null;
         blockCor = null;

@@ -29,7 +29,7 @@ public class Stun : PlayerState
     }
     public override void Update(Character character)
     {
-        Debug.Log("Tiempo de recuperación");
+        // Debug.Log("Tiempo de recuperación");
     }
     private IEnumerator RescueTime()
     {

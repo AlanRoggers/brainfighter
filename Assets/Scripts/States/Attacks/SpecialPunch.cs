@@ -15,7 +15,7 @@ public class SpecialPunch : Attack
         HitFreeze = true;
         coolDown = 0.6f;
         HitFreezeTimer = 0.25f;
-        HitStun = 25;
+        HitStun = 1;
         Damage = 10;
         Force = new Vector2(6, 15);
     }
