@@ -43,7 +43,7 @@ public abstract class Attack : PlayerState
                 Collider2D enemy = character.OverlapDetector.AttackHit(character.gameObject.layer == 6 ? LayerMask.GetMask("Player2") : LayerMask.GetMask("Player1"), character.Hitbox);
                 if (enemy && character.Hitbox.enabled)
                 {
-                    // Esto se buguea si los dos se pegan al mismo tiempo
+                    // Esto se buguea si los dos se pegan al mismo tiempo (Creo que era culpa del Hitbox del ataque)
                     enemy.GetComponent<Character>().SetAttack(this);
 
                     character.IncrementResistance(Damage);
@@ -79,7 +79,7 @@ public abstract class Attack : PlayerState
     public override void OnExit(Character character)
     {
         base.OnExit(character);
-        Debug.Log(Time.time - timeAttack);
+        // Debug.Log(Time.time - timeAttack);
         character.RequestedBehaviourAction = State.IDDLE;
         character.Physics.gravityScale = 4;
         character.Animator.speed = 1;
