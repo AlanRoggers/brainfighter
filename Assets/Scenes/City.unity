@@ -534,17 +534,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 747733188035010909, guid: 6a6f264b4f56802109754679b74a0166, type: 3}
-      propertyPath: m_Model
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 1106188150335329604, guid: 6a6f264b4f56802109754679b74a0166, type: 3}
       propertyPath: TrainStage
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2156505580635589071, guid: 6a6f264b4f56802109754679b74a0166, type: 3}
       propertyPath: m_Name
       value: CityTrainerC1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3188645494526343377, guid: 6a6f264b4f56802109754679b74a0166, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3804534095279886134, guid: 6a6f264b4f56802109754679b74a0166, type: 3}
       propertyPath: targetCamera
@@ -552,7 +552,7 @@ PrefabInstance:
       objectReference: {fileID: 519420031}
     - target: {fileID: 6371486693074088725, guid: 6a6f264b4f56802109754679b74a0166, type: 3}
       propertyPath: AcceptInput
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8669245902794288223, guid: 6a6f264b4f56802109754679b74a0166, type: 3}
       propertyPath: m_LocalPosition.x

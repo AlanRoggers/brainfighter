@@ -151,7 +151,7 @@ public class Character : MonoBehaviour
             CoolDownSet = null;
         }
         HealthSet = 100;
-        HealthSet = Random.Range(5, 10);
+        HealthSet = Random.Range(15, 20);
         ResistanceSet = 50;
         Friction.friction = 1; // Tal vez no
         // transform.localPosition = Spawn;
