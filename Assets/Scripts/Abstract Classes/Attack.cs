@@ -3,6 +3,14 @@ using UnityEngine;
 
 public abstract class Attack : PlayerState
 {
+    public delegate void AttackDamaged(PPOAgent agent);
+    public event AttackDamaged OnDamaged;
+    public delegate void AttackBlocked(PPOAgent agent);
+    public event AttackBlocked OnBlocked;
+    public delegate void AttackCauseStun(PPOAgent agent);
+    public event AttackCauseStun OnCauseStun;
+    public delegate void Win(PPOAgent agent);
+    public event Win OnWin;
     private float timeAttack;
     public bool HitFreeze { get; protected set; }
     public int Damage { get; protected set; }
@@ -43,10 +51,25 @@ public abstract class Attack : PlayerState
                 Collider2D enemy = character.OverlapDetector.AttackHit(character.gameObject.layer == 6 ? LayerMask.GetMask("Player2") : LayerMask.GetMask("Player1"), character.Hitbox);
                 if (enemy && character.Hitbox.enabled)
                 {
+                    Character characterEnemy = enemy.GetComponent<Character>();
                     // Esto se buguea si los dos se pegan al mismo tiempo (Creo que era culpa del Hitbox del ataque)
-                    enemy.GetComponent<Character>().SetAttack(this);
+                    characterEnemy.SetAttack(this);
+                    if (characterEnemy.CurrentState is not Back && characterEnemy.CurrentState is not Block)
+                    {
+                        if (characterEnemy.Health <= 0 || characterEnemy.Health - Damage <= 0)
+                            OnWin?.Invoke(character.Agent);
+                        else
+                            OnDamaged?.Invoke(character.Agent);
 
-                    character.IncrementResistance(Damage);
+                        character.IncrementResistance(Damage);
+                    }
+                    else
+                    {
+                        if (character.Resistance <= 0 || character.Resistance - Damage <= 0)
+                            OnCauseStun?.Invoke(character.Agent);
+                        else
+                            OnBlocked?.Invoke(character.Agent);
+                    }
 
                     if (HitFreeze)
                     {
@@ -79,8 +102,7 @@ public abstract class Attack : PlayerState
     public override void OnExit(Character character)
     {
         base.OnExit(character);
-        // Debug.Log(Time.time - timeAttack);
-        character.RequestedBehaviourAction = State.IDDLE;
+        Debug.Log(Time.time - timeAttack);
         character.Physics.gravityScale = 4;
         character.Animator.speed = 1;
         if (animationCor != null)

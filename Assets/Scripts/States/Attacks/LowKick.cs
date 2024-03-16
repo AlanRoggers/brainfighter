@@ -10,12 +10,13 @@ public class LowKick : Attack
             AnimationState.LowKick,
             AnimationState.ChainLowKick
         };
-        inertia = new Vector2(-0.5f, 7.5f);
+        inertia = new Vector2(0f, 7.5f);
+        // inertia = new Vector2(-0.5f, 7.5f);
         timesDamageApplied = 1;
         HitFreeze = true;
         coolDown = 0.1f;
         HitFreezeTimer = 0.25f;
-        HitStun = 7;
+        HitStun = 0.79f;
         Damage = 4;
         Force = new Vector2(4.5f, 0);
     }

@@ -10,7 +10,8 @@ public class LowPunch : Attack
             AnimationState.LowPunch,
             AnimationState.ChainLowPunch
         };
-        inertia = new Vector2(-1.5f, 0);
+        inertia = new Vector2(0f, 0);
+        // inertia = new Vector2(-1.5f, 0);
         timesDamageApplied = 1;
         HitFreeze = false;
         coolDown = 0.1f;

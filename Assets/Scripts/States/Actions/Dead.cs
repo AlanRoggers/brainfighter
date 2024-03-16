@@ -1,10 +1,10 @@
 public class Dead : PlayerState
 {
-    public delegate void AgentDead(bool whichAgent);
-    public event AgentDead OnDead;
+    public delegate void ImDead(PPOAgent agent);
+    public event ImDead OnDead;
     public override void OnEntry(Character character)
     {
-        OnDead?.Invoke(character.gameObject.layer == 6);
+        OnDead?.Invoke(character.Agent);
         character.Animator.Play(AnimationState.Dead.ToString());
     }
 

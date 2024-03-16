@@ -10,11 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1034225295489706800, guid: ab5326754e8a547f19751536a2856551, type: 3}
       propertyPath: Spawn.x
-      value: -4.54
-      objectReference: {fileID: 0}
-    - target: {fileID: 1034225295489706800, guid: ab5326754e8a547f19751536a2856551, type: 3}
-      propertyPath: Spawn.y
-      value: -2
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 4231093324428746313, guid: ab5326754e8a547f19751536a2856551, type: 3}
       propertyPath: m_Name

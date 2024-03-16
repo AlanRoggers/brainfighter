@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Walk : PlayerState
 {
+    private KeyCode keyDetonateState;
     private readonly float maxForce = 500f;
     private readonly float maxSpeed = 10f;
     private bool jumpTransition;
@@ -19,6 +20,9 @@ public class Walk : PlayerState
     {
         if (character.EntryAttack)
             return character.States.Hurt;
+
+        if (agent.RequestedAction == State.BACK)
+            return character.States.Back;
 
         if (!character.OnColdoown)
         {
@@ -45,20 +49,22 @@ public class Walk : PlayerState
             return character.States.Jump;
         }
 
-        if (character.RequestedMotionAction == State.IDDLE)
+        if (agent.RequestedAction == State.IDDLE)
             return character.States.Iddle;
 
         return null;
     }
-
     public override PlayerState InputHandler(Character character)
     {
 
         if (character.EntryAttack)
             return character.States.Hurt;
 
-        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D) || !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
             return character.States.Iddle;
+
+        if (Input.GetKey(keyDetonateState == KeyCode.D ? KeyCode.A : KeyCode.D))
+            return character.States.Back;
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -88,6 +94,11 @@ public class Walk : PlayerState
         }
 
         return null;
+    }
+    public override void OnEntry(Character character)
+    {
+        base.OnEntry(character);
+        keyDetonateState = Input.GetKey(KeyCode.D) ? KeyCode.D : KeyCode.A;
     }
     public override void OnExit(Character character)
     {

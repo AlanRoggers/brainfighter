@@ -10,12 +10,13 @@ public class HardKick : Attack
             AnimationState.HardKick,
             AnimationState.ChainHardKick
         };
-        inertia = new Vector2(0.4f, 10);
+        inertia = new Vector2(0f, 10);
+        // inertia = new Vector2(0.4f, 10);
         timesDamageApplied = 1;
         HitFreeze = true;
         coolDown = 0.45f;
         HitFreezeTimer = 0.25f;
-        HitStun = 10;
+        HitStun = 0.89f;
         Damage = 8;
         Force = new Vector2(2, 8);
     }

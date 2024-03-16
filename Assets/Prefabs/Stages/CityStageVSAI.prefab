@@ -1,0 +1,106 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4600541735599678869
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2419551333089782403, guid: 32fc72edaea0279c9a9ce5af8b170dff, type: 3}
+      propertyPath: IsAI
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2419551333089782403, guid: 32fc72edaea0279c9a9ce5af8b170dff, type: 3}
+      propertyPath: AcceptInput
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3378302013487375934, guid: 32fc72edaea0279c9a9ce5af8b170dff, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.62
+      objectReference: {fileID: 0}
+    - target: {fileID: 3378302013487375934, guid: 32fc72edaea0279c9a9ce5af8b170dff, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 4549821832618962481, guid: 32fc72edaea0279c9a9ce5af8b170dff, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4549821832618962481, guid: 32fc72edaea0279c9a9ce5af8b170dff, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4549821832618962481, guid: 32fc72edaea0279c9a9ce5af8b170dff, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.7578785
+      objectReference: {fileID: 0}
+    - target: {fileID: 4549821832618962481, guid: 32fc72edaea0279c9a9ce5af8b170dff, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4549821832618962481, guid: 32fc72edaea0279c9a9ce5af8b170dff, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4549821832618962481, guid: 32fc72edaea0279c9a9ce5af8b170dff, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4549821832618962481, guid: 32fc72edaea0279c9a9ce5af8b170dff, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4549821832618962481, guid: 32fc72edaea0279c9a9ce5af8b170dff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4549821832618962481, guid: 32fc72edaea0279c9a9ce5af8b170dff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4549821832618962481, guid: 32fc72edaea0279c9a9ce5af8b170dff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5202387290151343914, guid: 32fc72edaea0279c9a9ce5af8b170dff, type: 3}
+      propertyPath: TrainStage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387334197383289373, guid: 32fc72edaea0279c9a9ce5af8b170dff, type: 3}
+      propertyPath: MaxStep
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6522933580915477409, guid: 32fc72edaea0279c9a9ce5af8b170dff, type: 3}
+      propertyPath: m_Name
+      value: CityStageVSAI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6912315678437747035, guid: 32fc72edaea0279c9a9ce5af8b170dff, type: 3}
+      propertyPath: layout.Position.X.Raw
+      value: -0.62
+      objectReference: {fileID: 0}
+    - target: {fileID: 6912315678437747035, guid: 32fc72edaea0279c9a9ce5af8b170dff, type: 3}
+      propertyPath: layout.Position.Y.Raw
+      value: 5.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 7722327286412081855, guid: 32fc72edaea0279c9a9ce5af8b170dff, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8331539612194601163, guid: 32fc72edaea0279c9a9ce5af8b170dff, type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: da7ea1a1910748d4d93223492bd17a01, type: 3}
+    - target: {fileID: 8383204946110398949, guid: 32fc72edaea0279c9a9ce5af8b170dff, type: 3}
+      propertyPath: MaxStep
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1556221390313238026, guid: 32fc72edaea0279c9a9ce5af8b170dff, type: 3}
+    - {fileID: 5387334197383289373, guid: 32fc72edaea0279c9a9ce5af8b170dff, type: 3}
+    - {fileID: 5551553717005280051, guid: 32fc72edaea0279c9a9ce5af8b170dff, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 32fc72edaea0279c9a9ce5af8b170dff, type: 3}

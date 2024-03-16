@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class Stun : PlayerState
 {
-    public delegate void AgentStuned(bool whichAgent);
-    public event AgentStuned OnStun;
+    public delegate void Stuned(PPOAgent agent);
+    public event Stuned OnStun;
     private bool endStun;
     private Coroutine rescueCor;
 
@@ -12,7 +12,7 @@ public class Stun : PlayerState
     public override PlayerState InputHandler(Character character) => SharedActions(character);
     public override void OnEntry(Character character)
     {
-        // OnStun.Invoke(character.gameObject.layer == 6);
+        OnStun?.Invoke(character.Agent);
         character.Animator.Play(AnimationState.Incapacite.ToString());
         rescueCor = character.StartCoroutine(RescueTime());
     }

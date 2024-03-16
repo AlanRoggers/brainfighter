@@ -15,7 +15,7 @@ public class MiddleKick : Attack
         HitFreeze = true;
         coolDown = 0.25f;
         HitFreezeTimer = 0.25f;
-        HitStun = 22;
+        HitStun = 0.89f;
         Damage = 6;
         Force = new Vector2(0, 12);
     }

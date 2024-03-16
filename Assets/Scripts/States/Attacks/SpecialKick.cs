@@ -17,7 +17,7 @@ public class SpecialKick : Attack
         coolDown = 0.8f;
         HitFreezeTimer = 0.25f;
         Damage = 11;
-        HitStun = 35;
+        HitStun = 0.8f;
     }
 
     public override PlayerState InputAIHandler(Character character, PPOAgent agent) => SharedActions(character);

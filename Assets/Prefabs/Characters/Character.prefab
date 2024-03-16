@@ -195,16 +195,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ba76a513e438fa218f00a756c48a1ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AcceptInput: 0
   IsAI: 0
   RequestedBehaviourAction: 0
   RequestedMotionAction: 0
+  Agent: {fileID: 0}
   EnemyTransform: {fileID: 0}
   Hitbox: {fileID: 724262824745318763}
   Friction: {fileID: 0}
-  EndGame: 0
   EntryAttack: 0
   OnColdoown: 0
   HitsChained: 0
+  Spawn: {x: 0, y: -2.638}
 --- !u!114 &1525663328156890903
 MonoBehaviour:
   m_ObjectHideFlags: 0

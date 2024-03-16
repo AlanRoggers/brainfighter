@@ -1927,7 +1927,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4102587639740680910, guid: 6529da8dece7f4e6bb80893d015ba99b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.9582825
+      value: -2.32
       objectReference: {fileID: 0}
     - target: {fileID: 4102587639740680910, guid: 6529da8dece7f4e6bb80893d015ba99b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1969,6 +1969,10 @@ PrefabInstance:
       propertyPath: VisualHealth
       value: 
       objectReference: {fileID: 3450706337629071845}
+    - target: {fileID: 6252400106761289823, guid: 6529da8dece7f4e6bb80893d015ba99b, type: 3}
+      propertyPath: AcceptInput
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6252400106761289823, guid: 6529da8dece7f4e6bb80893d015ba99b, type: 3}
       propertyPath: EnemyTransform
       value: 

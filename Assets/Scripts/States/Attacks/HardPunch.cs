@@ -10,7 +10,7 @@ public class HardPunch : Attack
             AnimationState.HardPunch,
             AnimationState.ChainHardPunch
         };
-        inertia = new Vector2(1, 4);
+        inertia = new Vector2(0, 4); //1,4
         timesDamageApplied = 1;
         HitFreeze = true;
         coolDown = 0.4f;

@@ -4,13 +4,43 @@ using Unity.MLAgents.Actuators;
 using UnityEngine;
 public class PPOAgent : Agent
 {
+    public delegate void Begin();
+    public event Begin OnBegin;
+    public Transform target;
+    private float distance;
     public State RequestedAction { get; private set; }
-    public delegate void EpisodeBegin(GameObject gameObject);
-    public static event EpisodeBegin OnBegin;
     private Character character;
     private GameManager mngr;
     private readonly float maxDistance = 27.8f;
     private readonly float minDistance = 1.26f;
+    private int Agent2Health;
+    private void Start()
+    {
+        distance = Mathf.Abs(transform.localPosition.x - target.localPosition.x);
+    }
+    private void FixedUpdate()
+    {
+        // if (Mathf.Abs(transform.localPosition.x - target.localPosition.x) >= distance)
+        //     AddReward(-0.1f);
+        // else
+        //     AddReward(0.1f);
+
+        // distance = Mathf.Abs(transform.localPosition.x - target.localPosition.x);
+
+        // if (character.OverlapDetector.EnemyOverlapping(character.Body, LayerMask.GetMask("Player2")))
+        // {
+        //     AddReward(10);
+        //     EndEpisode();
+        // }
+
+        if (mngr.Player2.Health == Agent2Health)
+            AddReward(-0.0001f);
+        else
+            Agent2Health = mngr.Player2.Health;
+
+        // Debug.Log(Agent2Health);
+
+    }
     protected override void Awake()
     {
         base.Awake();
@@ -19,30 +49,28 @@ public class PPOAgent : Agent
     }
     public override void OnEpisodeBegin()
     {
-        // Debug.Log("Reseteo");
         Reset();
-        OnBegin.Invoke(gameObject);
-        // if (character.gameObject.layer == 6)
-        //     academy.Spawn();
+        mngr.Player2.ResetParams();
     }
     public override void CollectObservations(VectorSensor sensor)
     {
-        // Debug.Log($"Academia {academy}");
         float normalizedCurrentDistanceX = Mathf.Clamp(
-            (mngr.playersDistance - minDistance) / (maxDistance - minDistance),
+            (mngr.PlayersDistance - minDistance) / (maxDistance - minDistance),
             0.0f,
             1.0f
         );
-        // if (gameObject.layer == 6)
-        // {
-        //     Debug.Log($"CurrentState: {agentState}");
-        //     Debug.Log($"CurrentStateEnemy: {enemyState}");
-        // }
         sensor.AddObservation(normalizedCurrentDistanceX);
         sensor.AddObservation(character.Health / 100f);
         sensor.AddObservation((gameObject.layer == 6 ? mngr.Player2.Health : mngr.Player1.Health) / 100f);
         sensor.AddObservation(character.OnColdoown);
         sensor.AddObservation(character.Resistance / 50f);
+        sensor.AddObservation(character.OverlapDetector.EnemyOverlapping(
+                character.Body,
+                character.gameObject.layer == 6 ? LayerMask.GetMask("Player2") : LayerMask.GetMask("Player1")
+            )
+        );
+        sensor.AddObservation(character.HitsChained / 4f);
+        sensor.AddObservation(Mathf.Sign(character.transform.localScale.x));
         sensor.AddOneHotObservation(StateObservation(character.CurrentState), 16);
         sensor.AddOneHotObservation(StateObservation
         (
@@ -57,10 +85,16 @@ public class PPOAgent : Agent
                 RequestedAction = State.IDDLE;
                 break;
             case 1:
-                RequestedAction = State.WALK;
+                if (character.transform.localScale.x > 0)
+                    RequestedAction = State.WALK;
+                else
+                    RequestedAction = State.BACK;
                 break;
             case 2:
-                RequestedAction = State.BACK;
+                if (character.transform.localScale.x > 0)
+                    RequestedAction = State.BACK;
+                else
+                    RequestedAction = State.WALK;
                 break;
             case 3:
                 RequestedAction = State.IDDLE;
@@ -96,89 +130,80 @@ public class PPOAgent : Agent
     }
     public override void Heuristic(in ActionBuffers actionsOut)
     {
-        ActionSegment<int> actions = actionsOut.DiscreteActions;
-        if (gameObject.layer == 7)
-        {
-            BehaviourActions(actions);
-        }
-
-        if (gameObject.layer == 6)
-            MotionActions(actions);
-    }
-    private void BehaviourActions(ActionSegment<int> actions)
-    {
-        if (Input.GetKey(KeyCode.Space))
-        {
-            actions[1] = 1;
-            return;
-        }
-
-        if (Input.GetKey(KeyCode.U))
-        {
-            actions[1] = 2;
-            return;
-        }
-
-        if (Input.GetKey(KeyCode.I))
-        {
-            actions[1] = 3;
-            return;
-        }
-
-        if (Input.GetKey(KeyCode.O))
-        {
-            actions[1] = 4;
-            return;
-        }
-
-        if (Input.GetKey(KeyCode.P))
-        {
-            actions[1] = 9;
-            return;
-        }
-
-        if (Input.GetKey(KeyCode.J))
-        {
-            actions[1] = 5;
-            return;
-        }
-
-        if (Input.GetKey(KeyCode.K))
-        {
-            actions[1] = 6;
-            return;
-        }
-
-        if (Input.GetKey(KeyCode.L))
-        {
-            actions[1] = 7;
-            return;
-        }
-
-        if (Input.GetKey(KeyCode.Semicolon))
-        {
-            actions[1] = 8;
-            return;
-        }
-
-        actions[1] = 0;
-    }
-    private void MotionActions(ActionSegment<int> actions)
-    {
-        if (Input.GetKey(KeyCode.D))
-        {
-            actions[0] = 1;
-            return;
-        }
-
-        if (Input.GetKey(KeyCode.A))
+        if (character.AcceptInput)
         {
 
-            actions[0] = 2;
-            return;
-        }
+            ActionSegment<int> actions = actionsOut.DiscreteActions;
 
-        actions[0] = 0;
+            if (Input.GetKey(KeyCode.Space))
+            {
+                actions[0] = 4;
+                return;
+            }
+
+            if (Input.GetKey(KeyCode.U))
+            {
+                actions[0] = 5;
+                return;
+            }
+
+            if (Input.GetKey(KeyCode.I))
+            {
+                actions[0] = 6;
+                return;
+            }
+
+            if (Input.GetKey(KeyCode.O))
+            {
+                actions[0] = 7;
+                return;
+            }
+
+            if (Input.GetKey(KeyCode.P))
+            {
+                actions[0] = 12;
+                return;
+            }
+
+            if (Input.GetKey(KeyCode.J))
+            {
+                actions[0] = 8;
+                return;
+            }
+
+            if (Input.GetKey(KeyCode.K))
+            {
+                actions[0] = 9;
+                return;
+            }
+
+            if (Input.GetKey(KeyCode.L))
+            {
+                actions[0] = 10;
+                return;
+            }
+
+            if (Input.GetKey(KeyCode.Semicolon))
+            {
+                actions[0] = 11;
+                return;
+            }
+
+            if (Input.GetKey(KeyCode.D))
+            {
+                actions[0] = 1;
+                return;
+            }
+
+            if (Input.GetKey(KeyCode.A))
+            {
+
+                actions[0] = 2;
+                return;
+            }
+
+            actions[0] = 0;
+        }
     }
     private int StateObservation(PlayerState state)
     {
@@ -205,6 +230,7 @@ public class PPOAgent : Agent
     }
     public void Reset()
     {
+        // Debug.Log($"{(character.gameObject.layer == 6 ? "A1 Reset" : "A2 Reset")}");
         character.CurrentState.OnExit(character);
         character.AttackReceived = null;
         character.EntryAttack = false;
@@ -217,8 +243,14 @@ public class PPOAgent : Agent
             character.CoolDownSet = null;
         }
         character.HealthSet = 100;
+        // character.HealthSet = Random.Range(10, 100);
         character.ResistanceSet = 50;
         character.Friction.friction = 1; // Tal vez no
+        // character.transform.localPosition = character.Spawn;
+        character.Animator.speed = 1;
         character.FutureStateSet = character.States.Iddle;
+        character.Reset = true;
+        OnBegin?.Invoke();
+        distance = Mathf.Abs(transform.localPosition.x - target.localPosition.x);
     }
 }

@@ -7,8 +7,8 @@ public class Hurt : PlayerState
     private float timeHurt = 0.57f;
     private Coroutine hurtCor;
     private bool canExitState;
-    public delegate void AgentHurt(int entryDamage, bool whichAgent);
-    public event AgentHurt OnHurt;
+    public delegate void Hurted(PPOAgent agent);
+    public event Hurted OnHurt;
     public override PlayerState InputAIHandler(Character character, PPOAgent agent) => SharedActions(character);
     public override PlayerState InputHandler(Character character) => SharedActions(character);
     public override void OnEntry(Character character)
@@ -22,7 +22,7 @@ public class Hurt : PlayerState
         if (character.Health <= 0)
             return;
 
-        // OnHurt.Invoke(character.AttackReceived.Damage, character.gameObject.layer == 6);
+        OnHurt?.Invoke(character.Agent);
 
 
         character.Friction.friction = 0;

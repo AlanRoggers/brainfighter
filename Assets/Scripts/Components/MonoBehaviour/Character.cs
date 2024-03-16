@@ -1,4 +1,4 @@
-using System;
+
 using System.Collections;
 using UnityEngine;
 
@@ -7,15 +7,11 @@ public class Character : MonoBehaviour
     public bool AcceptInput;
     private PlayerState futureState;
     public PlayerState FutureStateSet { set => futureState = value; }
+    public bool Reset;
 
     #region AI
     public bool IsAI;
-    [HideInInspector] public State RequestedBehaviourAction;
-    [HideInInspector] public State RequestedMotionAction;
     [HideInInspector] public PPOAgent Agent;
-    public delegate void StateChanged(PlayerState newState);
-    public event StateChanged OnStateChange;
-
     #endregion
 
     #region Character Properties
@@ -70,10 +66,11 @@ public class Character : MonoBehaviour
     void Update()
     {
         // Manejar las acciones requeridoas por la IA o por el jugador
-        futureState = IsAI ? CurrentState.InputAIHandler(this, Agent) : CurrentState.InputHandler(this);
+        futureState = !Reset ? (IsAI ? CurrentState.InputAIHandler(this, Agent) : CurrentState.InputHandler(this)) : futureState;
 
         if (futureState != null)
         {
+            Reset = false;
             CurrentState.OnExit(this);
             CurrentState = futureState;
             CurrentState.OnEntry(this);
@@ -103,7 +100,7 @@ public class Character : MonoBehaviour
     }
     private void Orientation()
     {
-        float signDistance = MathF.Sign(transform.localPosition.x - EnemyTransform.localPosition.x);
+        float signDistance = Mathf.Sign(transform.localPosition.x - EnemyTransform.localPosition.x);
 
         bool canTurn = CurrentState == States.Walk
             || CurrentState == States.Back
@@ -111,7 +108,7 @@ public class Character : MonoBehaviour
             || CurrentState == States.Fall
             || CurrentState == States.Iddle;
 
-        if (MathF.Sign(transform.localScale.x) == signDistance && canTurn)
+        if (Mathf.Sign(transform.localScale.x) == signDistance && canTurn)
             transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
     }
     public void SetAttack(Attack attack)
@@ -140,5 +137,26 @@ public class Character : MonoBehaviour
         else
             Resistance = 50;
     }
-
+    public void ResetParams()
+    {
+        CurrentState.OnExit(this);
+        AttackReceived = null;
+        EntryAttack = false;
+        OnColdoown = false;
+        HitsChained = 0;
+        Physics.velocity = Vector2.zero;
+        if (CoolDownCor != null)
+        {
+            StopCoroutine(CoolDownCor);
+            CoolDownSet = null;
+        }
+        HealthSet = 100;
+        HealthSet = Random.Range(5, 10);
+        ResistanceSet = 50;
+        Friction.friction = 1; // Tal vez no
+        // transform.localPosition = Spawn;
+        Animator.speed = 1;
+        FutureStateSet = States.Iddle;
+        Reset = true;
+    }
 }

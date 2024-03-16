@@ -10,7 +10,8 @@ public class MiddlePunch : Attack
             AnimationState.MiddlePunch,
             AnimationState.ChainMiddlePunch
         };
-        inertia = new Vector2(0.5f, 0);
+        inertia = new Vector2(0f, 0);
+        // inertia = new Vector2(0.5f, 0);
         timesDamageApplied = 1;
         HitFreeze = true;
         coolDown = 0.2f;

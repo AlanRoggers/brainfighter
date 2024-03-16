@@ -3,16 +3,15 @@ using UnityEngine;
 
 public class Block : PlayerState
 {
-    private float timeBlock = 0.18f;
-    public delegate void AgentBlock(int entryDamage, bool whichAgent);
-    public event AgentBlock OnBlock;
+    private float timeBlock = 0.19f;
+    public delegate void Blocked(PPOAgent agent);
+    public event Blocked OnBlock;
     private bool stopBlock;
     private Coroutine blockCor;
     public override PlayerState InputAIHandler(Character character, PPOAgent agent) => SharedActions(character);
     public override PlayerState InputHandler(Character character) => SharedActions(character);
     public override void OnEntry(Character character)
     {
-        timeBlock = Time.time;
         stopBlock = false;
         character.EntryAttack = false;
         character.Physics.velocity = Vector2.zero;
@@ -21,14 +20,13 @@ public class Block : PlayerState
         if (character.Resistance <= 0)
             return;
 
-        // OnBlock.Invoke(character.AttackReceived.Damage, character.gameObject.layer == 6);
+        OnBlock?.Invoke(character.Agent);
         character.Animator.Play(AnimationState.Block.ToString(), 0, 0);
 
         blockCor = character.StartCoroutine(BlockLogic(character));
     }
     public override void OnExit(Character character)
     {
-        Debug.Log(Time.time - timeBlock);
         character.Animator.speed = 1;
         if (blockCor != null)
         {
@@ -63,11 +61,11 @@ public class Block : PlayerState
         yield return new WaitUntil(() => character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0f);
 
         float awaitTime = timeBlock - character.AttackReceived.HitStun;
-        Debug.Log(awaitTime);
+        // Debug.Log(awaitTime);
         if (Mathf.Sign(awaitTime) < 0)
         {
-            Debug.Log("Si es mayor");
-            yield return new WaitForSeconds(Mathf.Abs(awaitTime));
+            // Debug.Log("Si es mayor");
+            yield return new WaitForSeconds(Mathf.Abs(awaitTime / 1.5f));
         }
 
         stopBlock = true;
@@ -79,6 +77,7 @@ public class Block : PlayerState
     {
         if (character.Resistance <= 0)
             return character.States.Stun;
+
         else if (character.EntryAttack)
             return character.States.Block;
 

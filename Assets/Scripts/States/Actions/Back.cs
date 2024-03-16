@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Back : PlayerState
 {
+    private KeyCode keyDetonateState;
     private readonly float maxForce = 500f;
     private readonly float maxSpeed = 10f;
     private bool jumpTransition;
@@ -20,6 +21,9 @@ public class Back : PlayerState
     {
         if (character.EntryAttack)
             return character.States.Block;
+
+        if (agent.RequestedAction == State.WALK)
+            return character.States.Walk;
 
         if (agent.RequestedAction == State.IDDLE)
             return character.States.Iddle;
@@ -51,14 +55,16 @@ public class Back : PlayerState
 
         return null;
     }
-
     public override PlayerState InputHandler(Character character)
     {
         if (character.EntryAttack)
             return character.States.Block;
 
-        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D) || Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D) || !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
             return character.States.Iddle;
+
+        if (Input.GetKey(keyDetonateState == KeyCode.A ? KeyCode.D : KeyCode.A))
+            return character.States.Back;
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -88,6 +94,11 @@ public class Back : PlayerState
         }
 
         return null;
+    }
+    public override void OnEntry(Character character)
+    {
+        base.OnEntry(character);
+        keyDetonateState = Input.GetKey(KeyCode.A) ? KeyCode.A : KeyCode.D;
     }
     public override void OnExit(Character character)
     {
