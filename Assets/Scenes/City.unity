@@ -210,7 +210,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2156505580635589071, guid: 6a6f264b4f56802109754679b74a0166, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3804534095279886134, guid: 6a6f264b4f56802109754679b74a0166, type: 3}
       propertyPath: targetCamera
@@ -371,7 +371,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2156505580635589071, guid: 6a6f264b4f56802109754679b74a0166, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3804534095279886134, guid: 6a6f264b4f56802109754679b74a0166, type: 3}
       propertyPath: targetCamera
@@ -444,7 +444,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2156505580635589071, guid: 6a6f264b4f56802109754679b74a0166, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3804534095279886134, guid: 6a6f264b4f56802109754679b74a0166, type: 3}
       propertyPath: targetCamera
@@ -525,7 +525,7 @@ PrefabInstance:
       objectReference: {fileID: 519420031}
     - target: {fileID: 6371486693074088725, guid: 6a6f264b4f56802109754679b74a0166, type: 3}
       propertyPath: AcceptInput
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8669245902794288223, guid: 6a6f264b4f56802109754679b74a0166, type: 3}
       propertyPath: m_LocalPosition.x
@@ -595,7 +595,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2156505580635589071, guid: 6a6f264b4f56802109754679b74a0166, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3804534095279886134, guid: 6a6f264b4f56802109754679b74a0166, type: 3}
       propertyPath: targetCamera
@@ -664,7 +664,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2156505580635589071, guid: 6a6f264b4f56802109754679b74a0166, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3804534095279886134, guid: 6a6f264b4f56802109754679b74a0166, type: 3}
       propertyPath: targetCamera

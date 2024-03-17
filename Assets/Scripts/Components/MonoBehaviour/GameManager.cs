@@ -185,12 +185,12 @@ public class GameManager : MonoBehaviour
         float Player1X = Random.Range(-14f, 12f);
         float Player2X;
 
-        if (Player1X - 5f > -13f && Player1X + 5f < 11)
-            Player2X = Player1X + 5 * (Random.Range(0, 1) == 0 ? 1 : -1);
-        else if (Player1X - 5f > -13f)
-            Player2X = Player1X - 5;
+        if (Player1X - 10f > -13f && Player1X + 10f < 11)
+            Player2X = Player1X + 10 * (Random.Range(0, 1) == 0 ? 1 : -1);
+        else if (Player1X - 10f > -13f)
+            Player2X = Player1X - 10;
         else
-            Player2X = Player1X + 5;
+            Player2X = Player1X + 10;
 
 
         Player1.transform.localPosition = new Vector2(Player1X, Player1.Spawn.y);

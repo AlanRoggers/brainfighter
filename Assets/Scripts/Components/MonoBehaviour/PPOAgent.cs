@@ -4,6 +4,7 @@ using Unity.MLAgents.Actuators;
 using UnityEngine;
 public class PPOAgent : Agent
 {
+    private float increment;
     public delegate void Begin();
     public event Begin OnBegin;
     public Transform target;
@@ -17,6 +18,7 @@ public class PPOAgent : Agent
     private void Start()
     {
         distance = Mathf.Abs(transform.localPosition.x - target.localPosition.x);
+        increment = 0.01f;
     }
     private void FixedUpdate()
     {
@@ -26,12 +28,9 @@ public class PPOAgent : Agent
         //     AddReward(0.1f);
 
         // distance = Mathf.Abs(transform.localPosition.x - target.localPosition.x);
-
-        // if (character.OverlapDetector.EnemyOverlapping(character.Body, LayerMask.GetMask("Player2")))
-        // {
-        //     AddReward(10);
-        //     EndEpisode();
-        // }
+        bool nearestEnemy = character.OverlapDetector.EnemyOverlapping(character.Body, LayerMask.GetMask("Player2"));
+        if (!nearestEnemy)
+            AddReward(-0.1f);
 
         if (mngr.Player2.Health == Agent2Health)
             AddReward(-0.0001f);
@@ -230,6 +229,7 @@ public class PPOAgent : Agent
     }
     public void Reset()
     {
+        increment = 0.01f;
         // Debug.Log($"{(character.gameObject.layer == 6 ? "A1 Reset" : "A2 Reset")}");
         character.CurrentState.OnExit(character);
         character.AttackReceived = null;
