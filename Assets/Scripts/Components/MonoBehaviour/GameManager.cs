@@ -100,33 +100,33 @@ public class GameManager : MonoBehaviour
 
             // #endregion
 
-            #region Win
+            // #region Win
 
-            Player1.States.LowPunch.OnWin += AgentWin;
-            Player2.States.LowPunch.OnWin += AgentWin;
+            // Player1.States.LowPunch.OnWin += AgentWin;
+            // Player2.States.LowPunch.OnWin += AgentWin;
 
-            Player1.States.MiddlePunch.OnWin += AgentWin;
-            Player2.States.MiddlePunch.OnWin += AgentWin;
+            // Player1.States.MiddlePunch.OnWin += AgentWin;
+            // Player2.States.MiddlePunch.OnWin += AgentWin;
 
-            Player1.States.HardPunch.OnWin += AgentWin;
-            Player2.States.HardPunch.OnWin += AgentWin;
+            // Player1.States.HardPunch.OnWin += AgentWin;
+            // Player2.States.HardPunch.OnWin += AgentWin;
 
-            Player1.States.SpecialPunch.OnWin += AgentWin;
-            Player2.States.SpecialPunch.OnWin += AgentWin;
+            // Player1.States.SpecialPunch.OnWin += AgentWin;
+            // Player2.States.SpecialPunch.OnWin += AgentWin;
 
-            Player1.States.LowKick.OnWin += AgentWin;
-            Player2.States.LowKick.OnWin += AgentWin;
+            // Player1.States.LowKick.OnWin += AgentWin;
+            // Player2.States.LowKick.OnWin += AgentWin;
 
-            Player1.States.MiddleKick.OnWin += AgentWin;
-            Player2.States.MiddleKick.OnWin += AgentWin;
+            // Player1.States.MiddleKick.OnWin += AgentWin;
+            // Player2.States.MiddleKick.OnWin += AgentWin;
 
-            Player1.States.HardKick.OnWin += AgentWin;
-            Player2.States.HardKick.OnWin += AgentWin;
+            // Player1.States.HardKick.OnWin += AgentWin;
+            // Player2.States.HardKick.OnWin += AgentWin;
 
-            Player1.States.SpecialKick.OnWin += AgentWin;
-            Player2.States.SpecialKick.OnWin += AgentWin;
+            // Player1.States.SpecialKick.OnWin += AgentWin;
+            // Player2.States.SpecialKick.OnWin += AgentWin;
 
-            #endregion
+            // #endregion
 
 
             // Player1.States.Hurt.OnHurt += AgentHurted;
@@ -163,7 +163,7 @@ public class GameManager : MonoBehaviour
     }
 
     #region TrainingAI
-    private void AgentDidDamage(PPOAgent agent) => agent.AddReward(1);
+    private void AgentDidDamage(PPOAgent agent) { agent.AddReward(10); agent.EndEpisode(); }
     private void AgentHurted(PPOAgent agent) => agent.AddReward(-1);
     private void AgentBlockedAttack(PPOAgent agent) => agent.AddReward(1);
     private void AgentAttackBlocked(PPOAgent agent) => agent.AddReward(-1);
