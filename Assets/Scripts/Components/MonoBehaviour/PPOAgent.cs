@@ -4,22 +4,14 @@ using Unity.MLAgents.Actuators;
 using UnityEngine;
 public class PPOAgent : Agent
 {
-    private float increment;
     public delegate void Begin();
     public event Begin OnBegin;
-    public Transform target;
-    private float distance;
     public State RequestedAction { get; private set; }
     private Character character;
     private GameManager mngr;
     private readonly float maxDistance = 27.8f;
     private readonly float minDistance = 1.26f;
     private int Agent2Health;
-    private void Start()
-    {
-        distance = Mathf.Abs(transform.localPosition.x - target.localPosition.x);
-        increment = 0.01f;
-    }
     private void FixedUpdate()
     {
         // if (Mathf.Abs(transform.localPosition.x - target.localPosition.x) >= distance)
@@ -30,12 +22,12 @@ public class PPOAgent : Agent
         // distance = Mathf.Abs(transform.localPosition.x - target.localPosition.x);
         bool nearestEnemy = character.OverlapDetector.EnemyOverlapping(character.Body, LayerMask.GetMask("Player2"));
         if (!nearestEnemy)
-            AddReward(-0.1f);
+            AddReward(-0.001f);
 
-        if (mngr.Player2.Health == Agent2Health)
-            AddReward(-0.0001f);
-        else
-            Agent2Health = mngr.Player2.Health;
+        // if (mngr.Player2.Health == Agent2Health)
+        //     AddReward(-0.0001f);
+        // else
+        //     Agent2Health = mngr.Player2.Health;
 
         // Debug.Log(Agent2Health);
 
@@ -49,7 +41,6 @@ public class PPOAgent : Agent
     public override void OnEpisodeBegin()
     {
         Reset();
-        mngr.Player2.ResetParams();
     }
     public override void CollectObservations(VectorSensor sensor)
     {
@@ -229,7 +220,6 @@ public class PPOAgent : Agent
     }
     public void Reset()
     {
-        increment = 0.01f;
         // Debug.Log($"{(character.gameObject.layer == 6 ? "A1 Reset" : "A2 Reset")}");
         character.CurrentState.OnExit(character);
         character.AttackReceived = null;
@@ -242,7 +232,7 @@ public class PPOAgent : Agent
             StopCoroutine(character.CoolDownCor);
             character.CoolDownSet = null;
         }
-        character.HealthSet = 100;
+        character.HealthSet = 50;
         // character.HealthSet = Random.Range(10, 100);
         character.ResistanceSet = 50;
         character.Friction.friction = 1; // Tal vez no
@@ -251,6 +241,5 @@ public class PPOAgent : Agent
         character.FutureStateSet = character.States.Iddle;
         character.Reset = true;
         OnBegin?.Invoke();
-        distance = Mathf.Abs(transform.localPosition.x - target.localPosition.x);
     }
 }

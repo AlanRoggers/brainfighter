@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class Attack : PlayerState
 {
-    public delegate void AttackDamaged(PPOAgent agent);
+    public delegate void AttackDamaged(PPOAgent agent, Attack attack);
     public event AttackDamaged OnDamaged;
     public delegate void AttackBlocked(PPOAgent agent);
     public event AttackBlocked OnBlocked;
@@ -59,7 +59,7 @@ public abstract class Attack : PlayerState
                         if (characterEnemy.Health <= 0 || characterEnemy.Health - Damage <= 0)
                             OnWin?.Invoke(character.Agent);
                         else
-                            OnDamaged?.Invoke(character.Agent);
+                            OnDamaged?.Invoke(character.Agent, this);
 
                         character.IncrementResistance(Damage);
                     }
@@ -102,7 +102,7 @@ public abstract class Attack : PlayerState
     public override void OnExit(Character character)
     {
         base.OnExit(character);
-        Debug.Log(Time.time - timeAttack);
+        // Debug.Log(Time.time - timeAttack);
         character.Physics.gravityScale = 4;
         character.Animator.speed = 1;
         if (animationCor != null)
