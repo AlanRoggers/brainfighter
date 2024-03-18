@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private Attack lastAttack1;
-    private Attack lastAttack2;
     public bool TrainStage;
     public float PlayersDistance { get; private set; }
     public Character Player1 { get; private set; }
@@ -15,6 +13,7 @@ public class GameManager : MonoBehaviour
         Player2 = chars[1];
 
         PlayersDistance = UpdatePlayerDistance();
+
         if (TrainStage)
         {
             Player1.Agent.OnBegin += SpawnAgents;
@@ -102,6 +101,34 @@ public class GameManager : MonoBehaviour
 
             #endregion
 
+            #region AttackToAir
+
+            Player1.States.LowPunch.AttackNoHitted += AgentAttackedToAir;
+            Player2.States.LowPunch.AttackNoHitted += AgentAttackedToAir;
+
+            Player1.States.MiddlePunch.AttackNoHitted += AgentAttackedToAir;
+            Player2.States.MiddlePunch.AttackNoHitted += AgentAttackedToAir;
+
+            Player1.States.HardPunch.AttackNoHitted += AgentAttackedToAir;
+            Player2.States.HardPunch.AttackNoHitted += AgentAttackedToAir;
+
+            Player1.States.SpecialPunch.AttackNoHitted += AgentAttackedToAir;
+            Player2.States.SpecialPunch.AttackNoHitted += AgentAttackedToAir;
+
+            Player1.States.LowKick.AttackNoHitted += AgentAttackedToAir;
+            Player2.States.LowKick.AttackNoHitted += AgentAttackedToAir;
+
+            Player1.States.MiddleKick.AttackNoHitted += AgentAttackedToAir;
+            Player2.States.MiddleKick.AttackNoHitted += AgentAttackedToAir;
+
+            Player1.States.HardKick.AttackNoHitted += AgentAttackedToAir;
+            Player2.States.HardKick.AttackNoHitted += AgentAttackedToAir;
+
+            Player1.States.SpecialKick.AttackNoHitted += AgentAttackedToAir;
+            Player2.States.SpecialKick.AttackNoHitted += AgentAttackedToAir;
+
+            #endregion
+
             #region Win
 
             Player1.States.LowPunch.OnWin += AgentWin;
@@ -150,9 +177,16 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-        // Debug.Log($"Posicion del jugador {Player1.transform.localPosition.x}");
         IgnoreCollisions();
         PlayersDistance = UpdatePlayerDistance();
+    }
+    private void FixedUpdate()
+    {
+        if (TrainStage)
+        {
+            Player1.Agent.AddReward(-0.000001f);
+            Player2.Agent.AddReward(-0.000001f);
+        }
     }
     private float UpdatePlayerDistance() => Mathf.Abs(Player1.transform.localPosition.x - Player2.transform.localPosition.x);
     private void IgnoreCollisions()
@@ -167,33 +201,14 @@ public class GameManager : MonoBehaviour
     #region TrainingAI
     private void AgentDidDamage(PPOAgent agent, Attack attack)
     {
-        if (agent.gameObject.layer == 6)
-        {
-            if (attack != lastAttack1)
-            {
-                agent.AddReward(10);
-                lastAttack1 = attack;
-            }
-            else
-                agent.AddReward(1);
-        }
-        else
-        {
-            if (attack != lastAttack2)
-            {
-                agent.AddReward(10);
-                lastAttack2 = attack;
-            }
-            else
-                agent.AddReward(1);
-        }
-
+        agent.AddReward(1);
     }
     private void AgentHurted(PPOAgent agent) => agent.AddReward(-1);
     private void AgentBlockedAttack(PPOAgent agent) => agent.AddReward(1);
-    private void AgentAttackBlocked(PPOAgent agent) => agent.AddReward(-1);
+    private void AgentAttackBlocked(PPOAgent agent) => agent.AddReward(-0.0001f);
     private void AgentAttackCauseStun(PPOAgent agent) => agent.AddReward(10);
     private void AgentStuned(PPOAgent agent) => agent.AddReward(-10);
+    private void AgentAttackedToAir(PPOAgent agent) => agent.AddReward(-0.01f);
     private void AgentWin(PPOAgent agent)
     {
         agent.AddReward(100);
@@ -208,15 +223,16 @@ public class GameManager : MonoBehaviour
     {
         // lastAttack = null;
         //-14, 12
+        float distance = 5f;
         float Player1X = Random.Range(-14f, 12f);
         float Player2X;
 
-        if (Player1X - 10f > -13f && Player1X + 10f < 11)
-            Player2X = Player1X + 10 * (Random.Range(0, 1) == 0 ? 1 : -1);
-        else if (Player1X - 10f > -13f)
-            Player2X = Player1X - 10;
+        if (Player1X - distance > -13f && Player1X + distance < 11)
+            Player2X = Player1X + distance * (Random.Range(0, 1) == 0 ? 1 : -1);
+        else if (Player1X - distance > -13f)
+            Player2X = Player1X - distance;
         else
-            Player2X = Player1X + 10;
+            Player2X = Player1X + distance;
 
 
         Player1.transform.localPosition = new Vector2(Player1X, Player1.Spawn.y);

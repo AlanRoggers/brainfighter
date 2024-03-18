@@ -1,0 +1,88 @@
+Este archivo contienen cada uno de los modelos creados en la parte de experimentación. Cada modelo se configura de diferente manera para que se pueda modelar un
+comportamiento diferente. En general todos los modelos comparten varias caracteristicas.
+
+Objetivo: El agente debe ser capaz de jugar BrainFighter de modo que represente para los jugadores reales una dificultad aceptable (ni muy fácil ni muy dificil)
+Entorno: Escenario de la ciudad donde dos Agentes se enfrentan hasta que uno de los dos muera
+
+Agente Alpha (Modelo Alpha):
+
+Este modelo es la primer versión, le llamé así debido a que en el momento en el que se realizo el entrenamiento, el juego no habia pasado por el proceso de control de calidad
+y tenía bugs visuales además de que había acciones muy injustas que el agente a la hora de entrenarse me dio a conocer.
+
+Caracteristicas.
+    Observaciones:
+        -> Distancia del enemigo (flotante, normalizado)
+        -> Distancia a la que los golpes logran realizar contacto (booleano)
+        -> Vida (flotante, normalizado)
+        -> Vida del enemigo (flotante, normalizado)
+        -> Acciones restringidas debido a que el agente acaba de recibir un golpe (booleano)
+        -> Ataques restringidos porque estan en tiempo de recuperación (booleano)
+        -> Acciones restringidas debido a que el agente esta en el aire (booleano)
+        -> El agente enemigo esta bloqueando (booleano)
+    Acciones:
+        -> Branch 1:
+            <- Caminar(Dos acciones) 
+            <- Impulsos(Dos acciones)
+            <- Agacharse(Una accion)
+            <- No hacer nada(Una acción)
+        -> Branch 2:
+            <- Saltar
+            <- Golpes(Cuatro acciones)
+            <- Patadas(Cuatro acciones)
+            <- Bloquear(Una accion)
+            <- No hacer nada(Una acción)
+    Recompensas:
+        -> -10 / MaxSteps cada step (Un step es cada iteracion del episodio de entrenamiento)
+        -> +Daño aplicado al agente enemigo * (0.1)
+        -> -Daño recibido del agente enemigo * (0.1)
+        -> +0.5 por bloquear un ataque
+        -> +0.05 por aplicar daño mientras el enemigo esta cubierto
+        -> +20 por ganar
+
+Agente 1 (Modelo 1)
+
+A partir de este modelo, el juego esta completamente probado y ya no hay cosas que puedan resultar en bugs o en injusticias que interfieran en el entrenamiento del agente inteligente
+
+Caracteristicas.
+    Observaciones:
+        -> Distancia entre los dos agentes normalizada (float)
+        -> Vida del agente normalizada (float)
+        -> Vida del agente enemigo normalizada (float)
+        -> Ataques en enfriamiento (bool)
+        -> Resistencia del agente normalizada (float)
+        -> Muy cerca del agente enemigo (bool)
+        -> Cantidad de ataques encadenados normalizada (float)
+        -> Orientación del personaje (flotante que vale 1 y -1)
+        -> Vector de estados del agente, son 16 estados en total (vector de bool)
+        -> Vector de estados del enemigo, son 16 estados en total (vector de bool)
+    Acciones:
+        -> Branch 1:
+            <- Quieto
+            <- Moverse con velocidad positiva
+            <- Moverse con velocidad negativa
+            <- Saltar
+            <- Golpe debil
+            <- Golpe ligero
+            <- Golpe fuerte
+            <- Golpe especial
+            <- Patada debil
+            <- Patada ligera
+            <- Patada fuerte
+            <- Patada especial
+    Recompensas:
+        -0.000001 cada 0.2 segundos aproximadamente
+        +1 por golpear al agente enemigo
+        -1 por ser golpeado por el agente enemigo
+        +1 por bloquear un ataque del agente enemigo
+        -0.0001 por atacar a un agente bloqueando
+        +10 por incapacitar al agente enemigo
+        -10 por dejarse incapacitar
+        -0.01 por realizar ataques al aire
+        +100 por ganar
+        -100 por perder
+
+    Ajustes adicionales:
+        Cada que un se inicia un episodio, los agentes apareceran a 5 unidades de distancia
+        La vida de los personajes será de 50 (la mitad de lo que un juego real es)
+        Aproximadamente cada episodio durará 1000 steps
+        Las instancias que se usan para entrenar a los agentes en paralelo son nueve

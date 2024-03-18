@@ -11,27 +11,6 @@ public class PPOAgent : Agent
     private GameManager mngr;
     private readonly float maxDistance = 27.8f;
     private readonly float minDistance = 1.26f;
-    private int Agent2Health;
-    private void FixedUpdate()
-    {
-        // if (Mathf.Abs(transform.localPosition.x - target.localPosition.x) >= distance)
-        //     AddReward(-0.1f);
-        // else
-        //     AddReward(0.1f);
-
-        // distance = Mathf.Abs(transform.localPosition.x - target.localPosition.x);
-        bool nearestEnemy = character.OverlapDetector.EnemyOverlapping(character.Body, LayerMask.GetMask("Player2"));
-        if (!nearestEnemy)
-            AddReward(-0.001f);
-
-        // if (mngr.Player2.Health == Agent2Health)
-        //     AddReward(-0.0001f);
-        // else
-        //     Agent2Health = mngr.Player2.Health;
-
-        // Debug.Log(Agent2Health);
-
-    }
     protected override void Awake()
     {
         base.Awake();
@@ -87,33 +66,30 @@ public class PPOAgent : Agent
                     RequestedAction = State.WALK;
                 break;
             case 3:
-                RequestedAction = State.IDDLE;
-                break;
-            case 4:
                 RequestedAction = State.JUMP;
                 break;
-            case 5:
+            case 4:
                 RequestedAction = State.LOW_PUNCH;
                 break;
-            case 6:
+            case 5:
                 RequestedAction = State.MIDDLE_PUNCH;
                 break;
-            case 7:
+            case 6:
                 RequestedAction = State.HARD_PUNCH;
                 break;
-            case 8:
+            case 7:
                 RequestedAction = State.LOW_KICK;
                 break;
-            case 9:
+            case 8:
                 RequestedAction = State.MIDDLE_KICK;
                 break;
-            case 10:
+            case 9:
                 RequestedAction = State.HARD_KICK;
                 break;
-            case 11:
+            case 10:
                 RequestedAction = State.SPECIAL_KICK;
                 break;
-            case 12:
+            case 11:
                 RequestedAction = State.SPECIAL_PUNCH;
                 break;
         }
@@ -127,55 +103,55 @@ public class PPOAgent : Agent
 
             if (Input.GetKey(KeyCode.Space))
             {
-                actions[0] = 4;
+                actions[0] = 3;
                 return;
             }
 
             if (Input.GetKey(KeyCode.U))
             {
-                actions[0] = 5;
+                actions[0] = 4;
                 return;
             }
 
             if (Input.GetKey(KeyCode.I))
             {
-                actions[0] = 6;
+                actions[0] = 5;
                 return;
             }
 
             if (Input.GetKey(KeyCode.O))
             {
-                actions[0] = 7;
+                actions[0] = 6;
                 return;
             }
 
             if (Input.GetKey(KeyCode.P))
             {
-                actions[0] = 12;
+                actions[0] = 11;
                 return;
             }
 
             if (Input.GetKey(KeyCode.J))
             {
-                actions[0] = 8;
+                actions[0] = 7;
                 return;
             }
 
             if (Input.GetKey(KeyCode.K))
             {
-                actions[0] = 9;
+                actions[0] = 8;
                 return;
             }
 
             if (Input.GetKey(KeyCode.L))
             {
-                actions[0] = 10;
+                actions[0] = 9;
                 return;
             }
 
             if (Input.GetKey(KeyCode.Semicolon))
             {
-                actions[0] = 11;
+                actions[0] = 10;
                 return;
             }
 

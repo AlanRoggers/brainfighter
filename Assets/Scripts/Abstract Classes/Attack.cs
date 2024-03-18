@@ -3,14 +3,16 @@ using UnityEngine;
 
 public abstract class Attack : PlayerState
 {
+    #region Events
+    public delegate void AttackEvents(PPOAgent agent);
     public delegate void AttackDamaged(PPOAgent agent, Attack attack);
     public event AttackDamaged OnDamaged;
-    public delegate void AttackBlocked(PPOAgent agent);
-    public event AttackBlocked OnBlocked;
-    public delegate void AttackCauseStun(PPOAgent agent);
-    public event AttackCauseStun OnCauseStun;
-    public delegate void Win(PPOAgent agent);
-    public event Win OnWin;
+    public event AttackEvents OnBlocked;
+    public event AttackEvents OnCauseStun;
+    public event AttackEvents AttackNoHitted;
+    public event AttackEvents OnWin;
+
+    #endregion
     private float timeAttack;
     public bool HitFreeze { get; protected set; }
     public int Damage { get; protected set; }
@@ -32,17 +34,21 @@ public abstract class Attack : PlayerState
     }
     protected virtual IEnumerator AttackLogic(Character character)
     {
+        // Iniciar la animación del ataque
         character.Animator.Play(clips[0].ToString());
         currentClip = clips[0];
 
         yield return new WaitForEndOfFrame();
 
+        // Aplicar al personaje la fuerza de inercia del golpe
         if (character.transform.localScale.x > 0)
             character.Physics.AddForce(inertia, ForceMode2D.Impulse);
         else
             character.Physics.AddForce(inertia * new Vector2(-1, 1), ForceMode2D.Impulse);
 
+        // Comprobar que el golpe haga contacto con el enemigo
         int times = timesDamageApplied;
+        bool attackHitted = false;
 
         while (character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f)
         {
@@ -52,8 +58,10 @@ public abstract class Attack : PlayerState
                 if (enemy && character.Hitbox.enabled)
                 {
                     Character characterEnemy = enemy.GetComponent<Character>();
-                    // Esto se buguea si los dos se pegan al mismo tiempo (Creo que era culpa del Hitbox del ataque)
                     characterEnemy.SetAttack(this);
+                    attackHitted = true;
+
+                    // Comprobación para saber si el golpe hace daño, se bloquea o si estunea al enemigo (Casi que es para manejar eventos de recompensa para la IA)
                     if (characterEnemy.CurrentState is not Back && characterEnemy.CurrentState is not Block)
                     {
                         if (characterEnemy.Health <= 0 || characterEnemy.Health - Damage <= 0)
@@ -71,6 +79,7 @@ public abstract class Attack : PlayerState
                             OnBlocked?.Invoke(character.Agent);
                     }
 
+                    // Logica en caso de que el golpe congele el juego
                     if (HitFreeze)
                     {
                         Vector2 current = character.Physics.velocity;
@@ -82,6 +91,8 @@ public abstract class Attack : PlayerState
                         character.Physics.velocity = current;
                         character.Physics.gravityScale = 4;
                     }
+
+
                     times--;
                     if (times > 0)
                         yield return new WaitForSeconds(0.1f); //Aqui iba 0.2f
@@ -91,6 +102,10 @@ public abstract class Attack : PlayerState
             yield return null;
         }
 
+        if (!attackHitted)
+            AttackNoHitted?.Invoke(character.Agent);
+
+        // Sigunda parte del golpe, esta parte ya no tiene hitbox pero permite la cancelación de animaciones
         character.Animator.Play(clips[1].ToString());
         currentClip = clips[1];
         yield return new WaitForEndOfFrame();
