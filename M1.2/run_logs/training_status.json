@@ -1,0 +1,57 @@
+{
+    "Brainfighter": {
+        "checkpoints": [
+            {
+                "steps": 499994,
+                "file_path": "./M1.2/Brainfighter/Brainfighter-499994.onnx",
+                "reward": 57.04600118286908,
+                "creation_time": 1710828967.4923854,
+                "auxillary_file_paths": [
+                    "./M1.2/Brainfighter/Brainfighter-499994.pt"
+                ]
+            },
+            {
+                "steps": 749992,
+                "file_path": "./M1.2/Brainfighter/Brainfighter-749992.onnx",
+                "reward": 24.089571518557413,
+                "creation_time": 1710829262.90334,
+                "auxillary_file_paths": [
+                    "./M1.2/Brainfighter/Brainfighter-749992.pt"
+                ]
+            },
+            {
+                "steps": 999989,
+                "file_path": "./M1.2/Brainfighter/Brainfighter-999989.onnx",
+                "reward": 57.906785590308054,
+                "creation_time": 1710829571.069212,
+                "auxillary_file_paths": [
+                    "./M1.2/Brainfighter/Brainfighter-999989.pt"
+                ]
+            },
+            {
+                "steps": 1000030,
+                "file_path": "./M1.2/Brainfighter/Brainfighter-1000030.onnx",
+                "reward": 57.90666669209798,
+                "creation_time": 1710829571.1073618,
+                "auxillary_file_paths": [
+                    "./M1.2/Brainfighter/Brainfighter-1000030.pt"
+                ]
+            }
+        ],
+        "elo": 1539.404159094883,
+        "final_checkpoint": {
+            "steps": 1000030,
+            "file_path": "./M1.2/Brainfighter.onnx",
+            "reward": 57.90666669209798,
+            "creation_time": 1710829571.1073618,
+            "auxillary_file_paths": [
+                "./M1.2/Brainfighter/Brainfighter-1000030.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "2.2.1+cu121"
+    }
+}
