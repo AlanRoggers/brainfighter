@@ -15,7 +15,7 @@ behaviors:
       learning_rate_schedule: linear
       beta: 0.01
       epsilon: 0.2
-      beta_schedule: constant
+      beta_schedule: linear
       epsilon_schedule: linear
       lambd: 0.98
       num_epoch: 3

@@ -86,3 +86,17 @@ Caracteristicas.
         La vida de los personajes será de 50 (la mitad de lo que un juego real es)
         Aproximadamente cada episodio durará 1000 steps
         Las instancias que se usan para entrenar a los agentes en paralelo son nueve
+
+Agente 1.1 (Modelo 1.1)
+Las recompensas del anterior modelo no funcionaron correctamente porque llega un punto en que los dos agentes dejan de golpearse, ni siquiera intentan acercarse a su objetivo
+entonces se modifica la recompensa de la siguiente manera:
+    Recompensas:
+            +1 por golpear al agente enemigo
+            -1 por ser golpeado por el agente enemigo
+            +1 por bloquear un ataque del agente enemigo
+            -0.0001 por atacar a un agente bloqueando
+            +10 por incapacitar al agente enemigo
+            -10 por dejarse incapacitar
+            -0.01 por realizar ataques al aire
+            +1000 por ganar y si el agente llevaba recompensa positiva, esta se le suma
+            -1000 por perder y si el agente llevaba recompensa negativa esta se le suma

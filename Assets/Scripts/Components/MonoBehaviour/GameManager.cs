@@ -182,11 +182,11 @@ public class GameManager : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (TrainStage)
-        {
-            Player1.Agent.AddReward(-0.000001f);
-            Player2.Agent.AddReward(-0.000001f);
-        }
+        // if (TrainStage)
+        // {
+        //     Player1.Agent.AddReward(-0.000001f);
+        //     Player2.Agent.AddReward(-0.000001f);
+        // }
     }
     private float UpdatePlayerDistance() => Mathf.Abs(Player1.transform.localPosition.x - Player2.transform.localPosition.x);
     private void IgnoreCollisions()
@@ -211,12 +211,22 @@ public class GameManager : MonoBehaviour
     private void AgentAttackedToAir(PPOAgent agent) => agent.AddReward(-0.01f);
     private void AgentWin(PPOAgent agent)
     {
-        agent.AddReward(100);
+        float reward = agent.GetCumulativeReward();
+        if (reward > 0)
+            agent.AddReward(reward + 1000);
+        else
+            agent.AddReward(1000);
+        // agent.AddReward(100);
         agent.EndEpisode();
     }
     private void AgentDead(PPOAgent agent)
     {
-        agent.AddReward(-100);
+        float reward = agent.GetCumulativeReward();
+        if (reward < 0)
+            agent.AddReward(reward - 1000);
+        else
+            agent.AddReward(-1000);
+
         agent.EndEpisode();
     }
     private void SpawnAgents()
