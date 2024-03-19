@@ -6,6 +6,9 @@ public class GameManager : MonoBehaviour
     public float PlayersDistance { get; private set; }
     public Character Player1 { get; private set; }
     public Character Player2 { get; private set; }
+    private int H1;
+    private int H2;
+    private int steps = 0;
     private void Start()
     {
         Character[] chars = GetComponentsInChildren<Character>();
@@ -182,11 +185,25 @@ public class GameManager : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        // if (TrainStage)
-        // {
-        //     Player1.Agent.AddReward(-0.000001f);
-        //     Player2.Agent.AddReward(-0.000001f);
-        // }
+        if (TrainStage)
+        {
+            steps++;
+            if (steps % 10 == 0)
+            {
+                if (H1 == Player1.Health && H2 == Player2.Health)
+                {
+                    Player1.Agent.AddReward(-0.001f);
+                    Player2.Agent.AddReward(-0.001f);
+                }
+                else
+                {
+                    H1 = Player1.Health;
+                    H2 = Player2.Health;
+                }
+            }
+            //     Player1.Agent.AddReward(-0.000001f);
+            //     Player2.Agent.AddReward(-0.000001f);
+        }
     }
     private float UpdatePlayerDistance() => Mathf.Abs(Player1.transform.localPosition.x - Player2.transform.localPosition.x);
     private void IgnoreCollisions()
@@ -247,6 +264,7 @@ public class GameManager : MonoBehaviour
 
         Player1.transform.localPosition = new Vector2(Player1X, Player1.Spawn.y);
         Player2.transform.localPosition = new Vector2(Player2X, Player2.Spawn.y);
+        steps = 0;
     }
 
     #endregion
