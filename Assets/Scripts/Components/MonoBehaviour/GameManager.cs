@@ -225,25 +225,15 @@ public class GameManager : MonoBehaviour
     private void AgentAttackBlocked(PPOAgent agent) => agent.AddReward(-0.0001f);
     private void AgentAttackCauseStun(PPOAgent agent) => agent.AddReward(10);
     private void AgentStuned(PPOAgent agent) => agent.AddReward(-10);
-    private void AgentAttackedToAir(PPOAgent agent) => agent.AddReward(-0.01f);
+    private void AgentAttackedToAir(PPOAgent agent) => agent.AddReward(-0.1f);
     private void AgentWin(PPOAgent agent)
     {
-        float reward = agent.GetCumulativeReward();
-        if (reward > 0)
-            agent.AddReward(reward + 1000);
-        else
-            agent.AddReward(1000);
-        // agent.AddReward(100);
+        agent.AddReward(50);
         agent.EndEpisode();
     }
     private void AgentDead(PPOAgent agent)
     {
-        float reward = agent.GetCumulativeReward();
-        if (reward < 0)
-            agent.AddReward(reward - 1000);
-        else
-            agent.AddReward(-1000);
-
+        agent.AddReward(-50);
         agent.EndEpisode();
     }
     private void SpawnAgents()
