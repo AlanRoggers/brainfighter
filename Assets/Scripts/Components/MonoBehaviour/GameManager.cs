@@ -214,6 +214,8 @@ public class GameManager : MonoBehaviour
             {
                 if (Player1.Health > Player2.Health)
                 {
+                    Player1.Agent.AddReward(50);
+                    Player2.Agent.AddReward(-50);
                     Player1.Agent.EndEpisode();
                     Player2.Agent.EndEpisode();
                     return;
@@ -221,6 +223,8 @@ public class GameManager : MonoBehaviour
 
                 if (Player2.Health > Player1.Health)
                 {
+                    Player1.Agent.AddReward(-50);
+                    Player2.Agent.AddReward(50);
                     Player1.Agent.EndEpisode();
                     Player2.Agent.EndEpisode();
                     return;
