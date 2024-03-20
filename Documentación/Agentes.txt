@@ -144,6 +144,58 @@ cambie las acciones de caminar y retroceder, ahora se pueden ver más como Camin
         DecisionPeriod = 10
         resitencia de los personajes en 20
 
-Modelo 1.3.1 (Modelo 1.3.1)
+Agente 1.3.1 (Modelo 1.3.1)
 Parece que las cosas mejoran pero se estanca en un óptimo local debido a que es mas rentable no hacer nada
 que hacer alguna acción
+
+Agente 2.0 (Modelo 2.0)
+    Acciones:
+        -> Branch 1:
+            <- No hacer nada de esta branch
+            <- Moverse con velocidad positiva
+            <- Moverse con velocidad negativa
+        -> Branch 2:
+            <- No hacer nada de esta branch
+            <- Saltar
+            <- Golpe debil
+            <- Golpe ligero
+            <- Golpe fuerte
+            <- Golpe especial
+            <- Patada debil
+            <- Patada ligera
+            <- Patada fuerte
+            <- Patada especial
+    Observaciones:
+        -> Distancia entre los dos agentes normalizada (float)
+        -> Vida del agente normalizada (float)
+        -> Vida del agente enemigo normalizada (float)
+        -> Ataques en enfriamiento (bool)
+        -> Resistencia del agente normalizada (float)
+        -> Muy cerca del agente enemigo (bool)
+        -> Cantidad de ataques encadenados normalizada (float)
+        -> Velocidad del agente (normalizada) 
+        -> Vector de estados del agente, son 16 estados
+        -> Vector de estados del enemigo, son 16 estados
+    Recompensas:
+            +1 por golpear al agente enemigo
+            -1 por ser golpeado por el agente enemigo
+            +1 por bloquear un ataque del agente enemigo
+            +10 por incapacitar al agente enemigo
+            -10 por dejarse incapacitar
+        |   -0.01 += (0.001) por cada 50 steps que el agente no le haya quitado vida al enemigo (se resetea el valor a -0.01 cada vez que el agete daña a su enemigo)
+            +50 por ganar
+            -50 por perder
+    Ajustes adicionales:
+        Cada que un se inicia un episodio, los agentes apareceran a 5 unidades de distancia
+        La vida de los personajes será de 30
+        Cada episodio durará 1000 steps
+        Las instancias que se usan para entrenar a los agentes en paralelo son nueve
+        TakeActionsBetweenDecisions esta desactivado
+        DecisionPeriod = 10
+        resitencia de los personajes en 20
+        EndEpisode siempre y cuando uno de los dos enemigos tenga mas vida que el otro sino EpisodeInterrupted()
+
+Nota: Con este modelo me doy cuenta que tal vez la parte del bloqueo es demasiado para el personaje pensar en remplantearlo pero solo para la IA
+
+Agente 2.1 (Modelo 2.1)
+    Todo igual a excepcion de la recompensa por bloquear, ya no existe

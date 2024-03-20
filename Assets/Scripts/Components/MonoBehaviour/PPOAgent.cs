@@ -28,6 +28,7 @@ public class PPOAgent : Agent
             0.0f,
             1.0f
         );
+        sensor.AddObservation(character.Physics.velocity.x / 7.52f);
         sensor.AddObservation(normalizedCurrentDistanceX);
         sensor.AddObservation(character.Health / 100f);
         sensor.AddObservation((gameObject.layer == 6 ? mngr.Player2.Health : mngr.Player1.Health) / 100f);
@@ -39,7 +40,6 @@ public class PPOAgent : Agent
             )
         );
         sensor.AddObservation(character.HitsChained / 4f);
-        sensor.AddObservation(Mathf.Sign(character.transform.localScale.x));
         sensor.AddOneHotObservation(StateObservation(character.CurrentState), 16);
         sensor.AddOneHotObservation(StateObservation
         (
@@ -48,44 +48,58 @@ public class PPOAgent : Agent
     }
     public override void OnActionReceived(ActionBuffers actions)
     {
-        switch (actions.DiscreteActions[0])
+        int branch1 = actions.DiscreteActions[0];
+        int branch2 = actions.DiscreteActions[1];
+        if (branch2 == 0)
         {
-            case 0:
-                RequestedAction = State.IDDLE;
-                break;
-            case 1:
-                RequestedAction = State.WALK;
-                break;
-            case 2:
-                RequestedAction = State.BACK;
-                break;
-            case 3:
-                RequestedAction = State.JUMP;
-                break;
-            case 4:
-                RequestedAction = State.LOW_PUNCH;
-                break;
-            case 5:
-                RequestedAction = State.MIDDLE_PUNCH;
-                break;
-            case 6:
-                RequestedAction = State.HARD_PUNCH;
-                break;
-            case 7:
-                RequestedAction = State.LOW_KICK;
-                break;
-            case 8:
-                RequestedAction = State.MIDDLE_KICK;
-                break;
-            case 9:
-                RequestedAction = State.HARD_KICK;
-                break;
-            case 10:
-                RequestedAction = State.SPECIAL_KICK;
-                break;
-            case 11:
-                RequestedAction = State.SPECIAL_PUNCH;
-                break;
+            switch (branch1)
+            {
+                case 0:
+                    RequestedAction = State.IDDLE;
+                    break;
+                case 1:
+                    RequestedAction = State.WALK;
+                    break;
+                case 2:
+                    RequestedAction = State.BACK;
+                    break;
+            }
+        }
+        else
+        {
+            switch (branch2)
+            {
+                case 0:
+                    RequestedAction = State.IDDLE;
+                    break;
+                case 1:
+                    RequestedAction = State.JUMP;
+                    break;
+                case 2:
+                    RequestedAction = State.LOW_PUNCH;
+                    break;
+                case 3:
+                    RequestedAction = State.MIDDLE_PUNCH;
+                    break;
+                case 4:
+                    RequestedAction = State.HARD_PUNCH;
+                    break;
+                case 5:
+                    RequestedAction = State.LOW_KICK;
+                    break;
+                case 6:
+                    RequestedAction = State.MIDDLE_KICK;
+                    break;
+                case 7:
+                    RequestedAction = State.HARD_KICK;
+                    break;
+                case 8:
+                    RequestedAction = State.SPECIAL_KICK;
+                    break;
+                case 9:
+                    RequestedAction = State.SPECIAL_PUNCH;
+                    break;
+            }
         }
     }
     public override void Heuristic(in ActionBuffers actionsOut)

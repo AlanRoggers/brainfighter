@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private float punishment = 0.01f;
     private bool nearestEnemy;
     public bool TrainStage;
     public float PlayersDistance { get; private set; }
@@ -51,32 +52,33 @@ public class GameManager : MonoBehaviour
 
             #endregion
 
-            #region AttackBlocked
-            Player1.States.LowPunch.OnBlocked += AgentAttackBlocked;
-            Player2.States.LowPunch.OnBlocked += AgentAttackBlocked;
+            // #region AttackBlocked
 
-            Player1.States.MiddlePunch.OnBlocked += AgentAttackBlocked;
-            Player2.States.MiddlePunch.OnBlocked += AgentAttackBlocked;
+            // Player1.States.LowPunch.OnBlocked += AgentAttackBlocked;
+            // Player2.States.LowPunch.OnBlocked += AgentAttackBlocked;
 
-            Player1.States.HardPunch.OnBlocked += AgentAttackBlocked;
-            Player2.States.HardPunch.OnBlocked += AgentAttackBlocked;
+            // Player1.States.MiddlePunch.OnBlocked += AgentAttackBlocked;
+            // Player2.States.MiddlePunch.OnBlocked += AgentAttackBlocked;
 
-            Player1.States.SpecialPunch.OnBlocked += AgentAttackBlocked;
-            Player2.States.SpecialPunch.OnBlocked += AgentAttackBlocked;
+            // Player1.States.HardPunch.OnBlocked += AgentAttackBlocked;
+            // Player2.States.HardPunch.OnBlocked += AgentAttackBlocked;
 
-            Player1.States.LowKick.OnBlocked += AgentAttackBlocked;
-            Player2.States.LowKick.OnBlocked += AgentAttackBlocked;
+            // Player1.States.SpecialPunch.OnBlocked += AgentAttackBlocked;
+            // Player2.States.SpecialPunch.OnBlocked += AgentAttackBlocked;
 
-            Player1.States.MiddleKick.OnBlocked += AgentAttackBlocked;
-            Player2.States.MiddleKick.OnBlocked += AgentAttackBlocked;
+            // Player1.States.LowKick.OnBlocked += AgentAttackBlocked;
+            // Player2.States.LowKick.OnBlocked += AgentAttackBlocked;
 
-            Player1.States.HardKick.OnBlocked += AgentAttackBlocked;
-            Player2.States.HardKick.OnBlocked += AgentAttackBlocked;
+            // Player1.States.MiddleKick.OnBlocked += AgentAttackBlocked;
+            // Player2.States.MiddleKick.OnBlocked += AgentAttackBlocked;
 
-            Player1.States.SpecialKick.OnBlocked += AgentAttackBlocked;
-            Player2.States.SpecialKick.OnBlocked += AgentAttackBlocked;
+            // Player1.States.HardKick.OnBlocked += AgentAttackBlocked;
+            // Player2.States.HardKick.OnBlocked += AgentAttackBlocked;
 
-            #endregion
+            // Player1.States.SpecialKick.OnBlocked += AgentAttackBlocked;
+            // Player2.States.SpecialKick.OnBlocked += AgentAttackBlocked;
+
+            // #endregion
 
             #region AttackCauseStun
 
@@ -106,33 +108,33 @@ public class GameManager : MonoBehaviour
 
             #endregion
 
-            #region AttackToAir
+            // #region AttackToAir
 
-            Player1.States.LowPunch.AttackNoHitted += AgentAttackedToAir;
-            Player2.States.LowPunch.AttackNoHitted += AgentAttackedToAir;
+            // Player1.States.LowPunch.AttackNoHitted += AgentAttackedToAir;
+            // Player2.States.LowPunch.AttackNoHitted += AgentAttackedToAir;
 
-            Player1.States.MiddlePunch.AttackNoHitted += AgentAttackedToAir;
-            Player2.States.MiddlePunch.AttackNoHitted += AgentAttackedToAir;
+            // Player1.States.MiddlePunch.AttackNoHitted += AgentAttackedToAir;
+            // Player2.States.MiddlePunch.AttackNoHitted += AgentAttackedToAir;
 
-            Player1.States.HardPunch.AttackNoHitted += AgentAttackedToAir;
-            Player2.States.HardPunch.AttackNoHitted += AgentAttackedToAir;
+            // Player1.States.HardPunch.AttackNoHitted += AgentAttackedToAir;
+            // Player2.States.HardPunch.AttackNoHitted += AgentAttackedToAir;
 
-            Player1.States.SpecialPunch.AttackNoHitted += AgentAttackedToAir;
-            Player2.States.SpecialPunch.AttackNoHitted += AgentAttackedToAir;
+            // Player1.States.SpecialPunch.AttackNoHitted += AgentAttackedToAir;
+            // Player2.States.SpecialPunch.AttackNoHitted += AgentAttackedToAir;
 
-            Player1.States.LowKick.AttackNoHitted += AgentAttackedToAir;
-            Player2.States.LowKick.AttackNoHitted += AgentAttackedToAir;
+            // Player1.States.LowKick.AttackNoHitted += AgentAttackedToAir;
+            // Player2.States.LowKick.AttackNoHitted += AgentAttackedToAir;
 
-            Player1.States.MiddleKick.AttackNoHitted += AgentAttackedToAir;
-            Player2.States.MiddleKick.AttackNoHitted += AgentAttackedToAir;
+            // Player1.States.MiddleKick.AttackNoHitted += AgentAttackedToAir;
+            // Player2.States.MiddleKick.AttackNoHitted += AgentAttackedToAir;
 
-            Player1.States.HardKick.AttackNoHitted += AgentAttackedToAir;
-            Player2.States.HardKick.AttackNoHitted += AgentAttackedToAir;
+            // Player1.States.HardKick.AttackNoHitted += AgentAttackedToAir;
+            // Player2.States.HardKick.AttackNoHitted += AgentAttackedToAir;
 
-            Player1.States.SpecialKick.AttackNoHitted += AgentAttackedToAir;
-            Player2.States.SpecialKick.AttackNoHitted += AgentAttackedToAir;
+            // Player1.States.SpecialKick.AttackNoHitted += AgentAttackedToAir;
+            // Player2.States.SpecialKick.AttackNoHitted += AgentAttackedToAir;
 
-            #endregion
+            // #endregion
 
             #region Win
 
@@ -166,8 +168,8 @@ public class GameManager : MonoBehaviour
             Player1.States.Hurt.OnHurt += AgentHurted;
             Player2.States.Hurt.OnHurt += AgentHurted;
 
-            Player1.States.Block.OnBlock += AgentBlockedAttack;
-            Player2.States.Block.OnBlock += AgentBlockedAttack;
+            // Player1.States.Block.OnBlock += AgentBlockedAttack;
+            // Player2.States.Block.OnBlock += AgentBlockedAttack;
 
             Player1.States.Stun.OnStun += AgentStuned;
             Player2.States.Stun.OnStun += AgentStuned;
@@ -196,22 +198,15 @@ public class GameManager : MonoBehaviour
             {
                 if (H1 == Player1.Health && H2 == Player2.Health)
                 {
-                    Player1.Agent.AddReward(-0.01f);
-                    Player2.Agent.AddReward(-0.01f);
+                    Player1.Agent.AddReward(-punishment);
+                    Player2.Agent.AddReward(-punishment);
+                    punishment += 0.001f;
                 }
                 else
                 {
+                    punishment = 0.01f;
                     H1 = Player1.Health;
                     H2 = Player2.Health;
-                }
-            }
-
-            if (steps % 10 == 0)
-            {
-                if (!nearestEnemy)
-                {
-                    Player1.Agent.AddReward(-0.001f);
-                    Player2.Agent.AddReward(-0.001f);
                 }
             }
 
@@ -219,8 +214,6 @@ public class GameManager : MonoBehaviour
             {
                 if (Player1.Health > Player2.Health)
                 {
-                    Player1.Agent.AddReward(50);
-                    Player2.Agent.AddReward(-50);
                     Player1.Agent.EndEpisode();
                     Player2.Agent.EndEpisode();
                     return;
@@ -228,19 +221,14 @@ public class GameManager : MonoBehaviour
 
                 if (Player2.Health > Player1.Health)
                 {
-                    Player1.Agent.AddReward(-50);
-                    Player2.Agent.AddReward(50);
                     Player1.Agent.EndEpisode();
                     Player2.Agent.EndEpisode();
                     return;
                 }
 
-
                 Player1.Agent.EpisodeInterrupted();
                 Player2.Agent.EpisodeInterrupted();
             }
-            //     Player1.Agent.AddReward(-0.000001f);
-            //     Player2.Agent.AddReward(-0.000001f);
         }
     }
     private float UpdatePlayerDistance() => Mathf.Abs(Player1.transform.localPosition.x - Player2.transform.localPosition.x);

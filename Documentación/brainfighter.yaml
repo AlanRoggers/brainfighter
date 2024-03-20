@@ -21,7 +21,7 @@ behaviors:
       num_epoch: 3
       shared_critic: False
     network_settings:
-      hidden_units: 128
+      hidden_units: 256
       num_layers: 4
       normalize: false
       conditioning_type: none
