@@ -21,11 +21,11 @@ public class Walk : PlayerState
     }
     public override PlayerState InputAIHandler(Character character, PPOAgent agent)
     {
+        if (character.EntryAttack && character.transform.localScale.x < 0)
+            return character.States.Block;
+
         if (character.EntryAttack)
             return character.States.Hurt;
-
-        if (agent.RequestedAction == State.BACK)
-            return character.States.Back;
 
         if (!character.OnColdoown)
         {

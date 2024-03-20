@@ -199,3 +199,28 @@ Nota: Con este modelo me doy cuenta que tal vez la parte del bloqueo es demasiad
 
 Agente 2.1 (Modelo 2.1)
     Todo igual a excepcion de la recompensa por bloquear, ya no existe
+
+Agente 2.2 (Modelo 2.2)
+    Recompensas:
+            +1 por golpear al agente enemigo
+            -1 por ser golpeado por el agente enemigo
+            +1 por bloquear un ataque del agente enemigo
+            +10 por incapacitar al agente enemigo
+            -10 por dejarse incapacitar
+        |   -0.01 += (0.005) por cada 10 steps que el agente no le haya quitado vida al enemigo (se resetea el valor a -0.01 cada vez que el agete daña a su enemigo)
+        |   +10 por ganar
+            -10 por perder
+
+    Ajustes adicionales:
+        Cada que un se inicia un episodio, los agentes apareceran a 5 unidades de distancia
+        La vida de los personajes será de 30
+        Cada episodio durará 1000 steps
+        Las instancias que se usan para entrenar a los agentes en paralelo son nueve
+        TakeActionsBetweenDecisions esta desactivado
+        DecisionPeriod = 10
+        resitencia de los personajes en 20
+        EndEpisode siempre y cuando uno de los dos enemigos tenga mas vida que el otro sino EpisodeInterrupted()
+        Las acciones se esconden dependiendo del estado
+
+Agente 3.0 (Modelo 3.0)
+Agregar bloqueo como acción, en vez de dejar que se detone sola

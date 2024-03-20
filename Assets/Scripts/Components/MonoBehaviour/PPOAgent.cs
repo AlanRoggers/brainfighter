@@ -2,6 +2,7 @@ using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
 using UnityEngine;
+using System;
 public class PPOAgent : Agent
 {
     public delegate void Begin();
@@ -28,7 +29,7 @@ public class PPOAgent : Agent
             0.0f,
             1.0f
         );
-        sensor.AddObservation(character.Physics.velocity.x / 7.52f);
+        sensor.AddObservation(MathF.Round(character.Physics.velocity.x, 2, MidpointRounding.AwayFromZero) / 7.52f);
         sensor.AddObservation(normalizedCurrentDistanceX);
         sensor.AddObservation(character.Health / 100f);
         sensor.AddObservation((gameObject.layer == 6 ? mngr.Player2.Health : mngr.Player1.Health) / 100f);
@@ -100,6 +101,55 @@ public class PPOAgent : Agent
                     RequestedAction = State.SPECIAL_PUNCH;
                     break;
             }
+        }
+    }
+    public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
+    {
+        switch (character.CurrentState)
+        {
+            case Jump:
+            case Fall:
+            case Block:
+            case Stun:
+            case SpecialKick:
+            case SpecialPunch:
+                actionMask.SetActionEnabled(0, 1, false);
+                actionMask.SetActionEnabled(0, 2, false);
+                actionMask.SetActionEnabled(1, 1, false);
+                actionMask.SetActionEnabled(1, 2, false);
+                actionMask.SetActionEnabled(1, 3, false);
+                actionMask.SetActionEnabled(1, 4, false);
+                actionMask.SetActionEnabled(1, 5, false);
+                actionMask.SetActionEnabled(1, 6, false);
+                actionMask.SetActionEnabled(1, 7, false);
+                actionMask.SetActionEnabled(1, 8, false);
+                actionMask.SetActionEnabled(1, 9, false);
+                // Debug.Log("Accion permitida: Iddle");
+                break;
+            case LowKick:
+            case MiddleKick:
+            case HardKick:
+                // Debug.Log("Accion permitida: Patadas");
+                actionMask.SetActionEnabled(0, 1, false);
+                actionMask.SetActionEnabled(0, 2, false);
+                actionMask.SetActionEnabled(1, 1, false);
+                actionMask.SetActionEnabled(1, 1, false);
+                actionMask.SetActionEnabled(1, 2, false);
+                actionMask.SetActionEnabled(1, 3, false);
+                actionMask.SetActionEnabled(1, 4, false);
+                actionMask.SetActionEnabled(1, 9, false);
+                break;
+            case LowPunch:
+            case MiddlePunch:
+            case HardPunch:
+                // Debug.Log("Accion permitida: Golpes");
+                actionMask.SetActionEnabled(0, 1, false);
+                actionMask.SetActionEnabled(0, 2, false);
+                actionMask.SetActionEnabled(1, 5, false);
+                actionMask.SetActionEnabled(1, 6, false);
+                actionMask.SetActionEnabled(1, 7, false);
+                actionMask.SetActionEnabled(1, 8, false);
+                break;
         }
     }
     public override void Heuristic(in ActionBuffers actionsOut)

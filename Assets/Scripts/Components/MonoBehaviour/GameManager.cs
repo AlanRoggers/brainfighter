@@ -194,13 +194,13 @@ public class GameManager : MonoBehaviour
         {
             steps++;
 
-            if (steps % 50 == 0)
+            if (steps % 10 == 0)
             {
                 if (H1 == Player1.Health && H2 == Player2.Health)
                 {
                     Player1.Agent.AddReward(-punishment);
                     Player2.Agent.AddReward(-punishment);
-                    punishment += 0.001f;
+                    punishment += 0.005f;
                 }
                 else
                 {
@@ -214,8 +214,8 @@ public class GameManager : MonoBehaviour
             {
                 if (Player1.Health > Player2.Health)
                 {
-                    Player1.Agent.AddReward(50);
-                    Player2.Agent.AddReward(-50);
+                    Player1.Agent.AddReward(10);
+                    Player2.Agent.AddReward(-10);
                     Player1.Agent.EndEpisode();
                     Player2.Agent.EndEpisode();
                     return;
@@ -223,8 +223,8 @@ public class GameManager : MonoBehaviour
 
                 if (Player2.Health > Player1.Health)
                 {
-                    Player1.Agent.AddReward(-50);
-                    Player2.Agent.AddReward(50);
+                    Player1.Agent.AddReward(-10);
+                    Player2.Agent.AddReward(10);
                     Player1.Agent.EndEpisode();
                     Player2.Agent.EndEpisode();
                     return;

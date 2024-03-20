@@ -66,7 +66,7 @@ public class Character : MonoBehaviour
     }
     void Update()
     {
-        Debug.Log(MathF.Round(Physics.velocity.x, 2, MidpointRounding.AwayFromZero));
+        // Debug.Log(MathF.Round(Physics.velocity.x, 2, MidpointRounding.AwayFromZero));
         // Manejar las acciones requeridoas por la IA o por el jugador
         futureState = !Reset ? (IsAI ? CurrentState.InputAIHandler(this, Agent) : CurrentState.InputHandler(this)) : futureState;
 
