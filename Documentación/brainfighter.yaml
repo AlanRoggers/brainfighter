@@ -13,7 +13,7 @@ behaviors:
       batch_size: 128
       buffer_size: 2048
       learning_rate_schedule: linear
-      beta: 0.01
+      beta: 0.001
       epsilon: 0.2
       beta_schedule: linear
       epsilon_schedule: linear

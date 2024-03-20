@@ -185,7 +185,6 @@ public class GameManager : MonoBehaviour
         IgnoreCollisions();
         PlayersDistance = UpdatePlayerDistance();
         nearestEnemy = Player1.OverlapDetector.EnemyOverlapping(Player1.Body, Player1.CharacterLayer);
-        Player2.Agent.AddReward(-0.001f);
     }
     private void FixedUpdate()
     {
@@ -218,6 +217,25 @@ public class GameManager : MonoBehaviour
 
             if (steps == maxSteps)
             {
+                if (Player1.Health > Player2.Health)
+                {
+                    Player1.Agent.AddReward(50);
+                    Player2.Agent.AddReward(-50);
+                    Player1.Agent.EndEpisode();
+                    Player2.Agent.EndEpisode();
+                    return;
+                }
+
+                if (Player2.Health > Player1.Health)
+                {
+                    Player1.Agent.AddReward(-50);
+                    Player2.Agent.AddReward(50);
+                    Player1.Agent.EndEpisode();
+                    Player2.Agent.EndEpisode();
+                    return;
+                }
+
+
                 Player1.Agent.EpisodeInterrupted();
                 Player2.Agent.EpisodeInterrupted();
             }
@@ -248,18 +266,19 @@ public class GameManager : MonoBehaviour
     private void AgentAttackedToAir(PPOAgent agent) => agent.AddReward(-0.1f);
     private void AgentWin(PPOAgent agent)
     {
-        agent.AddReward(50);
+        agent.AddReward(100);
         agent.EndEpisode();
     }
     private void AgentDead(PPOAgent agent)
     {
-        agent.AddReward(-50);
+        agent.AddReward(-100);
         agent.EndEpisode();
     }
     private void SpawnAgents()
     {
         // lastAttack = null;
         //-14, 12
+        steps = 0;
         float distance = 5f;
         float Player1X = Random.Range(-14f, 12f);
         float Player2X;
@@ -274,7 +293,6 @@ public class GameManager : MonoBehaviour
 
         Player1.transform.localPosition = new Vector2(Player1X, Player1.Spawn.y);
         Player2.transform.localPosition = new Vector2(Player2X, Player2.Spawn.y);
-        steps = 0;
     }
 
     #endregion

@@ -54,16 +54,10 @@ public class PPOAgent : Agent
                 RequestedAction = State.IDDLE;
                 break;
             case 1:
-                if (character.transform.localScale.x > 0)
-                    RequestedAction = State.WALK;
-                else
-                    RequestedAction = State.BACK;
+                RequestedAction = State.WALK;
                 break;
             case 2:
-                if (character.transform.localScale.x > 0)
-                    RequestedAction = State.BACK;
-                else
-                    RequestedAction = State.WALK;
+                RequestedAction = State.BACK;
                 break;
             case 3:
                 RequestedAction = State.JUMP;
@@ -208,9 +202,9 @@ public class PPOAgent : Agent
             StopCoroutine(character.CoolDownCor);
             character.CoolDownSet = null;
         }
-        character.HealthSet = 50;
+        character.HealthSet = 30;
         // character.HealthSet = Random.Range(10, 100);
-        character.ResistanceSet = 50;
+        character.ResistanceSet = 20;
         character.Friction.friction = 1; // Tal vez no
         // character.transform.localPosition = character.Spawn;
         character.Animator.speed = 1;

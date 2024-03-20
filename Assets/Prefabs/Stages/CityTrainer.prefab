@@ -218,6 +218,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Agent1
       objectReference: {fileID: 0}
+    - target: {fileID: 4884040293304894166, guid: 9ee335a47449f1da7915b47c9bf04c84, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7808250568699915144, guid: 9ee335a47449f1da7915b47c9bf04c84, type: 3}
       propertyPath: Health
       value: 
@@ -307,6 +311,10 @@ PrefabInstance:
     - target: {fileID: 4884040293304894166, guid: 9ee335a47449f1da7915b47c9bf04c84, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4884040293304894166, guid: 9ee335a47449f1da7915b47c9bf04c84, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7808250568699915144, guid: 9ee335a47449f1da7915b47c9bf04c84, type: 3}
       propertyPath: Health
