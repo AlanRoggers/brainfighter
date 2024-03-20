@@ -100,3 +100,42 @@ entonces se modifica la recompensa de la siguiente manera:
             -0.01 por realizar ataques al aire
             +1000 por ganar y si el agente llevaba recompensa positiva, esta se le suma
             -1000 por perder y si el agente llevaba recompensa negativa esta se le suma
+
+Nota: Este modelo me dio aentender que las dos últimas recompensas hechas de esta manera afectan negativamente el aprendizaje del agente debido a que el agente
+comprende que puede hacer cualuqier cosa y que al final del episodio debe acercarse y matar a su enemigo (o eso intenta)
+
+Agente 1.3 (Modelo 1.2)
+Aún no consigo que los personajes se acerquen para golpear, asi que voy a intentar recompensar a los agentes cuando esten cerca uno del otro,
+ademas, los movimientos del personaje se estan confundiendo porque una misma acción lo mueve positiva y negativamente entonces para este modelo
+cambie las acciones de caminar y retroceder, ahora se pueden ver más como Caminar = velocidad positiva y Retroceder = velocidad negativa
+    Observaciones:
+        -> Distancia entre los dos agentes normalizada (float)
+        -> Vida del agente normalizada (float)
+        -> Vida del agente enemigo normalizada (float)
+        -> Ataques en enfriamiento (bool)
+        -> Resistencia del agente normalizada (float)
+        -> Muy cerca del agente enemigo (bool)
+        -> Cantidad de ataques encadenados normalizada (float)
+        |-> Velocidad del agente (normalizada) 
+        -> Vector de estados del agente, son 16 estados en total (vector de bool)
+        -> Vector de estados del enemigo, son 16 estados en total (vector de bool)
+
+    Recompensas:
+            +1 por golpear al agente enemigo
+            -1 por ser golpeado por el agente enemigo
+            +1 por bloquear un ataque del agente enemigo
+            +10 por incapacitar al agente enemigo
+            -10 por dejarse incapacitar
+            -0.01 por realizar ataques al aire
+            -0.01 por cada 50 steps que el agente no le haya quitado vida al enemigo
+            -0.001 por cada 10 steps que el agente no se haya acercado a su enemigo 
+            +50 por ganar
+            -50 por perder
+
+    Ajustes adicionales:
+        Cada que un se inicia un episodio, los agentes apareceran a 5 unidades de distancia
+        La vida de los personajes será de 30
+        Cada episodio durará 1000 steps
+        Las instancias que se usan para entrenar a los agentes en paralelo son nueve
+        TakeActionsBetweenDecisions esta desactivado
+        DecisionPeriod = 10

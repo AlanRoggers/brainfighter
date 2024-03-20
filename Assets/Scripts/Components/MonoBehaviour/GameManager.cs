@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private bool nearestEnemy;
     public bool TrainStage;
     public float PlayersDistance { get; private set; }
     public Character Player1 { get; private set; }
     public Character Player2 { get; private set; }
+    private readonly int maxSteps = 1000;
     private int H1;
     private int H2;
     private int steps = 0;
@@ -182,24 +184,42 @@ public class GameManager : MonoBehaviour
     {
         IgnoreCollisions();
         PlayersDistance = UpdatePlayerDistance();
+        nearestEnemy = Player1.OverlapDetector.EnemyOverlapping(Player1.Body, Player1.CharacterLayer);
+        Player2.Agent.AddReward(-0.001f);
     }
     private void FixedUpdate()
     {
         if (TrainStage)
         {
             steps++;
-            if (steps % 10 == 0)
+
+            if (steps % 50 == 0)
             {
                 if (H1 == Player1.Health && H2 == Player2.Health)
                 {
-                    Player1.Agent.AddReward(-0.001f);
-                    Player2.Agent.AddReward(-0.001f);
+                    Player1.Agent.AddReward(-0.01f);
+                    Player2.Agent.AddReward(-0.01f);
                 }
                 else
                 {
                     H1 = Player1.Health;
                     H2 = Player2.Health;
                 }
+            }
+
+            if (steps % 10 == 0)
+            {
+                if (!nearestEnemy)
+                {
+                    Player1.Agent.AddReward(-0.001f);
+                    Player2.Agent.AddReward(-0.001f);
+                }
+            }
+
+            if (steps == maxSteps)
+            {
+                Player1.Agent.EpisodeInterrupted();
+                Player2.Agent.EpisodeInterrupted();
             }
             //     Player1.Agent.AddReward(-0.000001f);
             //     Player2.Agent.AddReward(-0.000001f);

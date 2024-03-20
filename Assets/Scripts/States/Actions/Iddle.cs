@@ -11,20 +11,11 @@ public class Iddle : PlayerState
             return character.States.Jump;
 
         if (agent.RequestedAction == State.WALK)
-        {
-            if (character.transform.localScale.x > 0)
-                return character.States.Walk;
-            else
-                return character.States.Back;
-        }
+            return character.States.Walk;
 
         if (agent.RequestedAction == State.BACK)
-        {
-            if (character.transform.localScale.x > 0)
-                return character.States.Back;
-            else
-                return character.States.Walk;
-        }
+            return character.States.Back;
+
 
         if (!character.OnColdoown)
         {
@@ -63,20 +54,11 @@ public class Iddle : PlayerState
         {
 
             if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
-            {
-                if (character.transform.localScale.x > 0)
-                    return character.States.Walk;
-                else
-                    return character.States.Back;
-            }
+                return character.States.Walk;
 
             if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
-            {
-                if (character.transform.localScale.x > 0)
-                    return character.States.Back;
-                else
-                    return character.States.Walk;
-            }
+                return character.States.Back;
+
 
             if (Input.GetKeyDown(KeyCode.Space))
                 return character.States.Jump;

@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterAI
       objectReference: {fileID: 0}
+    - target: {fileID: 4231093324428746313, guid: ab5326754e8a547f19751536a2856551, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6949585361238155681, guid: ab5326754e8a547f19751536a2856551, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.172269
@@ -117,7 +121,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 18000
+  MaxStep: 0
 --- !u!114 &4837213840464982822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,4 +136,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DecisionPeriod: 10
   DecisionStep: 0
-  TakeActionsBetweenDecisions: 1
+  TakeActionsBetweenDecisions: 0

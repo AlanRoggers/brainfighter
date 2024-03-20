@@ -1,10 +1,11 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Walk : PlayerState
 {
-    private KeyCode keyDetonateState;
+    private bool normalAnim;
     private readonly float maxForce = 500f;
     private readonly float maxSpeed = 10f;
     private bool jumpTransition;
@@ -14,6 +15,8 @@ public class Walk : PlayerState
         {
             AnimationState.StartWalking,
             AnimationState.Walk,
+            AnimationState.StartGoingBackwards,
+            AnimationState.GoingBackwards,
         };
     }
     public override PlayerState InputAIHandler(Character character, PPOAgent agent)
@@ -60,11 +63,8 @@ public class Walk : PlayerState
         if (character.EntryAttack)
             return character.States.Hurt;
 
-        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D) || !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D) || !Input.GetKey(KeyCode.D))
             return character.States.Iddle;
-
-        if (Input.GetKey(keyDetonateState == KeyCode.D ? KeyCode.A : KeyCode.D))
-            return character.States.Back;
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -98,7 +98,6 @@ public class Walk : PlayerState
     public override void OnEntry(Character character)
     {
         base.OnEntry(character);
-        keyDetonateState = Input.GetKey(KeyCode.D) ? KeyCode.D : KeyCode.A;
     }
     public override void OnExit(Character character)
     {
@@ -109,24 +108,37 @@ public class Walk : PlayerState
     }
     public override void Update(Character character)
     {
+        if (character.transform.localScale.x > 0 && !normalAnim || character.transform.localScale.x < 0 && normalAnim)
+            animationCor = character.StartCoroutine(HandleMultipleAnimations(character));
         // Debug.Log("Walk");
-        if (!character.OverlapDetector.EnemyOverlapping(character.Body, character.gameObject.layer == 6 ? LayerMask.GetMask("Player2") : LayerMask.GetMask("Player1")))
+        if (!character.OverlapDetector.EnemyOverlapping(character.Body, character.gameObject.layer == 6 ? LayerMask.GetMask("Player2") : LayerMask.GetMask("Player1")) || character.transform.localScale.x < 0)
         {
-            if (Mathf.Sign(character.transform.localScale.x) == 1)
-            {
-                if (MathF.Sign(character.Physics.velocity.x) < 0)
-                    character.Physics.velocity = new Vector2(0, character.Physics.velocity.y);
-            }
-            else
-            {
-                if (MathF.Sign(character.Physics.velocity.x) > 0)
-                    character.Physics.velocity = new Vector2(0, character.Physics.velocity.y);
-            }
-            float force = character.Physics.mass * maxForce * (maxSpeed - Mathf.Abs(character.Physics.velocity.x)) * Time.deltaTime * Mathf.Sign(character.transform.localScale.x);
+            float force = character.Physics.mass * maxForce * (maxSpeed - Mathf.Abs(character.Physics.velocity.x)) * Time.deltaTime;
             character.Physics.AddForce(new Vector2(force, 0), ForceMode2D.Force);
         }
-        else
-            character.Physics.velocity = new Vector2(character.transform.localScale.x > 0 ? 2 : -2, character.Physics.velocity.y);
+        else if (character.transform.localScale.x > 0)
+            character.Physics.velocity = new Vector2(2, character.Physics.velocity.y);
     }
 
+    public override IEnumerator HandleMultipleAnimations(Character character)
+    {
+        if (character.transform.localScale.x > 0)
+        {
+            normalAnim = true;
+            for (int i = 0; i < 2; i++)
+            {
+                character.Animator.Play(clips[i].ToString());
+                yield return new WaitWhile(() => character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0f);
+            }
+        }
+        else
+        {
+            normalAnim = false;
+            for (int i = 2; i < clips.Count; i++)
+            {
+                character.Animator.Play(clips[i].ToString());
+                yield return new WaitWhile(() => character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0f);
+            }
+        }
+    }
 }
