@@ -212,24 +212,6 @@ public class GameManager : MonoBehaviour
 
             if (steps == maxSteps)
             {
-                if (Player1.Health > Player2.Health)
-                {
-                    Player1.Agent.AddReward(10);
-                    Player2.Agent.AddReward(-10);
-                    Player1.Agent.EndEpisode();
-                    Player2.Agent.EndEpisode();
-                    return;
-                }
-
-                if (Player2.Health > Player1.Health)
-                {
-                    Player1.Agent.AddReward(-10);
-                    Player2.Agent.AddReward(10);
-                    Player1.Agent.EndEpisode();
-                    Player2.Agent.EndEpisode();
-                    return;
-                }
-
                 Player1.Agent.EpisodeInterrupted();
                 Player2.Agent.EpisodeInterrupted();
             }

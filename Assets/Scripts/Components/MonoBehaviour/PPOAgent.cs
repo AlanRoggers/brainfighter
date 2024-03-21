@@ -100,6 +100,9 @@ public class PPOAgent : Agent
                 case 9:
                     RequestedAction = State.SPECIAL_PUNCH;
                     break;
+                case 10:
+                    RequestedAction = State.BLOCK;
+                    break;
             }
         }
     }
@@ -159,57 +162,63 @@ public class PPOAgent : Agent
 
             ActionSegment<int> actions = actionsOut.DiscreteActions;
 
+            if (Input.GetKey(KeyCode.B))
+            {
+                actions[1] = 10;
+                return;
+            }
+
             if (Input.GetKey(KeyCode.Space))
             {
-                actions[0] = 3;
+                actions[1] = 1;
                 return;
             }
 
             if (Input.GetKey(KeyCode.U))
             {
-                actions[0] = 4;
+                actions[1] = 2;
                 return;
             }
 
             if (Input.GetKey(KeyCode.I))
             {
-                actions[0] = 5;
+                actions[1] = 3;
                 return;
             }
 
             if (Input.GetKey(KeyCode.O))
             {
-                actions[0] = 6;
+                actions[1] = 4;
                 return;
             }
 
             if (Input.GetKey(KeyCode.P))
             {
-                actions[0] = 11;
+                actions[1] = 9;
                 return;
             }
 
             if (Input.GetKey(KeyCode.J))
             {
-                actions[0] = 7;
+                actions[1] = 5;
                 return;
             }
 
             if (Input.GetKey(KeyCode.K))
             {
-                actions[0] = 8;
+                actions[1] = 6;
                 return;
             }
 
             if (Input.GetKey(KeyCode.L))
             {
-                actions[0] = 9;
+                actions[1] = 7;
                 return;
             }
 
             if (Input.GetKey(KeyCode.Semicolon))
             {
-                actions[0] = 10;
+                actions[1] = 8;
                 return;
             }
 
@@ -227,6 +236,7 @@ public class PPOAgent : Agent
             }
 
             actions[0] = 0;
+            actions[1] = 0;
         }
     }
     private int StateObservation(PlayerState state)

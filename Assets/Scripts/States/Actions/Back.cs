@@ -21,7 +21,7 @@ public class Back : PlayerState
     }
     public override PlayerState InputAIHandler(Character character, PPOAgent agent)
     {
-        if (character.EntryAttack && character.transform.localScale.x > 0)
+        if (agent.RequestedAction == State.BLOCK)
             return character.States.Block;
 
         if (character.EntryAttack)

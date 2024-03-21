@@ -4,6 +4,9 @@ public class Iddle : PlayerState
 {
     public override PlayerState InputAIHandler(Character character, PPOAgent agent)
     {
+        if (agent.RequestedAction == State.BLOCK)
+            return character.States.Block;
+
         if (character.EntryAttack)
             return character.States.Hurt;
 

@@ -8,14 +8,36 @@ public class Block : PlayerState
     public event Blocked OnBlock;
     private bool stopBlock;
     private Coroutine blockCor;
-    public override PlayerState InputAIHandler(Character character, PPOAgent agent) => SharedActions(character);
-    public override PlayerState InputHandler(Character character) => SharedActions(character);
+    public override PlayerState InputAIHandler(Character character, PPOAgent agent)
+    {
+        if (character.Resistance <= 0)
+            return character.States.Stun;
+
+        else if (character.EntryAttack)
+            return character.States.Block;
+
+        if (agent.RequestedAction != State.BLOCK)
+            return character.States.Iddle;
+
+        return null;
+    }
+    public override PlayerState InputHandler(Character character)
+    {
+        if (character.Resistance <= 0)
+            return character.States.Stun;
+
+        else if (character.EntryAttack)
+            return character.States.Block;
+
+        if (stopBlock)
+            return character.States.Iddle;
+
+        return null;
+    }
     public override void OnEntry(Character character)
     {
         stopBlock = false;
-        character.EntryAttack = false;
         character.Physics.velocity = Vector2.zero;
-        character.ReduceResistance(character.AttackReceived.Damage);
 
         if (character.Resistance <= 0)
             return;
@@ -23,7 +45,12 @@ public class Block : PlayerState
         OnBlock?.Invoke(character.Agent);
         character.Animator.Play(AnimationState.Block.ToString(), 0, 0);
 
-        blockCor = character.StartCoroutine(BlockLogic(character));
+        if (!character.IsAI)
+        {
+            character.EntryAttack = false;
+            character.ReduceResistance(character.AttackReceived.Damage);
+            blockCor = character.StartCoroutine(BlockLogic(character));
+        }
     }
     public override void OnExit(Character character)
     {
@@ -37,7 +64,15 @@ public class Block : PlayerState
             character.AttackReceived = null;
 
     }
-    public override void Update(Character character) { }
+    public override void Update(Character character)
+    {
+        if (character.IsAI && character.Resistance > 0 && character.EntryAttack)
+        {
+            character.EntryAttack = false;
+            character.ReduceResistance(character.AttackReceived.Damage);
+            blockCor = character.StartCoroutine(BlockLogic(character));
+        }
+    }
     private IEnumerator BlockLogic(Character character)
     {
         if (character.transform.localScale.x < 0)
@@ -72,18 +107,5 @@ public class Block : PlayerState
         if (!character.EntryAttack)
             character.AttackReceived = null;
         blockCor = null;
-    }
-    private PlayerState SharedActions(Character character)
-    {
-        if (character.Resistance <= 0)
-            return character.States.Stun;
-
-        else if (character.EntryAttack)
-            return character.States.Block;
-
-        if (stopBlock)
-            return character.States.Iddle;
-
-        return null;
     }
 }
