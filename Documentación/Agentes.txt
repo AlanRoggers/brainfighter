@@ -285,3 +285,5 @@ Fase 2:
 Fase 3:
 La recompensa se aplica solo si esta en el suelo
 
+Fase 4: SelfPlay
+

@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public float PlayersDistance { get; private set; }
     public Character Player1 { get; private set; }
     public Character Player2 { get; private set; }
-    private readonly int maxSteps = 1000;
+    private readonly int maxSteps = 250;
     private int H1;
     private int H2;
     private int steps = 0;
@@ -26,90 +26,89 @@ public class GameManager : MonoBehaviour
         {
             Player2.Agent.OnBegin += SpawnAgents;
 
+            #region DidDamage
 
-            // #region DidDamage
+            Player1.States.LowPunch.OnDamaged += AgentDidDamage;
+            Player2.States.LowPunch.OnDamaged += AgentDidDamage;
 
-            // Player1.States.LowPunch.OnDamaged += AgentDidDamage;
-            // Player2.States.LowPunch.OnDamaged += AgentDidDamage;
+            Player1.States.MiddlePunch.OnDamaged += AgentDidDamage;
+            Player2.States.MiddlePunch.OnDamaged += AgentDidDamage;
 
-            // Player1.States.MiddlePunch.OnDamaged += AgentDidDamage;
-            // Player2.States.MiddlePunch.OnDamaged += AgentDidDamage;
+            Player1.States.HardPunch.OnDamaged += AgentDidDamage;
+            Player2.States.HardPunch.OnDamaged += AgentDidDamage;
 
-            // Player1.States.HardPunch.OnDamaged += AgentDidDamage;
-            // Player2.States.HardPunch.OnDamaged += AgentDidDamage;
+            Player1.States.SpecialPunch.OnDamaged += AgentDidDamage;
+            Player2.States.SpecialPunch.OnDamaged += AgentDidDamage;
 
-            // Player1.States.SpecialPunch.OnDamaged += AgentDidDamage;
-            // Player2.States.SpecialPunch.OnDamaged += AgentDidDamage;
+            Player1.States.LowKick.OnDamaged += AgentDidDamage;
+            Player2.States.LowKick.OnDamaged += AgentDidDamage;
 
-            // Player1.States.LowKick.OnDamaged += AgentDidDamage;
-            // Player2.States.LowKick.OnDamaged += AgentDidDamage;
+            Player1.States.MiddleKick.OnDamaged += AgentDidDamage;
+            Player2.States.MiddleKick.OnDamaged += AgentDidDamage;
 
-            // Player1.States.MiddleKick.OnDamaged += AgentDidDamage;
-            // Player2.States.MiddleKick.OnDamaged += AgentDidDamage;
+            Player1.States.HardKick.OnDamaged += AgentDidDamage;
+            Player2.States.HardKick.OnDamaged += AgentDidDamage;
 
-            // Player1.States.HardKick.OnDamaged += AgentDidDamage;
-            // Player2.States.HardKick.OnDamaged += AgentDidDamage;
+            Player1.States.SpecialKick.OnDamaged += AgentDidDamage;
+            Player2.States.SpecialKick.OnDamaged += AgentDidDamage;
 
-            // Player1.States.SpecialKick.OnDamaged += AgentDidDamage;
-            // Player2.States.SpecialKick.OnDamaged += AgentDidDamage;
+            #endregion
 
-            // #endregion
+            #region AttackBlocked
 
-            // #region AttackBlocked
+            Player1.States.LowPunch.OnBlocked += AgentAttackBlocked;
+            Player2.States.LowPunch.OnBlocked += AgentAttackBlocked;
 
-            // Player1.States.LowPunch.OnBlocked += AgentAttackBlocked;
-            // Player2.States.LowPunch.OnBlocked += AgentAttackBlocked;
+            Player1.States.MiddlePunch.OnBlocked += AgentAttackBlocked;
+            Player2.States.MiddlePunch.OnBlocked += AgentAttackBlocked;
 
-            // Player1.States.MiddlePunch.OnBlocked += AgentAttackBlocked;
-            // Player2.States.MiddlePunch.OnBlocked += AgentAttackBlocked;
+            Player1.States.HardPunch.OnBlocked += AgentAttackBlocked;
+            Player2.States.HardPunch.OnBlocked += AgentAttackBlocked;
 
-            // Player1.States.HardPunch.OnBlocked += AgentAttackBlocked;
-            // Player2.States.HardPunch.OnBlocked += AgentAttackBlocked;
+            Player1.States.SpecialPunch.OnBlocked += AgentAttackBlocked;
+            Player2.States.SpecialPunch.OnBlocked += AgentAttackBlocked;
 
-            // Player1.States.SpecialPunch.OnBlocked += AgentAttackBlocked;
-            // Player2.States.SpecialPunch.OnBlocked += AgentAttackBlocked;
+            Player1.States.LowKick.OnBlocked += AgentAttackBlocked;
+            Player2.States.LowKick.OnBlocked += AgentAttackBlocked;
 
-            // Player1.States.LowKick.OnBlocked += AgentAttackBlocked;
-            // Player2.States.LowKick.OnBlocked += AgentAttackBlocked;
+            Player1.States.MiddleKick.OnBlocked += AgentAttackBlocked;
+            Player2.States.MiddleKick.OnBlocked += AgentAttackBlocked;
 
-            // Player1.States.MiddleKick.OnBlocked += AgentAttackBlocked;
-            // Player2.States.MiddleKick.OnBlocked += AgentAttackBlocked;
+            Player1.States.HardKick.OnBlocked += AgentAttackBlocked;
+            Player2.States.HardKick.OnBlocked += AgentAttackBlocked;
 
-            // Player1.States.HardKick.OnBlocked += AgentAttackBlocked;
-            // Player2.States.HardKick.OnBlocked += AgentAttackBlocked;
+            Player1.States.SpecialKick.OnBlocked += AgentAttackBlocked;
+            Player2.States.SpecialKick.OnBlocked += AgentAttackBlocked;
 
-            // Player1.States.SpecialKick.OnBlocked += AgentAttackBlocked;
-            // Player2.States.SpecialKick.OnBlocked += AgentAttackBlocked;
+            #endregion
 
-            // #endregion
+            #region AttackCauseStun
 
-            // #region AttackCauseStun
+            Player1.States.LowPunch.OnCauseStun += AgentAttackCauseStun;
+            Player2.States.LowPunch.OnCauseStun += AgentAttackCauseStun;
 
-            // Player1.States.LowPunch.OnCauseStun += AgentAttackCauseStun;
-            // Player2.States.LowPunch.OnCauseStun += AgentAttackCauseStun;
+            Player1.States.MiddlePunch.OnCauseStun += AgentAttackCauseStun;
+            Player2.States.MiddlePunch.OnCauseStun += AgentAttackCauseStun;
 
-            // Player1.States.MiddlePunch.OnCauseStun += AgentAttackCauseStun;
-            // Player2.States.MiddlePunch.OnCauseStun += AgentAttackCauseStun;
+            Player1.States.HardPunch.OnCauseStun += AgentAttackCauseStun;
+            Player2.States.HardPunch.OnCauseStun += AgentAttackCauseStun;
 
-            // Player1.States.HardPunch.OnCauseStun += AgentAttackCauseStun;
-            // Player2.States.HardPunch.OnCauseStun += AgentAttackCauseStun;
+            Player1.States.SpecialPunch.OnCauseStun += AgentAttackCauseStun;
+            Player2.States.SpecialPunch.OnCauseStun += AgentAttackCauseStun;
 
-            // Player1.States.SpecialPunch.OnCauseStun += AgentAttackCauseStun;
-            // Player2.States.SpecialPunch.OnCauseStun += AgentAttackCauseStun;
+            Player1.States.LowKick.OnCauseStun += AgentAttackCauseStun;
+            Player2.States.LowKick.OnCauseStun += AgentAttackCauseStun;
 
-            // Player1.States.LowKick.OnCauseStun += AgentAttackCauseStun;
-            // Player2.States.LowKick.OnCauseStun += AgentAttackCauseStun;
+            Player1.States.MiddleKick.OnCauseStun += AgentAttackCauseStun;
+            Player2.States.MiddleKick.OnCauseStun += AgentAttackCauseStun;
 
-            // Player1.States.MiddleKick.OnCauseStun += AgentAttackCauseStun;
-            // Player2.States.MiddleKick.OnCauseStun += AgentAttackCauseStun;
+            Player1.States.HardKick.OnCauseStun += AgentAttackCauseStun;
+            Player2.States.HardKick.OnCauseStun += AgentAttackCauseStun;
 
-            // Player1.States.HardKick.OnCauseStun += AgentAttackCauseStun;
-            // Player2.States.HardKick.OnCauseStun += AgentAttackCauseStun;
+            Player1.States.SpecialKick.OnCauseStun += AgentAttackCauseStun;
+            Player2.States.SpecialKick.OnCauseStun += AgentAttackCauseStun;
 
-            // Player1.States.SpecialKick.OnCauseStun += AgentAttackCauseStun;
-            // Player2.States.SpecialKick.OnCauseStun += AgentAttackCauseStun;
-
-            // #endregion
+            #endregion
 
             // #region AttackToAir
 
@@ -139,46 +138,46 @@ public class GameManager : MonoBehaviour
 
             // #endregion
 
-            // #region Win
+            #region Win
 
-            // Player1.States.LowPunch.OnWin += AgentWin;
-            // Player2.States.LowPunch.OnWin += AgentWin;
+            Player1.States.LowPunch.OnWin += AgentWin;
+            Player2.States.LowPunch.OnWin += AgentWin;
 
-            // Player1.States.MiddlePunch.OnWin += AgentWin;
-            // Player2.States.MiddlePunch.OnWin += AgentWin;
+            Player1.States.MiddlePunch.OnWin += AgentWin;
+            Player2.States.MiddlePunch.OnWin += AgentWin;
 
-            // Player1.States.HardPunch.OnWin += AgentWin;
-            // Player2.States.HardPunch.OnWin += AgentWin;
+            Player1.States.HardPunch.OnWin += AgentWin;
+            Player2.States.HardPunch.OnWin += AgentWin;
 
-            // Player1.States.SpecialPunch.OnWin += AgentWin;
-            // Player2.States.SpecialPunch.OnWin += AgentWin;
+            Player1.States.SpecialPunch.OnWin += AgentWin;
+            Player2.States.SpecialPunch.OnWin += AgentWin;
 
-            // Player1.States.LowKick.OnWin += AgentWin;
-            // Player2.States.LowKick.OnWin += AgentWin;
+            Player1.States.LowKick.OnWin += AgentWin;
+            Player2.States.LowKick.OnWin += AgentWin;
 
-            // Player1.States.MiddleKick.OnWin += AgentWin;
-            // Player2.States.MiddleKick.OnWin += AgentWin;
+            Player1.States.MiddleKick.OnWin += AgentWin;
+            Player2.States.MiddleKick.OnWin += AgentWin;
 
-            // Player1.States.HardKick.OnWin += AgentWin;
-            // Player2.States.HardKick.OnWin += AgentWin;
+            Player1.States.HardKick.OnWin += AgentWin;
+            Player2.States.HardKick.OnWin += AgentWin;
 
-            // Player1.States.SpecialKick.OnWin += AgentWin;
-            // Player2.States.SpecialKick.OnWin += AgentWin;
+            Player1.States.SpecialKick.OnWin += AgentWin;
+            Player2.States.SpecialKick.OnWin += AgentWin;
 
-            // #endregion
+            #endregion
 
 
-            // Player1.States.Hurt.OnHurt += AgentHurted;
-            // Player2.States.Hurt.OnHurt += AgentHurted;
+            Player1.States.Hurt.OnHurt += AgentHurted;
+            Player2.States.Hurt.OnHurt += AgentHurted;
 
-            // // Player1.States.Block.OnBlock += AgentBlockedAttack;
-            // // Player2.States.Block.OnBlock += AgentBlockedAttack;
+            Player1.States.Block.OnBlock += AgentBlockedAttack;
+            Player2.States.Block.OnBlock += AgentBlockedAttack;
 
-            // Player1.States.Stun.OnStun += AgentStuned;
-            // Player2.States.Stun.OnStun += AgentStuned;
+            Player1.States.Stun.OnStun += AgentStuned;
+            Player2.States.Stun.OnStun += AgentStuned;
 
-            // Player1.States.Dead.OnDead += AgentDead;
-            // Player2.States.Dead.OnDead += AgentDead;
+            Player1.States.Dead.OnDead += AgentDead;
+            Player2.States.Dead.OnDead += AgentDead;
 
 
         }
@@ -199,34 +198,35 @@ public class GameManager : MonoBehaviour
 
             if (Player2.OverlapDetector.EnemyOverlapping(Player2.Body, LayerMask.GetMask("Player1")) && Player2.OverlapDetector.GroundDetection(Player2.Body, LayerMask.GetMask("Ground")))
             {
-                punishment = 0.01f;
-                Player2.Agent.AddReward(1f);
-                Player2.Agent.EndEpisode();
+                if (steps % 10 == 0)
+                {
+                    if (H1 == Player1.Health && H2 == Player2.Health)
+                    {
+                        Player1.Agent.AddReward(-punishment);
+                        Player2.Agent.AddReward(-punishment);
+                        punishment += 0.01f;
+                    }
+                    else
+                    {
+                        punishment = 0.01f;
+                        H1 = Player1.Health;
+                        H2 = Player2.Health;
+                    }
+                }
+                Player1.Agent.AddReward(0.5f);
+                Player2.Agent.AddReward(0.5f);
             }
             else
             {
+                Player1.Agent.AddReward(-punishment);
                 Player2.Agent.AddReward(-punishment);
                 punishment += 0.01f;
             }
-            // if (steps % 10 == 0)
-            // {
-            //     if (H1 == Player1.Health && H2 == Player2.Health)
-            //     {
-            //         Player1.Agent.AddReward(-punishment);
-            //         Player2.Agent.AddReward(-punishment);
-            //         punishment += 0.005f;
-            //     }
-            //     else
-            //     {
-            //         punishment = 0.01f;
-            //         H1 = Player1.Health;
-            //         H2 = Player2.Health;
-            //     }
-            // }
-
             if (steps == maxSteps)
             {
-                // Player1.Agent.EpisodeInterrupted();
+                Player1.Agent.SetReward(0);
+                Player2.Agent.SetReward(0);
+                Player1.Agent.EpisodeInterrupted();
                 Player2.Agent.EpisodeInterrupted();
             }
         }
@@ -248,24 +248,24 @@ public class GameManager : MonoBehaviour
     }
     private void AgentHurted(PPOAgent agent) => agent.AddReward(-1);
     private void AgentBlockedAttack(PPOAgent agent) => agent.AddReward(1);
-    private void AgentAttackBlocked(PPOAgent agent) => agent.AddReward(-0.0001f);
+    private void AgentAttackBlocked(PPOAgent agent) => agent.AddReward(-1f);
     private void AgentAttackCauseStun(PPOAgent agent) => agent.AddReward(10);
     private void AgentStuned(PPOAgent agent) => agent.AddReward(-10);
     private void AgentAttackedToAir(PPOAgent agent) => agent.AddReward(-0.1f);
     private void AgentWin(PPOAgent agent)
     {
-        agent.AddReward(100);
+        agent.SetReward(1);
+        // agent.AddReward(100);
         agent.EndEpisode();
     }
     private void AgentDead(PPOAgent agent)
     {
-        agent.AddReward(-100);
+        agent.SetReward(-1);
+        // agent.AddReward(-100);
         agent.EndEpisode();
     }
     private void SpawnAgents()
     {
-        // lastAttack = null;
-        //-14, 12
         punishment = 0.01f;
         steps = 0;
         float distance = 12f;
@@ -282,7 +282,6 @@ public class GameManager : MonoBehaviour
 
         Player1.transform.localPosition = new Vector2(Player1X, Player1.Spawn.y);
         Player2.transform.localPosition = new Vector2(Player2X, Player2.Spawn.y);
-        Player1.ResetParams();
     }
 
     #endregion

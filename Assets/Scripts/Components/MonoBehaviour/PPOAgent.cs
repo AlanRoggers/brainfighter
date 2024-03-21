@@ -277,7 +277,7 @@ public class PPOAgent : Agent
             StopCoroutine(character.CoolDownCor);
             character.CoolDownSet = null;
         }
-        character.HealthSet = 100;
+        character.HealthSet = 1;
         // character.HealthSet = Random.Range(10, 100);
         character.ResistanceSet = 50;
         character.Friction.friction = 1; // Tal vez no
