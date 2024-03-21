@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Walk : PlayerState
 {
+    public event DelegateHandlers.CharacterEvents Walking;
     private bool normalAnim;
     private readonly float maxForce = 500f;
     private readonly float maxSpeed = 10f;
@@ -101,6 +102,7 @@ public class Walk : PlayerState
     }
     public override void OnExit(Character character)
     {
+        Walking?.Invoke(character);
         base.OnExit(character);
         if (!jumpTransition)
             character.Physics.velocity = new Vector2(0, character.Physics.velocity.y);

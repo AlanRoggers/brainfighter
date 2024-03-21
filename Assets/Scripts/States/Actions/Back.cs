@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Back : PlayerState
 {
+    public event DelegateHandlers.CharacterEvents Backing;
     private bool normalAnim;
     private readonly float maxForce = 500f;
     private readonly float maxSpeed = 10f;
@@ -103,6 +104,7 @@ public class Back : PlayerState
     }
     public override void OnExit(Character character)
     {
+        Backing?.Invoke(character);
         base.OnExit(character);
         if (!jumpTransition)
             character.Physics.velocity = new Vector2(0, character.Physics.velocity.y);

@@ -4,14 +4,6 @@ using UnityEngine;
 public abstract class Attack : PlayerState
 {
     #region Events
-    public delegate void AttackEvents(PPOAgent agent);
-    public delegate void AttackDamaged(PPOAgent agent, Attack attack);
-    public event AttackDamaged OnDamaged;
-    public event AttackEvents OnBlocked;
-    public event AttackEvents OnCauseStun;
-    public event AttackEvents AttackNoHitted;
-    public event AttackEvents OnWin;
-
     #endregion
     private float timeAttack;
     public bool HitFreeze { get; protected set; }
@@ -48,7 +40,6 @@ public abstract class Attack : PlayerState
 
         // Comprobar que el golpe haga contacto con el enemigo
         int times = timesDamageApplied;
-        bool attackHitted = false;
 
         while (character.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f)
         {
@@ -59,25 +50,10 @@ public abstract class Attack : PlayerState
                 {
                     Character characterEnemy = enemy.GetComponent<Character>();
                     characterEnemy.SetAttack(this);
-                    attackHitted = true;
 
                     // Comprobación para saber si el golpe hace daño, se bloquea o si estunea al enemigo (Casi que es para manejar eventos de recompensa para la IA)
                     if (characterEnemy.CurrentState is not Back && characterEnemy.CurrentState is not Block)
-                    {
-                        if (characterEnemy.Health <= 0 || characterEnemy.Health - Damage <= 0)
-                            OnWin?.Invoke(character.Agent);
-                        else
-                            OnDamaged?.Invoke(character.Agent, this);
-
                         character.IncrementResistance(Damage);
-                    }
-                    else
-                    {
-                        if (character.Resistance <= 0 || character.Resistance - Damage <= 0)
-                            OnCauseStun?.Invoke(character.Agent);
-                        else
-                            OnBlocked?.Invoke(character.Agent);
-                    }
 
                     // Logica en caso de que el golpe congele el juego
                     if (HitFreeze)
@@ -91,8 +67,6 @@ public abstract class Attack : PlayerState
                         character.Physics.velocity = current;
                         character.Physics.gravityScale = 4;
                     }
-
-
                     times--;
                     if (times > 0)
                         yield return new WaitForSeconds(0.1f); //Aqui iba 0.2f
@@ -102,8 +76,6 @@ public abstract class Attack : PlayerState
             yield return null;
         }
 
-        if (!attackHitted)
-            AttackNoHitted?.Invoke(character.Agent);
 
         // Sigunda parte del golpe, esta parte ya no tiene hitbox pero permite la cancelación de animaciones
         character.Animator.Play(clips[1].ToString());
