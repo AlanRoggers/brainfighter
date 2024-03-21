@@ -1,3 +1,5 @@
+using System.Collections;
+using Unity.Sentis.Layers;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -8,7 +10,7 @@ public class GameManager : MonoBehaviour
     public float PlayersDistance { get; private set; }
     public Character Player1 { get; private set; }
     public Character Player2 { get; private set; }
-    private readonly int maxSteps = 250;
+    private readonly int maxSteps = 1000;
     private int H1;
     private int H2;
     private int steps = 0;
@@ -195,14 +197,16 @@ public class GameManager : MonoBehaviour
         {
             steps++;
 
-            if (Player2.OverlapDetector.EnemyOverlapping(Player2.Body, LayerMask.GetMask("Player1")))
+            if (Player2.OverlapDetector.EnemyOverlapping(Player2.Body, LayerMask.GetMask("Player1")) && Player2.OverlapDetector.GroundDetection(Player2.Body, LayerMask.GetMask("Ground")))
             {
+                punishment = 0.01f;
                 Player2.Agent.AddReward(1f);
                 Player2.Agent.EndEpisode();
             }
             else
             {
-                Player2.Agent.AddReward(-0.001f);
+                Player2.Agent.AddReward(-punishment);
+                punishment += 0.01f;
             }
             // if (steps % 10 == 0)
             // {
@@ -262,8 +266,9 @@ public class GameManager : MonoBehaviour
     {
         // lastAttack = null;
         //-14, 12
+        punishment = 0.01f;
         steps = 0;
-        float distance = 10f;
+        float distance = 12f;
         float Player1X = Random.Range(-14f, 12f);
         float Player2X;
 

@@ -367,7 +367,7 @@ PrefabInstance:
     - target: {fileID: 5496638362979884382, guid: 0fa979b57f768c95b9d9ea2083d0da4a, type: 3}
       propertyPath: m_Model
       value: 
-      objectReference: {fileID: 5022602860645237092, guid: be28f8b9279835290b52e8d96221a838, type: 3}
+      objectReference: {fileID: 5022602860645237092, guid: c6d8a51fe9aa05551855fc8865c49cf0, type: 3}
     - target: {fileID: 5512243358044760269, guid: 0fa979b57f768c95b9d9ea2083d0da4a, type: 3}
       propertyPath: targetCamera
       value: 
@@ -397,8 +397,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8641000276649407167, guid: 0fa979b57f768c95b9d9ea2083d0da4a, type: 3}
-      propertyPath: TrainStage
+      propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8641000276649407167, guid: 0fa979b57f768c95b9d9ea2083d0da4a, type: 3}
+      propertyPath: TrainStage
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

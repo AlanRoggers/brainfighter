@@ -281,3 +281,7 @@ Fase 2:
         resitencia de los personajes en 20
         Las acciones se esconden dependiendo del estado
         Un solo agente entrenandose, no selfPlay
+
+Fase 3:
+La recompensa se aplica solo si esta en el suelo
+
