@@ -224,3 +224,60 @@ Agente 2.2 (Modelo 2.2)
 
 Agente 3.0 (Modelo 3.0)
 Agregar bloqueo como acción, en vez de dejar que se detone sola
+
+Agente 4.0
+
+Vamos a ir por partes con este agente usando uso del concepto "Curriculum Learning" debido a que el personaje no esta aprendiendo como me gustaría que aprendiera
+
+Fase 1: 
+    Observaciones:
+     |  -> Enemigo a la izquierda o a la derecha
+        -> Distancia entre los dos agentes normalizada (float)
+        -> Vida del agente normalizada (float)
+        -> Vida del agente enemigo normalizada (float)
+        -> Ataques en enfriamiento (bool)
+        -> Resistencia del agente normalizada (float)
+        -> Muy cerca del agente enemigo (bool)
+        -> Cantidad de ataques encadenados normalizada (float)
+        -> Velocidad del agente (normalizada) 
+        -> Vector de estados del agente, son 16 estados en total (vector de bool)
+        -> Vector de estados del enemigo, son 16 estados en total (vector de bool)
+    Acciones:
+        -> Branch 1:
+            <- No hacer nada de esta branch
+            <- Moverse con velocidad positiva
+            <- Moverse con velocidad negativa
+        -> Branch 2:
+            <- No hacer nada de esta branch
+            <- Saltar
+            <- Golpe debil
+            <- Golpe ligero
+            <- Golpe fuerte
+            <- Golpe especial
+            <- Patada debil
+            <- Patada ligera
+            <- Patada fuerte
+            <- Patada especial
+    Recompensas:
+        +1 por alcanzar al enemigo
+
+    Ajustes Adicionales:
+        Cada que un se inicia un episodio, los agentes apareceran a 5 unidades de distancia
+        Cada episodio durará 250 steps
+        Las instancias que se usan para entrenar a los agentes en paralelo son nueve
+        TakeActionsBetweenDecisions esta desactivado
+        DecisionPeriod = 10
+        resitencia de los personajes en 20
+        Las acciones se esconden dependiendo del estado
+        Un solo agente entrenandose, no selfPlay
+
+Fase 2:
+    Ajustes Adicionales:
+      | Cada que un se inicia un episodio, los agentes apareceran a 10 unidades de distancia
+        Cada episodio durará 250 steps
+        Las instancias que se usan para entrenar a los agentes en paralelo son nueve
+        TakeActionsBetweenDecisions esta desactivado
+        DecisionPeriod = 10
+        resitencia de los personajes en 20
+        Las acciones se esconden dependiendo del estado
+        Un solo agente entrenandose, no selfPlay

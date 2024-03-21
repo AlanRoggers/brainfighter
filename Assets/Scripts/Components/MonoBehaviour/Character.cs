@@ -152,7 +152,7 @@ public class Character : MonoBehaviour
             StopCoroutine(CoolDownCor);
             CoolDownSet = null;
         }
-        HealthSet = 40;
+        HealthSet = 100;
         // HealthSet = Random.Range(40, 30);
         ResistanceSet = 50;
         Friction.friction = 1; // Tal vez no

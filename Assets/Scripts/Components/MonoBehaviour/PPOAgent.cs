@@ -29,6 +29,7 @@ public class PPOAgent : Agent
             0.0f,
             1.0f
         );
+        sensor.AddObservation(mngr.Player1.transform.localPosition.x > mngr.Player2.transform.localPosition.x);
         sensor.AddObservation(MathF.Round(character.Physics.velocity.x, 2, MidpointRounding.AwayFromZero) / 7.52f);
         sensor.AddObservation(normalizedCurrentDistanceX);
         sensor.AddObservation(character.Health / 100f);
@@ -276,9 +277,9 @@ public class PPOAgent : Agent
             StopCoroutine(character.CoolDownCor);
             character.CoolDownSet = null;
         }
-        character.HealthSet = 30;
+        character.HealthSet = 100;
         // character.HealthSet = Random.Range(10, 100);
-        character.ResistanceSet = 20;
+        character.ResistanceSet = 50;
         character.Friction.friction = 1; // Tal vez no
         // character.transform.localPosition = character.Spawn;
         character.Animator.speed = 1;
