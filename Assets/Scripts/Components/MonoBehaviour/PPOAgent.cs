@@ -10,8 +10,8 @@ public class PPOAgent : Agent
     public State RequestedAction { get; private set; }
     private Character character;
     private GameManager mngr;
-    private readonly float maxDistance = 27.8f;
-    private readonly float minDistance = 1.26f;
+    private readonly float maxDistance = 27.29f;
+    private readonly float minDistance = 1.25f;
     protected override void Awake()
     {
         base.Awake();
@@ -24,29 +24,18 @@ public class PPOAgent : Agent
     }
     public override void CollectObservations(VectorSensor sensor)
     {
-        float normalizedCurrentDistanceX = Mathf.Clamp(
-            (mngr.PlayersDistance - minDistance) / (maxDistance - minDistance),
-            0.0f,
-            1.0f
-        );
-        sensor.AddObservation(mngr.Player1.transform.localPosition.x > mngr.Player2.transform.localPosition.x);
-        sensor.AddObservation(MathF.Round(character.Physics.velocity.x, 2, MidpointRounding.AwayFromZero) / 7.52f);
-        sensor.AddObservation(normalizedCurrentDistanceX);
-        sensor.AddObservation(character.Health / 100f);
-        sensor.AddObservation((gameObject.layer == 6 ? mngr.Player2.Health : mngr.Player1.Health) / 100f);
-        sensor.AddObservation(character.OnColdoown);
-        sensor.AddObservation(character.Resistance / 50f);
+        float normalizedCurrentDistanceX = (mngr.PlayersDistance - minDistance) / (maxDistance - minDistance);
+        sensor.AddObservation(MathF.Round(character.Physics.velocity.x, 2, MidpointRounding.AwayFromZero) / 7.52f); //Velocidad 
+        sensor.AddObservation(normalizedCurrentDistanceX); //Distancia normalizada
+        sensor.AddObservation(character.Health / 100f); //Vida
+        sensor.AddObservation((gameObject.layer == 6 ? mngr.Player2.Health : mngr.Player1.Health) / 100f); //Vida del enemigo
+        sensor.AddObservation(character.Resistance / 50f); //Resistencia
         sensor.AddObservation(character.OverlapDetector.EnemyOverlapping(
                 character.Body,
                 character.gameObject.layer == 6 ? LayerMask.GetMask("Player2") : LayerMask.GetMask("Player1")
             )
-        );
-        sensor.AddObservation(character.HitsChained / 4f);
-        sensor.AddOneHotObservation(StateObservation(character.CurrentState), 16);
-        sensor.AddOneHotObservation(StateObservation
-        (
-            gameObject.layer == 6 ? mngr.Player2.CurrentState : mngr.Player1.CurrentState), 16
-        );
+        ); //Muy cerca del enemigo
+        sensor.AddObservation(character.HitsChained / 4f); //Ataques encadenados
     }
     public override void OnActionReceived(ActionBuffers actions)
     {
@@ -109,6 +98,18 @@ public class PPOAgent : Agent
     }
     public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
     {
+        if (character.OnColdoown)
+        {
+            actionMask.SetActionEnabled(1, 2, false);
+            actionMask.SetActionEnabled(1, 3, false);
+            actionMask.SetActionEnabled(1, 4, false);
+            actionMask.SetActionEnabled(1, 5, false);
+            actionMask.SetActionEnabled(1, 6, false);
+            actionMask.SetActionEnabled(1, 7, false);
+            actionMask.SetActionEnabled(1, 8, false);
+            actionMask.SetActionEnabled(1, 9, false);
+        }
+
         switch (character.CurrentState)
         {
             case Jump:
@@ -128,6 +129,7 @@ public class PPOAgent : Agent
                 actionMask.SetActionEnabled(1, 7, false);
                 actionMask.SetActionEnabled(1, 8, false);
                 actionMask.SetActionEnabled(1, 9, false);
+                actionMask.SetActionEnabled(1, 10, false);
                 // Debug.Log("Accion permitida: Iddle");
                 break;
             case LowKick:
@@ -137,11 +139,11 @@ public class PPOAgent : Agent
                 actionMask.SetActionEnabled(0, 1, false);
                 actionMask.SetActionEnabled(0, 2, false);
                 actionMask.SetActionEnabled(1, 1, false);
-                actionMask.SetActionEnabled(1, 1, false);
                 actionMask.SetActionEnabled(1, 2, false);
                 actionMask.SetActionEnabled(1, 3, false);
                 actionMask.SetActionEnabled(1, 4, false);
                 actionMask.SetActionEnabled(1, 9, false);
+                actionMask.SetActionEnabled(1, 10, false);
                 break;
             case LowPunch:
             case MiddlePunch:
@@ -153,6 +155,7 @@ public class PPOAgent : Agent
                 actionMask.SetActionEnabled(1, 6, false);
                 actionMask.SetActionEnabled(1, 7, false);
                 actionMask.SetActionEnabled(1, 8, false);
+                actionMask.SetActionEnabled(1, 10, false);
                 break;
         }
     }
@@ -277,7 +280,7 @@ public class PPOAgent : Agent
             StopCoroutine(character.CoolDownCor);
             character.CoolDownSet = null;
         }
-        character.HealthSet = 1;
+        character.HealthSet = 25;
         // character.HealthSet = Random.Range(10, 100);
         character.ResistanceSet = 50;
         character.Friction.friction = 1; // Tal vez no

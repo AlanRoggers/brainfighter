@@ -222,26 +222,15 @@ Agente 2.2 (Modelo 2.2)
         EndEpisode siempre y cuando uno de los dos enemigos tenga mas vida que el otro sino EpisodeInterrupted()
         Las acciones se esconden dependiendo del estado
 
-Agente 3.0 (Modelo 3.0)
-Agregar bloqueo como acción, en vez de dejar que se detone sola
-
-Agente 4.0
-
-Vamos a ir por partes con este agente usando uso del concepto "Curriculum Learning" debido a que el personaje no esta aprendiendo como me gustaría que aprendiera
-
-Fase 1: 
-    Observaciones:
-     |  -> Enemigo a la izquierda o a la derecha
+Agente 3.0
+     Observaciones:
         -> Distancia entre los dos agentes normalizada (float)
         -> Vida del agente normalizada (float)
         -> Vida del agente enemigo normalizada (float)
-        -> Ataques en enfriamiento (bool)
         -> Resistencia del agente normalizada (float)
         -> Muy cerca del agente enemigo (bool)
         -> Cantidad de ataques encadenados normalizada (float)
-        -> Velocidad del agente (normalizada) 
-        -> Vector de estados del agente, son 16 estados en total (vector de bool)
-        -> Vector de estados del enemigo, son 16 estados en total (vector de bool)
+        -> Velocidad del personaje (normalizada)
     Acciones:
         -> Branch 1:
             <- No hacer nada de esta branch
@@ -259,31 +248,17 @@ Fase 1:
             <- Patada fuerte
             <- Patada especial
     Recompensas:
-        +1 por alcanzar al enemigo
-
-    Ajustes Adicionales:
+        +1 Ganar
+        -1 Perder
+        Si se llega al tiempo limite:
+            + cantidad de vida faltante del enemigo / 100 al agente que tenga mas vida
+            - cantidad de vida restante del enemigo / 100 al agente que tenga menos vida
+            Si tienen la misma vida entonces nada
+    Ajustes adicionales
         Cada que un se inicia un episodio, los agentes apareceran a 5 unidades de distancia
-        Cada episodio durará 250 steps
-        Las instancias que se usan para entrenar a los agentes en paralelo son nueve
-        TakeActionsBetweenDecisions esta desactivado
+        La vida de los personajes será de 25
+        Cada episodio durará 3000 steps
+        TakeActionsBetweenDecisions activado
         DecisionPeriod = 10
-        resitencia de los personajes en 20
-        Las acciones se esconden dependiendo del estado
-        Un solo agente entrenandose, no selfPlay
-
-Fase 2:
-    Ajustes Adicionales:
-      | Cada que un se inicia un episodio, los agentes apareceran a 10 unidades de distancia
-        Cada episodio durará 250 steps
-        Las instancias que se usan para entrenar a los agentes en paralelo son nueve
-        TakeActionsBetweenDecisions esta desactivado
-        DecisionPeriod = 10
-        resitencia de los personajes en 20
-        Las acciones se esconden dependiendo del estado
-        Un solo agente entrenandose, no selfPlay
-
-Fase 3:
-La recompensa se aplica solo si esta en el suelo
-
-Fase 4: SelfPlay
-
+        resistencia de los personajes en 50
+        
