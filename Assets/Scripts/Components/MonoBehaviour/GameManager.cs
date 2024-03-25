@@ -129,16 +129,20 @@ public class GameManager : MonoBehaviour
     {
         if (Player1.Health <= 0)
         {
-            Player1.Agent.AddReward(-1f);
-            Player2.Agent.AddReward(1f);
+            Debug.Log(Player1.Agent.GetCumulativeReward());
+            Debug.Log(Player2.Agent.GetCumulativeReward());
+            Player1.Agent.AddReward(-1 * (1f - Player1.Agent.GetCumulativeReward()));
+            Player2.Agent.AddReward(1f - Player2.Agent.GetCumulativeReward());
             EndEpisodes();
             return;
         }
 
         if (Player2.Health <= 0)
         {
-            Player1.Agent.AddReward(1f);
-            Player2.Agent.AddReward(-1f);
+            Debug.Log(Player1.Agent.GetCumulativeReward());
+            Debug.Log(Player2.Agent.GetCumulativeReward());
+            Player1.Agent.AddReward(1f - Player1.Agent.GetCumulativeReward());
+            Player2.Agent.AddReward(-1 * (1f - Player2.Agent.GetCumulativeReward()));
             EndEpisodes();
         }
     }
