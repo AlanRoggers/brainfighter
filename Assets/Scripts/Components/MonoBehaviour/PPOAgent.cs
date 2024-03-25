@@ -282,7 +282,7 @@ public class PPOAgent : Agent
         }
         character.HealthSet = 25;
         // character.HealthSet = Random.Range(10, 100);
-        character.ResistanceSet = 50;
+        character.ResistanceSet = 15;
         character.Friction.friction = 1; // Tal vez no
         // character.transform.localPosition = character.Spawn;
         character.Animator.speed = 1;

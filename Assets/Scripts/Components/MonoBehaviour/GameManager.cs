@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private readonly int maxHealth = 25;
     private float[] lastDistance = new float[] { -10000f, -10000f };
     public bool TrainStage;
     public float PlayersDistance { get; private set; }
@@ -22,8 +23,8 @@ public class GameManager : MonoBehaviour
         {
             Player2.Agent.OnBegin += SpawnAgents;
 
-            // Player1.States.Hurt.OnHurt += AgentHurted;
-            // Player2.States.Hurt.OnHurt += AgentHurted;
+            Player1.States.Hurt.OnHurt += AgentHurted;
+            Player2.States.Hurt.OnHurt += AgentHurted;
 
             // Player1.States.Block.OnBlock += AgentBlockedAttack;
             // Player2.States.Block.OnBlock += AgentBlockedAttack;
@@ -73,9 +74,15 @@ public class GameManager : MonoBehaviour
     private void AgentHurted(PPOAgent agent)
     {
         if (agent.gameObject.layer == 6)
-            Player2.Agent.AddReward(1);
+        {
+            Player1.Agent.AddReward(-0.5f / maxHealth);
+            Player2.Agent.AddReward(0.5f / maxHealth);
+        }
         else
-            Player1.Agent.AddReward(1);
+        {
+            Player1.Agent.AddReward(0.5f / maxHealth);
+            Player2.Agent.AddReward(-0.5f / maxHealth);
+        }
 
         // agent.AddReward(-1);
     }
@@ -160,16 +167,18 @@ public class GameManager : MonoBehaviour
     }
     private void InterruptedEpisodes()
     {
-        if (Player1.Health > Player2.Health)
-        {
-            Player1.Agent.AddReward((100f - Player2.Health) / 100f);
-            Player2.Agent.AddReward(-Player1.Health / 100f);
-        }
-        else if (Player1.Health < Player2.Health)
-        {
-            Player2.Agent.AddReward((100f - Player1.Health) / 100f);
-            Player1.Agent.AddReward(-Player2.Health / 100f);
-        }
+        // if (Player1.Health > Player2.Health)
+        // {
+        //     Player1.Agent.AddReward((100f - Player2.Health) / 100f);
+        //     Player2.Agent.AddReward(-Player1.Health / 100f);
+        // }
+        // else if (Player1.Health < Player2.Health)
+        // {
+        //     Player2.Agent.AddReward((100f - Player1.Health) / 100f);
+        //     Player1.Agent.AddReward(-Player2.Health / 100f);
+        // }
+        Player1.Agent.EpisodeInterrupted();
+        Player2.Agent.EpisodeInterrupted();
     }
     #endregion
 }
