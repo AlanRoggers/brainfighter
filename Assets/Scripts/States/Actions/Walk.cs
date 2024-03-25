@@ -98,12 +98,10 @@ public class Walk : PlayerState
     }
     public override void OnEntry(Character character)
     {
-        Walking?.Invoke(character.Agent);
         base.OnEntry(character);
     }
     public override void OnExit(Character character)
     {
-
         base.OnExit(character);
         if (!jumpTransition)
             character.Physics.velocity = new Vector2(0, character.Physics.velocity.y);
@@ -111,6 +109,7 @@ public class Walk : PlayerState
     }
     public override void Update(Character character)
     {
+        Walking?.Invoke(character.Agent);
         if (character.transform.localScale.x > 0 && !normalAnim || character.transform.localScale.x < 0 && normalAnim)
             animationCor = character.StartCoroutine(HandleMultipleAnimations(character));
         // Debug.Log("Walk");

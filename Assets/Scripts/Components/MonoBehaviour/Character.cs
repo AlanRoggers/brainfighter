@@ -57,7 +57,7 @@ public class Character : MonoBehaviour
         OverlapDetector = new Overlap();
         Friction = new() { friction = 1 };
         Physics.sharedMaterial = Friction;
-        Health = 100;
+        Health = 50;
         Resistance = 50;
         transform.localPosition = Spawn;
         CurrentState = States.Iddle;
@@ -65,6 +65,11 @@ public class Character : MonoBehaviour
     }
     void Update()
     {
+        // if (Physics.velocity.y > 15)
+        // {
+        //     Debug.Log($"Algo ocurrio: {CurrentState}");
+
+        // }
         // Debug.Log(MathF.Round(Physics.velocity.x, 2, MidpointRounding.AwayFromZero));
         // Manejar las acciones requeridoas por la IA o por el jugador
         futureState = !Reset ? (IsAI ? CurrentState.InputAIHandler(this, Agent) : CurrentState.InputHandler(this)) : futureState;

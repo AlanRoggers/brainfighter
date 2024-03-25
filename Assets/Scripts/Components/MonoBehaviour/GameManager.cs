@@ -23,13 +23,13 @@ public class GameManager : MonoBehaviour
         {
             Player2.Agent.OnBegin += SpawnAgents;
 
+            Player2.States.Walk.Walking += AgentReduceDistanceW;
+            Player2.States.Back.Backing += AgentReduceDistanceB;
             Player1.States.Hurt.OnHurt += AgentHurted;
             Player2.States.Hurt.OnHurt += AgentHurted;
 
             Player1.States.Walk.Walking += AgentReduceDistanceW;
             Player1.States.Back.Backing += AgentReduceDistanceB;
-            Player2.States.Walk.Walking += AgentReduceDistanceW;
-            Player2.States.Back.Backing += AgentReduceDistanceB;
             // Player1.States.Block.OnBlock += AgentBlockedAttack;
             // Player2.States.Block.OnBlock += AgentBlockedAttack;
 
@@ -93,12 +93,18 @@ public class GameManager : MonoBehaviour
     private void AgentReduceDistanceW(PPOAgent agent)
     {
         if (agent.transform.localScale.x > 0)
-            agent.AddReward(0.0001f);
+        {
+            Debug.Log("Recompensa por Caminar");
+            agent.AddReward(0.01f);
+        }
     }
     private void AgentReduceDistanceB(PPOAgent agent)
     {
         if (agent.transform.localScale.x < 0)
-            agent.AddReward(0.0001f);
+        {
+            Debug.Log("Recompensa por Retroceder");
+            agent.AddReward(0.01f);
+        }
     }
     private void AgentBlockedAttack(PPOAgent agent)
     {
@@ -122,20 +128,20 @@ public class GameManager : MonoBehaviour
     {
         if (Player1.Health <= 0)
         {
-            Debug.Log(Player1.Agent.GetCumulativeReward());
-            Debug.Log(Player2.Agent.GetCumulativeReward());
-            Player1.Agent.AddReward(-1 * (1f - Player1.Agent.GetCumulativeReward()));
-            Player2.Agent.AddReward(1f - Player2.Agent.GetCumulativeReward());
+            Player1.Agent.AddReward(-1 * (10f - Player1.Agent.GetCumulativeReward()));
+            Player2.Agent.AddReward(10f - Player2.Agent.GetCumulativeReward());
+            Debug.Log($"Agente 1: {Player1.Agent.GetCumulativeReward()}");
+            Debug.Log($"Agente 2: {Player2.Agent.GetCumulativeReward()}");
             EndEpisodes();
             return;
         }
 
         if (Player2.Health <= 0)
         {
-            Debug.Log(Player1.Agent.GetCumulativeReward());
-            Debug.Log(Player2.Agent.GetCumulativeReward());
-            Player1.Agent.AddReward(1f - Player1.Agent.GetCumulativeReward());
-            Player2.Agent.AddReward(-1 * (1f - Player2.Agent.GetCumulativeReward()));
+            Player1.Agent.AddReward(10f - Player1.Agent.GetCumulativeReward());
+            Player2.Agent.AddReward(-1 * (10f - Player2.Agent.GetCumulativeReward()));
+            Debug.Log($"Agente 1: {Player1.Agent.GetCumulativeReward()}");
+            Debug.Log($"Agente 2: {Player2.Agent.GetCumulativeReward()}");
             EndEpisodes();
         }
     }

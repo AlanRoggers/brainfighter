@@ -100,7 +100,6 @@ public class Back : PlayerState
     }
     public override void OnEntry(Character character)
     {
-        Backing?.Invoke(character.Agent);
         base.OnEntry(character);
     }
     public override void OnExit(Character character)
@@ -113,6 +112,7 @@ public class Back : PlayerState
     }
     public override void Update(Character character)
     {
+        Backing?.Invoke(character.Agent);
         if (character.transform.localScale.x > 0 && !normalAnim || character.transform.localScale.x < 0 && normalAnim)
             animationCor = character.StartCoroutine(HandleMultipleAnimations(character));
 

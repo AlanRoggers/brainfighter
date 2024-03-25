@@ -25,7 +25,8 @@ public class PPOAgent : Agent
     public override void CollectObservations(VectorSensor sensor)
     {
         float normalizedCurrentDistanceX = (mngr.PlayersDistance - minDistance) / (maxDistance - minDistance);
-        sensor.AddObservation(MathF.Round(character.Physics.velocity.x, 2, MidpointRounding.AwayFromZero) / 7.52f); //Velocidad 
+        // sensor.AddObservation(MathF.Round(character.Physics.velocity.x, 2, MidpointRounding.AwayFromZero) / 7.52f); //Velocidad 
+        sensor.AddObservation(transform.localScale.x > 0);
         sensor.AddObservation(normalizedCurrentDistanceX); //Distancia normalizada
         sensor.AddObservation(character.Health / 100f); //Vida
         sensor.AddObservation((gameObject.layer == 6 ? mngr.Player2.Health : mngr.Player1.Health) / 100f); //Vida del enemigo
