@@ -1,4 +1,4 @@
 public static class DelegateHandlers
 {
-    public delegate void CharacterEvents(Character character);
+    public delegate void CharacterEvents(PPOAgent character);
 }

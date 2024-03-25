@@ -98,11 +98,12 @@ public class Walk : PlayerState
     }
     public override void OnEntry(Character character)
     {
+        Walking?.Invoke(character.Agent);
         base.OnEntry(character);
     }
     public override void OnExit(Character character)
     {
-        Walking?.Invoke(character);
+
         base.OnExit(character);
         if (!jumpTransition)
             character.Physics.velocity = new Vector2(0, character.Physics.velocity.y);

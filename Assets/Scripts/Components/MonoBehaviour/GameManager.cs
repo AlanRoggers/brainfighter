@@ -26,6 +26,10 @@ public class GameManager : MonoBehaviour
             Player1.States.Hurt.OnHurt += AgentHurted;
             Player2.States.Hurt.OnHurt += AgentHurted;
 
+            Player1.States.Walk.Walking += AgentReduceDistanceW;
+            Player1.States.Back.Backing += AgentReduceDistanceB;
+            Player2.States.Walk.Walking += AgentReduceDistanceW;
+            Player2.States.Back.Backing += AgentReduceDistanceB;
             // Player1.States.Block.OnBlock += AgentBlockedAttack;
             // Player2.States.Block.OnBlock += AgentBlockedAttack;
 
@@ -86,6 +90,16 @@ public class GameManager : MonoBehaviour
 
         // agent.AddReward(-1);
     }
+    private void AgentReduceDistanceW(PPOAgent agent)
+    {
+        if (agent.transform.localScale.x > 0)
+            agent.AddReward(0.0001f);
+    }
+    private void AgentReduceDistanceB(PPOAgent agent)
+    {
+        if (agent.transform.localScale.x < 0)
+            agent.AddReward(0.0001f);
+    }
     private void AgentBlockedAttack(PPOAgent agent)
     {
         if (agent.gameObject.layer == 6)
@@ -103,27 +117,6 @@ public class GameManager : MonoBehaviour
             Player1.Agent.AddReward(10);
 
         // agent.AddReward(-10);
-    }
-    private void Movement(Character character)
-    {
-        if (character.gameObject.layer == 6)
-        {
-            float distance = UpdatePlayerDistance();
-            if (lastDistance[0] > distance)
-                Player1.Agent.AddReward(0.1f);
-            else
-                Player1.Agent.AddReward(-0.1f);
-            lastDistance[0] = distance;
-        }
-        else
-        {
-            float distance = UpdatePlayerDistance();
-            if (lastDistance[1] > distance)
-                Player2.Agent.AddReward(0.1f);
-            else
-                Player2.Agent.AddReward(-0.1f);
-            lastDistance[1] = distance;
-        }
     }
     private void AgentWin()
     {

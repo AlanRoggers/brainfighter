@@ -100,11 +100,11 @@ public class Back : PlayerState
     }
     public override void OnEntry(Character character)
     {
+        Backing?.Invoke(character.Agent);
         base.OnEntry(character);
     }
     public override void OnExit(Character character)
     {
-        Backing?.Invoke(character);
         base.OnExit(character);
         if (!jumpTransition)
             character.Physics.velocity = new Vector2(0, character.Physics.velocity.y);
