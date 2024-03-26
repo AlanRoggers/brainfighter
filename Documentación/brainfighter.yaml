@@ -22,20 +22,20 @@ behaviors:
       shared_critic: False
     network_settings:
       hidden_units: 256
-      num_layers: 3
+      num_layers: 4
       normalize: false
       conditioning_type: none
     reward_signals:
       extrinsic:
         strength: 1.0
-        gamma: 0.95
+        gamma: 0.9
       # curiosity:
-      #   strength: 0.005
+      #   strength: 0.001
       #   gamma: 0.99
       #   learning_rate: 0.0003
       #   network_settings:
       #     hidden_units: 128
-      #     num_layers: 3
+      #     num_layers: 4
     self_play:
       save_steps: 20000
       team_change: 100000

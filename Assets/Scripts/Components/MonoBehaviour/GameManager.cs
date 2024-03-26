@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
         Block2 = Player2.CurrentState is Block;
         IgnoreCollisions();
         PlayersDistance = UpdatePlayerDistance();
+        Debug.Log(PlayersDistance);
     }
     private void FixedUpdate()
     {
@@ -87,13 +88,13 @@ public class GameManager : MonoBehaviour
     {
         if (agent.gameObject.layer == 6)
         {
-            Player1.Agent.AddReward(-0.02f / maxHealth);
-            Player2.Agent.AddReward(0.02f / maxHealth);
+            Player1.Agent.AddReward(-0.075f);
+            Player2.Agent.AddReward(0.075f);
         }
         else
         {
-            Player1.Agent.AddReward(0.02f / maxHealth);
-            Player2.Agent.AddReward(-0.02f / maxHealth);
+            Player1.Agent.AddReward(0.075f);
+            Player2.Agent.AddReward(-0.075f);
         }
 
         // agent.AddReward(-1);
@@ -102,17 +103,19 @@ public class GameManager : MonoBehaviour
     {
         if (agent.transform.localScale.x > 0)
         {
-            Debug.Log("Recompensa por Caminar");
-            agent.AddReward(0.6f / maxSteps);
+            if (PlayersDistance > 1.5f)
+                agent.AddReward(0.1f);
         }
+        else agent.AddReward(-0.1f);
     }
     private void AgentReduceDistanceB(PPOAgent agent)
     {
         if (agent.transform.localScale.x < 0)
         {
-            Debug.Log("Recompensa por Retroceder");
-            agent.AddReward(0.6f / maxSteps);
+            if (PlayersDistance > 1.5f)
+                agent.AddReward(0.1f);
         }
+        else agent.AddReward(-0.1f);
     }
     private void AgentBlockedAttack(PPOAgent agent)
     {

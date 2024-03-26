@@ -24,15 +24,14 @@ public class PPOAgent : Agent
     }
     public override void CollectObservations(VectorSensor sensor)
     {
-        float normalizedCurrentDistanceX = (mngr.PlayersDistance - minDistance) / (maxDistance - minDistance);
         // sensor.AddObservation(MathF.Round(character.Physics.velocity.x, 2, MidpointRounding.AwayFromZero) / 7.52f); //Velocidad 
         sensor.AddObservation(gameObject.layer == 6 ? mngr.Hurt2 : mngr.Hurt1); //Herir al enemigo
-        sensor.AddObservation(gameObject.layer == 6 ? mngr.Block2 : mngr.Block1);
+        sensor.AddObservation(gameObject.layer == 6 ? mngr.Block2 : mngr.Block1); // Enemigo bloquea
         sensor.AddObservation(transform.localScale.x > 0); //Dirección del enemigo
-        sensor.AddObservation(normalizedCurrentDistanceX); //Distancia normalizada
-        sensor.AddObservation(character.Health / 100f); //Vida
-        sensor.AddObservation((gameObject.layer == 6 ? mngr.Player2.Health : mngr.Player1.Health) / 100f); //Vida del enemigo
-        sensor.AddObservation(character.Resistance / 50f); //Resistencia
+        sensor.AddObservation(mngr.PlayersDistance <= 1.7f); //Distancia adecuada
+        sensor.AddObservation(character.Health > 0); //Vida
+        sensor.AddObservation(gameObject.layer == 6 ? mngr.Player2.Health > 0 : mngr.Player1.Health > 0); //Vida del enemigo
+        sensor.AddObservation(character.Resistance > 0); //Resistencia
         sensor.AddObservation(character.HitsChained / 4f); //Ataques encadenados
     }
     public override void OnActionReceived(ActionBuffers actions)
