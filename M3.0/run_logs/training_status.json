@@ -1,0 +1,57 @@
+{
+    "Brainfighter": {
+        "checkpoints": [
+            {
+                "steps": 19499955,
+                "file_path": "./M3.0/Brainfighter/Brainfighter-19499955.onnx",
+                "reward": null,
+                "creation_time": 1711154078.0859761,
+                "auxillary_file_paths": [
+                    "./M3.0/Brainfighter/Brainfighter-19499955.pt"
+                ]
+            },
+            {
+                "steps": 19749999,
+                "file_path": "./M3.0/Brainfighter/Brainfighter-19749999.onnx",
+                "reward": null,
+                "creation_time": 1711154387.7662048,
+                "auxillary_file_paths": [
+                    "./M3.0/Brainfighter/Brainfighter-19749999.pt"
+                ]
+            },
+            {
+                "steps": 19999941,
+                "file_path": "./M3.0/Brainfighter/Brainfighter-19999941.onnx",
+                "reward": 1.0,
+                "creation_time": 1711154694.418282,
+                "auxillary_file_paths": [
+                    "./M3.0/Brainfighter/Brainfighter-19999941.pt"
+                ]
+            },
+            {
+                "steps": 20000005,
+                "file_path": "./M3.0/Brainfighter/Brainfighter-20000005.onnx",
+                "reward": 1.0,
+                "creation_time": 1711154694.4628243,
+                "auxillary_file_paths": [
+                    "./M3.0/Brainfighter/Brainfighter-20000005.pt"
+                ]
+            }
+        ],
+        "elo": 1304.5350140607152,
+        "final_checkpoint": {
+            "steps": 20000005,
+            "file_path": "./M3.0/Brainfighter.onnx",
+            "reward": 1.0,
+            "creation_time": 1711154694.4628243,
+            "auxillary_file_paths": [
+                "./M3.0/Brainfighter/Brainfighter-20000005.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "2.2.1+cu121"
+    }
+}

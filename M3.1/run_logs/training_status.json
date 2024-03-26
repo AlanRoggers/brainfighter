@@ -1,0 +1,57 @@
+{
+    "Brainfighter": {
+        "checkpoints": [
+            {
+                "steps": 4499989,
+                "file_path": "./M3.1/Brainfighter/Brainfighter-4499989.onnx",
+                "reward": -0.5085713788866997,
+                "creation_time": 1711344347.1425278,
+                "auxillary_file_paths": [
+                    "./M3.1/Brainfighter/Brainfighter-4499989.pt"
+                ]
+            },
+            {
+                "steps": 4749998,
+                "file_path": "./M3.1/Brainfighter/Brainfighter-4749998.onnx",
+                "reward": 0.9999999959881489,
+                "creation_time": 1711344658.8012435,
+                "auxillary_file_paths": [
+                    "./M3.1/Brainfighter/Brainfighter-4749998.pt"
+                ]
+            },
+            {
+                "steps": 4999968,
+                "file_path": "./M3.1/Brainfighter/Brainfighter-4999968.onnx",
+                "reward": 0.0,
+                "creation_time": 1711344975.571165,
+                "auxillary_file_paths": [
+                    "./M3.1/Brainfighter/Brainfighter-4999968.pt"
+                ]
+            },
+            {
+                "steps": 5076076,
+                "file_path": "./M3.1/Brainfighter/Brainfighter-5076076.onnx",
+                "reward": null,
+                "creation_time": 1711345112.1792476,
+                "auxillary_file_paths": [
+                    "./M3.1/Brainfighter/Brainfighter-5076076.pt"
+                ]
+            }
+        ],
+        "elo": 1014.0098314174335,
+        "final_checkpoint": {
+            "steps": 5076076,
+            "file_path": "./M3.1/Brainfighter.onnx",
+            "reward": null,
+            "creation_time": 1711345112.1792476,
+            "auxillary_file_paths": [
+                "./M3.1/Brainfighter/Brainfighter-5076076.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "2.2.1+cu121"
+    }
+}
