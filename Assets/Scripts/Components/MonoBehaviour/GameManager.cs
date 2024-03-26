@@ -11,6 +11,10 @@ public class GameManager : MonoBehaviour
     public Character Player2 { get; private set; }
     private readonly int maxSteps = 3000;
     private int steps = 0;
+    public bool Hurt1;
+    public bool Hurt2;
+    public bool Block1;
+    public bool Block2;
     private void Start()
     {
         Character[] chars = GetComponentsInChildren<Character>();
@@ -47,6 +51,10 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
+        Hurt1 = Player1.CurrentState is Hurt;
+        Hurt2 = Player2.CurrentState is Hurt;
+        Block1 = Player1.CurrentState is Block;
+        Block2 = Player2.CurrentState is Block;
         IgnoreCollisions();
         PlayersDistance = UpdatePlayerDistance();
     }
@@ -79,13 +87,13 @@ public class GameManager : MonoBehaviour
     {
         if (agent.gameObject.layer == 6)
         {
-            Player1.Agent.AddReward(-0.5f / maxHealth);
-            Player2.Agent.AddReward(0.5f / maxHealth);
+            Player1.Agent.AddReward(-0.02f / maxHealth);
+            Player2.Agent.AddReward(0.02f / maxHealth);
         }
         else
         {
-            Player1.Agent.AddReward(0.5f / maxHealth);
-            Player2.Agent.AddReward(-0.5f / maxHealth);
+            Player1.Agent.AddReward(0.02f / maxHealth);
+            Player2.Agent.AddReward(-0.02f / maxHealth);
         }
 
         // agent.AddReward(-1);
@@ -95,7 +103,7 @@ public class GameManager : MonoBehaviour
         if (agent.transform.localScale.x > 0)
         {
             Debug.Log("Recompensa por Caminar");
-            agent.AddReward(0.01f);
+            agent.AddReward(0.6f / maxSteps);
         }
     }
     private void AgentReduceDistanceB(PPOAgent agent)
@@ -103,7 +111,7 @@ public class GameManager : MonoBehaviour
         if (agent.transform.localScale.x < 0)
         {
             Debug.Log("Recompensa por Retroceder");
-            agent.AddReward(0.01f);
+            agent.AddReward(0.6f / maxSteps);
         }
     }
     private void AgentBlockedAttack(PPOAgent agent)
@@ -128,8 +136,8 @@ public class GameManager : MonoBehaviour
     {
         if (Player1.Health <= 0)
         {
-            Player1.Agent.AddReward(-1 * (10f - Player1.Agent.GetCumulativeReward()));
-            Player2.Agent.AddReward(10f - Player2.Agent.GetCumulativeReward());
+            Player1.Agent.AddReward(-1 * (1 - Player1.Agent.GetCumulativeReward()));
+            Player2.Agent.AddReward(1 - Player2.Agent.GetCumulativeReward());
             Debug.Log($"Agente 1: {Player1.Agent.GetCumulativeReward()}");
             Debug.Log($"Agente 2: {Player2.Agent.GetCumulativeReward()}");
             EndEpisodes();
@@ -138,8 +146,8 @@ public class GameManager : MonoBehaviour
 
         if (Player2.Health <= 0)
         {
-            Player1.Agent.AddReward(10f - Player1.Agent.GetCumulativeReward());
-            Player2.Agent.AddReward(-1 * (10f - Player2.Agent.GetCumulativeReward()));
+            Player1.Agent.AddReward(1 - Player1.Agent.GetCumulativeReward());
+            Player2.Agent.AddReward(-1 * (1 - Player2.Agent.GetCumulativeReward()));
             Debug.Log($"Agente 1: {Player1.Agent.GetCumulativeReward()}");
             Debug.Log($"Agente 2: {Player2.Agent.GetCumulativeReward()}");
             EndEpisodes();

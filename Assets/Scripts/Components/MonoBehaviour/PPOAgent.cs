@@ -26,16 +26,13 @@ public class PPOAgent : Agent
     {
         float normalizedCurrentDistanceX = (mngr.PlayersDistance - minDistance) / (maxDistance - minDistance);
         // sensor.AddObservation(MathF.Round(character.Physics.velocity.x, 2, MidpointRounding.AwayFromZero) / 7.52f); //Velocidad 
-        sensor.AddObservation(transform.localScale.x > 0);
+        sensor.AddObservation(gameObject.layer == 6 ? mngr.Hurt2 : mngr.Hurt1); //Herir al enemigo
+        sensor.AddObservation(gameObject.layer == 6 ? mngr.Block2 : mngr.Block1);
+        sensor.AddObservation(transform.localScale.x > 0); //Dirección del enemigo
         sensor.AddObservation(normalizedCurrentDistanceX); //Distancia normalizada
         sensor.AddObservation(character.Health / 100f); //Vida
         sensor.AddObservation((gameObject.layer == 6 ? mngr.Player2.Health : mngr.Player1.Health) / 100f); //Vida del enemigo
         sensor.AddObservation(character.Resistance / 50f); //Resistencia
-        sensor.AddObservation(character.OverlapDetector.EnemyOverlapping(
-                character.Body,
-                character.gameObject.layer == 6 ? LayerMask.GetMask("Player2") : LayerMask.GetMask("Player1")
-            )
-        ); //Muy cerca del enemigo
         sensor.AddObservation(character.HitsChained / 4f); //Ataques encadenados
     }
     public override void OnActionReceived(ActionBuffers actions)
@@ -281,6 +278,7 @@ public class PPOAgent : Agent
             StopCoroutine(character.CoolDownCor);
             character.CoolDownSet = null;
         }
+        character.Physics.gravityScale = 4;
         character.HealthSet = 25;
         // character.HealthSet = Random.Range(10, 100);
         character.ResistanceSet = 15;

@@ -1,5 +1,6 @@
 
 using System.Collections;
+using Unity.Sentis.Layers;
 using UnityEngine;
 
 public class Character : MonoBehaviour
@@ -88,13 +89,14 @@ public class Character : MonoBehaviour
     {
         CurrentState.Update(this);
     }
-    // private void OnDrawGizmos()
-    // {
-    //     // OverlapDetector.DrawGroundDetection(GetComponent<BoxCollider2D>(), LayerMask.GetMask("Ground"));
-    //     // OverlapDetector.DrawEnemyOverlapping(Body, gameObject.layer == 6 ? 7 : 6);
-    //     // Gizmos.DrawWireCube((Vector2)transform.position + enemyDetectorPos, enemyDetectorSize);
-    //     // OverlapDetector.DrawHitBox(gameObject.layer == 6 ? LayerMask.GetMask("Player2") : LayerMask.GetMask("Player1"), Hitbox);
-    // }
+    private void OnDrawGizmos()
+    {
+        // OverlapDetector.DrawGroundDetection(GetComponent<BoxCollider2D>(), LayerMask.GetMask("Ground"));
+        // OverlapDetector.DrawEnemyOverlapping(Body, gameObject.layer == 6 ? LayerMask.GetMask("Player2") : LayerMask.GetMask("Player1"));
+        // OverlapDetector.DrawHitOverlapping(Body, gameObject.layer == 6 ? LayerMask.GetMask("Player2") : LayerMask.GetMask("Player1"));
+        // Gizmos.DrawWireCube((Vector2)transform.position + enemyDetectorPos, enemyDetectorSize);
+        // OverlapDetector.DrawHitBox(gameObject.layer == 6 ? LayerMask.GetMask("Player2") : LayerMask.GetMask("Player1"), Hitbox);
+    }
     public IEnumerator CoolDown(float cd)
     {
         // Debug.Log("Corrutina entrante");

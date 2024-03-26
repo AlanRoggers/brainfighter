@@ -18,6 +18,12 @@ public class Overlap
             enemyDetectorSize,
             0,
             contact) != null;
+    public bool HitRange(Collider2D collider, LayerMask contact) =>
+        Physics2D.OverlapBox(
+            new Vector2(collider.bounds.center.x + (collider.transform.localScale.x > 0 ? 0.4f : -0.4f), collider.bounds.center.y),
+            enemyDetectorSize,
+            0,
+            contact) != null;
     public void DrawGroundDetection(Collider2D collider, LayerMask ground)
     {
         if (GroundDetection(collider, ground))
@@ -34,7 +40,16 @@ public class Overlap
         else
             Gizmos.color = Color.red;
 
-        Gizmos.DrawWireCube(new Vector2(collider.bounds.center.x + (collider.transform.localScale.x > 0 ? 1 : -1), collider.bounds.center.y), enemyDetectorSize);
+        Gizmos.DrawWireCube(new Vector2(collider.bounds.center.x + (collider.transform.localScale.x > 0 ? 0.3f : -0.3f), collider.bounds.center.y), enemyDetectorSize);
+    }
+    public void DrawHitOverlapping(Collider2D collider, LayerMask layer)
+    {
+        if (EnemyOverlapping(collider, layer))
+            Gizmos.color = Color.green;
+        else
+            Gizmos.color = Color.red;
+
+        Gizmos.DrawWireCube(new Vector2(collider.bounds.center.x + (collider.transform.localScale.x > 0 ? 0.4f : -0.4f), collider.bounds.center.y), enemyDetectorSize);
     }
     public void DrawHitBox(LayerMask contactLayer, CircleCollider2D hitbox)
     {
