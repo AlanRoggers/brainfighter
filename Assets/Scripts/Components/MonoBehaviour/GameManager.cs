@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public float PlayersDistance { get; private set; }
     public Character Player1 { get; private set; }
     public Character Player2 { get; private set; }
-    private readonly int maxSteps = 3000;
+    private readonly int maxSteps = 6000;
     private int steps = 0;
     public bool Hurt1;
     public bool Hurt2;
@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
         Block2 = Player2.CurrentState is Block;
         IgnoreCollisions();
         PlayersDistance = UpdatePlayerDistance();
-        Debug.Log(PlayersDistance);
+        // Debug.Log(PlayersDistance);
     }
     private void FixedUpdate()
     {
@@ -141,8 +141,8 @@ public class GameManager : MonoBehaviour
         {
             Player1.Agent.AddReward(-1 * (1 - Player1.Agent.GetCumulativeReward()));
             Player2.Agent.AddReward(1 - Player2.Agent.GetCumulativeReward());
-            Debug.Log($"Agente 1: {Player1.Agent.GetCumulativeReward()}");
-            Debug.Log($"Agente 2: {Player2.Agent.GetCumulativeReward()}");
+            // Debug.Log($"Agente 1: {Player1.Agent.GetCumulativeReward()}");
+            // Debug.Log($"Agente 2: {Player2.Agent.GetCumulativeReward()}");
             EndEpisodes();
             return;
         }
@@ -151,8 +151,8 @@ public class GameManager : MonoBehaviour
         {
             Player1.Agent.AddReward(1 - Player1.Agent.GetCumulativeReward());
             Player2.Agent.AddReward(-1 * (1 - Player2.Agent.GetCumulativeReward()));
-            Debug.Log($"Agente 1: {Player1.Agent.GetCumulativeReward()}");
-            Debug.Log($"Agente 2: {Player2.Agent.GetCumulativeReward()}");
+            // Debug.Log($"Agente 1: {Player1.Agent.GetCumulativeReward()}");
+            // Debug.Log($"Agente 2: {Player2.Agent.GetCumulativeReward()}");
             EndEpisodes();
         }
     }

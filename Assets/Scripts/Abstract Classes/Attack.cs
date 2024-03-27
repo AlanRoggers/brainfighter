@@ -50,10 +50,7 @@ public abstract class Attack : PlayerState
                 {
                     Character characterEnemy = enemy.GetComponent<Character>();
                     characterEnemy.SetAttack(this);
-
-                    // Comprobación para saber si el golpe hace daño, se bloquea o si estunea al enemigo (Casi que es para manejar eventos de recompensa para la IA)
-                    if (characterEnemy.CurrentState is not Back && characterEnemy.CurrentState is not Block)
-                        character.IncrementResistance(Damage);
+                    character.IncrementResistance(Damage);
 
                     // Logica en caso de que el golpe congele el juego
                     if (HitFreeze)
@@ -67,6 +64,7 @@ public abstract class Attack : PlayerState
                         character.Physics.velocity = current;
                         character.Physics.gravityScale = 4;
                     }
+
                     times--;
                     if (times > 0)
                         yield return new WaitForSeconds(0.1f); //Aqui iba 0.2f
@@ -77,7 +75,7 @@ public abstract class Attack : PlayerState
         }
 
 
-        // Sigunda parte del golpe, esta parte ya no tiene hitbox pero permite la cancelación de animaciones
+        // Segunda parte del golpe, esta parte ya no tiene hitbox pero permite la cancelación de animaciones
         character.Animator.Play(clips[1].ToString());
         currentClip = clips[1];
         yield return new WaitForEndOfFrame();

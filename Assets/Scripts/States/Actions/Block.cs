@@ -36,6 +36,7 @@ public class Block : PlayerState
     }
     public override void OnEntry(Character character)
     {
+        Debug.Log("Bloqueado");
         stopBlock = false;
         character.Physics.velocity = Vector2.zero;
 
@@ -55,6 +56,7 @@ public class Block : PlayerState
     public override void OnExit(Character character)
     {
         character.Animator.speed = 1;
+        character.Physics.gravityScale = 4;
         if (blockCor != null)
         {
             character.StopCoroutine(blockCor);
@@ -62,6 +64,7 @@ public class Block : PlayerState
         }
         if (!character.EntryAttack)
             character.AttackReceived = null;
+
 
     }
     public override void Update(Character character)

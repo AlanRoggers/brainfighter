@@ -22,6 +22,7 @@ public class Hurt : PlayerState
         if (character.Health <= 0)
             return;
 
+        // Debug.Log($"Daño: {character.AttackReceived.Damage}");
         OnHurt?.Invoke(character.Agent);
 
 
@@ -38,6 +39,7 @@ public class Hurt : PlayerState
         // Debug.Log(Time.time - timeHurt);
         character.Friction.friction = 1;
         character.Animator.speed = 1;
+        character.Physics.gravityScale = 4;
 
         if (hurtCor != null)
         {
