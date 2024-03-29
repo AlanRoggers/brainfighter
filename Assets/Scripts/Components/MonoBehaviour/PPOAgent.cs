@@ -25,6 +25,7 @@ public class PPOAgent : Agent
     public override void CollectObservations(VectorSensor sensor)
     {
         // sensor.AddObservation(MathF.Round(character.Physics.velocity.x, 2, MidpointRounding.AwayFromZero) / 7.52f); //Velocidad 
+        sensor.AddObservation(gameObject.layer == 6 ? mngr.Player2.CurrentState is Block : mngr.Player1.CurrentState is Block);
         sensor.AddObservation(gameObject.layer == 6 ? mngr.Hurt2 : mngr.Hurt1); //Herir al enemigo
         sensor.AddObservation(gameObject.layer == 6 ? mngr.Block2 : mngr.Block1); // Enemigo bloquea
         sensor.AddObservation(transform.localScale.x > 0); //Dirección del enemigo

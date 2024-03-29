@@ -34,11 +34,12 @@ public class GameManager : MonoBehaviour
 
             Player1.States.Walk.Walking += AgentReduceDistanceW;
             Player1.States.Back.Backing += AgentReduceDistanceB;
-            // Player1.States.Block.OnBlock += AgentBlockedAttack;
-            // Player2.States.Block.OnBlock += AgentBlockedAttack;
 
-            // Player1.States.Stun.OnStun += AgentStuned;
-            // Player2.States.Stun.OnStun += AgentStuned;
+            Player1.States.Block.OnBlock += AgentBlockedAttack;
+            Player2.States.Block.OnBlock += AgentBlockedAttack;
+
+            Player1.States.Stun.OnStun += AgentStuned;
+            Player2.States.Stun.OnStun += AgentStuned;
 
             // Player1.States.Back.Backing += Movement;
             // Player1.States.Walk.Walking += Movement;
@@ -119,21 +120,11 @@ public class GameManager : MonoBehaviour
     }
     private void AgentBlockedAttack(PPOAgent agent)
     {
-        if (agent.gameObject.layer == 6)
-            Player2.Agent.AddReward(-1);
-        else
-            Player1.Agent.AddReward(-1);
-
-        // agent.AddReward(1);
+        agent.AddReward(0.025f);
     }
     private void AgentStuned(PPOAgent agent)
     {
-        if (agent.gameObject.layer == 6)
-            Player2.Agent.AddReward(10);
-        else
-            Player1.Agent.AddReward(10);
-
-        // agent.AddReward(-10);
+        agent.AddReward(-1f);
     }
     private void AgentWin()
     {
