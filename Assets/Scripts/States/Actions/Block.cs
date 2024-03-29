@@ -36,7 +36,7 @@ public class Block : PlayerState
     }
     public override void OnEntry(Character character)
     {
-        Debug.Log("Bloqueado");
+        // Debug.Log("Bloqueado");
         stopBlock = false;
         character.Physics.velocity = Vector2.zero;
 
