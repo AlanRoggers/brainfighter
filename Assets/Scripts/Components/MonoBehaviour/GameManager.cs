@@ -120,11 +120,31 @@ public class GameManager : MonoBehaviour
     }
     private void AgentBlockedAttack(PPOAgent agent)
     {
-        agent.AddReward(0.025f);
+        if (agent.gameObject.layer == 6)
+        {
+            Player1.Agent.AddReward(0.025f);
+            Player2.Agent.AddReward(0.010f);
+        }
+        else
+        {
+            Player1.Agent.AddReward(0.010f);
+            Player2.Agent.AddReward(0.025f);
+        }
+        // agent.AddReward(0.025f);
     }
     private void AgentStuned(PPOAgent agent)
     {
-        agent.AddReward(-1f);
+        if (agent.gameObject.layer == 6)
+        {
+            Player1.Agent.AddReward(-1f);
+            Player2.Agent.AddReward(0.075f);
+        }
+        else
+        {
+            Player1.Agent.AddReward(0.075f);
+            Player2.Agent.AddReward(-1f);
+        }
+        // agent.AddReward(-1f);
     }
     private void AgentWin()
     {
