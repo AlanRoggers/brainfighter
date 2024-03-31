@@ -42,4 +42,3 @@ behaviors:
       swap_steps: 10000
       playing_against_latest_model_ratio: 0.5
       window: 10
-      initial_elo: 1370
