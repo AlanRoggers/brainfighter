@@ -63,8 +63,11 @@ public class Back : PlayerState
     }
     public override PlayerState InputHandler(Character character)
     {
-        if (character.EntryAttack)
+        if (character.EntryAttack && character.transform.localScale.x > 0)
             return character.States.Block;
+
+        if (character.EntryAttack)
+            return character.States.Hurt;
 
         if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D) || !Input.GetKey(KeyCode.A))
             return character.States.Iddle;

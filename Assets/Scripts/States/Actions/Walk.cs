@@ -60,6 +60,8 @@ public class Walk : PlayerState
     }
     public override PlayerState InputHandler(Character character)
     {
+        if (character.EntryAttack && character.transform.localScale.x < 0)
+            return character.States.Block;
 
         if (character.EntryAttack)
             return character.States.Hurt;
