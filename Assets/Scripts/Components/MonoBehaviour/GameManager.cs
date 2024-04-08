@@ -35,8 +35,8 @@ public class GameManager : MonoBehaviour
             Player1.States.Walk.Walking += AgentReduceDistanceW;
             Player1.States.Back.Backing += AgentReduceDistanceB;
 
-            Player1.States.Block.OnBlock += AgentBlockedAttack;
-            Player2.States.Block.OnBlock += AgentBlockedAttack;
+            // Player1.States.Block.OnBlock += AgentBlockedAttack;
+            // Player2.States.Block.OnBlock += AgentBlockedAttack;
 
             Player1.States.Stun.OnStun += AgentStuned;
             Player2.States.Stun.OnStun += AgentStuned;
