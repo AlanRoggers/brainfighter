@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     public bool Hurt2;
     public bool Block1;
     public bool Block2;
+    private int health1 = 0;
+    private int health2 = 0;
     private void Start()
     {
         Character[] chars = GetComponentsInChildren<Character>();
@@ -27,24 +29,25 @@ public class GameManager : MonoBehaviour
         {
             Player2.Agent.OnBegin += SpawnAgents;
 
-            Player2.States.Walk.Walking += AgentReduceDistanceW;
-            Player2.States.Back.Backing += AgentReduceDistanceB;
+            // Player2.States.Walk.Walking += AgentReduceDistanceW;
+            // Player2.States.Back.Backing += AgentReduceDistanceB;
             Player1.States.Hurt.OnHurt += AgentHurted;
             Player2.States.Hurt.OnHurt += AgentHurted;
 
-            Player1.States.Walk.Walking += AgentReduceDistanceW;
-            Player1.States.Back.Backing += AgentReduceDistanceB;
+            // Player1.States.Walk.Walking += AgentReduceDistanceW;
+            // Player1.States.Back.Backing += AgentReduceDistanceB;
 
             // Player1.States.Block.OnBlock += AgentBlockedAttack;
             // Player2.States.Block.OnBlock += AgentBlockedAttack;
 
-            Player1.States.Stun.OnStun += AgentStuned;
-            Player2.States.Stun.OnStun += AgentStuned;
+            // Player1.States.Stun.OnStun += AgentStuned;
+            // Player2.States.Stun.OnStun += AgentStuned;
 
             // Player1.States.Back.Backing += Movement;
             // Player1.States.Walk.Walking += Movement;
             // Player2.States.Back.Backing += Movement;
             // Player2.States.Walk.Walking += Movement;
+
 
 
         }
@@ -67,6 +70,20 @@ public class GameManager : MonoBehaviour
             AgentWin();
 
             steps++;
+
+            if (steps % 10 == 0)
+            {
+                if (Player2.Health == health2)
+                    Player1.Agent.AddReward(-0.0005f);
+                else
+                    health2 = Player2.Health;
+
+                if (Player1.Health == health1)
+                    Player2.Agent.AddReward(-0.0005f);
+                else
+                    health1 = Player1.Health;
+
+            }
 
             if (steps == maxSteps)
                 InterruptedEpisodes();
