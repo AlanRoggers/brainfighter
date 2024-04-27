@@ -29,26 +29,20 @@ public class GameManager : MonoBehaviour
         {
             Player2.Agent.OnBegin += SpawnAgents;
 
-            // Player2.States.Walk.Walking += AgentReduceDistanceW;
-            // Player2.States.Back.Backing += AgentReduceDistanceB;
+            Player2.States.Walk.Walking += AgentReduceDistanceW;
+            Player2.States.Back.Backing += AgentReduceDistanceB;
+            Player1.States.Walk.Walking += AgentReduceDistanceW;
+            Player1.States.Back.Backing += AgentReduceDistanceB;
+
             Player1.States.Hurt.OnHurt += AgentHurted;
             Player2.States.Hurt.OnHurt += AgentHurted;
 
-            // Player1.States.Walk.Walking += AgentReduceDistanceW;
-            // Player1.States.Back.Backing += AgentReduceDistanceB;
 
             // Player1.States.Block.OnBlock += AgentBlockedAttack;
             // Player2.States.Block.OnBlock += AgentBlockedAttack;
 
             // Player1.States.Stun.OnStun += AgentStuned;
             // Player2.States.Stun.OnStun += AgentStuned;
-
-            // Player1.States.Back.Backing += Movement;
-            // Player1.States.Walk.Walking += Movement;
-            // Player2.States.Back.Backing += Movement;
-            // Player2.States.Walk.Walking += Movement;
-
-
 
         }
 
@@ -71,19 +65,21 @@ public class GameManager : MonoBehaviour
 
             steps++;
 
-            if (steps % 10 == 0)
-            {
-                if (Player2.Health == health2)
-                    Player1.Agent.AddReward(-0.0005f);
-                else
-                    health2 = Player2.Health;
+            Player1.Agent.AddReward(-0.0001f);
+            Player2.Agent.AddReward(-0.0001f);
+            // if (steps % 10 == 0)
+            // {
+            //     if (Player2.Health == health2)
+            //         Player1.Agent.AddReward(-0.0005f);
+            //     else
+            //         health2 = Player2.Health;
 
-                if (Player1.Health == health1)
-                    Player2.Agent.AddReward(-0.0005f);
-                else
-                    health1 = Player1.Health;
+            //     if (Player1.Health == health1)
+            //         Player2.Agent.AddReward(-0.0005f);
+            //     else
+            //         health1 = Player1.Health;
 
-            }
+            // }
 
             if (steps == maxSteps)
                 InterruptedEpisodes();
@@ -122,18 +118,18 @@ public class GameManager : MonoBehaviour
         if (agent.transform.localScale.x > 0)
         {
             if (PlayersDistance > 1.5f)
-                agent.AddReward(0.1f);
+                agent.AddReward(0.05f);
         }
-        else agent.AddReward(-0.1f);
+        else agent.AddReward(-0.01f);
     }
     private void AgentReduceDistanceB(PPOAgent agent)
     {
         if (agent.transform.localScale.x < 0)
         {
             if (PlayersDistance > 1.5f)
-                agent.AddReward(0.1f);
+                agent.AddReward(0.05f);
         }
-        else agent.AddReward(-0.1f);
+        else agent.AddReward(-0.01f);
     }
     private void AgentBlockedAttack(PPOAgent agent)
     {
