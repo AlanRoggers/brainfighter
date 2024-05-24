@@ -120,7 +120,7 @@ public class GameManager : MonoBehaviour
             if (PlayersDistance > 1.5f)
                 agent.AddReward(0.05f);
         }
-        else agent.AddReward(-0.01f);
+        else agent.AddReward(-0.05f);
     }
     private void AgentReduceDistanceB(PPOAgent agent)
     {
@@ -129,7 +129,7 @@ public class GameManager : MonoBehaviour
             if (PlayersDistance > 1.5f)
                 agent.AddReward(0.05f);
         }
-        else agent.AddReward(-0.01f);
+        else agent.AddReward(-0.05f);
     }
     private void AgentBlockedAttack(PPOAgent agent)
     {
