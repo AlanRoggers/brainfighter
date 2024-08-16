@@ -1,17 +1,8 @@
 using UnityEngine;
 
-public class MovementState : AbstractState
+public class MovementState : BaseState
 {
-    public MovementState() => FixedOneExec = false;
-
-    public override bool CanTransitionTo(StateType state)
-    {
-        return state switch
-        {
-            StateType.Idle or StateType.Jump => true,
-            _ => false,
-        };
-    }
+    public MovementState(StateMachine stateMachineComp) : base(stateMachineComp) => FixedOneExec = false;
 
     public override void Exit()
     {
@@ -21,6 +12,14 @@ public class MovementState : AbstractState
     public override void FixedUpdate()
     {
         Debug.Log("Update of Movement");
+    }
+
+    public override void ReceiveState(StateType state)
+    {
+        switch (state)
+        {
+
+        }
     }
 
     public override void Start()

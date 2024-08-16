@@ -1,19 +1,29 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateMachineComp : MonoBehaviour
+public class StateMachine : MonoBehaviour
 {
+    public event Action<StateType> ReceivedState;
+
     [SerializeField] StateList _stateList;
 
-    AbstractState _currentState;
+    BaseState _currentState;
 
-    Dictionary<StateType, AbstractState> _states;
+    Dictionary<StateType, BaseState> _states;
 
+    #region Unity Methods
     void Awake()
     {
         InitializeStates(_stateList);
         _states.TryGetValue(StateType.Idle, out _currentState);
+    }
+
+    void FixedUpdate()
+    {
+        if (_currentState != null && !_currentState.FixedOneExec)
+            _currentState.FixedUpdate();
     }
 
     void Start()
@@ -25,12 +35,7 @@ public class StateMachineComp : MonoBehaviour
     {
         _currentState?.Update();
     }
-
-    void FixedUpdate()
-    {
-        if (_currentState != null && !_currentState.FixedOneExec)
-            _currentState.FixedUpdate();
-    }
+    #endregion
 
     /// <summary>
     /// Change the state that is playing by the state machine
@@ -40,7 +45,7 @@ public class StateMachineComp : MonoBehaviour
     {
         _states.TryGetValue(newStateType, out var newState);
 
-        if (newState != null && _currentState.CanTransitionTo(newStateType))
+        if (newState != null)
         {
             _currentState.Exit();
             _currentState = newState;
@@ -62,7 +67,7 @@ public class StateMachineComp : MonoBehaviour
         foreach (var state in stateList.States)
         {
             Debug.Log($"[StateMachine] Creating {state} state");
-            _states.Add(state, StateCreator.CreateState(state));
+            _states.Add(state, StateCreator.CreateState(state, this));
         }
     }
 
@@ -75,5 +80,10 @@ public class StateMachineComp : MonoBehaviour
         yield return new WaitForFixedUpdate();
         _currentState.FixedUpdate();
     }
-}
 
+    /// <summary>
+    /// Warn to the states that a change of state is required by some system
+    /// </summary>
+    /// <param name="state">Name of the state to change</param>
+    public void OnReceiveState(StateType state) => ReceivedState?.Invoke(state);
+}

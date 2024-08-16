@@ -1,13 +1,13 @@
 using UnityEngine;
 
-[RequireComponent(typeof(StateMachineComp))]
+[RequireComponent(typeof(StateMachine))]
 public class InputComp : MonoBehaviour
 {
-    StateMachineComp _stateMachine;
+    StateMachine _stateMachine;
 
     void Awake()
     {
-        _stateMachine = GetComponent<StateMachineComp>();
+        _stateMachine = GetComponent<StateMachine>();
     }
 
     void Update()
